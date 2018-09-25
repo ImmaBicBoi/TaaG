@@ -50,6 +50,21 @@
             }
         };
     </script>
+
+    <script type="text/javascript" src="assets/js/jquery.min.js"></script>
+    <script>
+        $.getJSON("mockdata/mock_people.json", function (data) {
+            var items = [];
+            $.each(data, function (key, val) {
+                items.push("<li id='" + key + "'>" + val + "</li>");
+            });
+
+            $("<ul/>", {
+                "class": "my-new-list",
+                html: items.join("")
+            }).appendTo("#tab-1");
+        });
+    </script>
 </head>
 
 <body onload="main(document.getElementById('graphContainer'))">
