@@ -10,11 +10,52 @@
     <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
     <link rel="stylesheet" href="assets/css/Highlight-Clean.css">
     <link rel="stylesheet" href="assets/css/main.css">
+
+    <script type="text/javascript">
+        mxBasePath = 'javascript/src';
+    </script>
+    <script type="text/javascript" src="assets/js/mxClient.js"></script>
+    <script>
+        function main(container) {
+            // Checks if the browser is supported
+            if (!mxClient.isBrowserSupported()) {
+                // Displays an error message if the browser is not supported.
+                mxUtils.error('Browser is not supported!', 200, false);
+            }
+            else {
+                // Disables the built-in context menu
+                mxEvent.disableContextMenu(container);
+
+                // Creates the graph inside the given container
+                var graph = new mxGraph(container);
+
+                // Enables rubberband selection
+                new mxRubberband(graph);
+
+                // Gets the default parent for inserting new cells. This
+                // is normally the first child of the root (ie. layer 0).
+                var parent = graph.getDefaultParent();
+
+                // Adds cells to the model in a single step
+                graph.getModel().beginUpdate();
+                try {
+                    var v1 = graph.insertVertex(parent, null, 'CEO,', 20, 20, 80, 30);
+                    var v2 = graph.insertVertex(parent, null, 'Vice President', 200, 150, 80, 30);
+                    var e1 = graph.insertEdge(parent, null, '', v1, v2);
+                }
+                finally {
+                    // Updates the display
+                    graph.getModel().endUpdate();
+                }
+            }
+        };
+    </script>
 </head>
 
-<body>
+<body onload="main(document.getElementById('graphContainer'))">
     <nav class="navbar navbar-light navbar-expand bg-light navigation-clean">
-        <div class="container"><a class="navbar-brand" href="#">TaaG</a><button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"></button>
+        <div class="container"><a class="navbar-brand" href="#">TaaG</a><button class="navbar-toggler" data-toggle="collapse"
+                data-target="#navcol-1"></button>
             <div class="collapse navbar-collapse" id="navcol-1"></div>
         </div>
     </nav>
@@ -23,11 +64,14 @@
         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Position/Person Title</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+                    <h4 class="modal-title">Position/Person Title</h4><button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
                 <div class="modal-body">
                     <p>Position/Person Content</p>
                 </div>
-                <div class="modal-footer"><button class="btn btn-light" type="button" data-dismiss="modal">Close</button><button class="btn btn-primary" type="button">Save</button></div>
+                <div class="modal-footer"><button class="btn btn-light" type="button" data-dismiss="modal">Close</button><button
+                        class="btn btn-primary" type="button">Save</button></div>
             </div>
         </div>
     </div>
@@ -69,10 +113,12 @@
                 </div>
                 <div class="col-9 col-sm-9 col-md-9 col-lg-9 col-xl-9">
                     <div class="row">
-                        <div class="col"><button class="btn btn-primary" type="button">+</button><button class="btn btn-primary" type="button" id="edit-btn" style="margin-left:10px;">Edit</button></div>
+                        <div class="col"><button class="btn btn-primary" type="button">+</button><button class="btn btn-primary"
+                                type="button" id="edit-btn" style="margin-left:10px;">Edit</button></div>
                     </div>
                     <div class="row" style="height:198px;background-color:#f4faff;min-height:500px;">
-                        <div class="col-xl-12"><input class="form-control-plaintext" type="text" value="mxGraph container" readonly=""></div>
+                        <div class="col-xl-12" id="graphContainer"><input class="form-control-plaintext" type="text"
+                                value="mxGraph container" readonly=""></div>
                     </div>
                 </div>
             </div>
