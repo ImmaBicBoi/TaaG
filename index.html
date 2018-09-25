@@ -15,8 +15,11 @@
         mxBasePath = 'javascript/src';
     </script>
     <script type="text/javascript" src="assets/js/mxClient.js"></script>
+    <script type="text/javascript" src="assets/js/jquery.min.js"></script>
     <script>
         function main(container) {
+
+            // -------------------- mxGraph initialization ------------------------------------ //
             // Checks if the browser is supported
             if (!mxClient.isBrowserSupported()) {
                 // Displays an error message if the browser is not supported.
@@ -48,23 +51,26 @@
                     graph.getModel().endUpdate();
                 }
             }
+            // -------------------- !mxGraph initialization ------------------------------------ //
+
+            // -------------------- JSON Data loading ------------------------------------ //
+            $.getJSON('mockdata/mock_positions.json', function (data) {
+                $.each(data, function (i, field) {
+                    $("#tab-1 ul").append("<li>" + data[i].pos_name + "</li> ");
+                });
+            });
+
+            $.getJSON('mockdata/mock_people.json', function (data) {
+                $.each(data, function (i, field) {
+                    $("#tab-2 ul").append("<li>" + data[i].first_name + " " + data[i].last_name + "</li> ");
+                });
+            });
+
         };
     </script>
 
-    <script type="text/javascript" src="assets/js/jquery.min.js"></script>
-    <script>
-        $.getJSON("mockdata/mock_people.json", function (data) {
-            var items = [];
-            $.each(data, function (key, val) {
-                items.push("<li id='" + key + "'>" + val + "</li>");
-            });
 
-            $("<ul/>", {
-                "class": "my-new-list",
-                html: items.join("")
-            }).appendTo("#tab-1");
-        });
-    </script>
+
 </head>
 
 <body onload="main(document.getElementById('graphContainer'))">
@@ -93,42 +99,36 @@
     <div></div>
     <div>
         <div class="container-fluid" style="min-height:500px;">
-            <div class="row" style="min-height:500px;">
+            <div class="row" style="min-height:500px; max-height:600px;">
                 <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3" style="max-width:250px;">
-                    <div class="row">
-                        <div class="col">
-                            <div>
+                    <div class="row  ">
+                        <div class="col ">
+                            <div class="">
                                 <ul class="nav nav-tabs">
-                                    <li class="nav-item"><a class="nav-link" role="tab" data-toggle="tab" href="#tab-1">Positions</a></li>
-                                    <li class="nav-item"><a class="nav-link active" role="tab" data-toggle="tab" href="#tab-2">People</a></li>
+                                    <li class="nav-item"><a class="nav-link active" role="tab" data-toggle="tab" href="#tab-1">Positions</a></li>
+                                    <li class="nav-item"><a class="nav-link" role="tab" data-toggle="tab" href="#tab-2">People</a></li>
                                 </ul>
-                                <div class="tab-content">
-                                    <div class="tab-pane" role="tabpanel" id="tab-1">
+                                <div class="tab-content scrollable">
+                                    <div class="tab-pane active" role="tabpanel" id="tab-1">
                                         <ul>
-                                            <li>Item 1</li>
-                                            <li>Item 2</li>
-                                            <li>Item 3</li>
-                                            <li>Item 4</li>
+
                                         </ul>
                                     </div>
-                                    <div class="tab-pane active" role="tabpanel" id="tab-2"></div>
-                                    <div class="tab-pane" role="tabpanel" id="tab-3">
-                                        <p>Content for tab 3.</p>
+                                    <div class="tab-pane" role="tabpanel" id="tab-2">
+                                        <ul>
+
+                                        </ul>
                                     </div>
+
                                 </div>
                             </div>
-                            <ul>
-                                <li>Item 1</li>
-                                <li>Item 2</li>
-                                <li>Item 3</li>
-                                <li>Item 4</li>
-                            </ul>
+
                         </div>
                     </div>
                 </div>
                 <div class="col-9 col-sm-9 col-md-9 col-lg-9 col-xl-9">
                     <div class="row">
-                        <div class="col"><button class="btn btn-primary" type="button">+</button><button class="btn btn-primary"
+                        <div class="col"><button id="add" class="btn btn-primary" type="button">+</button><button class="btn btn-primary"
                                 type="button" id="edit-btn" style="margin-left:10px;">Edit</button></div>
                     </div>
                     <div class="row" style="height:198px;background-color:#f4faff;min-height:500px;">

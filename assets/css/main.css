@@ -1,4 +1,8 @@
 .modal-backdrop {
-  background:none;
+  background: none;
 }
 
+.scrollable {
+  overflow-y: scroll;
+  height: 500px;
+}
