@@ -1,8 +1,14 @@
-.modal-backdrop {
-  background: none;
-}
-
 .scrollable {
   overflow-y: scroll;
   height: 500px;
+}
+
+.scrollable-modal {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: 300px;
+}
+
+.modal-headers {
+  font-weight: bold;
 }

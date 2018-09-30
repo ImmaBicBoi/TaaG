@@ -1,21 +1,170 @@
-[{"id":1,"pos_name":"CEO","pos_weight":49,"pos_occupant_id":24,"pos_occupant_first_name":"Brock","pos_occupant_last_name":"Halsted"},
-{"id":2,"pos_name":"CISO","pos_weight":96,"pos_occupant_id":68,"pos_occupant_first_name":"Dillie","pos_occupant_last_name":"Sockell"},
-{"id":3,"pos_name":"Deputy Director","pos_weight":90,"pos_occupant_id":50,"pos_occupant_first_name":"Eve","pos_occupant_last_name":"De Gregario"},
-{"id":4,"pos_name":"VP","pos_weight":45,"pos_occupant_id":89,"pos_occupant_first_name":"Emmott","pos_occupant_last_name":"Jaycocks"},
-{"id":5,"pos_name":"Product Owner","pos_weight":23,"pos_occupant_id":42,"pos_occupant_first_name":"Elizabet","pos_occupant_last_name":"Alner"},
-{"id":6,"pos_name":"Architect","pos_weight":94,"pos_occupant_id":40,"pos_occupant_first_name":"Brewer","pos_occupant_last_name":"Glyn"},
-{"id":7,"pos_name":"Scrum Master","pos_weight":58,"pos_occupant_id":2,"pos_occupant_first_name":"Robinson","pos_occupant_last_name":"Kentwell"},
-{"id":8,"pos_name":"Developer","pos_weight":85,"pos_occupant_id":26,"pos_occupant_first_name":"Birgitta","pos_occupant_last_name":"Foard"},
-{"id":9,"pos_name":"QA Tester","pos_weight":41,"pos_occupant_id":72,"pos_occupant_first_name":"Roxanne","pos_occupant_last_name":"Kynder"},
-{"id":10,"pos_name":"Technical Writer","pos_weight":6,"pos_occupant_id":55,"pos_occupant_first_name":"Alister","pos_occupant_last_name":"Eburah"},
-{"id":11,"pos_name":"Secretary","pos_weight":86,"pos_occupant_id":45,"pos_occupant_first_name":"Riannon","pos_occupant_last_name":"Shottin"},
-{"id":12,"pos_name":"HR Manager","pos_weight":32,"pos_occupant_id":33,"pos_occupant_first_name":"Emlen","pos_occupant_last_name":"Amys"},
-{"id":13,"pos_name":"HR","pos_weight":62,"pos_occupant_id":38,"pos_occupant_first_name":"Dev","pos_occupant_last_name":"Kinchlea"},
-{"id":14,"pos_name":"IT Manager","pos_weight":43,"pos_occupant_id":56,"pos_occupant_first_name":"Upton","pos_occupant_last_name":"Wanell"},
-{"id":15,"pos_name":"IT","pos_weight":23,"pos_occupant_id":62,"pos_occupant_first_name":"Meggie","pos_occupant_last_name":"Wolfarth"},
-{"id":16,"pos_name":"CFO","pos_weight":60,"pos_occupant_id":40,"pos_occupant_first_name":"Georgianne","pos_occupant_last_name":"Purkis"},
-{"id":17,"pos_name":"Janitor","pos_weight":49,"pos_occupant_id":54,"pos_occupant_first_name":"Cherise","pos_occupant_last_name":"Roderick"},
-{"id":18,"pos_name":"iOS Developer","pos_weight":42,"pos_occupant_id":90,"pos_occupant_first_name":"Gradeigh","pos_occupant_last_name":"Strutton"},
-{"id":19,"pos_name":"Android Developer","pos_weight":39,"pos_occupant_id":25,"pos_occupant_first_name":"Jarvis","pos_occupant_last_name":"Matskevich"},
-{"id":20,"pos_name":"Front-End Dev","pos_weight":62,"pos_occupant_id":91,"pos_occupant_first_name":"Reinald","pos_occupant_last_name":"Braddon"},
-{"id":21,"pos_name":"Back-End Dev","pos_weight":27,"pos_occupant_id":20,"pos_occupant_first_name":"Alisha","pos_occupant_last_name":"Passby"}]
+[
+  {
+    "id": 1,
+    "pos_name": "CEO",
+    "pos_weight": 49,
+    "pos_occupant_id": 24,
+    "pos_occupant_first_name": "Brock",
+    "pos_occupant_last_name": "Halsted"
+  },
+  {
+    "id": 2,
+    "pos_name": "CISO",
+    "pos_weight": 96,
+    "pos_occupant_id": 68,
+    "pos_occupant_first_name": "Dillie",
+    "pos_occupant_last_name": "Sockell"
+  },
+  {
+    "id": 3,
+    "pos_name": "Deputy Director",
+    "pos_weight": 90,
+    "pos_occupant_id": 50,
+    "pos_occupant_first_name": "Eve",
+    "pos_occupant_last_name": "De Gregario"
+  },
+  {
+    "id": 4,
+    "pos_name": "VP",
+    "pos_weight": 45,
+    "pos_occupant_id": 89,
+    "pos_occupant_first_name": "Emmott",
+    "pos_occupant_last_name": "Jaycocks"
+  },
+  {
+    "id": 5,
+    "pos_name": "Product Owner",
+    "pos_weight": 23,
+    "pos_occupant_id": 42,
+    "pos_occupant_first_name": "Elizabet",
+    "pos_occupant_last_name": "Alner"
+  },
+  {
+    "id": 6,
+    "pos_name": "Architect",
+    "pos_weight": 94,
+    "pos_occupant_id": 40,
+    "pos_occupant_first_name": "Brewer",
+    "pos_occupant_last_name": "Glyn"
+  },
+  {
+    "id": 7,
+    "pos_name": "Scrum Master",
+    "pos_weight": 58,
+    "pos_occupant_id": 2,
+    "pos_occupant_first_name": "Robinson",
+    "pos_occupant_last_name": "Kentwell"
+  },
+  {
+    "id": 8,
+    "pos_name": "Developer",
+    "pos_weight": 85,
+    "pos_occupant_id": 26,
+    "pos_occupant_first_name": "Birgitta",
+    "pos_occupant_last_name": "Foard"
+  },
+  {
+    "id": 9,
+    "pos_name": "QA Tester",
+    "pos_weight": 41,
+    "pos_occupant_id": 72,
+    "pos_occupant_first_name": "Roxanne",
+    "pos_occupant_last_name": "Kynder"
+  },
+  {
+    "id": 10,
+    "pos_name": "Technical Writer",
+    "pos_weight": 6,
+    "pos_occupant_id": 55,
+    "pos_occupant_first_name": "Alister",
+    "pos_occupant_last_name": "Eburah"
+  },
+  {
+    "id": 11,
+    "pos_name": "Secretary",
+    "pos_weight": 86,
+    "pos_occupant_id": 45,
+    "pos_occupant_first_name": "Riannon",
+    "pos_occupant_last_name": "Shottin"
+  },
+  {
+    "id": 12,
+    "pos_name": "HR Manager",
+    "pos_weight": 32,
+    "pos_occupant_id": 33,
+    "pos_occupant_first_name": "Emlen",
+    "pos_occupant_last_name": "Amys"
+  },
+  {
+    "id": 13,
+    "pos_name": "HR",
+    "pos_weight": 62,
+    "pos_occupant_id": 38,
+    "pos_occupant_first_name": "Dev",
+    "pos_occupant_last_name": "Kinchlea"
+  },
+  {
+    "id": 14,
+    "pos_name": "IT Manager",
+    "pos_weight": 43,
+    "pos_occupant_id": 56,
+    "pos_occupant_first_name": "Upton",
+    "pos_occupant_last_name": "Wanell"
+  },
+  {
+    "id": 15,
+    "pos_name": "IT",
+    "pos_weight": 23,
+    "pos_occupant_id": 62,
+    "pos_occupant_first_name": "Meggie",
+    "pos_occupant_last_name": "Wolfarth"
+  },
+  {
+    "id": 16,
+    "pos_name": "CFO",
+    "pos_weight": 60,
+    "pos_occupant_id": 40,
+    "pos_occupant_first_name": "Georgianne",
+    "pos_occupant_last_name": "Purkis"
+  },
+  {
+    "id": 17,
+    "pos_name": "Janitor",
+    "pos_weight": 49,
+    "pos_occupant_id": 54,
+    "pos_occupant_first_name": "Cherise",
+    "pos_occupant_last_name": "Roderick"
+  },
+  {
+    "id": 18,
+    "pos_name": "iOS Developer",
+    "pos_weight": 42,
+    "pos_occupant_id": 90,
+    "pos_occupant_first_name": "Gradeigh",
+    "pos_occupant_last_name": "Strutton"
+  },
+  {
+    "id": 19,
+    "pos_name": "Android Developer",
+    "pos_weight": 39,
+    "pos_occupant_id": 25,
+    "pos_occupant_first_name": "Jarvis",
+    "pos_occupant_last_name": "Matskevich"
+  },
+  {
+    "id": 20,
+    "pos_name": "Front-End Dev",
+    "pos_weight": 62,
+    "pos_occupant_id": 91,
+    "pos_occupant_first_name": "Reinald",
+    "pos_occupant_last_name": "Braddon"
+  },
+  {
+    "id": 21,
+    "pos_name": "Back-End Dev",
+    "pos_weight": 27,
+    "pos_occupant_id": 20,
+    "pos_occupant_first_name": "Alisha",
+    "pos_occupant_last_name": "Passby"
+  }
+]
