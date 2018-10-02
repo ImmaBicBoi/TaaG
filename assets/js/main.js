@@ -9,7 +9,6 @@ $('#add').click(function(){
 
  $('#edit-btn').click(function(){
      //hide/show edit/save buttons
-     document.getElementById('pos-heldby').innerHTML="YOOO";
      document.getElementById('edit-btn').style="display: none;";
      document.getElementById('save-btn').style="display: block;";
      //make editable and focus on the first editable line
