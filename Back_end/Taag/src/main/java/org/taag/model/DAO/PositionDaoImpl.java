@@ -161,7 +161,7 @@ public class PositionDaoImpl implements Positions {
 				position.setParentPositionID(rs.getInt("PARENT_POS_ID"));
 				position.setPositionID(rs.getInt("POSITION_ID"));
 				positionMessages.setStatus("success");
-				positionMessages.setMessage("Position created succesfully");
+				positionMessages.setMessage("Position retrieved successfully");
 				positions.add(position);
 				positionMessages.setPositions(positions);
 

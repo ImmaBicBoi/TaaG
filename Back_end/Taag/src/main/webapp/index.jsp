@@ -31,7 +31,7 @@
 	   <ul>
 	       <li><a href="<%=request.getContextPath() %>/service/message"><%=request.getContextPath() %>/service/message</a></li>
 	       <li><a href="<%=request.getContextPath() %>/service/message/ping"><%=request.getContextPath() %>/service/message/ping</a></li>
-	       <li><a href="<%=request.getContextPath() %>/service/position/1"><%=request.getContextPath() %>/service/position/get</a></li>
+	       <li><a href="<%=request.getContextPath() %>/service/position/all"><%=request.getContextPath() %>/service/position/get</a></li>
            <li><button id="postPerson">Post Person</button></li>
            <li><button id="postMessage">Post Message</button></li>
 	   </ul>
