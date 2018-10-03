@@ -1,0 +1,10 @@
+database:
+  environment:
+    MYSQL_ROOT_PASSWORD: my-secret-pw
+  image: mysql
+webserver:
+  links:
+    - database:mysql 
+  ports:
+    - "8080:8080" 
+  image: tomcat
