@@ -54,18 +54,37 @@
             // -------------------- !mxGraph initialization ------------------------------------ //
 
             // -------------------- JSON Data loading ------------------------------------ //
+
             $.getJSON('mockdata/mock_positions.json', function (data) {
                 $.each(data, function (i, field) {
-                    $("#tab-1 ul").append("<li>" + data[i].pos_name + "</li> ");
+                    $('#tab-1 ul') //Append each item to the #tab-1 ul <ul>
+                        .append(
+                            $('<li/>') //Append a new <li> element to <ul> #tab-1 ul
+                                .html(
+                                    $('<h9/>') //Create a new <h9> inside of the <li>
+                                        .html(data[i].id + ": " + data[i].pos_name)
+                                        .click(function (event) { //Attach a click event to the <h9> element
+                                            $('#details-title').html(data[i].pos_name); //insert position title 
+                                            $('#pos-heldby').html("<span class='modal-headers'>Position Held By: </span>" + "<p id = 'pos-ocname'contenteditable='false'>" + data[i].pos_occupant_first_name + " " + data[i].pos_occupant_last_name) + "</p>"; //insert position heldby name
+                                            $('#pos-weight').html("<span class='modal-headers'>Position Weight:</span>" + "<p id = 'pos-weightdata' contenteditable='false'>" + data[i].pos_weight + "</p>"); //insert positon weight
+                                            $('#pos-attributes').html(""); //insert positon weight
+                                            $('#pos-attributes').append("<span class='modal-headers'>Key 1:</span>" + "<p id ='Value1' contenteditable='false'>Value 1</p>"); //insert positon adittional attributes
+                                            $('#pos-attributes').append("<span class='modal-headers'>Key 2:</span>" + "<p id ='Value2' contenteditable='false'>Value 2</p>"); //insert positon adittional attributes
+                                            $('#pos-attributes').append("<span class='modal-headers'>Key 3</span>" + "<p id ='Value3' contenteditable='false'>Value 3</p>"); //insert positon adittional attributes
+                                            document.getElementById('edit-btn').style = "display: block;" //show EDIT button
+
+
+                                        })
+                                )
+                        );
                 });
             });
 
             $.getJSON('mockdata/mock_people.json', function (data) {
                 $.each(data, function (i, field) {
-                    $("#tab-2 ul").append("<li>" + data[i].first_name + " " + data[i].last_name + "</li> ");
+                    $("#tab-2 ul").append("<li>" + data[i].id + ": " + data[i].first_name + " " + data[i].last_name + "</li> ");
                 });
             });
-
         };
     </script>
 
@@ -81,26 +100,49 @@
         </div>
     </nav>
     <div class="row" style="height:30px;min-height:30px;"></div>
-    <div class="modal fade" role="dialog" tabindex="-1" id="main-modal" style="margin-right:0px;margin-left:100px;">
+
+    <!-- position modal window framework 
+    <div class="modal fade" role="dialog" tabindex="-1" id="position-modal" style="margin-right:0px;margin-left:100px;">
         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Position/Person Title</h4><button type="button" class="close" data-dismiss="modal"
+                    <h4 id="position-modal-title"></h4><button type="button" class="close" data-dismiss="modal"
                         aria-label="Close"><span aria-hidden="true">×</span></button>
                 </div>
                 <div class="modal-body">
-                    <p>Position/Person Content</p>
+                    <span class="modal-headers">Position Held By:</span>
+                    <span id='pos-heldby' contenteditable='true'>Name</span> <br>
+                    <span class="modal-headers">Position Weight:</span>
+                    <span id='pos-weight'>Weight</span> <br>
+                    <span class="modal-headers">Attributes:</span>
+                    <div class="scrollable-modal">
+                        <div class="row">+
+                            <div class="col" id="pos-attribute-keys">
+                                <p>Key1:</p>
+                                <p>Key2:</p>
+                                <p>Key3:</p>
+                            </div>
+                            <div class="col" id="pos-attribute-values">
+                                <p>Value1</p>
+                                <p>Value2</p>
+                                <p>Value3</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer"><button class="btn btn-light" type="button" data-dismiss="modal">Close</button><button
                         class="btn btn-primary" type="button">Save</button></div>
             </div>
         </div>
     </div>
+     end position modal-->
+
     <div></div>
     <div>
         <div class="container-fluid" style="min-height:500px;">
             <div class="row" style="min-height:500px; max-height:600px;">
-                <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3" style="max-width:250px;">
+                <!-- Left Sidebar-->
+                <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-2" style="max-width:250px;">
                     <div class="row  ">
                         <div class="col ">
                             <div class="">
@@ -110,12 +152,12 @@
                                 </ul>
                                 <div class="tab-content scrollable">
                                     <div class="tab-pane active" role="tabpanel" id="tab-1">
-                                        <ul>
+                                        <ul class="list-unstyled">
 
                                         </ul>
                                     </div>
                                     <div class="tab-pane" role="tabpanel" id="tab-2">
-                                        <ul>
+                                        <ul class="list-unstyled">
 
                                         </ul>
                                     </div>
@@ -126,13 +168,54 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-9 col-sm-9 col-md-9 col-lg-9 col-xl-9">
+                <!-- MxGraph-->
+                <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-8">
                     <div class="row">
-                        <div class="col"><button id="add" class="btn btn-primary" type="button">+</button><button class="btn btn-primary"
-                                type="button" id="edit-btn" style="margin-left:10px;">Edit</button></div>
+                        <div class="col"><button id="add" class="btn btn-primary" type="button">+</button></div>
                     </div>
                     <div class="row" style="height:198px;background-color:#f4faff;min-height:500px;">
                         <div class="col-xl-12" id="graphContainer"></div>
+                    </div>
+                </div>
+                <!-- Right Sidebar-->
+                <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-2" style="max-width:250px;">
+                    <div class="row  ">
+                        <div class="col ">
+
+                            <div class="" id="details-tab">
+                                <div class="row" style="height:38px;">
+
+                                </div>
+
+                                <div class="row" style="height:198px;background-color:#fff9f2;min-height:500px;">
+                                    <div class="col scrollable">
+                                        <h4 id="details-title"></h4>
+
+                                        <div class="details-body">
+                                            <span id='pos-heldby'></span>
+
+                                            <span id='pos-weight'></span>
+                                            <div class="scrollable-modal">
+                                                <div class="row">
+                                                    <div class="col" id="pos-attributes">
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <button class="btn btn-primary" type="button" id="edit-btn" style="display: none;"
+                                                style="margin-left:10px;">Edit</button>
+                                            <button class="btn btn-primary" type="button" id="save-btn" style="display: none;"
+                                                style="margin-left:10px;">Save</button>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                        </div>
                     </div>
                 </div>
             </div>
@@ -166,6 +249,9 @@
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="assets/js/main.js"></script>
+    <script type="text/javascript">
+        document.getElementById('edit-btn').onclick = editClicked();
+    </script>
 </body>
 
 </html>
