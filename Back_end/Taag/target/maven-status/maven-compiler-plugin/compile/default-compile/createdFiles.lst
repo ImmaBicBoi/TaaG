@@ -1,0 +1,14 @@
+org\taag\controller\PersonService.class
+org\taag\model\PositionMessages.class
+org\taag\model\Position.class
+org\taag\controller\PositionService.class
+org\taag\model\DAO\PositionDaoImpl.class
+org\taag\provider\MyJacksonJsonProvider.class
+org\taag\model\DAO\PositionDAO.class
+org\taag\model\Positions.class
+org\taag\application\ApplicationContex.class
+org\taag\model\DAO\PersonDaoImpl.class
+org\taag\model\Persons.class
+org\taag\connection\JDBCConnection.class
+org\taag\model\Person.class
+org\taag\model\DAO\PersonDAO.class
