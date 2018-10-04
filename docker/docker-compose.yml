@@ -1,10 +1,21 @@
 database:
-  environment:
-    MYSQL_ROOT_PASSWORD: my-secret-pw
   image: mysql
+  environment:
+    MYSQL_ROOT_PASSWORD: root
+    MYSQL_DATABASE: orgchartdb
+    MYSQL_USER: webapp
+    MYSQL_PASSWORD: taag
+  ports:
+    - "3306:3306"
+  volumes:
+    - ../Back_end/Org_Chart_SQL StoredProcedure.sql:/docker-entrypoint-initdb.d/mysql-init.sql
 webserver:
+  image: tomcat
   links:
     - database:mysql 
   ports:
     - "8080:8080" 
-  image: tomcat
+  volumes:
+    - ../Back_end/Taag/Taag.war:/usr/local/tomcat/webapps/Taag.war
+    - ../index.html:/usr/local/tomcat/webapps/ROOT/index.html
+    - ../assests:/usr/local/tomcat/webapps/ROOT/assests
