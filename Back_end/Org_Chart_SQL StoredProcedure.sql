@@ -85,15 +85,5 @@ begin
     
 end$$
 delimiter ;
-/**
-EXAMPLES TO EXECUTE STORED PROCEDURE
-**/
-CALL RETRIEVE_all_POSITIONS;
-CALL CREATE_POSITION('se',43,2);
-CALL CREATE_POSITION('DEV',43,2);
-CALL CREATE_POSITION('se1',43,2);
-CALL CREATE_POSITION('se2',43,2);
-call retrieve_one_position(6);
-call delete_position(1);
-CALL UPDATE_POSITION(5, 'se5', 43, 4);
+
 
