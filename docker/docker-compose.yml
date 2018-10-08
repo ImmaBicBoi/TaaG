@@ -19,3 +19,5 @@ webserver:
     - ../Back_end/Taag/Taag.war:/usr/local/tomcat/webapps/Taag.war
     - ../index.html:/usr/local/tomcat/webapps/ROOT/index.html
     - ../assests:/usr/local/tomcat/webapps/ROOT/assests
+    - ../mockdata:/usr/local/tomcat/webapps/ROOT/mockdata
+
