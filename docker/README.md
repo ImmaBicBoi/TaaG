@@ -6,7 +6,7 @@
 -Open a browser and navigate to [http://localhost:8080](http://localhost:8080)  
   -You should see the default TaaG page.  
 
--To stop the containers run the following command in the docker directory "docker-compose stop --volumes"  
+-To stop the containers run the following command in the docker directory "docker-compose stop" or "docker-compse down --volumes" to remove the copied volumes after shutdown. 
 
 
 ## Commands Useful For Trouble Shooting Docker  
