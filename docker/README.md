@@ -10,7 +10,7 @@
 
 
 ## Commands Useful For Trouble Shooting Docker  
--docker logs <container_name>
--docker ps
--docker exec -it <container_id> /bin/bash
+-docker logs <container_name>  
+-docker ps  
+-docker exec -it <container_id> /bin/bash  
 
