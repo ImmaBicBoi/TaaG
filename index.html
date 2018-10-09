@@ -11,82 +11,8 @@
     <link rel="stylesheet" href="assets/css/Highlight-Clean.css">
     <link rel="stylesheet" href="assets/css/main.css">
 
-    <script type="text/javascript">
-        mxBasePath = 'javascript/src';
-    </script>
-    <script type="text/javascript" src="assets/js/mxClient.js"></script>
-    <script type="text/javascript" src="assets/js/jquery.min.js"></script>
-    <script>
-        function main(container) {
-
-            // -------------------- mxGraph initialization ------------------------------------ //
-            // Checks if the browser is supported
-            if (!mxClient.isBrowserSupported()) {
-                // Displays an error message if the browser is not supported.
-                mxUtils.error('Browser is not supported!', 200, false);
-            }
-            else {
-                // Disables the built-in context menu
-                mxEvent.disableContextMenu(container);
-
-                // Creates the graph inside the given container
-                var graph = new mxGraph(container);
-
-                // Enables rubberband selection
-                new mxRubberband(graph);
-
-                // Gets the default parent for inserting new cells. This
-                // is normally the first child of the root (ie. layer 0).
-                var parent = graph.getDefaultParent();
-
-                // Adds cells to the model in a single step
-                graph.getModel().beginUpdate();
-                try {
-                    var v1 = graph.insertVertex(parent, null, 'CEO,', 20, 20, 80, 30);
-                    var v2 = graph.insertVertex(parent, null, 'Vice President', 200, 150, 80, 30);
-                    var e1 = graph.insertEdge(parent, null, '', v1, v2);
-                }
-                finally {
-                    // Updates the display
-                    graph.getModel().endUpdate();
-                }
-            }
-            // -------------------- !mxGraph initialization ------------------------------------ //
-
-            // -------------------- JSON Data loading ------------------------------------ //
-
-            $.getJSON('mockdata/mock_positions.json', function (data) {
-                $.each(data, function (i, field) {
-                    $('#tab-1 ul') //Append each item to the #tab-1 ul <ul>
-                        .append(
-                            $('<li/>') //Append a new <li> element to <ul> #tab-1 ul
-                                .html(
-                                    $('<h9/>') //Create a new <h9> inside of the <li>
-                                        .html(data[i].id + ": " + data[i].pos_name)
-                                        .click(function (event) { //Attach a click event to the <h9> element
-                                            $('#details-title').html(data[i].pos_name); //insert position title 
-                                            $('#pos-heldby').html("<span class='modal-headers'>Position Held By: </span>" + "<p id = 'pos-ocname'contenteditable='false'>" + data[i].pos_occupant_first_name + " " + data[i].pos_occupant_last_name) + "</p>"; //insert position heldby name
-                                            $('#pos-weight').html("<span class='modal-headers'>Position Weight:</span>" + "<p id = 'pos-weightdata' contenteditable='false'>" + data[i].pos_weight + "</p>"); //insert positon weight
-                                            $('#pos-attributes').html(""); //insert positon weight
-                                            $('#pos-attributes').append("<span class='modal-headers'>Key 1:</span>" + "<p id ='Value1' contenteditable='false'>Value 1</p>"); //insert positon adittional attributes
-                                            $('#pos-attributes').append("<span class='modal-headers'>Key 2:</span>" + "<p id ='Value2' contenteditable='false'>Value 2</p>"); //insert positon adittional attributes
-                                            $('#pos-attributes').append("<span class='modal-headers'>Key 3</span>" + "<p id ='Value3' contenteditable='false'>Value 3</p>"); //insert positon adittional attributes
-                                            document.getElementById('edit-btn').style = "display: block;" //show EDIT button
 
 
-                                        })
-                                )
-                        );
-                });
-            });
-
-            $.getJSON('mockdata/mock_people.json', function (data) {
-                $.each(data, function (i, field) {
-                    $("#tab-2 ul").append("<li>" + data[i].id + ": " + data[i].first_name + " " + data[i].last_name + "</li> ");
-                });
-            });
-        };
-    </script>
 
 
 
@@ -152,12 +78,12 @@
                                 </ul>
                                 <div class="tab-content scrollable">
                                     <div class="tab-pane active" role="tabpanel" id="tab-1">
-                                        <ul class="list-unstyled">
+                                        <ul id="position-list" class="list-unstyled">
 
                                         </ul>
                                     </div>
                                     <div class="tab-pane" role="tabpanel" id="tab-2">
-                                        <ul class="list-unstyled">
+                                        <ul id="people-list" class="list-unstyled">
 
                                         </ul>
                                     </div>
@@ -168,11 +94,15 @@
                         </div>
                     </div>
                 </div>
-                <!-- MxGraph-->
+                <!-- Add Buttons-->
                 <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-8">
-                    <div class="row">
-                        <div class="col"><button id="add" class="btn btn-primary" type="button">+</button></div>
+                    <div id="add-btns" class="row">
+                        <div class="col"><button id="add-position-btn" class="btn btn-primary" type="button">Add
+                                Position</button></div>
+                        <div class="col"><button id="add-person-btn" class="btn btn-primary" type="button">Add Person</button></div>
+
                     </div>
+                    <!-- MxGraph-->
                     <div class="row" style="height:198px;background-color:#f4faff;min-height:500px;">
                         <div class="col-xl-12" id="graphContainer"></div>
                     </div>
@@ -248,10 +178,26 @@
     </footer>
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="assets/js/main.js"></script>
+
+    <script type="text/javascript" src="assets/js/main.js"></script>
+
     <script type="text/javascript">
-        document.getElementById('edit-btn').onclick = editClicked();
+        mxBasePath = 'javascript/src';
     </script>
+    <script type="text/javascript" src="assets/js/mxClient.js"></script>
+
+    <script type="text/javascript" src="assets/js/positions.js"></script>
+    <script type="text/javascript" src="assets/js/people.js"></script>
+    <script type="text/javascript" src="assets/js/graph.js"></script>
+    <script>
+        function main(container) {
+            initializeGraph(container);
+            loadPositions();
+            loadPeople();
+        };
+
+    </script>
+
 </body>
 
 </html>
