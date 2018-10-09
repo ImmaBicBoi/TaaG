@@ -12,3 +12,6 @@
 .modal-headers {
   font-weight: bold;
 }
+#add-btns div {
+  flex-grow: 0;
+}
