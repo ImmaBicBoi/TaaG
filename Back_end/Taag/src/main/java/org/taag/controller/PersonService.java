@@ -16,7 +16,7 @@ public class PersonService {
 	
 	 @POST
 	 @Consumes({MediaType.APPLICATION_JSON})
-	 @Path("/post")
+	 @Path("/")
 	 public String addPerson(Person pers) throws Exception{
 		 
 	        PersonDAO pdao = new PersonDAO();
@@ -29,7 +29,7 @@ public class PersonService {
 	 
 	 @GET
 	 @Produces({MediaType.APPLICATION_JSON})
-	 @Path("/get")
+	 @Path("/")
 	 public Person getPerson() throws Exception{
 		 
 	        PersonDAO pdao = new PersonDAO();

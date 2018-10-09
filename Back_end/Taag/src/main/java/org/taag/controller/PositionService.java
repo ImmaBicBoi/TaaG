@@ -21,7 +21,6 @@ public class PositionService {
 	@POST
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
-	@Path("/create")
 	public JSONObject createPosition(Position pos) throws Exception {
 
 		PositionDAO pdao = new PositionDAO();
@@ -50,7 +49,6 @@ public class PositionService {
 
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
-	@Path("/all")
 	public PositionMessages getAllPositions() {
 		PositionDAO pdao = new PositionDAO();
 		PositionMessages positionMessages = pdao.getAllPositions();
@@ -59,7 +57,7 @@ public class PositionService {
 
 	@PUT
 	@Produces({ MediaType.APPLICATION_JSON })
-	@Path("/update/{id}")
+	@Path("{id}")
 	public JSONObject updatePosition(Position pos, @PathParam("id") int positionId) throws Exception {
 
 		PositionDAO pdao = new PositionDAO();
@@ -74,7 +72,7 @@ public class PositionService {
 
 	@DELETE
 	@Produces({ MediaType.APPLICATION_JSON })
-	@Path("/delete/{id}")
+	@Path("{id}")
 	public JSONObject deletePosition(@PathParam("id") int positionId) throws Exception {
 
 		PositionDAO pdao = new PositionDAO();
