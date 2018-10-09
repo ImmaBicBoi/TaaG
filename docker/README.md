@@ -1,18 +1,18 @@
-# How to run Docker
+# How to run docker
 
 -Install [docker](https://www.docker.com/get-started). 
   -If you have Windows 10 Home Edition install [docker toolbox](https://docs.docker.com/toolbox/toolbox_install_windows/)   
--Within the docker directory run the following command "docker-compose up -d".  
+-Within the docker directory run the following command `docker-compose up -d`.  
   -The first time this is run docker will download the necessary images.  This will take some time as they are hundreds of MB in size.  
 -Open a browser and navigate to [http://localhost:8080](http://localhost:8080)  
   -You should see the TaaG webapp.  
--To verify that the mysql docker is running use the following command "mysql -u webapp -ptaag -h localhost --protocol=tcp"  
+-To verify that the mysql docker is running use the following command `mysql -u webapp -ptaag -h localhost --protocol=tcp`  
   -If you are able to connect to mysql it should be good but feel free to SELECT some tables to verify.  
 
--To stop the containers run the following command in the docker directory "docker-compose stop" or "docker-compse down --volumes" to remove the copied volumes after shutdown. 
+-To stop the containers run the following command in the docker directory `docker-compose stop` or `docker-compse down --volumes` to remove the copied volumes after shutdown. 
 
-## Commands Useful For Trouble Shooting Docker  
--docker logs <container_name>  
--docker ps  
--docker exec -it <container_id> /bin/bash  
+## Commands useful For troubleshooting docker  
+-`docker logs <container_name>`  
+-`docker ps`  
+-`docker exec -it <container_id> /bin/bash`  
 
