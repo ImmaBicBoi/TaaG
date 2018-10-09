@@ -1,17 +1,20 @@
 
-$('#edit-btn').click(function(){
-   $('#main-modal').modal('show');
-}); 
+//MAIN.JS - For JavaScript Functions that are not directly related to positions, people, or the graph.
+//main.js is loaded after the rest of the document. 
+
+//
 
 
-$('#edit-btn').click(function(){
-	//hide/show edit/save buttons
+
+
+ $('#edit-btn').click(function(){
+  //hide/show edit/save buttons
 	document.getElementById('edit-btn').style="display: none;"
 	document.getElementById('save-btn').style="display: block;"
 	//make editable and focus on the first editable line
 	$('#pos-ocname, #pos-weightdata, #Value1, #Value2, #Value3').attr('contenteditable','true');
 	$('#pos-ocname').focus();
-	//change color to make noticable
+	//change color to make noticeable
 	
 	document.getElementById('pos-ocname').setAttribute(
    	"style", "border: solid black; background: none");  //pick any color
@@ -27,15 +30,15 @@ $('#edit-btn').click(function(){
 
    	document.getElementById('Value3').setAttribute(
    	"style", "border: solid black; background: none");
-
-});
-
-$('#save-btn').click(function(){
-	
-	//write new data to the JSON file here
+ 
+ });
+ 
+ $('#save-btn').click(function(){
+     
+     ///write new data to the JSON file here
 
 	//get variables
-	var id = document.getElementById('pos-id').innerHTML;
+	//var id = document.getElementById('pos-id').innerHTML;
 	var namevalue = document.getElementById('pos-ocname').innerHTML;
 	var posweightdata = document.getElementById('pos-weightdata').innerHTML;
 	var value1 = document.getElementById('Value1').innerHTML;
@@ -52,8 +55,8 @@ $('#save-btn').click(function(){
 	$('#pos-ocname, #pos-weightdata, #Value1, #Value2, #Value3').attr('contenteditable','false');
 
 	//hide/show save button
-	document.getElementById('save-btn').style="display: none;"
-	document.getElementById('edit-btn').style="display: block;"
+	document.getElementById('save-btn').style="display: none;";
+	document.getElementById('edit-btn').style="display: block;";
 
 	//change color
 
@@ -73,7 +76,7 @@ $('#save-btn').click(function(){
    	"style", "border: none; background: rgb(124,252,0)");
 	
 
-	//refresh page   --necessary???
-	//location.reload();
-	
-});
+    //Call this function to refresh position list after JSON Edit
+    loadPositions();
+     
+ });
