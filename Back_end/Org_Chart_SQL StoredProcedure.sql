@@ -10,6 +10,7 @@ drop table if exists POSITION;
 create table POSITION (
 	POSITION_ID int NOT NULL AUTO_INCREMENT,
 	POSITION_NAME varchar(30) NOT NULL UNIQUE,
+	PARENT_POS_ID int(10),
 	PERSON_ID int(10),
 	
 	PRIMARY KEY (POSITION_ID),
@@ -20,12 +21,12 @@ create table POSITION (
 
 drop procedure if exists CREATE_POSITION;
 delimiter $$
-create procedure CREATE_POSITION (in PosName varchar(30), 
+create procedure CREATE_POSITION (in PosName varchar(30), in ParentPos int(10),
 								  in PerId int(10))
 							
 begin
 		start transaction;
-		insert into POSITION (POSITION_NAME,PERSON_ID) values (PosName,PerId);
+		insert into POSITION (POSITION_NAME,PARENT_POS_ID, PERSON_ID) values (PosName,ParentPos, PerId);
 				
     commit;
     
@@ -37,12 +38,13 @@ drop procedure if exists UPDATE_POSITION;
 
 delimiter $$
 create procedure UPDATE_POSITION (in PosId int(10), in PosName varchar(30), 
-								  in PerId int(10))
+								  in ParentPos int(10), in PerId int(10))
 begin
 		start transaction;
 		Update POSITION 
 		SET 
 		POSITION_NAME = PosName,
+		PARENT_POS_ID = ParentPos,
 		PERSON_ID = PerId
 		WHERE 
 		POSITION_ID = PosId;
@@ -175,6 +177,28 @@ begin
 		select PERSON_ID, PERSON_FNAME, PERSON_LNAME, EMAIL from  PERSON 
 		where PERSON_ID = PerId;
 		
+				
+    commit;
+    
+end$$
+delimiter ;
+/******************************************************/
+/*************      PERSON TO POSITION     ************/
+/******************************************************/
+drop procedure if exists UPDATE_POSITION;
+
+delimiter $$
+create procedure UPDATE_POSITION (in PosId int(10), in PosName varchar(30), 
+								  in ParentPos int(10), in PerId int(10))
+begin
+		start transaction;
+		Update POSITION 
+		SET 
+		POSITION_NAME = PosName,
+		PARENT_POS_ID = ParentPos,
+		PERSON_ID = PerId
+		WHERE 
+		POSITION_ID = PosId;
 				
     commit;
     
