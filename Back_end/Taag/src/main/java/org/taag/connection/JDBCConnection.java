@@ -10,9 +10,19 @@ public class JDBCConnection {
 		Connection connection = null;
 
 		try {
-			String connectionURL = "jdbc:mysql://database:3306/orgchartdb";
+			String connectionURL = "jdbc:mysql://localhost:3306/orgchartdb";
+			String connectionUser = "root";
+			String connectionPass = "root";
+			
+			if (System.getenv("DOCKER_CHECK").equals("1")) {
+				//Running in docker use docker specific connection information
+				connectionURL = "jdbc:mysql://database:3310/orgchartdb";
+				connectionUser = "webapp";
+				connectionPass = "taag";
+			}
+			
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
-			connection = DriverManager.getConnection(connectionURL, "webapp", "taag");
+			connection = DriverManager.getConnection(connectionURL, connectionUser, connectionPass);
 
 		} catch (InstantiationException e) {
 			e.getLocalizedMessage();

@@ -6,7 +6,7 @@
 - Open a browser and navigate to [http://localhost:8080](http://localhost:8080)  
   - If you are on windows you will need to specify the ip address of the container.  Find it with this command `docker-machine ip`  
   - You should now see the TaaG webapp.  
-- To verify that the mysql docker is running use the following command `mysql -u webapp -ptaag -h localhost --protocol=tcp`  
+- To verify that the mysql docker is running use the following command `mysql -u webapp -ptaag -h localhost -P 3310 --protocol=tcp`  
   - If you are able to connect to mysql it should be good but feel free to SELECT some tables to verify.  
   - You can connect to the mysql container from the tomcat container after running the following commands:  
     - `atp-get update`  
@@ -19,4 +19,3 @@
 - `docker logs <container_name>`  
 - `docker exec -it <container_id> /bin/bash`  
 - `docker-machine ip` (Windows OS only)  
-

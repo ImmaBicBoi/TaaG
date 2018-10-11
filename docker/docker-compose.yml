@@ -9,7 +9,7 @@ services:
       MYSQL_USER: webapp
       MYSQL_PASSWORD: taag
     ports:
-      - "3306:3306"
+      - "3310:3306"
     volumes:
       - ../Back_end/Org_Chart_SQL StoredProcedure.sql:/docker-entrypoint-initdb.d/mysql-init.sql
     healthcheck:
@@ -31,4 +31,3 @@ services:
       - ../index.html:/usr/local/tomcat/webapps/ROOT/index.html
       - ../assets:/usr/local/tomcat/webapps/ROOT/assets
       - ../mockdata:/usr/local/tomcat/webapps/ROOT/mockdata
-  
