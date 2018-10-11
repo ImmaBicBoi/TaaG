@@ -44,9 +44,9 @@ public class PositionDaoImpl implements Positions {
 		try {
 			ps = connection.prepareStatement("call CREATE_POSITION (?,?,?)");
 			ps.setString(1, pos.getName());
-			ps.setInt(2, pos.getPersonID());
+			ps.setInt(2, pos.getParentPositionID());
+			ps.setInt(3, pos.getPersonID());
 
-			ps.setInt(3, pos.getParentPositionID());
 			ps.executeUpdate();
 
 //			positionMessages.setStatus("success");
@@ -95,7 +95,7 @@ public class PositionDaoImpl implements Positions {
 	private void updatePositionDBConn(Position pos, int positionId, PositionMessages positionMessages) {
 		try {
 			PreparedStatement ps = connection.prepareStatement("call UPDATE_POSITION( " + "'" + positionId + "','"
-					+ pos.getName() + "','" + pos.getPersonID() + "','" + pos.getParentPositionID() + "')");
+					+ pos.getName() + "','" + pos.getParentPositionID() + "','" + pos.getPersonID() + "')");
 
 			ps.executeUpdate();
 

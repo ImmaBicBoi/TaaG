@@ -13,9 +13,9 @@
             $(function(){                
                 $("#postPerson, #postMessage").on("click", function(){
                     $.ajax({
-                        url: $(this).attr("id") === "postMessage" ? ctxPath+"/service/message/post" : ctxPath+"/service/position",
-                        type: "POST",
-                        data: '{"name":"CEO", "parent_position_id":7}',
+                        url: $(this).attr("id") === "postMessage" ? ctxPath+"/service/message/post" : ctxPath+"/service/position/1",
+                        type: "PUT",
+                        data: '{"name":"JAVA", "parent_position_id":7}',
                         contentType: "application/json",
                         cache: false,
                         dataType: "json"
@@ -31,7 +31,7 @@
 	   <ul>
 	       <li><a href="<%=request.getContextPath() %>/service/message"><%=request.getContextPath() %>/service/message</a></li>
 	       <li><a href="<%=request.getContextPath() %>/service/message/ping"><%=request.getContextPath() %>/service/message/ping</a></li>
-	       <li><a href="<%=request.getContextPath() %>/service/position/all"><%=request.getContextPath() %>/service/position/get</a></li>
+	       <li><a href="<%=request.getContextPath() %>/service/position"><%=request.getContextPath() %>/service/position/get</a></li>
            <li><button id="postPerson">Post Person</button></li>
            <li><button id="postMessage">Post Message</button></li>
 	   </ul>

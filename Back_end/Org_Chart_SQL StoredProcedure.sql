@@ -72,7 +72,7 @@ delimiter $$
 create procedure RETRIEVE_ALL_POSITIONS ()
 begin
 		start transaction;
-	select POSITION_ID,POSITION_NAME,PERSON_ID from  POSITION; 
+	select POSITION_ID,POSITION_NAME,PARENT_POS_ID,PERSON_ID from  POSITION; 
 				
     commit;
     
@@ -84,7 +84,7 @@ delimiter $$
 create procedure RETRIEVE_POSITION (in PosId int(10))
 begin
 		start transaction;
-		select POSITION_ID,POSITION_NAME,PERSON_ID from  POSITION 
+		select POSITION_ID,POSITION_NAME,PARENT_POS_ID,PERSON_ID from  POSITION 
 		where POSITION_ID = PosId;
 		
 				
@@ -182,25 +182,4 @@ begin
     
 end$$
 delimiter ;
-/******************************************************/
-/*************      PERSON TO POSITION     ************/
-/******************************************************/
-drop procedure if exists UPDATE_POSITION;
 
-delimiter $$
-create procedure UPDATE_POSITION (in PosId int(10), in PosName varchar(30), 
-								  in ParentPos int(10), in PerId int(10))
-begin
-		start transaction;
-		Update POSITION 
-		SET 
-		POSITION_NAME = PosName,
-		PARENT_POS_ID = ParentPos,
-		PERSON_ID = PerId
-		WHERE 
-		POSITION_ID = PosId;
-				
-    commit;
-    
-end$$
-delimiter ;
