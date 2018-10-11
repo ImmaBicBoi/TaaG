@@ -28,79 +28,36 @@
     <div class="row" style="height:30px;min-height:30px;"></div>
 
     <!-- Add position popup-->
-    <div class="modal fade" role="dialog" tabindex="-1" id="add-position-modal" style="margin-right:0px;margin-left:100px;">
+    <div class="modal fade" role="dialog" tabindex="-1" id="position-modal" style="margin-right:0px;margin-left:100px;">
         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 id="position-modal-title">Add a New Position</h4><button type="button" class="close" data-dismiss="modal"
+                    <h4 id="position-modal-title"></h4><button type="button" class="close" data-dismiss="modal"
                         aria-label="Close"><span aria-hidden="true">×</span></button>
                 </div>
-
-                <!-- Modal Body -->
                 <div class="modal-body">
-                    <form class="form-horizontal" role="form">
-                        <div class="form-group">
-                          <label  class="col-sm-2 control-label"
-                                    for="input-pos-title">Position Title</label>
-                          <div class="col-sm-10">
-                              <input type="text" class="form-control" 
-                              id="input-pos-title" placeholder="Input Position Title"/>
-                          </div>
+                    <span class="modal-headers">Position Held By:</span>
+                    <span id='pos-heldby' contenteditable='true'>Name</span> <br>
+                    <span class="modal-headers">Position Weight:</span>
+                    <span id='pos-weight'>Weight</span> <br>
+                    <span class="modal-headers">Attributes:</span>
+                    <div class="scrollable-modal">
+                        <div class="row">+
+                            <div class="col" id="pos-attribute-keys">
+                                <p>Key1:</p>
+                                <p>Key2:</p>
+                                <p>Key3:</p>
+                            </div>
+                            <div class="col" id="pos-attribute-values">
+                                <p>Value1</p>
+                                <p>Value2</p>
+                                <p>Value3</p>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label  class="col-sm-2 control-label"
-                                      for="input-pos-id">Position ID</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" 
-                                id="input-pos-id" placeholder="Input Position ID"/>
-                            </div>
-                          </div>
-                        <div class="form-group">
-                            <label  class="col-sm-2 control-label"
-                                      for="input-att-one">Attribute 1</label>
-                            <div class="col-sm-2 col-sm-10">
-                                <input type="text" class="form-control" 
-                                id="input-att-one" placeholder="Input Attribute 1"/>
-                            </div>
-                          </div>
-                        <div class="form-group">
-                            <label  class="col-sm-2 control-label"
-                                      for="input-att-two">Attribute 2</label>
-                            <div class="col-sm-2 col-sm-10">
-                                <input type="text" class="form-control" 
-                                id="input-att-two" placeholder="Input Attribute 2"/>
-                            </div>
-                          </div>
-                        <div class="form-group">
-                            <label  class="col-sm-2 control-label"
-                                      for="input-att-three">Attribute 3</label>
-                            <div class="col-sm-2 col-sm-10">
-                                <input type="text" class="form-control" 
-                                id="input-att-three" placeholder="Input Attribute 3"/>
-                            </div>
-                          </div>
-                        <!-- <div class="form-group">
-                          <div class="col-sm-offset-2 col-sm-10">
-                            <div class="checkbox">
-                              <label>
-                                  <input type="checkbox"/> Confirm
-                              </label>
-                            </div>
-                          </div>
-                        </div> -->
-                        <div class="form-group">
-                          <div class="col-sm-2 col-sm-10">
-                            <button type="submit" class="btn btn-default">+ Add Attribute</button>
-                          </div>
-                        </div>
-                      </form>
+                    </div>
                 </div>
-
-
-
-                <div class="modal-footer">
-                    <button class="btn btn-light" type="button" data-dismiss="modal">Close</button>
-                    <button id="add-position-confirm" class="btn btn-primary" type="button">Confirm</button></div>
+                <div class="modal-footer"><button class="btn btn-light" type="button" data-dismiss="modal">Close</button><button
+                        class="btn btn-primary" type="button">Save</button></div>
             </div>
         </div>
     </div>
@@ -140,7 +97,8 @@
                 <!-- Add Buttons-->
                 <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-8">
                     <div id="add-btns" class="row">
-                        <div class="col"><button id="add-position-btn" class="btn btn-primary" type="button">Add Position</button></div>
+                        <div class="col"><button id="add-position-btn" class="btn btn-primary" type="button">Add
+                                Position</button></div>
                         <div class="col"><button id="add-person-btn" class="btn btn-primary" type="button">Add Person</button></div>
 
                     </div>
