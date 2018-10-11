@@ -4,6 +4,15 @@
 
 //
 
+var currentID;
+
+function setCurrentID(i){
+    currentID = i;
+}
+
+function getCurrentID(){
+    return currentID;
+}
 
 
 
@@ -45,7 +54,7 @@
 	var value2 = document.getElementById('Value2').innerHTML;
 	var value3 = document.getElementById('Value3').innerHTML;
 	//alert('The id is: '+id);  //testing
-
+    console.log(getCurrentID());
 	
 	//update json here
 		//find by id, replace the whole line
