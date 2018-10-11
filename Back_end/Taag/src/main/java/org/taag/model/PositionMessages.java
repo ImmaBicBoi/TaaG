@@ -9,18 +9,18 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class PositionMessages {
 	
 	
-	public String status;
+//	public String status;
 	public String message;
 	public Position position;
 	public List<Position> positions;
 	
-	@JsonProperty(value = "status")
-	public String getStatus() {
-		return status;
-	}
-	public void setStatus(String status) {
-		this.status = status;
-	}
+//	@JsonProperty(value = "status")
+//	public String getStatus() {
+//		return status;
+//	}
+//	public void setStatus(String status) {
+//		this.status = status;
+//	}
 	
 	@JsonProperty(value = "message")
 	public String getMessage() {

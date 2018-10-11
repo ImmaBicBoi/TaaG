@@ -9,11 +9,18 @@ public class PositionDAO implements Positions {
 	PositionDaoImpl daoImpl = new PositionDaoImpl();
 
 	public PositionMessages createPosition(Position pos) {
-		PositionMessages positionMessages = daoImpl.createPosition(pos);
+		PositionMessages positionMessages;
+		if(pos.getPersonID() == null) {
+			pos.setPersonID(0);
+		}
+		 positionMessages = daoImpl.createPosition(pos);
 		return positionMessages;
 	}
 
 	public PositionMessages updatePosition(Position pos, int positionId) {
+		if(pos.getPersonID() == null) {
+			pos.setPersonID(0);
+		}
 		PositionMessages positionMessages = daoImpl.updatePosition(pos, positionId);
 		return positionMessages;
 	}
@@ -33,5 +40,6 @@ public class PositionDAO implements Positions {
 		PositionMessages positionMessages = daoImpl.getAllPositions();
 		return positionMessages;
 	}
+
 
 }

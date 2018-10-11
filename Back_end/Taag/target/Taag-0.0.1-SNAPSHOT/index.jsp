@@ -13,9 +13,9 @@
             $(function(){                
                 $("#postPerson, #postMessage").on("click", function(){
                     $.ajax({
-                        url: $(this).attr("id") === "postMessage" ? ctxPath+"/service/message/post" : ctxPath+"/service/position/create",
+                        url: $(this).attr("id") === "postMessage" ? ctxPath+"/service/message/post" : ctxPath+"/service/position",
                         type: "POST",
-                        data: '{"name":"Raja", "positionWeight":"3" , "parentPositionID":"1"}',
+                        data: '{"name":"CEO", "parent_position_id":7}',
                         contentType: "application/json",
                         cache: false,
                         dataType: "json"
