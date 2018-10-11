@@ -1,5 +1,11 @@
 //POSITIONS.JS - For JavaScript Functions that are directly related to positions.
 
+var positionTitle = document.getElementById('input-pos-title');
+var positionID = document.getElementById('input-pos-id');
+var attOne = document.getElementById('input-att-one');
+var attTwo = document.getElementById('input-att-two');
+var attThree = document.getElementById('input-att-three');
+
 function loadPositions() {
 
     
@@ -37,7 +43,35 @@ function loadPositions() {
 
 
 $('#add-position-btn').click(function(){
+    $('#add-position-modal').modal('show');
     console.log('Add Position clicked.');
-    loadPositions();
-
+    //loadPositions();
 }); 
+
+$('#add-position-confirm').click(function(){
+
+    console.log(
+        "{" + "\n"
+        + "\t" + "Position_Title: " + positionTitle.value + "," + "\n"
+        + "\t" + "Position_ID: " + positionID.value + "," + "\n"
+        + "\t" + "Arrtibute_One: " + attOne.value + "," + "\n"
+        + "\t" + "Attribute_Two: " + attTwo.value + "," + "\n"
+        + "\t" + "Attribute_Three: " + attThree.value + "\n"
+        + "}"
+
+    );
+
+    // console.log(positionTitle.value);
+    // console.log(positionID.value);
+    // console.log(attOne.value);
+    // console.log(attTwo.value);
+    // console.log(attThree.value);
+
+
+    loadPositions();
+}); 
+
+
+// $('#add-position-btn').click(function(){
+//     $('#add-position-modal').modal('show');
+//  }); 
