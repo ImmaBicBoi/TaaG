@@ -28,9 +28,14 @@ public class PositionService {
 
 		JSONObject obj = new JSONObject();
 
-		obj.put("status", positionMessages.getStatus());
+//		obj.put("status", positionMessages.getStatus());
 		obj.put("message", positionMessages.getMessage());
-		obj.put("position_id", positionMessages.getPosition().getPositionID());
+		if (positionMessages.getPosition() != null) {
+			obj.put("position_id", positionMessages.getPosition().getPositionID());
+			if (positionMessages.getPosition().getPersonID() != null) {
+				obj.put("person_id", positionMessages.getPosition().getPersonID());
+			}
+		}
 
 		return obj;
 	}
@@ -63,9 +68,14 @@ public class PositionService {
 		PositionDAO pdao = new PositionDAO();
 		PositionMessages positionMessages = pdao.updatePosition(pos, positionId);
 		JSONObject obj = new JSONObject();
-		obj.put("status", positionMessages.getStatus());
+//		obj.put("status", positionMessages.getStatus());
 		obj.put("message", positionMessages.getMessage());
-		obj.put("position_id", positionMessages.getPosition().getPositionID());
+		if (positionMessages.getPosition() != null) {
+			obj.put("position_id", positionMessages.getPosition().getPositionID());
+			if (positionMessages.getPosition().getPersonID() != null) {
+				obj.put("person_id", positionMessages.getPosition().getPersonID());
+			}
+		}
 		return obj;
 
 	}
@@ -78,7 +88,7 @@ public class PositionService {
 		PositionDAO pdao = new PositionDAO();
 		PositionMessages positionMessages = pdao.deletePosition(positionId);
 		JSONObject obj = new JSONObject();
-		obj.put("status", positionMessages.getStatus());
+//		obj.put("status", positionMessages.getStatus());
 		obj.put("message", positionMessages.getMessage());
 		return obj;
 
