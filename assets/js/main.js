@@ -14,6 +14,18 @@ function getCurrentID(){
     return currentID;
 }
 
+function clearDetailsTab(){
+	$('#details-title').empty();
+	$('#pos-heldby').empty();
+	$('#pos-weight').empty();
+	$('#pos-attributes').empty();
+	$('#first-name').empty();
+	$('#last-name').empty();
+	$('#email').empty();
+	$('#phone').empty();
+	console.log('cleared tab');
+}
+
 
 
  $('#edit-btn').click(function(){

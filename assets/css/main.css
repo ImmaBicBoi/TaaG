@@ -6,7 +6,7 @@
 .scrollable-modal {
   overflow-y: scroll;
   overflow-x: hidden;
-  height: 300px;
+  max-height: 300px;
 }
 
 .modal-headers {
@@ -16,17 +16,22 @@
   flex-grow: 0;
 }
 
-/* For Adding Position ------------------------------------------------------------------------------------- */ 
+#email {
+  max-width: 180px;
+  overflow: hidden;
+}
+
+/* For Adding Position ------------------------------------------------------------------------------------- */
 .modal-body .form-horizontal .col-sm-2,
 .modal-body .form-horizontal .col-sm-10 {
-    width: 100%
+  width: 100%;
 }
 
 .modal-body .form-horizontal .control-label {
-    text-align: left;
+  text-align: left;
 }
 .modal-body .form-horizontal .col-sm-offset-2 {
-    margin-left: 15px;
+  margin-left: 15px;
 }
 
 .modal-body .form-horizontal .col-sm-offset-4 {

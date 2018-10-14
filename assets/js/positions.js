@@ -20,6 +20,7 @@ function loadPositions() {
                             $('<h9/>') //Create a new <h9> inside of the <li>
                                 .html(data[i].id + ": " + data[i].pos_name)
                                 .click(function (event) { //Attach a click event to the <h9> element
+                                    clearDetailsTab();
                                     $('#details-title').html(data[i].pos_name); //insert position title 
                                     $('#pos-heldby').html("<span class='modal-headers'>Position Held By: </span>" + "<p id = 'pos-ocname'contenteditable='false'>" + data[i].pos_occupant_first_name + " " + data[i].pos_occupant_last_name) + "</p>"; //insert position heldby name
                                     $('#pos-weight').html("<span class='modal-headers'>Position Weight:</span>" + "<p id = 'pos-weightdata' contenteditable='false'>" + data[i].pos_weight + "</p>"); //insert positon weight
