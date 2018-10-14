@@ -13,13 +13,15 @@ function loadPeople() {
                                 .html(data[i].id + ": " + data[i].first_name + " " + data[i].last_name)
                                 .click(function (event) { //Attach a click event to the <h9> element
                                     clearDetailsTab();
-                                    $('#details-title').html(data[i].first_name + " " + data[i].last_name); //insert person title 
-                                    $('#first-name').html("<span class='modal-headers'>First Name: </span>" + "<p id = 'name'contenteditable='false'>" + data[i].first_name ) + "</p>"; //insert first name
-                                    $('#last-name').html("<span class='modal-headers'>Last Name:</span>" + "<p id = 'name' contenteditable='false'>" + data[i].last_name + "</p>"); //insert last name
-									$('#email').html("<span class='modal-headers'>Email:</span>" + "<p id = 'email' contenteditable='false'>" + data[i].email + "</p>"); //insert email
-									$('#phone').html("<span class='modal-headers'>Phone:</span>" + "<p id = 'phone' contenteditable='false'>" + data[i].phone + "</p>"); //insert number
-									document.getElementById('edit-btn').style = "display: block;" //show EDIT button
-                                    document.getElementById('save-btn').style = "display: none;" //hide save button
+                                    $('#details-title').html("<p i='ppl-fullname'>" + data[i].first_name + " " + data[i].last_name +"</p>"); //insert person title 
+                                    $('#first-name').html("<span class='modal-headers'>First Name: </span>" + "<p id = 'ppl-fname'contenteditable='false'>" + data[i].first_name ) + "</p>"; //insert first name
+                                    $('#last-name').html("<span class='modal-headers'>Last Name:</span>" + "<p id = 'ppl-lname'contenteditable='false'>" + data[i].last_name + "</p>"); //insert last name
+                                    $('#email').html("<span class='modal-headers'>Email:</span>" + "<p id = 'ppl-email' contenteditable='false'>" + data[i].email + "</p>"); //insert email
+                                    $('#phone').html("<span class='modal-headers'>Phone:</span>" + "<p id = 'ppl-phone' contenteditable='false'>" + data[i].phone + "</p>"); //insert number
+                                    document.getElementById('ppl-edit-btn').style = "display: block;" //show EDIT button
+                                    document.getElementById('ppl-save-btn').style = "display: none;" //hide  button
+                                    document.getElementById('edit-btn').style = "display: none;" //hide  button
+                                    document.getElementById('save-btn').style = "display: none;" //hide  button
 
                                 })
                         )
@@ -32,6 +34,71 @@ function loadPeople() {
 
 $('#add-person-btn').click(function(){
     console.log('Add Person clicked.');
-    
 
 }); 
+
+
+$('#ppl-edit-btn').click(function(){
+    //hide/show edit/save buttons
+    document.getElementById('ppl-edit-btn').style="display: none;"
+    document.getElementById('ppl-save-btn').style="display: block;"
+    //make editable and focus on the first editable line
+    $('#ppl-fullname, #ppl-fname, #ppl-lname, #ppl-email, #ppl-phone').attr('contenteditable','true');
+    $('#ppl-fname').focus();
+    //change color to make noticable
+    
+     document.getElementById('ppl-fname').setAttribute(
+    "style", "border: solid black; background: none");
+
+     document.getElementById('ppl-lname').setAttribute(
+    "style", "border: solid black; background: none");
+
+    document.getElementById('ppl-email').setAttribute(
+    "style", "border: solid black; background: none");
+
+    document.getElementById('ppl-phone').setAttribute(
+    "style", "border: solid black; background: none");
+
+});
+
+$('#ppl-save-btn').click(function(){
+
+
+    //cannot get the current id into here????
+    var pplfname = document.getElementById('ppl-fname').innerHTML;
+    var ppllname = document.getElementById('ppl-lname').innerHTML;
+    var pplemail = document.getElementById('ppl-email').innerHTML;
+    var pplphone = document.getElementById('ppl-phone').innerHTML;
+
+    console.log(
+        "{" + "\n"
+        + "\t" + "Name: " + pplfname + " " +ppllname + "," + "\n"
+        + "\t" + "E-mail: " + pplemail + "," + "\n"
+        + "\t" + "Phone:  " + pplphone + "," + "\n"
+        + "}"
+
+    );
+
+    //make UN-editable 
+    $('#ppl-fullname, #ppl-fname, #ppl-lname, #ppl-email, #ppl-phone').attr('contenteditable','false');
+
+    //hide/show save button
+    document.getElementById('ppl-save-btn').style="display: none;"
+    document.getElementById('ppl-edit-btn').style="display: block;"
+
+    //change color   
+
+    document.getElementById('ppl-fname').setAttribute(
+    "style", "border: rgb(124,252,0); background: rgb(124,252,0)");
+
+    document.getElementById('ppl-lname').setAttribute(
+    "style", "border: rgb(124,252,0); background: rgb(124,252,0)");
+
+    document.getElementById('ppl-email').setAttribute(
+    "style", "border: rgb(124,252,0); background: rgb(124,252,0)");
+
+     document.getElementById('ppl-phone').setAttribute(
+    "style", "border: rgb(124,252,0); background: rgb(124,252,0)");
+
+    
+});

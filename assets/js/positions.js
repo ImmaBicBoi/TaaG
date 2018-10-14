@@ -10,34 +10,34 @@ function loadPositions() {
 
     
     //Removes any Existing List Items for the update
-    $('#position-list li').remove();
+   // $('#position-list li').remove();
     $.getJSON('mockdata/mock_positions.json', function (data) {
-        $.each(data, function (i, field) {
-            $('#tab-1 ul') //Append each item to the #tab-1 ul <ul>
-                .append(
-                    $('<li/>') //Append a new <li> element to <ul> #tab-1 ul
-                        .html(
-                            $('<h9/>') //Create a new <h9> inside of the <li>
-                                .html(data[i].id + ": " + data[i].pos_name)
-                                .click(function (event) { //Attach a click event to the <h9> element
-                                    clearDetailsTab();
-                                    $('#details-title').html(data[i].pos_name); //insert position title 
-                                    $('#pos-heldby').html("<span class='modal-headers'>Position Held By: </span>" + "<p id = 'pos-ocname'contenteditable='false'>" + data[i].pos_occupant_first_name + " " + data[i].pos_occupant_last_name) + "</p>"; //insert position heldby name
-                                    $('#pos-weight').html("<span class='modal-headers'>Position Weight:</span>" + "<p id = 'pos-weightdata' contenteditable='false'>" + data[i].pos_weight + "</p>"); //insert positon weight
-                                    $('#pos-attributes').html(""); //insert position attributes
-                                    $('#pos-attributes').append("<span class='modal-headers'>Key 1:</span>" + "<p id ='Value1' contenteditable='false'>Value 1</p>"); //insert positon adittional attributes
-                                    $('#pos-attributes').append("<span class='modal-headers'>Key 2:</span>" + "<p id ='Value2' contenteditable='false'>Value 2</p>"); //insert positon adittional attributes
-                                    $('#pos-attributes').append("<span class='modal-headers'>Key 3</span>" + "<p id ='Value3' contenteditable='false'>Value 3</p>"); //insert positon adittional attributes
-                                    
-                                    setCurrentID(data[i].id);
-                                    document.getElementById('edit-btn').style = "display: block;" //show EDIT button
-                                    document.getElementById('save-btn').style = "display: none;" //hide save button
+                $.each(data, function (i, field) {
+                    $('#tab-1 ul') //Append each item to the #tab-1 ul <ul>
+                        .append(
+                            $('<li/>') //Append a new <li> element to <ul> #tab-1 ul
+                                .html(
+                                    $('<h9/>') //Create a new <h9> inside of the <li>
+                                        .html(data[i].id +": " + data[i].pos_name)
+                                        .click(function (event) { //Attach a click event to the <h9> element
+                                            clearDetailsTab();
+                                            $('#pos-id').html(data[i].id);
+                                            $('#details-title').html("<p id='pos-title'>" + data[i].pos_name +"</p>"); //insert position title 
+                                            $('#pos-heldby').html("<span class='modal-headers'>Position Held By: </span> <br>" + "<p><span id='namespan'>"+"<h9 id = 'pos-ocfname' contenteditable='false'>" + data[i].pos_occupant_first_name +"</h9>" + " " + "<h9 id = 'pos-oclname'contenteditable='false'>" + data[i].pos_occupant_last_name)+"</h9>"+" </span> </p><br>"; //insert position heldby name
+                                            $('#pos-attributes').append("<span class='modal-headers'><h9 id='key1'>Key 1:</h9></span>" + "<p id ='Value1' contenteditable='false'>Value 1</p>"); //insert positon adittional attributes
+                                            $('#pos-attributes').append("<span class='modal-headers'><h9 id='key2'>Key 2:</h9></span>" + "<p id ='Value2' contenteditable='false'>Value 2</p>"); //insert positon adittional attributes
+                                            $('#pos-attributes').append("<span class='modal-headers'><h9 id='key3'>Key 3:</h9></span>" + "<p id ='Value3' contenteditable='false'>Value 3</p>"); //insert positon adittional attributes
 
-                                })
-                        )
-                );
-        });
-    });
+                                            document.getElementById('edit-btn').style="display: block;" //show EDIT button
+                                            setCurrentID(data[i].id);
+
+
+                                        })
+                                )
+                        );
+                });
+            });
+
     console.log('positions loaded.');
     
 };
@@ -50,7 +50,7 @@ $('#add-position-btn').click(function(){
 }); 
 
 $('#add-position-confirm').click(function(){
-
+$('#position-list li').remove();
     console.log(
         "{" + "\n"
         + "\t" + "Position_Title: " + positionTitle.value + "," + "\n"
@@ -76,3 +76,128 @@ $('#add-position-confirm').click(function(){
 // $('#add-position-btn').click(function(){
 //     $('#add-position-modal').modal('show');
 //  }); 
+
+$('#edit-btn').click(function(){
+    //hide/show edit/save buttons
+    document.getElementById('edit-btn').style="display: none;"
+    document.getElementById('save-btn').style="display: block;"
+    //make editable and focus on the first editable line
+    $('#pos-ocfname, #pos-oclname, #key1, #pos-title, #key1, #key2, #key3, #Value1, #Value2, #Value3').attr('contenteditable','true');
+    $('#pos-ocfname').focus();
+    //change color to make noticable
+    
+     document.getElementById('pos-title').setAttribute(
+    "style", "border: solid black; background: none");
+
+    document.getElementById('pos-ocfname').setAttribute(
+    "style", "border: solid black; background: none");  //pick any color
+
+    document.getElementById('pos-oclname').setAttribute(
+    "style", "border: solid black; background: none");
+
+    document.getElementById('key1').setAttribute(
+    "style", "border: solid black; background: none");
+
+    document.getElementById('key2').setAttribute(
+    "style", "border: solid black; background: none");
+
+    document.getElementById('key3').setAttribute(
+    "style", "border: solid black; background: none");
+
+    document.getElementById('Value1').setAttribute(
+    "style", "border: solid black; background: none");
+
+    document.getElementById('Value2').setAttribute(
+    "style", "border: solid black; background: none");
+
+    document.getElementById('Value3').setAttribute(
+    "style", "border: solid black; background: none");
+
+});
+
+$('#save-btn').click(function(){
+
+
+    //cannot get the current id into here????
+    var postitle = document.getElementById('pos-title').innerHTML;
+    var fnamevalue = document.getElementById('pos-ocfname').innerHTML;
+    var lnamevalue = document.getElementById('pos-oclname').innerHTML;
+    var value1 = document.getElementById('Value1').innerHTML;
+    var value2 = document.getElementById('Value2').innerHTML;
+    var value3 = document.getElementById('Value3').innerHTML;
+
+    var key1 = document.getElementById('key1').innerHTML;
+    var key2 = document.getElementById('key2').innerHTML;
+    var key3 = document.getElementById('key3').innerHTML;
+
+//print to console
+    console.log(
+        "{" + "\n"
+        + "\t" + "Name: " + fnamevalue + " " +lnamevalue + "," + "\n"
+        + "\t" + "Position_Title: " + postitle + "," + "\n"
+        + "\t" + "Position_ID: " + getCurrentID() + "," + "\n"
+        + "\t" + "Arrtibute_One: " + value1 + "," + "\n"
+        + "\t" + "Attribute_Two: " + value2 + "," + "\n"
+        + "\t" + "Attribute_Three: " + value3 + "\n"
+        + "}"
+
+    );
+    //print to console
+    console.log(
+        "Position related stuff: " + 
+        "{"+ "\n"
+        + "\t" + "Position_Title: " + postitle + "," + "\n"
+        + "\t" + "Arrtibute_One: " + key1 + "," + "\n"
+        + "\t" + "Attribute_Two: " + key2 + "," + "\n"
+        + "\t" + "Attribute_Three: " + key3 + "\n"
+        + "}"
+
+    );
+    
+   
+    //update json here
+        //find by id, replace the whole line
+
+
+    //make UN-editable 
+    $('#pos-ocfname, #pos-oclname, #key1, #pos-title, #key1, #key2, #key3, #Value1, #Value2, #Value3').attr('contenteditable','false');
+
+    //hide/show save button
+    document.getElementById('save-btn').style="display: none;"
+    document.getElementById('edit-btn').style="display: block;"
+
+    //change color   
+
+    document.getElementById('pos-title').setAttribute(
+    "style", "border: rgb(124,252,0); background: rgb(124,252,0)");
+
+    document.getElementById('pos-ocfname').setAttribute(
+    "style", "border: rgb(124,252,0); background: rgb(124,252,0)");
+
+    document.getElementById('pos-oclname').setAttribute(
+    "style", "border: rgb(124,252,0); background: rgb(124,252,0)");
+
+     document.getElementById('key1').setAttribute(
+    "style", "border: rgb(124,252,0); background: rgb(124,252,0)");
+
+    document.getElementById('key2').setAttribute(
+    "style", "border: rgb(124,252,0); background: rgb(124,252,0)");
+
+    document.getElementById('key3').setAttribute(
+    "style", "border: rgb(124,252,0); background: rgb(124,252,0)");
+
+
+    document.getElementById('Value1').setAttribute(
+    "style", "border: rgb(124,252,0); background: rgb(124,252,0)");
+
+    document.getElementById('Value2').setAttribute(
+    "style", "border: rgb(124,252,0); background: rgb(124,252,0)");
+
+    document.getElementById('Value3').setAttribute(
+    "style", "border: rgb(124,252,0); background: rgb(124,252,0)");
+    
+
+    //refresh page   --necessary???
+    //location.reload();
+    
+});
