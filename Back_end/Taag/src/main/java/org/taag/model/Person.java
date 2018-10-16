@@ -1,40 +1,56 @@
 package org.taag.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Person {
 	
-	private String name;
-	private String role;
-	private float salary;
-	private String department;
+	private String firstname;
+	private String lastname;
+	private String email;
+	private Integer person_id;
+	public String message;
 	
 //	public Person(String name, String role){
 //		this.name = name;
 //		this.role = role;
 //	}
-	
-	public String getName() {
-		return name;
+	@JsonProperty(value = "first_name")
+	public String getFirstName() {
+		return firstname;
 	}
-	public void setName(String name) {
-		this.name = name;
+	@JsonProperty(value = "last_name")
+	public String getLastName() {
+		return lastname;
 	}
-	public String getRole() {
-		return role;
+	public void setFirstName(String firstname) {
+		this.firstname = firstname;
 	}
-	public void setRole(String role) {
-		this.role = role;
+	public void setLastName(String lastname) {
+		this.lastname=lastname;
 	}
-	public float getSalary() {
-		return salary;
+	@JsonProperty(value = "Email")
+	public String getEmail() {
+		return email;
 	}
-	public void setSalary(float salary) {
-		this.salary = salary;
+	public void setEmail(String email) {
+		this.email = email;
 	}
-	public String getDepartment() {
-		return department;
+	@JsonProperty(value = "person_id")
+	public Integer getPersonID() {
+		return person_id;
 	}
-	public void setDepartment(String department) {
-		this.department = department;
+	public void setPersonID(Integer person_id) {
+		this.person_id = person_id;
+	}
+	@JsonProperty(value = "message")
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
 	}
 
 }
