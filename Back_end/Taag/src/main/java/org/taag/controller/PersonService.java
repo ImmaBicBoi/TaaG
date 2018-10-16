@@ -34,7 +34,7 @@ public class PersonService {
 //		obj.put("status", PersonMessages.getStatus());
 		obj.put("message", PersonMessages.getMessage());
 		if (PersonMessages.getPerson() != null) {
-			obj.put("Person_id", PersonMessages.getPerson().getPersonID());
+			obj.put("person_id", PersonMessages.getPerson().getPersonID());
 			if (PersonMessages.getPerson().getPersonID() != null) {
 				obj.put("person_id", PersonMessages.getPerson().getPersonID());
 			}
@@ -74,7 +74,7 @@ public class PersonService {
 //		obj.put("status", PersonMessages.getStatus());
 		obj.put("message", PersonMessages.getMessage());
 		if (PersonMessages.getPerson() != null) {
-			obj.put("Person_id", PersonMessages.getPerson().getPersonID());
+			obj.put("person_id", PersonMessages.getPerson().getPersonID());
 			if (PersonMessages.getPerson().getPersonID() != null) {
 				obj.put("person_id", PersonMessages.getPerson().getPersonID());
 			}
