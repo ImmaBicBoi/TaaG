@@ -108,7 +108,22 @@ create table PERSON (
 	PRIMARY KEY (PERSON_ID)
 );
 /******************************************************/
+/***** INSERT DUMMY DATA INTO  PERSON TABLE ***********/
+/******************************************************/
 
+insert into PERSON (PERSON_FNAME,PERSON_LNAME,EMAIL ) values 
+('Frank','Ellison','frank.ellison@gmail.com'),
+('Sarah','Mitchell','sarah.mitchell@gmail.com'),
+('John','White', 'john.white@gmail.com'),
+('Rachel','Green', 'rachel.green@gmail.com'),
+('Jacob','Bing', 'jacob.bing@gmail.com'),
+('Sally','North', 'sally.north@gmail.com'),
+('Peter','Clark', 'peter.clark@gmail.com'),
+('Lisa','Ross', 'lisa.ross@gmail.com'),
+('Oliver','Hunter', 'oliver.hunter@gmail.com'),
+('Jason','Murray', 'jason.murray@gmail.com');
+
+/******************************************************/
 drop procedure if exists CREATE_PERSON;
 delimiter $$
 create procedure CREATE_PERSON (in Person_firstName varchar(255), in Person_lastName varchar(255),
