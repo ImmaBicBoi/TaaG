@@ -186,7 +186,7 @@ delimiter ;
 /******************************************************/
 drop procedure if exists RETRIEVE_PERSON;
 delimiter $$
-create procedure RETRIEVE_PERSON (in PosId int(10))
+create procedure RETRIEVE_PERSON (in PerId int(10))
 begin
 		start transaction;
 		select PERSON_ID, PERSON_FNAME, PERSON_LNAME, EMAIL from  PERSON 
