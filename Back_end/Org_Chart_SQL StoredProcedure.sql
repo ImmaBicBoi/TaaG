@@ -146,7 +146,7 @@ create procedure UPDATE_PERSON (in PerId int(10), in Person_firstName varchar(25
 								in Person_lastName varchar(255),  in email varchar(255))
 begin
 		start transaction;
-		Update POSITION 
+		Update PERSON 
 		SET 
 		PERSON_FNAME = Person_firstName,
 		PERSON_LNAME = Person_lastName,
