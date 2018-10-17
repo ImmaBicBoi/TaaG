@@ -104,3 +104,10 @@ $('#add-position-confirm').click(function(){
 //     $('#add-position-modal').modal('show');
 //  }); 
 
+
+$('#add-attribute-confirm').click(function () {
+    var table = $(this).closest('form');
+    if (table.find('input:text').length < 10) {   // The <20 is how many fields u wanna add of inputs
+        table.append('<div class="form-group"><label  class="col-sm-2 control-label">Attribute: </label> <div class="col-sm-2 col-sm-10"> <input type="text" class="form-control id="new-attribute" placeholder="Input Attribute"/></div></div>');
+    }
+});
