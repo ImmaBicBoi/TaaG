@@ -16,11 +16,6 @@
   flex-grow: 0;
 }
 
-#email {
-  max-width: 180px;
-  overflow: hidden;
-}
-
 /* For Adding Position ------------------------------------------------------------------------------------- */
 .modal-body .form-horizontal .col-sm-2,
 .modal-body .form-horizontal .col-sm-10 {
@@ -39,3 +34,32 @@
 }
 
 /* --------------------------------------------------------------------------------------------------------- */
+
+/* Left Sidebar -------------------------------------*/
+.draggable-list li {
+  border: 1px solid rgb(230, 229, 229);
+  -webkit-border-radius: 7px;
+  -moz-border-radius: 7px;
+  border-radius: 7px;
+  cursor: pointer;
+  margin-bottom: 2px;
+  margin-top: 2px;
+  padding-left: 5px;
+  background-color: white;
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+}
+
+/* Right Sidebar------------------------------------*/
+#email {
+  max-width: 180px;
+  overflow: hidden;
+}
+
+.dropped {
+}

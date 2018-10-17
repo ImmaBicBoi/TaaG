@@ -27,7 +27,7 @@ function loadPeople() {
         });
     });
     
-    console.log('people loaded.')
+    console.log('people loaded.');
 };
 
 $('#add-person-btn').click(function(){

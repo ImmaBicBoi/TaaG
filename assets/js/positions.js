@@ -38,9 +38,36 @@ function loadPositions() {
                 );
         });
     });
+
+    makeDraggable();
+
+     $('#position-list li').each(function(i) {
+        console.log('list item'+ (i+1));
+
+        $(this).attr('id', 'pos-item'+(i+1));
+    });
     console.log('positions loaded.');
     
 };
+
+
+function loadDraggablePositions() {
+
+    
+    //Removes any Existing List Items for the update
+    $('#position-list li').remove();
+    $.getJSON('mockdata/mock_positions.json', function (data) {
+        $.each(data, function (i, field) {
+            $('<li />').appendTo('#tab-1 ul').ready(function(){ /* callback */ 
+                addToolbarItem(graph, toolbar);
+            });
+        });
+    });
+
+
+    
+};
+
 
 
 $('#add-position-btn').click(function(){
@@ -76,3 +103,4 @@ $('#add-position-confirm').click(function(){
 // $('#add-position-btn').click(function(){
 //     $('#add-position-modal').modal('show');
 //  }); 
+
