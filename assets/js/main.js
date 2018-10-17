@@ -20,6 +20,7 @@ function getCurrentID(){
   //hide/show edit/save buttons
 	document.getElementById('edit-btn').style="display: none;"
 	document.getElementById('save-btn').style="display: block;"
+	  document.getElementById('delete-btn').style="display: none;";
 	//make editable and focus on the first editable line
 	$('#pos-ocname, #pos-weightdata, #Value1, #Value2, #Value3').attr('contenteditable','true');
 	$('#pos-ocname').focus();
@@ -66,6 +67,7 @@ function getCurrentID(){
 	//hide/show save button
 	document.getElementById('save-btn').style="display: none;";
 	document.getElementById('edit-btn').style="display: block;";
+	 document.getElementById('delete-btn').style="display: none;";
 
 	//change color
 
@@ -88,4 +90,33 @@ function getCurrentID(){
     //Call this function to refresh position list after JSON Edit
     loadPositions();
      
+ });
+
+$('#delete-btn').click(function(){
+
+    console.log(getCurrentID());
+
+    var namevalue = document.getElementById('pos-ocname').innerHTML;
+	var posweightdata = document.getElementById('pos-weightdata').innerHTML;
+	var value1 = document.getElementById('Value1').innerHTML;
+	var value2 = document.getElementById('Value2').innerHTML;
+	var value3 = document.getElementById('Value3').innerHTML;
+	console.log("deleting the json");
+    console.log(
+        "{" + "\n"
+        + "\t" + "pos-ocname " + namevalue + "," + "\n"
+        + "\t" + "pos-weightdata: " + posweightdata + "," + "\n"
+        + "\t" + "emp_pos: " + value1 + "," + "\n"
+        + "\t" + "email: " + value2 + "," + "\n"
+        + "\t" + "phone: " + value3 + "\n"
+        + "}"
+     );
+
+     console.log(clearDetailsTab());
+
+    document.getElementById('save-btn').style="display: none;";
+	document.getElementById('edit-btn').style="display: none;";
+	document.getElementById('delete-btn').style="display: none;";
+
+
  });
