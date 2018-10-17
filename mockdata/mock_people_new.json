@@ -1,0 +1,38 @@
+[
+    {
+
+      "first_name": "Dorry",
+      "last_name": "Dolman",
+      "emp_pos": "asdsa",
+      "email": "ddolman0@istockphoto.com",
+      "phone": "298-307-0597"
+    },
+    {
+      "first_name": "Leigha",
+      "last_name": "Chataignier",
+      "emp_pos": "rtuertu",
+      "email": "lchataignier1@spotify.com",
+      "phone": "981-678-8763"
+    },
+    {
+      "first_name": "Kippy",
+      "last_name": "Riccardelli",
+      "emp_pos": "ryiyrt",
+      "email": "kriccardelli2@princeton.edu",
+      "phone": "833-133-5444"
+    },
+    {
+      "first_name": "Charil",
+      "last_name": "Harly",
+      "emp_pos": "jmuyrw",
+      "email": "charly3@dropbox.com",
+      "phone": "194-570-5379"
+    },
+    {
+      "first_name": "Hugh",
+      "last_name": "Broadberrie",
+      "emp_pos": "rytog",
+      "email": "hbroadberrie4@go.com",
+      "phone": "903-774-4419"
+    }
+]
