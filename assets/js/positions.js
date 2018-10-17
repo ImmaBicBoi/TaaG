@@ -70,6 +70,7 @@ function loadDraggablePositions() {
 
 
 
+
 $('#add-position-btn').click(function(){
     $('#add-position-modal').modal('show');
     console.log('Add Position clicked.');
@@ -82,9 +83,9 @@ $('#add-position-confirm').click(function(){
         "{" + "\n"
         + "\t" + "Position_Title: " + positionTitle.value + "," + "\n"
         + "\t" + "Position_ID: " + positionID.value + "," + "\n"
-        + "\t" + "Arrtibute_One: " + attOne.value + "," + "\n"
-        + "\t" + "Attribute_Two: " + attTwo.value + "," + "\n"
-        + "\t" + "Attribute_Three: " + attThree.value + "\n"
+        // + "\t" + "Arrtibute_One: " + attOne.value + "," + "\n"  // Hardcoded
+        // + "\t" + "Attribute_Two: " + attTwo.value + "," + "\n"
+        // + "\t" + "Attribute_Three: " + attThree.value + "\n"
         + "}"
 
     );
@@ -98,6 +99,7 @@ $('#add-position-confirm').click(function(){
 
     loadPositions();
 }); 
+
 
 
 // $('#add-position-btn').click(function(){
