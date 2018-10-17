@@ -58,7 +58,7 @@ $('#add-people-confirm').click(function(){
 
 
     loadPeople();
-    writePeopleJson();
+    //writePeopleJson();
 }); 
 
 
