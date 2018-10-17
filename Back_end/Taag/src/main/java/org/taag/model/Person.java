@@ -1,40 +1,74 @@
 package org.taag.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Person {
 	
-	private String name;
-	private String role;
-	private float salary;
-	private String department;
+	private String firstName;
+	private String lastName;
+	private String email;
+	private Integer person_id;
+	public String message;
+	public String status;
 	
-//	public Person(String name, String role){
-//		this.name = name;
-//		this.role = role;
-//	}
+
+	@JsonProperty(value = "first_name")
+	public String getFirstName() {
+		return firstName;
+	}
+	public void setFirstName(String firstname) {
+		this.firstName = firstname;
+	}
 	
-	public String getName() {
-		return name;
+	
+	@JsonProperty(value = "last_name")
+	public String getLastName() {
+		return lastName;
 	}
-	public void setName(String name) {
-		this.name = name;
+
+	public void setLastName(String lastname) {
+		this.lastName=lastname;
 	}
-	public String getRole() {
-		return role;
+	
+	
+	@JsonProperty(value = "email")
+	public String getEmail() {
+		return email;
 	}
-	public void setRole(String role) {
-		this.role = role;
+	public void setEmail(String email) {
+		this.email = email;
 	}
-	public float getSalary() {
-		return salary;
+	
+	
+	@JsonProperty(value = "person_id")
+	public Integer getPersonID() {
+		return person_id;
 	}
-	public void setSalary(float salary) {
-		this.salary = salary;
+	public void setPersonID(Integer person_id) {
+		this.person_id = person_id;
 	}
-	public String getDepartment() {
-		return department;
+	
+	
+	@JsonProperty(value = "message")
+	public String getMessage() {
+		return message;
 	}
-	public void setDepartment(String department) {
-		this.department = department;
+
+	public void setMessage(String message) {
+		this.message = message;
 	}
+	
+	@JsonIgnore
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	
+	
 
 }

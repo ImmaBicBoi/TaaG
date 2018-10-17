@@ -10,7 +10,8 @@ drop table if exists POSITION;
 create table POSITION (
 	POSITION_ID int NOT NULL AUTO_INCREMENT,
 	POSITION_NAME varchar(30) NOT NULL UNIQUE,
-	PERSON_ID int(10),
+	PARENT_POS_ID int(10),
+	PERSON_ID int(10) UNIQUE,
 	
 	PRIMARY KEY (POSITION_ID),
     KEY FK_PERSON (PERSON_ID)
@@ -20,12 +21,12 @@ create table POSITION (
 
 drop procedure if exists CREATE_POSITION;
 delimiter $$
-create procedure CREATE_POSITION (in PosName varchar(30), 
+create procedure CREATE_POSITION (in PosName varchar(30), in ParentPos int(10),
 								  in PerId int(10))
 							
 begin
 		start transaction;
-		insert into POSITION (POSITION_NAME,PERSON_ID) values (PosName,PerId);
+		insert into POSITION (POSITION_NAME,PARENT_POS_ID, PERSON_ID) values (PosName,ParentPos, PerId);
 				
     commit;
     
@@ -37,12 +38,13 @@ drop procedure if exists UPDATE_POSITION;
 
 delimiter $$
 create procedure UPDATE_POSITION (in PosId int(10), in PosName varchar(30), 
-								  in PerId int(10))
+								  in ParentPos int(10), in PerId int(10))
 begin
 		start transaction;
 		Update POSITION 
 		SET 
 		POSITION_NAME = PosName,
+		PARENT_POS_ID = ParentPos,
 		PERSON_ID = PerId
 		WHERE 
 		POSITION_ID = PosId;
@@ -70,7 +72,7 @@ delimiter $$
 create procedure RETRIEVE_ALL_POSITIONS ()
 begin
 		start transaction;
-	select POSITION_ID,POSITION_NAME,PERSON_ID from  POSITION; 
+	select POSITION_ID,POSITION_NAME,PARENT_POS_ID,PERSON_ID from  POSITION; 
 				
     commit;
     
@@ -82,7 +84,7 @@ delimiter $$
 create procedure RETRIEVE_POSITION (in PosId int(10))
 begin
 		start transaction;
-		select POSITION_ID,POSITION_NAME,PERSON_ID from  POSITION 
+		select POSITION_ID,POSITION_NAME,PARENT_POS_ID,PERSON_ID from  POSITION 
 		where POSITION_ID = PosId;
 		
 				
@@ -106,7 +108,22 @@ create table PERSON (
 	PRIMARY KEY (PERSON_ID)
 );
 /******************************************************/
+/***** INSERT DUMMY DATA INTO  PERSON TABLE ***********/
+/******************************************************/
 
+insert into PERSON (PERSON_FNAME,PERSON_LNAME,EMAIL ) values 
+('Frank','Ellison','frank.ellison@gmail.com'),
+('Sarah','Mitchell','sarah.mitchell@gmail.com'),
+('John','White', 'john.white@gmail.com'),
+('Rachel','Green', 'rachel.green@gmail.com'),
+('Jacob','Bing', 'jacob.bing@gmail.com'),
+('Sally','North', 'sally.north@gmail.com'),
+('Peter','Clark', 'peter.clark@gmail.com'),
+('Lisa','Ross', 'lisa.ross@gmail.com'),
+('Oliver','Hunter', 'oliver.hunter@gmail.com'),
+('Jason','Murray', 'jason.murray@gmail.com');
+
+/******************************************************/
 drop procedure if exists CREATE_PERSON;
 delimiter $$
 create procedure CREATE_PERSON (in Person_firstName varchar(255), in Person_lastName varchar(255),
@@ -129,7 +146,7 @@ create procedure UPDATE_PERSON (in PerId int(10), in Person_firstName varchar(25
 								in Person_lastName varchar(255),  in email varchar(255))
 begin
 		start transaction;
-		Update POSITION 
+		Update PERSON 
 		SET 
 		PERSON_FNAME = Person_firstName,
 		PERSON_LNAME = Person_lastName,
@@ -169,7 +186,7 @@ delimiter ;
 /******************************************************/
 drop procedure if exists RETRIEVE_PERSON;
 delimiter $$
-create procedure RETRIEVE_PERSON (in PosId int(10))
+create procedure RETRIEVE_PERSON (in PerId int(10))
 begin
 		start transaction;
 		select PERSON_ID, PERSON_FNAME, PERSON_LNAME, EMAIL from  PERSON 
@@ -180,3 +197,4 @@ begin
     
 end$$
 delimiter ;
+

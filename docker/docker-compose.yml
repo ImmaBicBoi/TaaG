@@ -9,9 +9,10 @@ services:
       MYSQL_USER: webapp
       MYSQL_PASSWORD: taag
     ports:
-      - "3306:3306"
+      - "3310:3306"
     volumes:
       - ../Back_end/Org_Chart_SQL StoredProcedure.sql:/docker-entrypoint-initdb.d/mysql-init.sql
+      - mysql-data-volume:/var/lib/mysql
     healthcheck:
       test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
       timeout: 10s
@@ -22,8 +23,6 @@ services:
       DOCKER_CHECK: 1
     depends_on:
       - database
-    links:
-      - database:mysql 
     ports:
       - "8080:8080" 
     volumes:
@@ -31,4 +30,5 @@ services:
       - ../index.html:/usr/local/tomcat/webapps/ROOT/index.html
       - ../assets:/usr/local/tomcat/webapps/ROOT/assets
       - ../mockdata:/usr/local/tomcat/webapps/ROOT/mockdata
-  
+volumes:
+  mysql-data-volume:
