@@ -16,7 +16,7 @@ public class JDBCConnection {
 			
 			if (System.getenv("DOCKER_CHECK").equals("1")) {
 				//Running in docker use docker specific connection information
-				connectionURL = "jdbc:mysql://database:3310/orgchartdb";
+				connectionURL = "jdbc:mysql://database:3306/orgchartdb";
 				connectionUser = "webapp";
 				connectionPass = "taag";
 			}
