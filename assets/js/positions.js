@@ -21,15 +21,18 @@ function loadPositions() {
                                         .html(data[i].id +": " + data[i].pos_name)
                                         .click(function (event) { //Attach a click event to the <h9> element
                                             clearDetailsTab();
-                                            $('#pos-id').html(data[i].id);
-                                            $('#details-title').html("<p id='pos-title'>" + data[i].pos_name +"</p>"); //insert position title 
+                                            //$('#pos-id').html(data[i].id);
+                                            $('#details-title').html("<span class='caret'>" + "<p id='pos-title'>" + data[i].pos_name +"</p>"+"</span>"); //insert position title 
                                             $('#pos-heldby').html("<span class='modal-headers'>Position Held By: </span> <br>" + "<p><span id='namespan'>"+"<h9 id = 'pos-ocfname' contenteditable='false'>" + data[i].pos_occupant_first_name +"</h9>" + " " + "<h9 id = 'pos-oclname'contenteditable='false'>" + data[i].pos_occupant_last_name)+"</h9>"+" </span> </p><br>"; //insert position heldby name
                                             $('#pos-attributes').append("<span class='modal-headers'><h9 id='key1'>Key 1:</h9></span>" + "<p id ='Value1' contenteditable='false'>Value 1</p>"); //insert positon adittional attributes
                                             $('#pos-attributes').append("<span class='modal-headers'><h9 id='key2'>Key 2:</h9></span>" + "<p id ='Value2' contenteditable='false'>Value 2</p>"); //insert positon adittional attributes
                                             $('#pos-attributes').append("<span class='modal-headers'><h9 id='key3'>Key 3:</h9></span>" + "<p id ='Value3' contenteditable='false'>Value 3</p>"); //insert positon adittional attributes
-
-                                            document.getElementById('edit-btn').style="display: block;" //show EDIT button
                                             setCurrentID(data[i].id);
+                                            document.getElementById('edit-btn').style="display: block;" //show EDIT button
+                                            document.getElementById('save-btn').style="display: none;" //hide  button
+                                            document.getElementById('ppl-edit-btn').style = "display: none;" //hide  button
+                                            document.getElementById('ppl-save-btn').style = "display: none;" //hide  button
+                                            
 
 
                                         })
@@ -82,18 +85,51 @@ $('#edit-btn').click(function(){
     document.getElementById('edit-btn').style="display: none;"
     document.getElementById('save-btn').style="display: block;"
     //make editable and focus on the first editable line
-    $('#pos-ocfname, #pos-oclname, #key1, #pos-title, #key1, #key2, #key3, #Value1, #Value2, #Value3').attr('contenteditable','true');
-    $('#pos-ocfname').focus();
-    //change color to make noticable
+    $('#pos-ocfname, #pos-oclname, #namespan, #key1, #key1, #key2, #key3, #Value1, #Value2, #Value3').attr('contenteditable','true');
+    $('#pos-title').focus();
     
-     document.getElementById('pos-title').setAttribute(
+    
+   // var postitle = document.getElementById('pos-title').innerHTML;
+
+    //var $select = document.getElementsByTagName('p');
+    document.getElementsByTagName("p")[0].setAttribute('type', 'button'); 
+    document.getElementsByTagName("p")[0].setAttribute('class', 'btn btn-primary dropdown-toggle');
+    document.getElementsByTagName("p")[0].setAttribute('data-toggle', 'dropdown'); 
+
+    document.getElementsByTagName("span")[4].setAttribute('type', 'button'); 
+    document.getElementsByTagName("span")[4].setAttribute('class', 'btn btn-primary dropdown-toggle');
+    document.getElementsByTagName("span")[4].setAttribute('data-toggle', 'dropdown'); 
+    //  document.getElementById('pos-title').setAttribute(
+    // "style", "border: solid black; background: none");
+
+
+
+   // var $select = $('dropdown');
+   //  //request the JSON data and parse into the select element
+   //  $.getJSON('mockdata/mock_positions.json', function(data){
+   //    //clear the current content of the select
+   //   //$select.html(postitle);
+   //   console.log('lol');
+     
+   //    //iterate over the data and append a select option
+   //    $.each(data, function(i, field){
+   //      $select.append(data[i].pos_name);
+   //    })
+   //  });
+
+
+    document.getElementById('pos-title').setAttribute(
     "style", "border: solid black; background: none");
 
-    document.getElementById('pos-ocfname').setAttribute(
-    "style", "border: solid black; background: none");  //pick any color
-
-    document.getElementById('pos-oclname').setAttribute(
+    document.getElementById('namespan').setAttribute(
     "style", "border: solid black; background: none");
+
+
+    // document.getElementById('pos-ocfname').setAttribute(
+    // "style", "border: solid black; background: none");  //pick any color
+
+    // document.getElementById('pos-oclname').setAttribute(
+    // "style", "border: solid black; background: none");
 
     document.getElementById('key1').setAttribute(
     "style", "border: solid black; background: none");
@@ -118,7 +154,7 @@ $('#edit-btn').click(function(){
 $('#save-btn').click(function(){
 
 
-    //cannot get the current id into here????
+    
     var postitle = document.getElementById('pos-title').innerHTML;
     var fnamevalue = document.getElementById('pos-ocfname').innerHTML;
     var lnamevalue = document.getElementById('pos-oclname').innerHTML;
@@ -160,7 +196,7 @@ $('#save-btn').click(function(){
 
 
     //make UN-editable 
-    $('#pos-ocfname, #pos-oclname, #key1, #pos-title, #key1, #key2, #key3, #Value1, #Value2, #Value3').attr('contenteditable','false');
+    $('#pos-ocfname, #pos-oclname, #namespan, #key1, #pos-title, #key1, #key2, #key3, #Value1, #Value2, #Value3').attr('contenteditable','false');
 
     //hide/show save button
     document.getElementById('save-btn').style="display: none;"
@@ -171,11 +207,11 @@ $('#save-btn').click(function(){
     document.getElementById('pos-title').setAttribute(
     "style", "border: rgb(124,252,0); background: rgb(124,252,0)");
 
-    document.getElementById('pos-ocfname').setAttribute(
+    document.getElementById('namespan').setAttribute(
     "style", "border: rgb(124,252,0); background: rgb(124,252,0)");
 
-    document.getElementById('pos-oclname').setAttribute(
-    "style", "border: rgb(124,252,0); background: rgb(124,252,0)");
+    // document.getElementById('pos-oclname').setAttribute(
+    // "style", "border: rgb(124,252,0); background: rgb(124,252,0)");
 
      document.getElementById('key1').setAttribute(
     "style", "border: rgb(124,252,0); background: rgb(124,252,0)");

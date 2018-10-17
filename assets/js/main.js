@@ -17,11 +17,12 @@ function getCurrentID(){
 function clearDetailsTab(){
 	$('#details-title').empty();
 	$('#pos-heldby').empty();
-	$('#pos-weight').empty();
 	$('#pos-attributes').empty();
 	$('#first-name').empty();
 	$('#last-name').empty();
 	$('#email').empty();
 	$('#phone').empty();
+	document.getElementById('ppl-save-btn').style="display: none;" //hide  button
+	document.getElementById('ppl-save-btn').style="display: none;" //hide  button
 	console.log('cleared tab');
 }
