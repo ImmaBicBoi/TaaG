@@ -59,7 +59,7 @@ public class PersonService {
 		PersonDAO pdao = new PersonDAO();
 		Response response = null;
 		Person person = pdao.getPerson(personId);
-		if (person != null) {
+		if (person.getStatus() != null) {
 			if(person.getStatus().equals("200")) {
 			response =  Response.ok(person, MediaType.APPLICATION_JSON).build();
 			}

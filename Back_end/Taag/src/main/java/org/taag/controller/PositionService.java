@@ -61,7 +61,7 @@ public class PositionService {
 		Response response = null;
 		
 		Position position = pdao.getPosition(positionId);
-		if (position != null) {
+		if (position.getStatus() != null) {
 			if(position.getStatus().equals("200")) {
 			response =  Response.ok(position, MediaType.APPLICATION_JSON).build();
 			}
