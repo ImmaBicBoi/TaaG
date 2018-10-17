@@ -86,3 +86,68 @@ function writePeopleJson() {
 
 
 }
+
+$('#ppl-edit-btn').click(function(){
+    //hide/show edit/save buttons
+    document.getElementById('ppl-edit-btn').style="display: none;"
+    document.getElementById('ppl-save-btn').style="display: block;"
+    //make editable and focus on the first editable line
+    $('#ppl-fullname, #ppl-fname, #ppl-lname, #ppl-email, #ppl-phone').attr('contenteditable','true');
+    $('#ppl-fname').focus();
+    //change color to make noticable
+    
+     document.getElementById('ppl-fname').setAttribute(
+    "style", "border: solid black; background: none");
+
+     document.getElementById('ppl-lname').setAttribute(
+    "style", "border: solid black; background: none");
+
+    document.getElementById('ppl-email').setAttribute(
+    "style", "border: solid black; background: none");
+
+    document.getElementById('ppl-phone').setAttribute(
+    "style", "border: solid black; background: none");
+
+});
+
+$('#ppl-save-btn').click(function(){
+
+
+    //cannot get the current id into here????
+    var pplfname = document.getElementById('ppl-fname').innerHTML;
+    var ppllname = document.getElementById('ppl-lname').innerHTML;
+    var pplemail = document.getElementById('ppl-email').innerHTML;
+    var pplphone = document.getElementById('ppl-phone').innerHTML;
+
+    console.log(
+        "{" + "\n"
+        + "\t" + "Name: " + pplfname + " " +ppllname + "," + "\n"
+        + "\t" + "E-mail: " + pplemail + "," + "\n"
+        + "\t" + "Phone:  " + pplphone + "," + "\n"
+        + "}"
+
+    );
+
+    //make UN-editable 
+    $('#ppl-fullname, #ppl-fname, #ppl-lname, #ppl-email, #ppl-phone').attr('contenteditable','false');
+
+    //hide/show save button
+    document.getElementById('ppl-save-btn').style="display: none;"
+    document.getElementById('ppl-edit-btn').style="display: block;"
+
+    //change color   
+
+    document.getElementById('ppl-fname').setAttribute(
+    "style", "border: rgb(124,252,0); background: rgb(124,252,0)");
+
+    document.getElementById('ppl-lname').setAttribute(
+    "style", "border: rgb(124,252,0); background: rgb(124,252,0)");
+
+    document.getElementById('ppl-email').setAttribute(
+    "style", "border: rgb(124,252,0); background: rgb(124,252,0)");
+
+     document.getElementById('ppl-phone').setAttribute(
+    "style", "border: rgb(124,252,0); background: rgb(124,252,0)");
+
+    
+});
