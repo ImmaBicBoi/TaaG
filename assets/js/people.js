@@ -1,5 +1,9 @@
 //PEOPLE.JS - For JavaScript Functions that are directly related to people.
-
+var firstName = document.getElementById('input-first-name');
+var lastName = document.getElementById('input-last-name');
+var empPos = document.getElementById('input-emp-position');
+var email = document.getElementById('input-email');
+var phone = document.getElementById('input-phone');
 
 function loadPeople() {
  $('#people-list li').remove();
