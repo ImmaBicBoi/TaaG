@@ -54,9 +54,9 @@ $('#add-position-confirm').click(function(){
         "{" + "\n"
         + "\t" + "Position_Title: " + positionTitle.value + "," + "\n"
         + "\t" + "Position_ID: " + positionID.value + "," + "\n"
-        + "\t" + "Arrtibute_One: " + attOne.value + "," + "\n"
-        + "\t" + "Attribute_Two: " + attTwo.value + "," + "\n"
-        + "\t" + "Attribute_Three: " + attThree.value + "\n"
+        // + "\t" + "Arrtibute_One: " + attOne.value + "," + "\n"  // Hardcoded
+        // + "\t" + "Attribute_Two: " + attTwo.value + "," + "\n"
+        // + "\t" + "Attribute_Three: " + attThree.value + "\n"
         + "}"
 
     );
@@ -75,3 +75,37 @@ $('#add-position-confirm').click(function(){
 // $('#add-position-btn').click(function(){
 //     $('#add-position-modal').modal('show');
 //  }); 
+
+
+
+
+// ADDING MORE ARRTIBUTES
+
+// function createAttributeField() {
+//     var input = document.createElement('input');
+
+//     var newlabel = document.createElement("Label");
+    
+//     // newlabel.setAttribute("for", id_from_input);
+//     // newlabel.setAttribute("type", type);
+//     newlabel.innerHTML = "Attribute: ";
+    
+//     //parentDiv.appendChild(newlabel);
+
+//     input.type = 'text';
+//     input.name = 'att[]';
+//     return input;
+//   }
+  
+//   var form = document.getElementById('position-form');
+//   document.getElementById('add-attribute-confirm').addEventListener('click', function(e) {
+//     form.appendChild(createAttributeField());
+//   });
+
+
+  $('#add-attribute-confirm').click(function () {
+    var table = $(this).closest('form');
+    if (table.find('input:text').length < 10) {   // The <20 is how many fields u wanna add of inputs
+        table.append('<div class="form-group"><label  class="col-sm-2 control-label">Attribute: </label> <div class="col-sm-2 col-sm-10"> <input type="text" class="form-control id="new-attribute" placeholder="Input Attribute"/></div></div>');
+    }
+});
