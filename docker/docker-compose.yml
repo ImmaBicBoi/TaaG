@@ -23,8 +23,6 @@ services:
       DOCKER_CHECK: 1
     depends_on:
       - database
-    links:
-      - database:mysql 
     ports:
       - "8080:8080" 
     volumes:

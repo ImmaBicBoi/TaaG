@@ -11,6 +11,9 @@
   - You can connect to the mysql container from the tomcat container after running the following commands:  
     - `atp-get update`  
     - `atp-get install mysql-client`
+- To verify the back-end api webservice is running use the following command or navigate to the URL in a browser `curl 'http://localhost:8080/Taag/service/person/1'`.  
+    - You should see a JSON response.  
+    - It may take a few seconds for the web service to start up and become responsive.  Please wait a few seconds after starting the docker container to call the web service.  
 
 - To stop the containers run the following command in the <git_path>/Taag/docker directory `docker-compose stop` or `docker-compse down --volumes` to remove the copied volumes after shutdown.  
 
