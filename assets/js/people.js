@@ -109,7 +109,7 @@ $('#ppl-edit-btn').click(function(){
 
     document.getElementById('ppl-phone').setAttribute(
     "style", "border: solid black; background: none");
-
+    console.log('edit people');
 });
 
 $('#ppl-save-btn').click(function(){
