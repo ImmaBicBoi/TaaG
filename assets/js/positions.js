@@ -30,9 +30,9 @@ function loadPositions() {
                                     $('#pos-attributes').append("<span class='modal-headers'>Key 3</span>" + "<p id ='Value3' contenteditable='false'>Value 3</p>"); //insert positon adittional attributes
                                     
                                     setCurrentID(data[i].id);
-                                    document.getElementById('ppl-edit-btn').style = "display: block;" //show EDIT button
+                                    document.getElementById('edit-btn').style = "display: block;" //show EDIT button
                                     document.getElementById('ppl-save-btn').style = "display: none;" //hide  button
-                                    document.getElementById('edit-btn').style = "display: none;" //hide  button
+                                    document.getElementById('ppl-edit-btn').style = "display: none;" //hide  button
                                     document.getElementById('save-btn').style = "display: none;" //hide  button
                                 })
                         )
@@ -113,4 +113,180 @@ $('#add-attribute-confirm').click(function () {
     if (table.find('input:text').length < 10) {   // The <20 is how many fields u wanna add of inputs
         table.append('<div class="form-group"><label  class="col-sm-2 control-label">Attribute: </label> <div class="col-sm-2 col-sm-10"> <input type="text" class="form-control id="new-attribute" placeholder="Input Attribute"/></div></div>');
     }
+});
+
+
+
+$('#edit-btn').click(function(){
+    //hide/show edit/save buttons
+    document.getElementById('edit-btn').style="display: none;"
+    document.getElementById('save-btn').style="display: block;"
+    //make editable and focus on the first editable line
+    $('#details-title,#pos-ocfname, #pos-oclname, #namespan, #key1, #key1, #key2, #key3, #Value1, #Value2, #Value3').attr('contenteditable','true');
+    $('#pos-title').focus();
+    
+    
+   // var postitle = document.getElementById('pos-title').innerHTML;
+
+    var select = document.getElementById('pos-title').innerHTML;
+    document.getElementsByTagName("p")[0].setAttribute('type', 'button'); 
+    document.getElementsByTagName("p")[0].setAttribute('class', 'btn btn-primary dropdown-toggle');
+    document.getElementsByTagName("p")[0].setAttribute('data-toggle', 'dropdown'); 
+
+    document.getElementsByTagName("span")[4].setAttribute('type', 'button'); 
+    document.getElementsByTagName("span")[4].setAttribute('class', 'btn btn-primary dropdown-toggle');
+    document.getElementsByTagName("span")[4].setAttribute('data-toggle', 'dropdown'); 
+    //  document.getElementById('pos-title').setAttribute(
+    // "style", "border: solid black; background: none");
+
+   // $('#pos-title').click(function(event){
+   //      //load data from json
+   //       $.getJSON('mockdata/mock_positions.json', function(data){    
+   //          $.each(data, function(i, field){
+   //              $select.append(
+   //                  $('<li/>') 
+   //                          .html(
+   //                              $('<h9/>')
+   //                                      .html(data[i].id +": " + data[i].pos_name)
+      
+   //                              )
+   //                      );
+   //              });
+   //          });
+
+
+
+
+   // var $select = $('dropdown');
+   //  //request the JSON data and parse into the select element
+   //  $.getJSON('mockdata/mock_positions.json', function(data){
+   //    //clear the current content of the select
+   //   //$select.html(postitle);
+   //   console.log('lol');
+     
+   //    //iterate over the data and append a select option
+   //    $.each(data, function(i, field){
+   //      $select.append(data[i].pos_name);
+   //    })
+   //  });
+
+
+    document.getElementById('pos-title').setAttribute(
+    "style", "border: solid black; background: gray");
+
+    document.getElementById('namespan').setAttribute(
+    "style", "border: solid black; background: silver");
+
+
+    // document.getElementById('pos-ocfname').setAttribute(
+    // "style", "border: solid black; background: none");  //pick any color
+
+    // document.getElementById('pos-oclname').setAttribute(
+    // "style", "border: solid black; background: none");
+
+    document.getElementById('key1').setAttribute(
+    "style", "border: solid black; background: none");
+
+    document.getElementById('key2').setAttribute(
+    "style", "border: solid black; background: none");
+
+    document.getElementById('key3').setAttribute(
+    "style", "border: solid black; background: none");
+
+    document.getElementById('Value1').setAttribute(
+    "style", "border: solid black; background: none");
+
+    document.getElementById('Value2').setAttribute(
+    "style", "border: solid black; background: none");
+
+    document.getElementById('Value3').setAttribute(
+    "style", "border: solid black; background: none");
+
+});
+
+$('#save-btn').click(function(){
+
+
+    
+    var postitle = document.getElementById('pos-title').innerHTML;
+    var fnamevalue = document.getElementById('pos-ocfname').innerHTML;
+    var lnamevalue = document.getElementById('pos-oclname').innerHTML;
+    var value1 = document.getElementById('Value1').innerHTML;
+    var value2 = document.getElementById('Value2').innerHTML;
+    var value3 = document.getElementById('Value3').innerHTML;
+
+    var key1 = document.getElementById('key1').innerHTML;
+    var key2 = document.getElementById('key2').innerHTML;
+    var key3 = document.getElementById('key3').innerHTML;
+
+//print to console
+    console.log(
+        "{" + "\n"
+        + "\t" + "Name: " + fnamevalue + " " +lnamevalue + "," + "\n"
+        + "\t" + "Position_Title: " + postitle + "," + "\n"
+        + "\t" + "Position_ID: " + getCurrentID() + "," + "\n"
+        + "\t" + "Arrtibute_One: " + value1 + "," + "\n"
+        + "\t" + "Attribute_Two: " + value2 + "," + "\n"
+        + "\t" + "Attribute_Three: " + value3 + "\n"
+        + "}"
+
+    );
+    //print to console
+    console.log(
+        "Position related stuff: " + 
+        "{"+ "\n"
+        + "\t" + "Position_Title: " + postitle + "," + "\n"
+        + "\t" + "Arrtibute_One: " + key1 + "," + "\n"
+        + "\t" + "Attribute_Two: " + key2 + "," + "\n"
+        + "\t" + "Attribute_Three: " + key3 + "\n"
+        + "}"
+
+    );
+    
+   
+    //update json here
+        //find by id, replace the whole line
+
+
+    //make UN-editable 
+    $('#pos-ocfname, #pos-oclname, #namespan, #key1, #pos-title, #key1, #key2, #key3, #Value1, #Value2, #Value3').attr('contenteditable','false');
+
+    //hide/show save button
+    document.getElementById('save-btn').style="display: none;"
+    document.getElementById('edit-btn').style="display: block;"
+
+    //change color   
+
+    document.getElementById('pos-title').setAttribute(
+    "style", "border: rgb(124,252,0); background: rgb(124,252,0)");
+
+    document.getElementById('namespan').setAttribute(
+    "style", "border: rgb(124,252,0); background: rgb(124,252,0)");
+
+    // document.getElementById('pos-oclname').setAttribute(
+    // "style", "border: rgb(124,252,0); background: rgb(124,252,0)");
+
+     document.getElementById('key1').setAttribute(
+    "style", "border: rgb(124,252,0); background: rgb(124,252,0)");
+
+    document.getElementById('key2').setAttribute(
+    "style", "border: rgb(124,252,0); background: rgb(124,252,0)");
+
+    document.getElementById('key3').setAttribute(
+    "style", "border: rgb(124,252,0); background: rgb(124,252,0)");
+
+
+    document.getElementById('Value1').setAttribute(
+    "style", "border: rgb(124,252,0); background: rgb(124,252,0)");
+
+    document.getElementById('Value2').setAttribute(
+    "style", "border: rgb(124,252,0); background: rgb(124,252,0)");
+
+    document.getElementById('Value3').setAttribute(
+    "style", "border: rgb(124,252,0); background: rgb(124,252,0)");
+    
+
+    //refresh page   --necessary???
+    //location.reload();
+    
 });
