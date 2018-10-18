@@ -30,9 +30,9 @@ function loadPositions() {
                                     $('#pos-attributes').append("<span class='modal-headers'>Key 3</span>" + "<p id ='Value3' contenteditable='false'>Value 3</p>"); //insert positon adittional attributes
                                     
                                     setCurrentID(data[i].id);
-                                    document.getElementById('ppl-edit-btn').style = "display: block;" //show EDIT button
+                                    document.getElementById('edit-btn').style = "display: block;" //show EDIT button
                                     document.getElementById('ppl-save-btn').style = "display: none;" //hide  button
-                                    document.getElementById('edit-btn').style = "display: none;" //hide  button
+                                    document.getElementById('ppl-edit-btn').style = "display: none;" //hide  button
                                     document.getElementById('save-btn').style = "display: none;" //hide  button
                                 })
                         )
