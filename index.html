@@ -26,7 +26,6 @@
         </div>
     </nav>
     <div class="row" style="height:30px;min-height:30px;"></div>
-
     <!-- Add position popup-->
     <div class="modal fade" role="dialog" tabindex="-1" id="add-position-modal" style="margin-right:0px;margin-left:100px;">
         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
@@ -38,7 +37,7 @@
 
                 <!-- Modal Body -->
                 <div class="modal-body">
-                    <form class="form-horizontal" role="form">
+                    <form name="position-form" id="position-form" class="form-horizontal" role="form">
                         <div class="form-group">
                             <label class="col-sm-2 control-label" for="input-pos-title">Position Title</label>
                             <div class="col-sm-10">
@@ -51,36 +50,46 @@
                                 <input type="text" class="form-control" id="input-pos-id" placeholder="Input Position ID" />
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label" for="input-att-one">Attribute 1</label>
-                            <div class="col-sm-2 col-sm-10">
-                                <input type="text" class="form-control" id="input-att-one" placeholder="Input Attribute 1" />
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label" for="input-att-two">Attribute 2</label>
-                            <div class="col-sm-2 col-sm-10">
-                                <input type="text" class="form-control" id="input-att-two" placeholder="Input Attribute 2" />
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label" for="input-att-three">Attribute 3</label>
-                            <div class="col-sm-2 col-sm-10">
-                                <input type="text" class="form-control" id="input-att-three" placeholder="Input Attribute 3" />
-                            </div>
-                        </div>
+
+                        <!--  Hardcoded Add Atributes -->
                         <!-- <div class="form-group">
-                          <div class="col-sm-offset-2 col-sm-10">
-                            <div class="checkbox">
-                              <label>
-                                  <input type="checkbox"/> Confirm
-                              </label>
-                            </div>
-                          </div>
-                        </div> -->
+                        <label  class="col-sm-2 control-label"
+                                  for="input-att-one">Attribute 1</label>
+                        <div class="col-sm-2 col-sm-10">
+                            <input type="text" class="form-control" 
+                            id="input-att-one" placeholder="Input Attribute 1"/>
+                        </div>
+                      </div>
+                    <div class="form-group">
+                        <label  class="col-sm-2 control-label"
+                                  for="input-att-two">Attribute 2</label>
+                        <div class="col-sm-2 col-sm-10">
+                            <input type="text" class="form-control" 
+                            id="input-att-two" placeholder="Input Attribute 2"/>
+                        </div>
+                      </div>
+                    <div class="form-group">
+                        <label  class="col-sm-2 control-label"
+                                  for="input-att-three">Attribute 3</label>
+                        <div class="col-sm-2 col-sm-10">
+                            <input type="text" class="form-control" 
+                            id="input-att-three" placeholder="Input Attribute 3"/>
+                        </div>
+                      </div>
+                       -->
+                        <!-- <div class="form-group">
+                      <div class="col-sm-offset-2 col-sm-10">
+                        <div class="checkbox">
+                          <label>
+                              <input type="checkbox"/> Confirm
+                          </label>
+                        </div>
+                      </div>
+                    </div> -->
                         <div class="form-group">
                             <div class="col-sm-2 col-sm-10">
-                                <button type="submit" class="btn btn-default">+ Add Attribute</button>
+                                <button id="add-attribute-confirm" type="button" class="btn btn-default">+ Add
+                                    Attribute</button>
                             </div>
                         </div>
                     </form>
@@ -93,7 +102,9 @@
                     <button id="add-position-confirm" class="btn btn-primary" type="button">Confirm</button></div>
             </div>
         </div>
-    </div>    
+    </div>
+
+
     <!-- Add people popup-->
     <div class="modal fade" role="dialog" tabindex="-1" id="add-people-modal" style="margin-right:0px;margin-left:100px;">
         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
@@ -107,57 +118,47 @@
                 <div class="modal-body">
                     <form class="form-horizontal" role="form">
                         <div class="form-group">
-                          <label  class="col-sm-2 control-label"
-                                    for="input-first-name">First Name: </label>
-                          <div class="col-sm-10">
-                              <input type="text" class="form-control" 
-                              id="input-first-name" placeholder="Enter First Name"/>
-                          </div>
+                            <label class="col-sm-2 control-label" for="input-first-name">First Name: </label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="input-first-name" placeholder="Enter First Name" />
+                            </div>
                         </div>
                         <div class="form-group">
-                            <label  class="col-sm-2 control-label"
-                                      for="input-last-name">Last Name</label>
+                            <label class="col-sm-2 control-label" for="input-last-name">Last Name</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" 
-                                id="input-last-name" placeholder="Enter Last Name: "/>
+                                <input type="text" class="form-control" id="input-last-name" placeholder="Enter Last Name: " />
                             </div>
-                          </div>
+                        </div>
                         <div class="form-group">
-                            <label  class="col-sm-2 control-label"
-                                      for="input-emp-position">Position: </label>
+                            <label class="col-sm-2 control-label" for="input-emp-position">Position: </label>
                             <div class="col-sm-2 col-sm-10">
-                                <input type="text" class="form-control" 
-                                id="input-emp-position" placeholder="Enter Position: "/>
+                                <input type="text" class="form-control" id="input-emp-position" placeholder="Enter Position: " />
                             </div>
-                          </div>
+                        </div>
                         <div class="form-group">
-                            <label  class="col-sm-2 control-label"
-                                      for="input-email">Email: </label>
+                            <label class="col-sm-2 control-label" for="input-email">Email: </label>
                             <div class="col-sm-2 col-sm-10">
-                                <input type="email" class="form-control" 
-                                id="input-email" placeholder="Enter Email Address: "/>
+                                <input type="email" class="form-control" id="input-email" placeholder="Enter Email Address: " />
                                 <small id="email-foot" class="form-text text-muted">Please Enter a Valid Email.</small>
                             </div>
-                          </div>
+                        </div>
                         <div class="form-group">
-                            <label  class="col-sm-2 control-label"
-                                      for="input-phone">Phone:</label>
+                            <label class="col-sm-2 control-label" for="input-phone">Phone:</label>
                             <div class="col-sm-2 col-sm-10">
-                                <input type="text" class="form-control" 
-                                id="input-phone" placeholder="Enter Phone Number"/>
+                                <input type="text" class="form-control" id="input-phone" placeholder="Enter Phone Number" />
                                 <small id="email-foot" class="form-text text-muted">Please Enter a Valid Phone Number.</small>
                             </div>
-                          </div>
+                        </div>
                         <!-- <div class="form-group">
-                          <div class="col-sm-offset-2 col-sm-10">
-                            <div class="checkbox">
-                              <label>
-                                  <input type="checkbox"/> Confirm
-                              </label>
-                            </div>
-                          </div>
-                        </div> -->
-                      </form>
+                      <div class="col-sm-offset-2 col-sm-10">
+                        <div class="checkbox">
+                          <label>
+                              <input type="checkbox"/> Confirm
+                          </label>
+                        </div>
+                      </div>
+                    </div> -->
+                    </form>
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-light" type="button" data-dismiss="modal">Close</button>
@@ -165,6 +166,7 @@
             </div>
         </div>
     </div>
+
     <div></div>
     <div>
         <div class="container-fluid" style="min-height:500px;">
@@ -249,7 +251,10 @@
                                                 style="margin-left:10px;">Edit</button>
                                             <button class="btn btn-primary" type="button" id="save-btn" style="display: none;"
                                                 style="margin-left:10px;">Save</button>
-                                             <button class="btn btn-danger" type="button" id="delete-btn" style="display: none;">Delete</button>
+                                            <button class="btn btn-primary" type="button" id="ppl-edit-btn" style="display: none;"
+                                                style="margin-left:10px;">Edit info</button>
+                                            <button class="btn btn-primary" type="button" id="ppl-save-btn" style="display: none;"
+                                                style="margin-left:10px;">Save changes</button>
                                         </div>
 
                                     </div>
@@ -299,8 +304,6 @@
         mxBasePath = 'javascript/src';
     </script>
     <script type="text/javascript" src="assets/js/mxClient.js"></script>
-
-    <script type="text/javascript" src="assets/js/require.js"></script>
 
     <script type="text/javascript" src="assets/js/positions.js"></script>
     <script type="text/javascript" src="assets/js/people.js"></script>
