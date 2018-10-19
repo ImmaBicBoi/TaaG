@@ -8,6 +8,8 @@ services:
       MYSQL_DATABASE: orgchartdb
       MYSQL_USER: webapp
       MYSQL_PASSWORD: taag
+    networks:
+     - taag
     ports:
       - "3310:3306"
     volumes:
@@ -23,6 +25,8 @@ services:
       DOCKER_CHECK: 1
     depends_on:
       - database
+    networks:
+      - taag
     ports:
       - "8080:8080" 
     volumes:
@@ -32,3 +36,5 @@ services:
       - ../mockdata:/usr/local/tomcat/webapps/ROOT/mockdata
 volumes:
   mysql-data-volume:
+networks:
+  taag:
