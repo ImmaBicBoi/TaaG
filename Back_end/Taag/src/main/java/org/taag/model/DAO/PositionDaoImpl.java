@@ -11,26 +11,30 @@ import org.taag.connection.JDBCConnection;
 import org.taag.model.Position;
 import org.taag.model.PositionMessages;
 import org.taag.model.Positions;
+import org.taag.model.StatusMessage;
 
 public class PositionDaoImpl implements Positions {
 
 	JDBCConnection jdbcConnection = new JDBCConnection();
 
 	Connection connection = jdbcConnection.getConnnection();
+	StatusMessage statusMessages = new StatusMessage();
 
 	public PositionMessages createPosition(Position pos) {
 		PositionMessages positionMessages = new PositionMessages();
 		if (pos.getPersonID() != 0) {
 			Boolean exists = checkPersonId(pos.getPersonID());
 			if (exists == true) {
-				Boolean personAlreadyExits = checkIfAnyPositionHasPerson(pos);
-				if (personAlreadyExits) {
-					positionMessages.setMessage("Another position already has this person");
-				} else {
+//				Boolean personAlreadyExits = checkIfAnyPositionHasPerson(pos);
+//				if (personAlreadyExits == true) {
+//					positionMessages.setMessage("Another position already has this person");
+//					positionMessages.setStatus(statusMessages.GetStatus(StatusMessage.status.NOCONTENT));
+//				} else {
 					createPositionDBConn(pos, positionMessages);
-				}
+//				}
 			} else {
 				positionMessages.setMessage("Person does not exist");
+				positionMessages.setStatus(statusMessages.GetStatus(StatusMessage.status.NOCONTENT));
 			}
 		} else {
 			createPositionDBConn(pos, positionMessages);
@@ -49,16 +53,16 @@ public class PositionDaoImpl implements Positions {
 
 			ps.executeUpdate();
 
-//			positionMessages.setStatus("success");
 			positionMessages.setMessage("Position created succesfully");
 			positionMessages.setPosition(pos);
+			positionMessages.setStatus(statusMessages.GetStatus(StatusMessage.status.OK));
 
 			pos.setPositionID(getPositionId(pos.getName()));
 		} catch (SQLException e) {
-//			positionMessages.setStatus("Failed");
 			positionMessages
 					.setMessage("Error unable to create position, missing required parameter/position already exists");
 			e.printStackTrace();
+			positionMessages.setStatus(statusMessages.GetStatus(StatusMessage.status.ERROR));
 		}
 
 	}
@@ -70,23 +74,25 @@ public class PositionDaoImpl implements Positions {
 			if (pos.getPersonID() != 0) {
 				Boolean exists = checkPersonId(pos.getPersonID());
 				if (exists == true) {
-					Boolean personAlreadyExits = checkIfAnyPositionHasPerson(pos);
-					if (personAlreadyExits) {
-						positionMessages.setMessage("Another position already has this person");
-					} else {
+//					Boolean personAlreadyExits = checkIfAnyPositionHasPerson(pos);
+//					if (personAlreadyExits == true) {
+//						positionMessages.setMessage("Another position already has this person");
+//						positionMessages.setStatus(statusMessages.GetStatus(StatusMessage.status.NOCONTENT));
+//					} else {
 
 						updatePositionDBConn(pos, positionId, positionMessages);
-					}
+//					}
 				} else {
 					positionMessages.setMessage("Person does not exist");
+					positionMessages.setStatus(statusMessages.GetStatus(StatusMessage.status.NOCONTENT));
 				}
 			} else {
 				updatePositionDBConn(pos, positionId, positionMessages);
 			}
 
 		} else {
-//			positionMessages.setStatus("Failed");
 			positionMessages.setMessage("Error position with provided id does not exist");
+			positionMessages.setStatus(statusMessages.GetStatus(StatusMessage.status.NOCONTENT));
 		}
 
 		return positionMessages;
@@ -99,15 +105,15 @@ public class PositionDaoImpl implements Positions {
 
 			ps.executeUpdate();
 
-//			positionMessages.setStatus("success");
 			positionMessages.setMessage("Position updated successfully");
+			positionMessages.setStatus(statusMessages.GetStatus(StatusMessage.status.OK));
 
 			pos.setPositionID(getPositionId(pos.getName()));
 			positionMessages.setPosition(pos);
 		} catch (SQLException e) {
-//			positionMessages.setStatus("Failed");
+			positionMessages.setStatus(statusMessages.GetStatus(StatusMessage.status.ERROR));
 			positionMessages
-					.setMessage("Error unable to update position, missing required parameter/some other issues");
+					.setMessage("Error unable to update position, missing required parameter/position already exists");
 			e.printStackTrace();
 		}
 
@@ -126,13 +132,13 @@ public class PositionDaoImpl implements Positions {
 					position.setPersonID(rs.getInt("PERSON_ID"));
 					position.setParentPositionID(rs.getInt("PARENT_POS_ID"));
 					position.setPositionID(rs.getInt("POSITION_ID"));
-//					position.setStatus("Success");
 					position.setMessage("Position retrieved successfully");
+					position.setStatus(statusMessages.GetStatus(StatusMessage.status.OK));
 
 				}
 			} else {
-//				position.setStatus("Failed");
 				position.setMessage("Error position with provided id does not exist");
+				position.setStatus(statusMessages.GetStatus(StatusMessage.status.NOCONTENT));
 			}
 			rs.close();
 		} catch (SQLException e) {
@@ -153,12 +159,12 @@ public class PositionDaoImpl implements Positions {
 
 				ps.executeUpdate();
 
-//				positionMessages.setStatus("success");
 				positionMessages.setMessage("Position deleted successfully");
+				positionMessages.setStatus(statusMessages.GetStatus(StatusMessage.status.OK));
 
 			} else {
-//				positionMessages.setStatus("Failed");
 				positionMessages.setMessage("Error position with provided id does not exist");
+				positionMessages.setStatus(statusMessages.GetStatus(StatusMessage.status.NOCONTENT));
 			}
 
 		}
@@ -185,8 +191,8 @@ public class PositionDaoImpl implements Positions {
 				position.setPersonID(rs.getInt("PERSON_ID"));
 				position.setParentPositionID(rs.getInt("PARENT_POS_ID"));
 				position.setPositionID(rs.getInt("POSITION_ID"));
-//				positionMessages.setStatus("success");
 				positionMessages.setMessage("Position retrieved successfully");
+				positionMessages.setStatus(statusMessages.GetStatus(StatusMessage.status.OK));
 				positions.add(position);
 				positionMessages.setPositions(positions);
 
@@ -224,26 +230,26 @@ public class PositionDaoImpl implements Positions {
 
 	}
 
-	private Boolean checkIfAnyPositionHasPerson(Position pos) {
-		Boolean exists = false;
-		try {
-			if (pos.getPersonID() != 0) {
-				PreparedStatement ps = connection.prepareStatement("select POSITION_ID from POSITION where PERSON_ID="
-						+ "'" + pos.getPersonID() + "' and POSITION_NAME = " + "'" + pos.getName() + "'");
-
-				ResultSet rs = ps.executeQuery();
-				while (rs.next()) {
-					exists = true;
-				}
-				rs.close();
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		return exists;
-	}
+//	private Boolean checkIfAnyPositionHasPerson(Position pos) {
+//		Boolean exists = false;
+//		try {
+//			if (pos.getPersonID() != 0) {
+//				PreparedStatement ps = connection.prepareStatement("select POSITION_ID from POSITION where PERSON_ID="
+//						+ "'" + pos.getPersonID() + "' and POSITION_NAME = " + "'" + pos.getName() + "'");
+//
+//				ResultSet rs = ps.executeQuery();
+//				while (rs.next()) {
+//					exists = true;
+//				}
+//				rs.close();
+//			}
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//
+//		return exists;
+//	}
 
 	private Boolean checkPositionId(int positionId) {
 		Boolean exists = false;

@@ -4,59 +4,105 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.taag.connection.JDBCConnection;
 import org.taag.model.Person;
+import org.taag.model.PersonMessages;
+import org.taag.model.StatusMessage;
 
 public class PersonDaoImpl {
+	
+			JDBCConnection jdbcConnection = new JDBCConnection();
+			Connection connection = jdbcConnection.getConnnection();
+			StatusMessage statusMessages = new StatusMessage();
 
-	public void setPersonDetails(Person person) {
+	public PersonMessages createPerson(Person person) {
+		PersonMessages personMessages=new PersonMessages();
+			Boolean exists = checkPerson(person);
+			if (exists == true) {
+				personMessages.setMessage("Person already exists");
+				personMessages.setStatus(statusMessages.GetStatus(StatusMessage.status.NOCONTENT));
+				} else {
+					try {
+						PreparedStatement ps = connection.prepareStatement("call CREATE_PERSON (?,?,?)");
+						ps.setString(1, person.getFirstName());
+						ps.setString(2, person.getLastName());
+						ps.setString(3, person.getEmail());
+						ps.executeUpdate();
+						personMessages.setPerson(person);
+						person.setPersonID(getPersonId(person.getEmail()));
+						personMessages.setMessage("Person created successfully");
+						personMessages.setStatus(statusMessages.GetStatus(StatusMessage.status.OK));
+					}
 
-		// List personData = new ArrayList();
-		JDBCConnection jdbcConnection = new JDBCConnection();
+					catch (SQLException e) {
+						e.printStackTrace();
+						personMessages.setStatus(statusMessages.GetStatus(StatusMessage.status.ERROR));
+						personMessages.setMessage("Error: unable to create person, missing required parameter");
+					}
 
-		Connection connection = jdbcConnection.getConnnection();
-		if (connection == null) {
-			System.out.println("connection is null");
-		}
+				}
 
-		try {
-			PreparedStatement ps = connection.prepareStatement("insert into person values (?,?)");
-			ps.setString(1, person.getName());
-			ps.setString(2, person.getRole());
-			ps.executeUpdate();
-		}
-
-		catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
+		return personMessages;
 	}
 
-	public Person getPerson() {
 
-		// List personData = new ArrayList();
-		JDBCConnection jdbcConnection = new JDBCConnection();
-		Person person = new Person();
+	
 
-		Connection connection = jdbcConnection.getConnnection();
-		if (connection == null) {
-			System.out.println("connection is null");
-		}
 
-		try {
-			PreparedStatement ps = connection.prepareStatement("select name,role from person");
-			ResultSet rs = ps.executeQuery();
-			System.out.println("getting values");
-			while (rs.next()) {
-				
-				person.setName(rs.getString("name"));
-				person.setRole(rs.getString("role"));
-				
-				// personData.add(person);
+	public PersonMessages updatePerson(Person person, int personId) {
+		PersonMessages personMessages = new PersonMessages();
+				Boolean exists = checkPersonId(personId);
+					if (exists == true) {
+						
+						try {
+							PreparedStatement ps = connection.prepareStatement("call UPDATE_PERSON( " + "'" + personId + "','"
+									+ person.getFirstName() + "','" + person.getLastName() + "','" + person.getEmail() + "')");
 
+							ps.executeUpdate();
+                            personMessages.setMessage("Person updated successfully");
+							personMessages.setStatus(statusMessages.GetStatus(StatusMessage.status.OK));
+
+							person.setPersonID(getPersonId(person.getEmail()));
+							personMessages.setPerson(person);
+						} catch (SQLException e) {
+							personMessages.setStatus(statusMessages.GetStatus(StatusMessage.status.ERROR));
+							e.printStackTrace();
+						}
+						
+			} else {
+				personMessages.setMessage("Error: person with provided id does not exist");
+				personMessages.setStatus(statusMessages.GetStatus(StatusMessage.status.NOCONTENT));
 			}
+
+		
+		return personMessages;
+	}
+
+	
+	public Person getPerson(int personId) {
+		Person person = new Person();
+		Boolean exists = checkPersonId(personId);
+		try { 
+		PreparedStatement ps = connection.prepareStatement("call RETRIEVE_PERSON('" + personId + "')");
+		ResultSet rs = ps.executeQuery();
+		if (exists) {
+			
+			while (rs.next()) {
+				person.setPersonID(rs.getInt("PERSON_ID"));
+				person.setFirstName(rs.getString("PERSON_FNAME"));
+				person.setLastName(rs.getString("PERSON_LNAME"));
+				person.setEmail(rs.getString("EMAIL"));
+				person.setMessage("Person retrieved successfully");
+				person.setStatus(statusMessages.GetStatus(StatusMessage.status.OK));
+			}
+		}
+		else {
+			person.setMessage("Error: person with provided id does not exist");
+			person.setStatus(statusMessages.GetStatus(StatusMessage.status.NOCONTENT));
+		}
 			rs.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -64,6 +110,124 @@ public class PersonDaoImpl {
 		}
 
 		return person;
+			
+	}
+	
+	public PersonMessages deletePerson(int personId) {
+		PersonMessages personMessages = new PersonMessages();
+		try {
+
+			Boolean exists = checkPersonId(personId);
+			if (exists) {
+				PreparedStatement ps = connection.prepareStatement("call DELETE_PERSON('" + personId + "')");
+
+				ps.executeUpdate();
+                personMessages.setMessage("Person deleted successfully");
+				personMessages.setStatus(statusMessages.GetStatus(StatusMessage.status.OK));
+
+			} else {
+				personMessages.setMessage("Error person with provided id does not exist");
+				personMessages.setStatus(statusMessages.GetStatus(StatusMessage.status.NOCONTENT));
+			}
+
+		}
+
+		catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return personMessages;
+
+	}
+	public PersonMessages getAllPersons() {
+		List<Person> persons = new ArrayList<Person>();
+		PersonMessages personMessages = new PersonMessages();
+		try {
+			PreparedStatement ps = connection.prepareStatement("call RETRIEVE_ALL_PEOPLE");
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				Person person = new Person();
+				person.setPersonID(rs.getInt("PERSON_ID"));
+				person.setFirstName(rs.getString("PERSON_FNAME"));
+				person.setLastName(rs.getString("PERSON_LNAME"));
+				person.setEmail(rs.getString("EMAIL"));
+				personMessages.setStatus(statusMessages.GetStatus(StatusMessage.status.OK));
+				personMessages.setMessage("Persons retrieved successfully");
+				persons.add(person);
+				personMessages.setPersons(persons);
+
+			}
+
+			rs.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return personMessages;
+	}
+	
+	
+	private Boolean checkPerson(Person person) {
+		Boolean exists = false;
+		try {
+
+			PreparedStatement ps = connection.prepareStatement(
+					"select PERSON_ID from PERSON where EMAIL = " + "'" + person.getEmail() + "'");
+			ResultSet rs = ps.executeQuery();
+
+			while (rs.next()) {
+				exists = true;
+
+			}
+			rs.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return exists;
+	}
+	
+	private Boolean checkPersonId(Integer personID) {
+		Boolean exists = false;
+		try {
+			if (personID != 0) {
+				PreparedStatement ps = connection
+						.prepareStatement("select * from PERSON where PERSON_ID=" + "'" + personID + "'");
+				ResultSet rs = ps.executeQuery();
+				while (rs.next()) {
+
+					exists = true;
+
+				}
+				rs.close();
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return exists;
+	}
+	public int getPersonId(String personEmail) {
+		int personID = 0;
+		try {
+
+			PreparedStatement ps = connection.prepareStatement(
+					"select PERSON_ID from PERSON where EMAIL = " + "'" + personEmail + "'");
+			ResultSet rs = ps.executeQuery();
+
+			while (rs.next()) {
+				personID = rs.getInt("PERSON_ID");
+
+			}
+			rs.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return personID;
 	}
 
 }

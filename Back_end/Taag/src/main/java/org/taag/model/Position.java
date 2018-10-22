@@ -1,5 +1,6 @@
 package org.taag.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -7,10 +8,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Position {
 
 	public String name;
-	public int position_id;
+	public Integer position_id;
 	public Integer person_id;
-	public int parent_position_id;
-//	public String status;
+	public Integer parent_position_id;
+	public String status;
 	public String message;
 
 	@JsonProperty(value = "name")
@@ -24,11 +25,11 @@ public class Position {
 
 
 	@JsonProperty(value = "position_id")
-	public int getPositionID() {
+	public Integer getPositionID() {
 		return position_id;
 	}
 
-	public void setPositionID(int position_id) {
+	public void setPositionID(Integer position_id) {
 		this.position_id = position_id;
 	}
 	
@@ -41,23 +42,22 @@ public class Position {
 	 }
 
 	@JsonProperty(value = "parent_position_id")
-	public int getParentPositionID() {
+	public Integer getParentPositionID() {
 		return parent_position_id;
 	}
 
-	public void setParentPositionID(int parent_position_id) {
+	public void setParentPositionID(Integer parent_position_id) {
 		this.parent_position_id = parent_position_id;
 	}
 
+	@JsonIgnore
+	public String getStatus() {
+		return status;
+	}
 
-//	@JsonProperty(value = "status")
-//	public String getStatus() {
-//		return status;
-//	}
-//
-//	public void setStatus(String status) {
-//		this.status = status;
-//	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
 
 	@JsonProperty(value = "message")
 	public String getMessage() {
