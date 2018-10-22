@@ -1,8 +1,12 @@
 package org.taag.model;
 
+import java.util.HashMap;
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.sun.org.apache.bcel.internal.classfile.Attribute;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Position {
@@ -13,6 +17,8 @@ public class Position {
 	public Integer parent_position_id;
 	public String status;
 	public String message;
+	public String employee_id;
+	public List<Attributes> attribute;
 
 	@JsonProperty(value = "name")
 	public String getName() {
@@ -67,5 +73,28 @@ public class Position {
 	public void setMessage(String message) {
 		this.message = message;
 	}
+
+	@JsonProperty(value = "employee_id")
+	public String getEmployee_id() {
+		return employee_id;
+	}
+
+	public void setEmployee_id(String employee_id) {
+		this.employee_id = employee_id;
+	}
+
+	@JsonProperty(value = "attributes")
+	public List<Attributes> getAttribute() {
+		return attribute;
+	}
+
+	public void setAttribute(List<Attributes> attribute) {
+		this.attribute = attribute;
+	}
+
+	
+	
+	
+	
 
 }

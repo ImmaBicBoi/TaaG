@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.taag.connection.JDBCConnection;
+import org.taag.model.Attributes;
 import org.taag.model.Position;
 import org.taag.model.PositionMessages;
 import org.taag.model.Positions;
@@ -46,18 +47,32 @@ public class PositionDaoImpl implements Positions {
 	private void createPositionDBConn(Position pos, PositionMessages positionMessages) {
 		PreparedStatement ps = null;
 		try {
-			ps = connection.prepareStatement("call CREATE_POSITION (?,?,?)");
+			ps = connection.prepareStatement("call CREATE_POSITION (?,?,?,?)");
 			ps.setString(1, pos.getName());
 			ps.setInt(2, pos.getParentPositionID());
 			ps.setInt(3, pos.getPersonID());
+			ps.setString(4, pos.getEmployee_id());
 
 			ps.executeUpdate();
+			
+			pos.setPositionID(getPositionId(pos.getEmployee_id()));
+			
+			List<Attributes> attributes = pos.getAttribute();
+			
+			for(Attributes attri : attributes) {
+				ps = connection.prepareStatement("call CREATE_ATTRIBUTE (?,?,?)");
+				ps.setString(1, attri.getKey());
+				ps.setString(2, attri.getValue());
+				ps.setInt(3, pos.getPositionID());
+				ps.executeUpdate();
+			}
+			
 
 			positionMessages.setMessage("Position created succesfully");
 			positionMessages.setPosition(pos);
 			positionMessages.setStatus(statusMessages.GetStatus(StatusMessage.status.OK));
 
-			pos.setPositionID(getPositionId(pos.getName()));
+//			pos.setPositionID(getPositionId(pos.getName()));
 		} catch (SQLException e) {
 			positionMessages
 					.setMessage("Error unable to create position, missing required parameter/position already exists");
@@ -121,10 +136,14 @@ public class PositionDaoImpl implements Positions {
 
 	public Position getPosition(int positionId) {
 		Position position = new Position();
+		Attributes attribute = new Attributes();
+		List<Attributes> attributes = new ArrayList<Attributes>();
+		PreparedStatement ps;
+		ResultSet rs;
 		Boolean exists = checkPositionId(positionId);
 		try {
-			PreparedStatement ps = connection.prepareStatement("call RETRIEVE_POSITION('" + positionId + "')");
-			ResultSet rs = ps.executeQuery();
+			 ps = connection.prepareStatement("call RETRIEVE_POSITION('" + positionId + "')");
+			 rs = ps.executeQuery();
 			if (exists) {
 				while (rs.next()) {
 
@@ -132,10 +151,22 @@ public class PositionDaoImpl implements Positions {
 					position.setPersonID(rs.getInt("PERSON_ID"));
 					position.setParentPositionID(rs.getInt("PARENT_POS_ID"));
 					position.setPositionID(rs.getInt("POSITION_ID"));
+					position.setEmployee_id(rs.getString("EMPLOYEE_ID"));
 					position.setMessage("Position retrieved successfully");
 					position.setStatus(statusMessages.GetStatus(StatusMessage.status.OK));
 
 				}
+				
+				ps = connection.prepareStatement("select * from POSATTRIBUTE where POSITION_ID ="+positionId);
+				rs = ps.executeQuery();
+				while (rs.next()) {
+
+					attribute.setKey(rs.getString("ATTRIBUTE_KEY"));
+					attribute.setValue(rs.getString("ATTRIBUTE_VALUE"));
+					attributes.add(attribute);
+				}
+				position.setAttribute(attributes);
+				
 			} else {
 				position.setMessage("Error position with provided id does not exist");
 				position.setStatus(statusMessages.GetStatus(StatusMessage.status.NOCONTENT));
@@ -181,22 +212,50 @@ public class PositionDaoImpl implements Positions {
 	public PositionMessages getAllPositions() {
 		List<Position> positions = new ArrayList<Position>();
 		PositionMessages positionMessages = new PositionMessages();
-
+		Attributes attribute = new Attributes();
+		List<Attributes> attributes = new ArrayList<Attributes>();
+		ResultSet rs;
 		try {
-			PreparedStatement ps = connection.prepareStatement("call RETRIEVE_ALL_POSITIONS");
-			ResultSet rs = ps.executeQuery();
+			PreparedStatement ps = connection.prepareStatement("select P.POSITION_ID,P.POSITION_NAME,P.PARENT_POS_ID,P.PERSON_ID,P.EMPLOYEE_ID,A.ATTRIBUTE_KEY,A.ATTRIBUTE_VALUE from  POSITION P,POSATTRIBUTE A\r\n" + 
+					"		where P.POSITION_ID = A.POSITION_ID;");
+			 rs = ps.executeQuery();
 			while (rs.next()) {
+//				Integer currentPosition = 0;
+//				Integer posId = currentPosition - 1;
 				Position position = new Position();
 				position.setName(rs.getString("POSITION_NAME"));
 				position.setPersonID(rs.getInt("PERSON_ID"));
 				position.setParentPositionID(rs.getInt("PARENT_POS_ID"));
 				position.setPositionID(rs.getInt("POSITION_ID"));
+//				currentPosition = rs.getInt("POSITION_ID");
+				position.setEmployee_id(rs.getString("EMPLOYEE_ID"));
+				attribute.setKey(rs.getString("ATTRIBUTE_KEY"));
+				attribute.setValue(rs.getString("ATTRIBUTE_VALUE"));
+				attributes.add(attribute);
 				positionMessages.setMessage("Position retrieved successfully");
 				positionMessages.setStatus(statusMessages.GetStatus(StatusMessage.status.OK));
+				position.setAttribute(attributes);
 				positions.add(position);
 				positionMessages.setPositions(positions);
 
 			}
+//			for(Position pos : positions) {
+//			ps = connection.prepareStatement("select * from POSATTRIBUTE where POSITION_ID ="+pos.getPositionID());
+//			rs = ps.executeQuery();
+//			while (rs.next()) {
+//
+//				attribute.setKey(rs.getString("ATTRIBUTE_KEY"));
+//				attribute.setValue(rs.getString("ATTRIBUTE_VALUE"));
+//				attributes.add(attribute);
+//			}
+//			
+//			pos.setAttribute(attributes);
+//			//positions.add(pos);
+//			//position.setAttribute(attributes);
+//			positionMessages.setPositions(positions);
+		//}
+		
+			
 
 			rs.close();
 		} catch (SQLException e) {
@@ -271,12 +330,33 @@ public class PositionDaoImpl implements Positions {
 		return exists;
 	}
 
-	public int getPositionId(String positionName) {
+//	public int getPositionId(String positionName) {
+//		int positionID = 0;
+//		try {
+//
+//			PreparedStatement ps = connection.prepareStatement(
+//					"select POSITION_ID from POSITION where POSITION_NAME = " + "'" + positionName + "'");
+//			ResultSet rs = ps.executeQuery();
+//
+//			while (rs.next()) {
+//				positionID = rs.getInt("POSITION_ID");
+//
+//			}
+//			rs.close();
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		return positionID;
+//
+//	}
+	
+	public int getPositionId(String employeeId) {
 		int positionID = 0;
 		try {
 
 			PreparedStatement ps = connection.prepareStatement(
-					"select POSITION_ID from POSITION where POSITION_NAME = " + "'" + positionName + "'");
+					"select POSITION_ID from POSITION where EMPLOYEE_ID = " + "'" + employeeId + "'");
 			ResultSet rs = ps.executeQuery();
 
 			while (rs.next()) {

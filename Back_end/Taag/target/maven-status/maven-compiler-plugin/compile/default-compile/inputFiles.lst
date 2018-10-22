@@ -2,6 +2,7 @@ D:\SEM3_classes\Agile\workspace\Taag\src\main\java\org\taag\controller\PersonSer
 D:\SEM3_classes\Agile\workspace\Taag\src\main\java\org\taag\model\PersonMessages.java
 D:\SEM3_classes\Agile\workspace\Taag\src\main\java\org\taag\model\Persons.java
 D:\SEM3_classes\Agile\workspace\Taag\src\main\java\org\taag\model\Position.java
+D:\SEM3_classes\Agile\workspace\Taag\src\main\java\org\taag\model\Attributes.java
 D:\SEM3_classes\Agile\workspace\Taag\src\main\java\org\taag\model\DAO\PersonDaoImpl.java
 D:\SEM3_classes\Agile\workspace\Taag\src\main\java\org\taag\connection\JDBCConnection.java
 D:\SEM3_classes\Agile\workspace\Taag\src\main\java\org\taag\provider\MyJacksonJsonProvider.java
