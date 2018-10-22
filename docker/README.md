@@ -15,7 +15,7 @@
     - You should see a JSON response.  
     - It may take a few seconds for the web service to start up and become responsive.  Please wait a few seconds after starting the docker container to call the web service.  
 
-- To stop the containers run the following command in the <git_path>/Taag/docker directory `docker-compose stop` or `docker-compse down --volumes` to remove the copied volumes after shutdown.  
+- To stop the containers run the following command in the <git_path>/Taag/docker directory `docker-compose stop` or `docker-compose down --volumes` to remove the copied volumes after shutdown.  
 
 ## Commands useful for troubleshooting docker  
 - `docker ps` (This command show the container id, name, what ports are open, etc.)  
