@@ -1,9 +1,10 @@
 console.log('starting requests');
 
 function loadAllPersons(){
+  console.log('loading from API');
     $.getJSON( "http://localhost:8080/Taag/service/person", function( data ) {
         var items = [];
-        items.push(data.message);
+       // items.push(data.message);
         $.each( data.persons, function( key, val ) {
           items.push( "<li >" + data.persons[key].person_id + ": " + 
           data.persons[key].first_name+ " " +
@@ -11,8 +12,9 @@ function loadAllPersons(){
         });
        
         $( "<ul/>", {
-          "class": "my-new-list",
+          "class": "list-unstyled draggable-list",
+          "id": "people-list",
           html: items.join( "" )
-        }).appendTo( "body" );
+        }).appendTo( "#tab-2" );
       });
 }
