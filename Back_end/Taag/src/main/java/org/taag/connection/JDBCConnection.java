@@ -3,6 +3,7 @@ package org.taag.connection;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.logging.*;
 
 public class JDBCConnection {
 
@@ -26,18 +27,19 @@ public class JDBCConnection {
 				connectionPass = "taag";
 			}
 			
+			Logger.getLogger (JDBCConnection.class.getName()).log(Level.INFO, "Attempting to connect to the database:\nconnectionURL='"+connectionURL+"'\nconnectionUser='"+connectionUser+"'\nconnectionPass='"+connectionPass+"'");
+			
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 			connection = DriverManager.getConnection(connectionURL, connectionUser, connectionPass);
 
 		} catch (InstantiationException e) {
-			e.getLocalizedMessage();
-
+			Logger.getLogger (JDBCConnection.class.getName()).log(Level.SEVERE, e.getMessage(), e);
 		} catch (IllegalAccessException e2) {
-			e2.getLocalizedMessage();
+			Logger.getLogger (JDBCConnection.class.getName()).log(Level.SEVERE, e2.getMessage(), e2);
 		} catch (ClassNotFoundException e3) {
-			e3.getLocalizedMessage();
+			Logger.getLogger (JDBCConnection.class.getName()).log(Level.SEVERE, e3.getMessage(), e3);
 		} catch (SQLException e4) {
-			e4.getLocalizedMessage();
+			Logger.getLogger (JDBCConnection.class.getName()).log(Level.SEVERE, e4.getMessage(), e4);
 		}
 
 		return connection;
