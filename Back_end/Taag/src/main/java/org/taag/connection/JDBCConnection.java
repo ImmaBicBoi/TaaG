@@ -19,6 +19,11 @@ public class JDBCConnection {
 				connectionURL = "jdbc:mysql://database:3306/orgchartdb";
 				connectionUser = "webapp";
 				connectionPass = "taag";
+			} else if (System.getenv("SAM_CHECK").equals("1")) {
+				//Running on a machine that wants to use webapp user and localhost
+				connectionURL = "jdbc:mysql://localhost:3306/orgchartdb";
+				connectionUser = "webapp";
+				connectionPass = "taag";
 			}
 			
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
