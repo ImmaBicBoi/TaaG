@@ -30,10 +30,10 @@ services:
     ports:
       - "8080:8080" 
     volumes:
-      - ../Back_end/Taag.war:/usr/local/tomcat/webapps/Taag.war
-      - ../index.html:/usr/local/tomcat/webapps/ROOT/index.html
-      - ../assets:/usr/local/tomcat/webapps/ROOT/assets
-      - ../mockdata:/usr/local/tomcat/webapps/ROOT/mockdata
+#      - /c/wamp64/www/taag/Back_end/Taag.war:/usr/local/tomcat/webapps/Taag.war
+      - /c/wamp64/www/taag/:/usr/local/tomcat/webapps/ROOT/
+#      - /c/wamp64/www/taag/assets:/usr/local/tomcat/webapps/ROOT/assets
+#      - /c/wamp64/www/taag/mockdata:/usr/local/tomcat/webapps/ROOT/mockdata
 volumes:
   mysql-data-volume:
 networks:
