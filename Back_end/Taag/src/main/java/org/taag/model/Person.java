@@ -1,5 +1,7 @@
 package org.taag.model;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -13,6 +15,7 @@ public class Person {
 	private String employee_id;
 	public String message;
 	public String status;
+	public List<Attributes> attribute;
 	
 
 	@JsonProperty(value = "first_name")
@@ -69,6 +72,16 @@ public class Person {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+	
+	@JsonProperty(value = "attributes")
+	public List<Attributes> getAttribute() {
+		return attribute;
+	}
+
+	public void setAttribute(List<Attributes> attribute) {
+		this.attribute = attribute;
+	}
+
 	
 	
 

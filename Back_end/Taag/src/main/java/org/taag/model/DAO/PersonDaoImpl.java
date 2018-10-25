@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.taag.connection.JDBCConnection;
+import org.taag.model.Attributes;
 import org.taag.model.Person;
 import org.taag.model.PersonMessages;
 import org.taag.model.StatusMessage;
@@ -33,9 +34,24 @@ public class PersonDaoImpl {
 						cs.setString(3, person.getEmployee_id());
 						cs.registerOutParameter(4, java.sql.Types.INTEGER);
 						cs.executeUpdate();
-						int positionId = cs.getInt(4);
+						int personId = cs.getInt(4);
 						
-						person.setPersonID(positionId);
+						person.setPersonID(personId);
+						
+						if(person.getAttribute() != null) {
+							List<Attributes> attributes = person.getAttribute();
+							
+							for(Attributes attri : attributes) {
+								cs = connection.prepareCall("call CREATE_PERSON_ATTR (?,?,?)");
+								cs.setString(1, attri.getKey());
+								cs.setString(2, attri.getValue());
+								cs.setInt(3, personId);
+								cs.executeUpdate();
+							}
+							
+							}
+							
+						
 						personMessages.setPerson(person);
 						personMessages.setMessage("Person created successfully");
 						personMessages.setStatus(statusMessages.GetStatus(StatusMessage.status.OK));
@@ -88,6 +104,7 @@ public class PersonDaoImpl {
 	
 	public Person getPerson(int personId) {
 		Person person = new Person();
+		List<Attributes> attributes = new ArrayList<Attributes>();
 		Boolean exists = checkPersonId(personId);
 		try { 
 		PreparedStatement ps = connection.prepareStatement("call RETRIEVE_PERSON('" + personId + "')");
@@ -102,6 +119,17 @@ public class PersonDaoImpl {
 				person.setMessage("Person retrieved successfully");
 				person.setStatus(statusMessages.GetStatus(StatusMessage.status.OK));
 			}
+			
+			
+			ps = connection.prepareStatement("call RETRIEVE_PERSON_ATTR('" + personId + "')");
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				Attributes attribute = new Attributes();
+				attribute.setKey(rs.getString("PER_ATTR_KEY"));
+				attribute.setValue(rs.getString("PER_ATTR_VALUE"));
+				attributes.add(attribute);
+			}
+			person.setAttribute(attributes);
 		}
 		else {
 			person.setMessage("Error: person with provided id does not exist");
