@@ -190,7 +190,7 @@ delimiter ;
 
 drop procedure if exists RETRIEVE_POSITION_ATTR;
 delimiter $$
-create procedure RETRIEVE_POSITION_ATTR (in PerId int(10))
+create procedure RETRIEVE_POSITION_ATTR (in PosId int(10))
 begin
 		start transaction;
 		select POS_ATTR_KEY,POS_ATTR_VALUE from  POSITION_ATTRIBUTE
@@ -384,7 +384,7 @@ delimiter ;
 
 drop procedure if exists RETRIEVE_PERSON_ATTR;
 delimiter $$
-create procedure RETRIEVE_PERSON_ATTR (in PosId int(10))
+create procedure RETRIEVE_PERSON_ATTR (in PerId int(10))
 begin
 		start transaction;
 		select PER_ATTR_KEY, PER_ATTR_VALUE from  PERSON_ATTRIBUTE 
