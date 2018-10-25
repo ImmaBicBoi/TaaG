@@ -15,7 +15,7 @@
                     $.ajax({
                         url: $(this).attr("id") === "postMessage" ? ctxPath+"/service/message/post" : ctxPath+"/service/position",
                         type: "POST",
-                        data: '{"name":"Dev", "person_id":3 ,"parent_position_id":"3"}',
+                        data: '{"name":"Soft","parent_position_id":"1","person_id":"0","employee_id": "A11-11","attributes":[{"key":"Type","value":"Part Time"},{"key":"Test2","value":"TestVal2"}]}',
                         contentType: "application/json",
                         cache: false,
                         dataType: "json"
@@ -31,7 +31,7 @@
 	   <ul>
 	       <li><a href="<%=request.getContextPath() %>/service/message"><%=request.getContextPath() %>/service/message</a></li>
 	       <li><a href="<%=request.getContextPath() %>/service/message/ping"><%=request.getContextPath() %>/service/message/ping</a></li>
-	       <li><a href="<%=request.getContextPath() %>/service/person/4"><%=request.getContextPath() %>/service/person/get</a></li>
+	       <li><a href="<%=request.getContextPath() %>/service/position/1"><%=request.getContextPath() %>/service/person/get</a></li>
            <li><button id="postPerson">Post Person</button></li>
            <li><button id="postMessage">Post Message</button></li>
 	   </ul>
