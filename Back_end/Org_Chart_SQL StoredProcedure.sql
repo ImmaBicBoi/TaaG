@@ -18,9 +18,8 @@ create table POSITION (
     KEY FK_PERSON (PERSON_ID)
 	
 );
-/******************************************************/
-/***** INSERT DUMMY DATA INTO  POSITION TABLE *********/
-/******************************************************/
+
+/* INSERT DUMMY DATA INTO POSITION TABLE */
 
 insert into POSITION (POSITION_NAME,PARENT_POS_ID,PERSON_ID,JOB_ID) values 
 ('CTO',NULL ,NULL,'AA-009'),
@@ -36,21 +35,27 @@ insert into POSITION (POSITION_NAME,PARENT_POS_ID,PERSON_ID,JOB_ID) values
 
 /******************************************************/
 
+/* INSERT POSITION */
+
 drop procedure if exists CREATE_POSITION;
 delimiter $$
 create procedure CREATE_POSITION (in PosName varchar(30), in ParentPos int(10),
-								  in PerId int(10), in JobId varchar(20))
+								  in PerId int(10), in JobId varchar(20), out PosId int(10))
 							
 begin
 		start transaction;
 		insert into POSITION (POSITION_NAME, PARENT_POS_ID, PERSON_ID, JOB_ID) values (PosName, ParentPos, PerId, JobId);
-				
+		SET PosId = LAST_INSERT_ID();
+		Select PosId;
     commit;
-    
+		
+   
 end$$
 delimiter ;
 
 /******************************************************/
+/* UPDATE POSITION */
+
 drop procedure if exists UPDATE_POSITION;
 
 delimiter $$
@@ -73,6 +78,8 @@ end$$
 delimiter ;
 
 /******************************************************/
+/* DELETE POSITION */
+
 drop procedure if exists DELETE_POSITION;
 delimiter $$
 create procedure DELETE_POSITION (in PosId int(10))
@@ -85,6 +92,8 @@ begin
 end$$
 delimiter ;
 /******************************************************/
+/* RETRIEVE ALL POSITIONS */
+
 drop procedure if exists RETRIEVE_ALL_POSITIONS;
 delimiter $$
 create procedure RETRIEVE_ALL_POSITIONS ()
@@ -97,6 +106,8 @@ begin
 end$$
 delimiter ;
 /******************************************************/
+/* RETRIEVE POSITION BY ID */
+
 drop procedure if exists RETRIEVE_POSITION;
 delimiter $$
 create procedure RETRIEVE_POSITION (in PosId int(10))
@@ -106,6 +117,85 @@ begin
 		where POSITION_ID = PosId;
 		
 				
+    commit;
+    
+end$$
+delimiter ;
+/******************************************************/
+/***********       POSITION ATTRIBUTES  ***************/
+/******************************************************/
+
+drop table if exists POSITION_ATTRIBUTE;
+
+create table POSITION_ATTRIBUTE (
+	POS_ATTR_ID int NOT NULL AUTO_INCREMENT,
+	POS_ATTR_KEY varchar(255),
+	POS_ATTR_VALUE varchar(255),
+	POSITION_ID int (10) NOT NULL ,
+	
+	PRIMARY KEY (POS_ATTR_ID),
+    KEY FK_POSITION (POSITION_ID)
+	);
+	
+/* INSERT DUMMY DATA INTO POSITION ATTRIBUTE TABLE */
+
+insert into POSITION_ATTRIBUTE (POS_ATTR_KEY,POS_ATTR_VALUE,POSITION_ID) values 
+('Type','Full Time',1),
+('Base Pay','$ 250,000',1),
+('Type','Full Time',2),
+('Type','Full Time',3),
+('Type','Full Time',4),
+('Type','Full Time',5),
+('Type','Full Time',6),
+('Years of experience','8 years',6),
+('Type','Full Time',7),
+('Programming Language skill','Java',7),
+('Type','Full Time',8),
+('Type','Full Time',9),
+('Type','Part Time',10);
+
+/******************************************************/
+/* INSERT POSITION ATTRIBUTES */
+
+drop procedure if exists CREATE_POSITION_ATTR;
+delimiter $$
+create procedure CREATE_POSITION_ATTR ( in attr_key varchar(255), in attr_value varchar(255),in PosId int (10))
+							
+begin
+		start transaction;
+		insert into POSITION_ATTRIBUTE (POS_ATTR_KEY, POS_ATTR_VALUE, POSITION_ID) values (attr_key, attr_value, PosId);
+				
+    commit;
+    
+end$$
+delimiter ;
+
+/******************************************************/
+/* DELETE POSITION ATTRIBUTES*/
+
+drop procedure if exists DELETE_POSITION_ATTR;
+delimiter $$
+create procedure DELETE_POSITION_ATTR (in PosId int(10))
+begin
+		start transaction;
+		DELETE from POSITION_ATTRIBUTE where POSITION_ID = PosId;
+				
+    commit;
+    
+end$$
+delimiter ;
+
+/******************************************************/
+/* RETRIEVE POSITION ATTRIBUTES BY POSITION_ID */
+
+drop procedure if exists RETRIEVE_POSITION_ATTR;
+delimiter $$
+create procedure RETRIEVE_POSITION_ATTR (in PerId int(10))
+begin
+		start transaction;
+		select POS_ATTR_KEY,POS_ATTR_VALUE from  POSITION_ATTRIBUTE
+		where POSITION_ID = PosId;
+			
     commit;
     
 end$$
@@ -126,9 +216,7 @@ create table PERSON (
 	PRIMARY KEY (PERSON_ID)
 );
 
-/******************************************************/
-/***** INSERT DUMMY DATA INTO  PERSON TABLE ***********/
-/******************************************************/
+/* INSERT DUMMY DATA INTO PERSON TABLE */
 
 insert into PERSON (PERSON_FNAME,PERSON_LNAME,EMPLOYEE_ID ) values 
 ('Frank','Ellison','E500689'),
@@ -143,27 +231,31 @@ insert into PERSON (PERSON_FNAME,PERSON_LNAME,EMPLOYEE_ID ) values
 ('Jason','Murray', 'E500949');
 
 /******************************************************/
+/* INSERT PERSON */
 
 drop procedure if exists CREATE_PERSON;
 delimiter $$
 create procedure CREATE_PERSON (in Person_firstName varchar(255), in Person_lastName varchar(255),
-								  in empid varchar(20))
+								  in empid varchar(255), out perId int(10))
 							
 begin
 		start transaction;
 		insert into PERSON (PERSON_FNAME, PERSON_LNAME, EMPLOYEE_ID) values (Person_firstName,Person_lastName, empid);
-				
+		SET PerId = LAST_INSERT_ID();
+		Select PerId;
     commit;
     
 end$$
 delimiter ;
 
 /******************************************************/
+/* UPDATE PERSON */
+
 drop procedure if exists UPDATE_PERSON;
 
 delimiter $$
 create procedure UPDATE_PERSON (in PerId int(10), in Person_firstName varchar(255), 
-								in Person_lastName varchar(255),  in empid varchar(20))
+								in Person_lastName varchar(255),  in empid varchar(255))
 begin
 		start transaction;
 		Update PERSON 
@@ -180,6 +272,8 @@ end$$
 delimiter ;
 
 /******************************************************/
+/* DELETE PERSON */
+
 drop procedure if exists DELETE_PERSON;
 delimiter $$
 create procedure DELETE_PERSON (in PerId int(10))
@@ -192,6 +286,8 @@ begin
 end$$
 delimiter ;
 /******************************************************/
+/* RETIEVE ALL PEOPLE */
+
 drop procedure if exists RETRIEVE_ALL_PEOPLE;
 delimiter $$
 create procedure RETRIEVE_ALL_PEOPLE ()
@@ -204,6 +300,8 @@ begin
 end$$
 delimiter ;
 /******************************************************/
+/* RETRIEVE PERSON BY ID */
+
 drop procedure if exists RETRIEVE_PERSON;
 delimiter $$
 create procedure RETRIEVE_PERSON (in PerId int(10))
@@ -217,4 +315,85 @@ begin
     
 end$$
 delimiter ;
+
+/******************************************************/
+/**************     PERSON ATTRIBUTES   ***************/
+/******************************************************/
+
+drop table if exists PERSON_ATTRIBUTE;
+
+create table PERSON_ATTRIBUTE (
+	PER_ATTR_ID int NOT NULL AUTO_INCREMENT,
+	PER_ATTR_KEY varchar(255),
+	PER_ATTR_VALUE varchar(255),
+	PERSON_ID int (10) NOT NULL ,
+	
+	PRIMARY KEY (PER_ATTR_ID),
+    KEY FK_PERSON (PERSON_ID)
+);
+
+/* INSERT DUMMY DATA INTO PERSON ATTRIBUTE TABLE */
+
+insert into PERSON_ATTRIBUTE (PER_ATTR_KEY,PER_ATTR_VALUE,PERSON_ID ) values 
+('Email','frank.ellison@gmail.com',1),
+('Office','Fairfield, CT',1),
+('Email','sarah.mitchell@gmail.com',2),
+('Address','Main Ave, Stamford', 3),
+('Email','rachel.green@gmail.com', 4),
+('Mobile Number','728-584-7730', 5),
+('DOB','06-09-1987', 6),
+('Email','peter.clark@gmail.com', 7),
+('Contact Number','257-317-9134', 7),
+('DOB','3-02-1990', 8),
+('Address','Belden Ave, Fairfield',9),
+('Email','jason.murray@gmail.com', 10);
+
+/******************************************************/
+/* INSERT PERSON ATTRIBUTES*/
+
+drop procedure if exists CREATE_PERSON_ATTR;
+delimiter $$
+create procedure CREATE_PERSON_ATTR ( in attr_key varchar(255), in attr_value varchar(255),in PerId int (10))
+							
+begin
+		start transaction;
+		insert into PERSON_ATTRIBUTE (PER_ATTR_KEY, PER_ATTR_VALUE, PERSON_ID) values (attr_key, attr_value, PerId);
+				
+    commit;
+    
+end$$
+delimiter ;
+/******************************************************/
+
+/* DELETE PERSON ATTRIBUTES*/
+
+drop procedure if exists DELETE_PERSON_ATTR;
+delimiter $$
+create procedure DELETE_PERSON_ATTR (in PerId int(10))
+begin
+		start transaction;
+		DELETE from PERSON_ATTRIBUTE where PERSON_ID = PerId;
+				
+    commit;
+    
+end$$
+delimiter ;
+
+/******************************************************/
+/* RETRIEVE PERSON ATTRIBUTES BY PERSON_ID */
+
+drop procedure if exists RETRIEVE_PERSON_ATTR;
+delimiter $$
+create procedure RETRIEVE_PERSON_ATTR (in PosId int(10))
+begin
+		start transaction;
+		select PER_ATTR_KEY, PER_ATTR_VALUE from  PERSON_ATTRIBUTE 
+		where PERSON_ID = PerId;
+				
+    commit;
+    
+end$$
+delimiter ;
+
+
 
