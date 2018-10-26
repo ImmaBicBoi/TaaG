@@ -33,7 +33,6 @@ function loadPositions() {
                                     document.getElementById('edit-btn').style = "display: block;" //show EDIT button
                                     document.getElementById('ppl-save-btn').style = "display: none;" //hide  button
                                     document.getElementById('ppl-edit-btn').style = "display: none;" //hide  button
-                                    document.getElementById('ppl-delete-btn').style = "display: none;"
                                     document.getElementById('delete-btn').style = "display: none;"
                                     document.getElementById('save-btn').style = "display: none;" //hide  button
                                 })
