@@ -33,6 +33,8 @@ function loadPositions() {
                                     document.getElementById('edit-btn').style = "display: block;" //show EDIT button
                                     document.getElementById('ppl-save-btn').style = "display: none;" //hide  button
                                     document.getElementById('ppl-edit-btn').style = "display: none;" //hide  button
+                                    document.getElementById('ppl-delete-btn').style = "display: none;"
+                                    document.getElementById('delete-btn').style = "display: none;"
                                     document.getElementById('save-btn').style = "display: none;" //hide  button
                                 })
                         )
@@ -121,6 +123,7 @@ $('#edit-btn').click(function(){
     //hide/show edit/save buttons
     document.getElementById('edit-btn').style="display: none;"
     document.getElementById('save-btn').style="display: block;"
+    document.getElementById('delete-btn').style ="display: inline;"
     //make editable and focus on the first editable line
     $('#details-title,#pos-ocfname, #pos-oclname, #namespan, #key1, #key1, #key2, #key3, #Value1, #Value2, #Value3').attr('contenteditable','true');
     $('#pos-title').focus();
@@ -290,3 +293,34 @@ $('#save-btn').click(function(){
     //location.reload();
     
 });
+
+$('#delete-btn').click(function(){
+
+    console.log(getCurrentID());
+   var postitle = document.getElementById('pos-title').innerHTML;
+ var key1 = document.getElementById('key1').innerHTML;
+    var key2 = document.getElementById('key2').innerHTML;
+    var key3 = document.getElementById('key3').innerHTML;
+
+    console.log("deleting the json");
+    console.log(
+        "{" + "\n"
+        + "\t" + "Position_Title: " + postitle + "," + "\n"
+        + "\t" + "Arrtibute_One: " + key1 + "," + "\n"
+        + "\t" + "Attribute_Two: " + key2 + "," + "\n"
+        + "\t" + "Attribute_Three: " + key3 + "\n"
+        + "}"
+
+    );
+
+    
+
+
+      clearDetailsTab();
+
+    // document.getElementById('save-btn').style="display: none;";
+    // document.getElementById('edit-btn').style="display: none;";
+    // document.getElementById('delete-btn').style="display: none;";
+
+
+ });

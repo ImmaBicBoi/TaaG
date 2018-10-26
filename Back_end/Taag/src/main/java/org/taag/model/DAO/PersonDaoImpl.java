@@ -1,5 +1,6 @@
 package org.taag.model.DAO;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -8,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.taag.connection.JDBCConnection;
+import org.taag.model.Attributes;
 import org.taag.model.Person;
 import org.taag.model.PersonMessages;
 import org.taag.model.StatusMessage;
@@ -26,13 +28,31 @@ public class PersonDaoImpl {
 				personMessages.setStatus(statusMessages.GetStatus(StatusMessage.status.NOCONTENT));
 				} else {
 					try {
-						PreparedStatement ps = connection.prepareStatement("call CREATE_PERSON (?,?,?)");
-						ps.setString(1, person.getFirstName());
-						ps.setString(2, person.getLastName());
-						ps.setString(3, person.getEmail());
-						ps.executeUpdate();
+						CallableStatement cs = connection.prepareCall("call CREATE_PERSON (?,?,?,?)");
+						cs.setString(1, person.getFirstName());
+						cs.setString(2, person.getLastName());
+						cs.setString(3, person.getEmployee_id());
+						cs.registerOutParameter(4, java.sql.Types.INTEGER);
+						cs.executeUpdate();
+						int personId = cs.getInt(4);
+						
+						person.setPersonID(personId);
+						
+						if(person.getAttribute() != null) {
+							List<Attributes> attributes = person.getAttribute();
+							
+							for(Attributes attri : attributes) {
+								cs = connection.prepareCall("call CREATE_PERSON_ATTR (?,?,?)");
+								cs.setString(1, attri.getKey());
+								cs.setString(2, attri.getValue());
+								cs.setInt(3, personId);
+								cs.executeUpdate();
+							}
+							
+							}
+							
+						
 						personMessages.setPerson(person);
-						person.setPersonID(getPersonId(person.getEmail()));
 						personMessages.setMessage("Person created successfully");
 						personMessages.setStatus(statusMessages.GetStatus(StatusMessage.status.OK));
 					}
@@ -59,13 +79,13 @@ public class PersonDaoImpl {
 						
 						try {
 							PreparedStatement ps = connection.prepareStatement("call UPDATE_PERSON( " + "'" + personId + "','"
-									+ person.getFirstName() + "','" + person.getLastName() + "','" + person.getEmail() + "')");
+									+ person.getFirstName() + "','" + person.getLastName() + "','" + person.getEmployee_id() + "')");
 
 							ps.executeUpdate();
                             personMessages.setMessage("Person updated successfully");
 							personMessages.setStatus(statusMessages.GetStatus(StatusMessage.status.OK));
 
-							person.setPersonID(getPersonId(person.getEmail()));
+							person.setPersonID(personId);
 							personMessages.setPerson(person);
 						} catch (SQLException e) {
 							personMessages.setStatus(statusMessages.GetStatus(StatusMessage.status.ERROR));
@@ -84,6 +104,7 @@ public class PersonDaoImpl {
 	
 	public Person getPerson(int personId) {
 		Person person = new Person();
+		List<Attributes> attributes = new ArrayList<Attributes>();
 		Boolean exists = checkPersonId(personId);
 		try { 
 		PreparedStatement ps = connection.prepareStatement("call RETRIEVE_PERSON('" + personId + "')");
@@ -94,10 +115,21 @@ public class PersonDaoImpl {
 				person.setPersonID(rs.getInt("PERSON_ID"));
 				person.setFirstName(rs.getString("PERSON_FNAME"));
 				person.setLastName(rs.getString("PERSON_LNAME"));
-				person.setEmail(rs.getString("EMAIL"));
+				person.setEmployee_id(rs.getString("EMPLOYEE_ID"));
 				person.setMessage("Person retrieved successfully");
 				person.setStatus(statusMessages.GetStatus(StatusMessage.status.OK));
 			}
+			
+			
+			ps = connection.prepareStatement("call RETRIEVE_PERSON_ATTR('" + personId + "')");
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				Attributes attribute = new Attributes();
+				attribute.setKey(rs.getString("PER_ATTR_KEY"));
+				attribute.setValue(rs.getString("PER_ATTR_VALUE"));
+				attributes.add(attribute);
+			}
+			person.setAttribute(attributes);
 		}
 		else {
 			person.setMessage("Error: person with provided id does not exist");
@@ -151,7 +183,7 @@ public class PersonDaoImpl {
 				person.setPersonID(rs.getInt("PERSON_ID"));
 				person.setFirstName(rs.getString("PERSON_FNAME"));
 				person.setLastName(rs.getString("PERSON_LNAME"));
-				person.setEmail(rs.getString("EMAIL"));
+				person.setEmployee_id(rs.getString("EMPLOYEE_ID"));
 				personMessages.setStatus(statusMessages.GetStatus(StatusMessage.status.OK));
 				personMessages.setMessage("Persons retrieved successfully");
 				persons.add(person);
@@ -174,7 +206,7 @@ public class PersonDaoImpl {
 		try {
 
 			PreparedStatement ps = connection.prepareStatement(
-					"select PERSON_ID from PERSON where EMAIL = " + "'" + person.getEmail() + "'");
+					"select PERSON_ID from PERSON where EMPLOYEE_ID = " + "'" + person.getEmployee_id() + "'");
 			ResultSet rs = ps.executeQuery();
 
 			while (rs.next()) {
@@ -210,12 +242,12 @@ public class PersonDaoImpl {
 
 		return exists;
 	}
-	public int getPersonId(String personEmail) {
+	public int getPersonId(String personEmpId) {
 		int personID = 0;
 		try {
 
 			PreparedStatement ps = connection.prepareStatement(
-					"select PERSON_ID from PERSON where EMAIL = " + "'" + personEmail + "'");
+					"select PERSON_ID from PERSON where EMPLOYEE_ID = " + "'" + personEmpId + "'");
 			ResultSet rs = ps.executeQuery();
 
 			while (rs.next()) {

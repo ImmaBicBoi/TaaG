@@ -1,5 +1,6 @@
 org\taag\controller\PersonService.class
 org\taag\model\StatusMessage.class
+org\taag\model\Attributes.class
 org\taag\model\PositionMessages.class
 org\taag\model\Position.class
 org\taag\controller\PositionService.class
