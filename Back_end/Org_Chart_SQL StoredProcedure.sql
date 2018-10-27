@@ -280,6 +280,12 @@ create procedure DELETE_PERSON (in PerId int(10))
 begin
 		start transaction;
 		DELETE from PERSON where PERSON_ID = PerId;
+		
+		UPDATE POSITION
+        SET
+        PERSON_ID = NULL
+        WHERE 
+        PERSON_ID = PerId;
 				
     commit;
     
@@ -310,7 +316,6 @@ begin
 		select PERSON_ID, PERSON_FNAME, PERSON_LNAME, EMPLOYEE_ID from  PERSON 
 		where PERSON_ID = PerId;
 		
-				
     commit;
     
 end$$
