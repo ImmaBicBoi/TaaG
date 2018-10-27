@@ -82,6 +82,25 @@ public class PersonDaoImpl {
 									+ person.getFirstName() + "','" + person.getLastName() + "','" + person.getEmployee_id() + "')");
 
 							ps.executeUpdate();
+							
+							ps = connection.prepareStatement("call DELETE_PERSON_ATTR(?)");
+							ps.setInt(1, personId);
+							ps.executeUpdate();
+							
+							if(person.getAttribute() != null) {
+								List<Attributes> attributes = person.getAttribute();
+								
+								for(Attributes attri : attributes) {
+									ps = connection.prepareCall("call CREATE_PERSON_ATTR (?,?,?)");
+									ps.setString(1, attri.getKey());
+									ps.setString(2, attri.getValue());
+									ps.setInt(3, personId);
+									ps.executeUpdate();
+								}
+								}
+							
+							ps.close();
+							
                             personMessages.setMessage("Person updated successfully");
 							personMessages.setStatus(statusMessages.GetStatus(StatusMessage.status.OK));
 
@@ -156,6 +175,11 @@ public class PersonDaoImpl {
 				ps.executeUpdate();
                 personMessages.setMessage("Person deleted successfully");
 				personMessages.setStatus(statusMessages.GetStatus(StatusMessage.status.OK));
+				
+				ps = connection.prepareStatement("call DELETE_PERSON_ATTR(?)");
+				ps.setInt(1, personId);
+				ps.executeUpdate();
+				ps.close();
 
 			} else {
 				personMessages.setMessage("Error person with provided id does not exist");

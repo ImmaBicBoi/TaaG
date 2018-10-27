@@ -137,6 +137,23 @@ public class PositionDaoImpl implements Positions {
 			ps.setString(5, pos.getJobId());
 
 			ps.executeUpdate();
+			
+			ps = connection.prepareStatement("call DELETE_POSITION_ATTR(?)");
+			ps.setInt(1, positionId);
+			ps.executeUpdate();
+			
+			if(pos.getAttribute() != null) {
+				List<Attributes> attributes = pos.getAttribute();
+				
+				for(Attributes attri : attributes) {
+					ps = connection.prepareCall("call CREATE_POSITION_ATTR (?,?,?)");
+					ps.setString(1, attri.getKey());
+					ps.setString(2, attri.getValue());
+					ps.setInt(3, positionId);
+					ps.executeUpdate();
+				}	
+			}
+			ps.close();
 
 			positionMessages.setMessage("Position updated successfully");
 			positionMessages.setStatus(statusMessages.GetStatus(StatusMessage.status.OK));
@@ -207,6 +224,10 @@ public class PositionDaoImpl implements Positions {
 				PreparedStatement ps = connection.prepareStatement("call DELETE_POSITION('" + positionId + "')");
 
 				ps.executeUpdate();
+				ps = connection.prepareStatement("call DELETE_POSITION_ATTR(?)");
+				ps.setInt(1, positionId);
+				ps.executeUpdate();
+				ps.close();
 
 				positionMessages.setMessage("Position deleted successfully");
 				positionMessages.setStatus(statusMessages.GetStatus(StatusMessage.status.OK));
