@@ -2,7 +2,7 @@ console.log('starting requests');
 
 function loadAllPersons(){
   console.log('loading from API');
-    $.getJSON( "http://localhost:8080/Taag/service/person", function( data ) {
+    $.getJSON( "http://localhost:8080/Taag_working/service/person", function( data ) {
         var items = [];
        // items.push(data.message);
         $.each( data.persons, function( key, val ) {
