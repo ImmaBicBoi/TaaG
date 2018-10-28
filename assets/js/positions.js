@@ -91,14 +91,7 @@ $('#edit-btn').click(function(){
     
    // var postitle = document.getElementById('pos-title').innerHTML;
 
-    var select = document.getElementById('pos-title').innerHTML;
-    document.getElementsByTagName("p")[0].setAttribute('type', 'button'); 
-    document.getElementsByTagName("p")[0].setAttribute('class', 'btn btn-primary dropdown-toggle');
-    document.getElementsByTagName("p")[0].setAttribute('data-toggle', 'dropdown'); 
-
-    document.getElementsByTagName("span")[4].setAttribute('type', 'button'); 
-    document.getElementsByTagName("span")[4].setAttribute('class', 'btn btn-primary dropdown-toggle');
-    document.getElementsByTagName("span")[4].setAttribute('data-toggle', 'dropdown'); 
+    
     //  document.getElementById('pos-title').setAttribute(
     // "style", "border: solid black; background: none");
 
@@ -137,9 +130,24 @@ $('#edit-btn').click(function(){
     document.getElementById('pos-title').setAttribute(
     "style", "border: solid black; background: gray");
 
-    document.getElementById('namespan').setAttribute(
-    "style", "border: solid black; background: silver");
+    // document.getElementById('namespan').setAttribute(
+    // "style", "border: solid black; background: silver");
 
+    var CurrentOcName = document.getElementById("pos-ocfname").innerHTML + " " + document.getElementById("pos-oclname").innerHTML;
+    console.log(CurrentOcName); 
+
+    $('#namespan').append(
+        $('<select/>').append(
+        //$('<option/>').html(CurrentOcName)
+    ));
+
+    $.getJSON('mockdata/mock_people.json', function (data) {
+        $.each(data, function (i, field) {
+            $('#namespan select').append(
+                $('<option/>').html(data[i].first_name + " " + data[i].last_name)
+            )
+        })
+    });
 
     // document.getElementById('pos-ocfname').setAttribute(
     // "style", "border: solid black; background: none");  //pick any color
