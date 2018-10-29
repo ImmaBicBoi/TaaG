@@ -15,7 +15,10 @@ $('#add-person-btn').click(function(){
 }); 
 
 $('#add-people-confirm').click(function(){
-
+    var personData = {
+        "first_name": firstName.value, 
+        "last_name": lastName.value
+    };
     console.log(
         "{" + "\n"
         + "\t" + "first_name: " + firstName.value + "," + "\n"
@@ -28,7 +31,9 @@ $('#add-people-confirm').click(function(){
     );
 
     $('#add-people-modal').modal('hide');
+    createPerson(personData);
     loadAllPersons();
+
     //writePeopleJson();
 }); 
 

@@ -35,9 +35,8 @@ $('#add-position-btn').click(function(){
 //Extracts Values onces "Confirm" button is clicked 
 $('#add-position-confirm').click(function(){
     var positionData = {
-        'name': positionTitle.value, 
-        'person_id': 0, 
-        'parent_position_id': 0,
+        "name": positionTitle.value, 
+        "parent_position_id": 0,
         "job_id": positionID.value
     };
     console.log(

@@ -65,10 +65,42 @@ function loadAllPositions(){
       contentType:'application/json',
       data: JSON.stringify(positionData),
       dataType:'json',
-      success: function(data,status, jqHXR){
+      async: false,
+      success: function(data,status, jqXHR){
         //On ajax success do this
         //var output = JSON.parse(data);
-        alert(data + " " +status);
+        //alert(data + " " + status);
+        console.log("response"+data.message + " " + jqXHR.status);
+          },
+      error: function(xhr, ajaxOptions, thrownError) {
+          //On error do this
+            if (xhr.status == 200) {
+
+                alert(ajaxOptions);
+            }
+            else {
+                alert(xhr.status);
+                alert(thrownError);
+            }
+        }
+    });
+  }
+
+function createPerson(personData){
+    //var data = {'bob':'foo','paul':'dog'};
+    //console.log("sending data: "+ JSON.stringify(personData));
+    $.ajax({
+      url: "http://localhost:8080/Taag/service/person",
+      type: 'POST',
+      contentType:'application/json',
+      data: JSON.stringify(personData),
+      dataType:'json',
+      async: false,
+      success: function(data,status, jqXHR){
+        //On ajax success do this
+        //var output = JSON.parse(data);
+        //alert(data + " " + status);
+        console.log("response "+data + " " + jqXHR.status);
           },
       error: function(xhr, ajaxOptions, thrownError) {
           //On error do this
