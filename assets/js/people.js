@@ -37,6 +37,7 @@ function loadPeople() {
 };
 
 
+
 $('#add-person-btn').click(function(){
     $('#add-people-modal').modal('show');
     console.log('Add Person clicked.');
@@ -190,3 +191,19 @@ $('#ppl-delete-btn').click(function(){
 
 
  });
+
+
+ function openPersonsTab(id,fname,lname, attribute){
+    console.log("opening"+fname);
+    clearDetailsTab();
+    $('#details-title').html(fname + " " + lname); //insert person title 
+    $('#first-name').html("<span class='modal-headers'>First Name: </span>" + "<p id = 'ppl-fname' contenteditable='false'>" + fname) + "</p>"; //insert first name
+    $('#last-name').html("<span class='modal-headers'>Last Name:</span>" + "<p id = 'ppl-lname' contenteditable='false'>" + lname + "</p>"); //insert last name
+    $('#email').html("<span class='modal-headers'>Email:</span>" + "<p id = 'ppl-email' contenteditable='false'>" + attribute + "</p>"); //insert email
+    $('#phone').html("<span class='modal-headers'>Phone:</span>" + "<p id = 'ppl-phone' contenteditable='false'>" + attribute + "</p>"); //insert number
+    document.getElementById('ppl-edit-btn').style = "display: block;" //show EDIT button
+    document.getElementById('ppl-save-btn').style = "display: none;" //hide  button
+    document.getElementById('edit-btn').style = "display: none;" //hide  button
+    document.getElementById('save-btn').style = "display: none;" //hide  button
+
+ }
