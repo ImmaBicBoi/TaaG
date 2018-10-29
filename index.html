@@ -193,9 +193,9 @@
                                         </ul>
                                     </div>
                                     <div class="tab-pane" role="tabpanel" id="tab-2">
-                                        <!-- <ul id="people-list" class="list-unstyled draggable-list">
+                                        <ul id="people-list" class="list-unstyled draggable-list">
 
-                                        </ul> -->
+                                        </ul>
                                     </div>
 
                                 </div>
@@ -246,23 +246,23 @@
 
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col" id="email"> </div>
+                                                    <div class="col" id="person-attributes">
+
+                                                    </div>
                                                 </div>
-                                                <div class="row">
-                                                    <div class="col" id="phone"></div>
-                                                </div>
+
 
                                             </div>
                                             <button class="btn btn-primary" type="button" id="edit-btn" style="display: none;"
                                                 style="margin-left:10px;">Edit</button>
                                             <button class="btn btn-primary" type="button" id="save-btn" style="display: none;"
                                                 style="margin-left:10px;">Save</button>
-                                                 <button class="btn btn-danger" type="button" id="delete-btn" style="display: none;">Delete</button>
+                                            <button class="btn btn-danger" type="button" id="delete-btn" style="display: none;">Delete</button>
                                             <button class="btn btn-primary" type="button" id="ppl-edit-btn" style="display: none;"
                                                 style="margin-left:10px;">Edit info</button>
                                             <button class="btn btn-primary" type="button" id="ppl-save-btn" style="display: none;"
                                                 style="margin-left:10px;">Save changes</button>
-                                                 <button class="btn btn-danger" type="button" id="ppl-delete-btn" style="display: none;">Delete</button>
+                                            <button class="btn btn-danger" type="button" id="ppl-delete-btn" style="display: none;">Delete</button>
 
                                         </div>
 
@@ -323,9 +323,13 @@
 
             var graph;
             graph = initializeGraph(container);
-            loadPositions();
-            loadPeople();
+            //Local JSON FILES
+            //loadPositions();
+            //loadPeople();
+
+            //REMOTE API REQUESTS
             loadAllPersons();
+            loadAllPositions();
 
 
 
