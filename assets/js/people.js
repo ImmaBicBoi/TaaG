@@ -107,7 +107,7 @@ $('#ppl-edit-btn').click(function(){
     document.getElementById('ppl-edit-btn').style="display: none;"
     document.getElementById('ppl-save-btn').style="display: block;"
     //make editable and focus on the first editable line
-    $('#ppl-fullname, #ppl-fname, #ppl-lname, #ppl-email, #ppl-phone').attr('contenteditable','true');
+    $('#ppl-fullname, #ppl-fname, #ppl-lname').attr('contenteditable','true');
     $('#ppl-fname').focus();
     //change color to make noticable
     console.log('editing person.');
@@ -117,11 +117,13 @@ $('#ppl-edit-btn').click(function(){
      document.getElementById('ppl-lname').setAttribute(
     "style", "border: solid black; background: none");
 
-    document.getElementById('ppl-email').setAttribute(
-    "style", "border: solid black; background: none");
 
-    document.getElementById('ppl-phone').setAttribute(
-    "style", "border: solid black; background: none");
+    $( "#person-attributes p" ).attr(
+            "style", "border: solid black; background: none");
+    $( "#person-attributes p" ).attr(
+            "contenteditable", "true");
+
+   
 
 });
 
@@ -131,20 +133,12 @@ $('#ppl-save-btn').click(function(){
     //cannot get the current id into here????
     var pplfname = document.getElementById('ppl-fname').innerHTML;
     var ppllname = document.getElementById('ppl-lname').innerHTML;
-    var pplemail = document.getElementById('ppl-email').innerHTML;
-    var pplphone = document.getElementById('ppl-phone').innerHTML;
 
-    console.log(
-        "{" + "\n"
-        + "\t" + "Name: " + pplfname + " " +ppllname + "," + "\n"
-        + "\t" + "E-mail: " + pplemail + "," + "\n"
-        + "\t" + "Phone:  " + pplphone + "," + "\n"
-        + "}"
-
-    );
 
     //make UN-editable 
-    $('#ppl-fullname, #ppl-fname, #ppl-lname, #ppl-email, #ppl-phone').attr('contenteditable','false');
+    $('#ppl-fullname, #ppl-fname, #ppl-lname').attr('contenteditable','false');
+    $( "#person-attributes p" ).attr(
+        "contenteditable", "false");
 
     //hide/show save button
     document.getElementById('ppl-save-btn').style="display: none;"
@@ -158,14 +152,12 @@ $('#ppl-save-btn').click(function(){
     document.getElementById('ppl-lname').setAttribute(
     "style", "border: rgb(124,252,0); background: rgb(124,252,0)");
 
-    document.getElementById('ppl-email').setAttribute(
-    "style", "border: rgb(124,252,0); background: rgb(124,252,0)");
-
-     document.getElementById('ppl-phone').setAttribute(
-    "style", "border: rgb(124,252,0); background: rgb(124,252,0)");
+    $( "#person-attributes p" ).attr(
+        "style", "border: rgb(124,252,0); background: rgb(124,252,0)");
 
     
 });
+
 $('#ppl-delete-btn').click(function(){
 
     console.log(getCurrentID());
@@ -212,7 +204,7 @@ $('#ppl-delete-btn').click(function(){
     $('#person-attributes').html("");
     $.each(person.attributes, function (i, val){
         //console.log("app");
-       $('#person-attributes').append("<span class='modal-headers'>"+ person.attributes[i].key +":</span>" + "<p id ='"+person.attributes[i].key+"' contenteditable='false'>"+person.attributes[i].value +"</p>"); //insert positon adittional attributes
+       $('#person-attributes').append("<span class='modal-headers'>"+ person.attributes[i].key +":</span>" + "<p contenteditable='false'>"+person.attributes[i].value +"</p>"); //insert positon adittional attributes
 
     });
     //$('#email').html("<span class='modal-headers'>Email:</span>" + "<p id = 'ppl-email' contenteditable='false'>" + attribute + "</p>"); //insert email
@@ -229,17 +221,18 @@ $('#ppl-delete-btn').click(function(){
     var returnData;
 
     if(id == 0){
+        console.log("person retrieval error");
         return null;
-}else{
-    returnData = $.ajax({
-    url: "http://localhost:8080/Taag/service/person/" + id,
-    async: false,
-    success: function(data) {
-        //stuff
-        //...
-        }
-    });
-    //console.log("retrieving person " + jQuery.parseJSON(returnData.responseText));
-    return jQuery.parseJSON(returnData.responseText);
+    }else{
+        returnData = $.ajax({
+        url: "http://localhost:8080/Taag/service/person/" + id,
+        async: false,
+        success: function(data) {
+            //stuff
+            //...
+            }
+        });
+        //console.log("retrieving person " + jQuery.parseJSON(returnData.responseText));
+        return jQuery.parseJSON(returnData.responseText);
 }
  }

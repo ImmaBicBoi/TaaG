@@ -21,8 +21,8 @@ function clearDetailsTab(){
 	$('#pos-attributes').empty();
 	$('#first-name').empty();
 	$('#last-name').empty();
-	$('#email').empty();
-	$('#phone').empty();
+	$('#person-attributes').empty();
+	
 	console.log('cleared tab');
 }
 

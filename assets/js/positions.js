@@ -161,60 +161,21 @@ $('#edit-btn').click(function(){
     document.getElementById('edit-btn').style="display: none;"
     document.getElementById('save-btn').style="display: block;"
     //make editable and focus on the first editable line
-    $('#details-title,#pos-ocfname, #pos-oclname, #namespan, #key1, #key1, #key2, #key3, #Value1, #Value2, #Value3').attr('contenteditable','true');
+    $('#details-title,#pos-ocfname, #pos-oclname, #namespan').attr('contenteditable','true');
     $('#pos-title').focus();
     
     
    // var postitle = document.getElementById('pos-title').innerHTML;
 
-    var select = document.getElementById('pos-title').innerHTML;
-    document.getElementsByTagName("p")[0].setAttribute('type', 'button'); 
-    document.getElementsByTagName("p")[0].setAttribute('class', 'btn btn-primary dropdown-toggle');
-    document.getElementsByTagName("p")[0].setAttribute('data-toggle', 'dropdown'); 
+    //var select = document.getElementById('pos-title').innerHTML;
+  
 
     document.getElementsByTagName("span")[4].setAttribute('type', 'button'); 
     document.getElementsByTagName("span")[4].setAttribute('class', 'btn btn-primary dropdown-toggle');
     document.getElementsByTagName("span")[4].setAttribute('data-toggle', 'dropdown'); 
-    //  document.getElementById('pos-title').setAttribute(
-    // "style", "border: solid black; background: none");
-
-   // $('#pos-title').click(function(event){
-   //      //load data from json
-   //       $.getJSON('mockdata/mock_positions.json', function(data){    
-   //          $.each(data, function(i, field){
-   //              $select.append(
-   //                  $('<li/>') 
-   //                          .html(
-   //                              $('<h9/>')
-   //                                      .html(data[i].id +": " + data[i].pos_name)
-      
-   //                              )
-   //                      );
-   //              });
-   //          });
 
 
 
-
-   // var $select = $('dropdown');
-   //  //request the JSON data and parse into the select element
-   //  $.getJSON('mockdata/mock_positions.json', function(data){
-   //    //clear the current content of the select
-   //   //$select.html(postitle);
-   //   console.log('lol');
-     
-   //    //iterate over the data and append a select option
-   //    $.each(data, function(i, field){
-   //      $select.append(data[i].pos_name);
-   //    })
-   //  });
-
-
-    document.getElementById('pos-title').setAttribute(
-    "style", "border: solid black; background: gray");
-
-    document.getElementById('namespan').setAttribute(
-    "style", "border: solid black; background: silver");
 
 
     // document.getElementById('pos-ocfname').setAttribute(
@@ -223,72 +184,22 @@ $('#edit-btn').click(function(){
     // document.getElementById('pos-oclname').setAttribute(
     // "style", "border: solid black; background: none");
 
-    document.getElementById('key1').setAttribute(
-    "style", "border: solid black; background: none");
+    $( "#details-title" ).attr(
+        "style", "border: solid black; background: none");
+    $( "#pos-attributes p" ).attr(
+        "style", "border: solid black; background: none");
+    $( "#pos-attributes p" ).attr(
+        "contenteditable", "true");
 
-    document.getElementById('key2').setAttribute(
-    "style", "border: solid black; background: none");
-
-    document.getElementById('key3').setAttribute(
-    "style", "border: solid black; background: none");
-
-    document.getElementById('Value1').setAttribute(
-    "style", "border: solid black; background: none");
-
-    document.getElementById('Value2').setAttribute(
-    "style", "border: solid black; background: none");
-
-    document.getElementById('Value3').setAttribute(
-    "style", "border: solid black; background: none");
 
 });
 
 $('#save-btn').click(function(){
 
 
-    
-    var postitle = document.getElementById('pos-title').innerHTML;
-    var fnamevalue = document.getElementById('pos-ocfname').innerHTML;
-    var lnamevalue = document.getElementById('pos-oclname').innerHTML;
-    var value1 = document.getElementById('Value1').innerHTML;
-    var value2 = document.getElementById('Value2').innerHTML;
-    var value3 = document.getElementById('Value3').innerHTML;
-
-    var key1 = document.getElementById('key1').innerHTML;
-    var key2 = document.getElementById('key2').innerHTML;
-    var key3 = document.getElementById('key3').innerHTML;
-
-//print to console
-    console.log(
-        "{" + "\n"
-        + "\t" + "Name: " + fnamevalue + " " +lnamevalue + "," + "\n"
-        + "\t" + "Position_Title: " + postitle + "," + "\n"
-        + "\t" + "Position_ID: " + getCurrentID() + "," + "\n"
-        + "\t" + "Arrtibute_One: " + value1 + "," + "\n"
-        + "\t" + "Attribute_Two: " + value2 + "," + "\n"
-        + "\t" + "Attribute_Three: " + value3 + "\n"
-        + "}"
-
-    );
-    //print to console
-    console.log(
-        "Position related stuff: " + 
-        "{"+ "\n"
-        + "\t" + "Position_Title: " + postitle + "," + "\n"
-        + "\t" + "Arrtibute_One: " + key1 + "," + "\n"
-        + "\t" + "Attribute_Two: " + key2 + "," + "\n"
-        + "\t" + "Attribute_Three: " + key3 + "\n"
-        + "}"
-
-    );
-    
-   
-    //update json here
-        //find by id, replace the whole line
-
 
     //make UN-editable 
-    $('#pos-ocfname, #pos-oclname, #namespan, #key1, #pos-title, #key1, #key2, #key3, #Value1, #Value2, #Value3').attr('contenteditable','false');
+    $('#pos-ocfname, #pos-oclname, #pos-title').attr('contenteditable','false');
 
     //hide/show save button
     document.getElementById('save-btn').style="display: none;"
@@ -296,34 +207,15 @@ $('#save-btn').click(function(){
 
     //change color   
 
-    document.getElementById('pos-title').setAttribute(
-    "style", "border: rgb(124,252,0); background: rgb(124,252,0)");
-
-    document.getElementById('namespan').setAttribute(
-    "style", "border: rgb(124,252,0); background: rgb(124,252,0)");
-
+    
     // document.getElementById('pos-oclname').setAttribute(
     // "style", "border: rgb(124,252,0); background: rgb(124,252,0)");
+    $( "#details-title" ).attr(
+        "style", "border: rgb(124,252,0); background: rgb(124,252,0)");
 
-     document.getElementById('key1').setAttribute(
-    "style", "border: rgb(124,252,0); background: rgb(124,252,0)");
-
-    document.getElementById('key2').setAttribute(
-    "style", "border: rgb(124,252,0); background: rgb(124,252,0)");
-
-    document.getElementById('key3').setAttribute(
-    "style", "border: rgb(124,252,0); background: rgb(124,252,0)");
-
-
-    document.getElementById('Value1').setAttribute(
-    "style", "border: rgb(124,252,0); background: rgb(124,252,0)");
-
-    document.getElementById('Value2').setAttribute(
-    "style", "border: rgb(124,252,0); background: rgb(124,252,0)");
-
-    document.getElementById('Value3').setAttribute(
-    "style", "border: rgb(124,252,0); background: rgb(124,252,0)");
-    
+     
+    $( "#pos-attributes p" ).attr(
+        "style", "border: rgb(124,252,0); background: rgb(124,252,0)");
 
     //refresh page   --necessary???
     //location.reload();
@@ -367,14 +259,19 @@ function openPositionsTab(id,name, occupantID){
     var returnData;
 
     
-    returnData = $.ajax({
+    if(id == 0){
+        console.log("position retrieval error");
+        return null;
+    }else{
+        returnData = $.ajax({
         url: "http://localhost:8080/Taag/service/position/" + id,
         async: false,
         success: function(data) {
             //stuff
             //...
-          }
-    });
-    //console.log("retrieving person " + jQuery.parseJSON(returnData.responseText));
-    return jQuery.parseJSON(returnData.responseText);
+            }
+        });
+        //console.log("retrieving person " + jQuery.parseJSON(returnData.responseText));
+        return jQuery.parseJSON(returnData.responseText);
+}
  }
