@@ -2,6 +2,8 @@
 
 var positionTitle = document.getElementById('input-pos-title');
 var positionID = document.getElementById('input-pos-id');
+var attArray = [];
+
 var attOne = document.getElementById('input-att-one');
 var attTwo = document.getElementById('input-att-two');
 var attThree = document.getElementById('input-att-three');
@@ -91,12 +93,46 @@ $('#add-position-confirm').click(function(){
 
     );
 
+    console.log(
+        "{" + "\n"
+        + "\t" + "Position_Title: " + positionTitle.value + "," + "\n"
+        + "\t" + "Position_ID: " + positionID.value + "," + "\n"
+        // + "\t" + "Arrtibute_One: " + attOne.value + "," + "\n"  // Hardcoded
+        // + "\t" + "Attribute_Two: " + attTwo.value + "," + "\n"
+        // + "\t" + "Attribute_Three: " + attThree.value + "\n"
+        + "}"
+
+    );
+
+    for (var attArrayIndex = 1; attArrayIndex <= attCount; attArrayIndex++ ) 
+    {
+        attArray.push($('#new-attribute_'+ attArrayIndex ).val());
+       // attArray.push.toString(document.getElementById('new-attribute_'+ attArrayIndex));
+
+    }
+
+
+    // printing the attribute list
+    var i = 0;
+    while (i < attArray.length) 
+    {
+        console.log(
+            "Attribute: " + attArray[i]
+            
+        );
+
+        i++;
+    }
+
     // console.log(positionTitle.value);
     // console.log(positionID.value);
     // console.log(attOne.value);
     // console.log(attTwo.value);
     // console.log(attThree.value);
 
+    $('#add-position-modal').modal('hide');
+
+    attCount = 0;
 
     loadPositions();
 }); 
@@ -107,11 +143,14 @@ $('#add-position-confirm').click(function(){
 //     $('#add-position-modal').modal('show');
 //  }); 
 
+var attCount = 0;
 
 $('#add-attribute-confirm').click(function () {
+    attCount++;
+
     var table = $(this).closest('form');
     if (table.find('input:text').length < 10) {   // The <20 is how many fields u wanna add of inputs
-        table.append('<div class="form-group"><label  class="col-sm-2 control-label">Attribute: </label> <div class="col-sm-2 col-sm-10"> <input type="text" class="form-control id="new-attribute" placeholder="Input Attribute"/></div></div>');
+        table.append('<div class="form-group"><label  class="col-sm-2 control-label">Attribute: </label> <div class="col-sm-2 col-sm-10"> <input type="text" class="form-control" id="new-attribute_' + attCount + '" placeholder="Input Attribute"/></div></div>');
     }
 });
 
