@@ -240,11 +240,11 @@
 
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col" id="email"> </div>
+                                                    <div class="col" id="person-attributes">
+
+                                                    </div>
                                                 </div>
-                                                <div class="row">
-                                                    <div class="col" id="phone"></div>
-                                                </div>
+
 
                                             </div>
                                             <button class="btn btn-primary" type="button" id="edit-btn" style="display: none;"
@@ -317,9 +317,13 @@
 
             var graph;
             graph = initializeGraph(container);
-            loadPositions();
+            //Local JSON FILES
+            //loadPositions();
             //loadPeople();
+
+            //REMOTE API REQUESTS
             loadAllPersons();
+            loadAllPositions();
 
 
 

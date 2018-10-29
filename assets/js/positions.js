@@ -290,3 +290,52 @@ $('#save-btn').click(function(){
     //location.reload();
     
 });
+
+function openPositionsTab(id,name, occupantID){
+    //console.log("opening "+name);
+    clearDetailsTab();
+
+    var occupant = getPerson(occupantID);
+    var occupantName = ""
+    if(occupantID == 0){
+        occupantName = "-"
+    }else{
+        occupantName = occupant.first_name + " " + occupant.last_name;
+    }
+   // console.log("personnn " + occupant.first_name);
+    $('#details-title').html(name); //insert position title 
+    $('#pos-heldby').html("<span class='modal-headers'>Position Held By: </span>" + "<p id = 'pos-ocname'contenteditable='false'>"+ occupantName ) + "</p>"; //insert position heldby name
+    
+    $('#pos-attributes').html(""); //insert position attributes
+    //console.log(attributes);
+    var position = getPosition(id);
+    $.each(position.attributes, function (i, val){
+        console.log("app");
+       $('#pos-attributes').append("<span class='modal-headers'>"+ position.attributes[i].key +":</span>" + "<p id ='Value"+ i+ "' contenteditable='false'>"+position.attributes[i].value +"</p>"); //insert positon adittional attributes
+
+    });
+    
+    setCurrentID(id);
+    document.getElementById('edit-btn').style = "display: block;" //show EDIT button
+    document.getElementById('ppl-save-btn').style = "display: none;" //hide  button
+    document.getElementById('ppl-edit-btn').style = "display: none;" //hide  button
+    document.getElementById('save-btn').style = "display: none;" //hide  button
+
+ }
+
+ function getPosition(id){
+    var defaultData = "NOT FOUND";
+    var returnData;
+
+    
+    returnData = $.ajax({
+        url: "http://localhost:8080/Taag/service/position/" + id,
+        async: false,
+        success: function(data) {
+            //stuff
+            //...
+          }
+    });
+    //console.log("retrieving person " + jQuery.parseJSON(returnData.responseText));
+    return jQuery.parseJSON(returnData.responseText);
+ }
