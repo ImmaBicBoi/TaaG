@@ -128,9 +128,22 @@ $('#edit-btn').click(function(){
 $('#save-btn').click(function(){
 
     
+    //get updated value from the dropdown
+    var sel = $("#namespan select");
+    var value = sel.val();
+    text = $("option:selected",sel).text();
+
+    var op = document.getElementById("namespan").getElementsByTagName("option");
+    for (var i = 0; i < op.length; i++) {
+        op[i].hidden = true;
+    }
+    // var el = document.getElementsByTagName("namespan");
+    // var newEl = document.createElement('p');
+    // newEl.innerHTML = text;
+    // newEl.parentNode.replaceChild(el);
+    
     var postitle = document.getElementById('pos-title').innerHTML;
-    var fnamevalue = document.getElementById('pos-ocfname').innerHTML;
-    var lnamevalue = document.getElementById('pos-oclname').innerHTML;
+    var namevalue = text;
     var value1 = document.getElementById('Value1').innerHTML;
     var value2 = document.getElementById('Value2').innerHTML;
     var value3 = document.getElementById('Value3').innerHTML;
@@ -142,7 +155,7 @@ $('#save-btn').click(function(){
 //print to console
     console.log(
         "{" + "\n"
-        //+ "\t" + "Name: " + fnamevalue + " " +lnamevalue + "," + "\n"
+        + "\t" + "Name: " + namevalue + "\n"
         + "\t" + "Position_Title: " + postitle + "," + "\n"
         + "\t" + "Position_ID: " + getCurrentID() + "," + "\n"
         + "\t" + "Arrtibute_One: " + value1 + "," + "\n"
@@ -162,11 +175,6 @@ $('#save-btn').click(function(){
         + "}"
 
     );
-    
-    var sel = $("#namespan select");
-    var value = sel.val();
-    text = $("option:selected",sel).text();
-    console.log(text);
     
    
 
@@ -209,7 +217,7 @@ $('#save-btn').click(function(){
     "style", "border: rgb(124,252,0); background: rgb(124,252,0)");
     
 
-    //refresh page   --necessary???
-    //location.reload();
+
+//    location.reload();
     
 });
