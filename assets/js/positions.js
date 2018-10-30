@@ -131,7 +131,7 @@ $('#edit-btn').click(function(){
     
    // var postitle = document.getElementById('pos-title').innerHTML;
 
-    var select = document.getElementById('pos-title').innerHTML;
+    //var select = document.getElementById('pos-title').innerHTML;
     document.getElementsByTagName("p")[0].setAttribute('type', 'button'); 
     document.getElementsByTagName("p")[0].setAttribute('class', 'btn btn-primary dropdown-toggle');
     document.getElementsByTagName("p")[0].setAttribute('data-toggle', 'dropdown'); 
