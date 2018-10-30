@@ -124,6 +124,15 @@ public class PositionDaoImpl implements Positions {
 
 	private void updatePositionDBConn(Position pos, int positionId, PositionMessages positionMessages) {
 		try {
+			
+			String jobId = null;
+			  
+			if (pos.getJobId() == null) {
+					 jobId = getJobId(positionId);
+				 }
+			   else {
+				    jobId = pos.getJobId();
+			   }
 			PreparedStatement ps = connection.prepareStatement("call UPDATE_POSITION(?,?,?,?,?)");
 			
 			ps.setInt(1, positionId);
@@ -134,7 +143,7 @@ public class PositionDaoImpl implements Positions {
 			}else {
 				ps.setNull(4, Types.INTEGER);
 			}
-			ps.setString(5, pos.getJobId());
+			ps.setString(5, jobId);
 
 			ps.executeUpdate();
 			
@@ -168,6 +177,8 @@ public class PositionDaoImpl implements Positions {
 		}
 
 	}
+
+	
 
 	public Position getPosition(int positionId) {
 		Position position = new Position();
@@ -340,6 +351,29 @@ public class PositionDaoImpl implements Positions {
 		}
 
 		return exists;
+	}
+	
+	
+	private String getJobId(int positionId) {
+		
+		
+		String jobId = null ;
+		try {
+
+			PreparedStatement ps = connection.prepareStatement(
+					"select JOB_ID from POSITION where POSITION_ID = " + "'" + positionId + "'");
+			ResultSet rs = ps.executeQuery();
+
+			while (rs.next()) {
+				jobId = rs.getString("JOB_ID");
+
+			}
+			rs.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return jobId;
 	}
 
 //	public int getPositionId(String positionName) {

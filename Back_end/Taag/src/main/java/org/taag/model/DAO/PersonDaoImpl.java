@@ -74,12 +74,21 @@ public class PersonDaoImpl {
 
 	public PersonMessages updatePerson(Person person, int personId) {
 		PersonMessages personMessages = new PersonMessages();
-				Boolean exists = checkPersonId(personId);
+		String EmployeeId = null;
+			Boolean exists = checkPersonId(personId);
+			  
+			if (person.getEmployee_id() == null) {
+					 EmployeeId = getEmployeeId(personId);
+				 }
+			   else {
+				    EmployeeId = person.getEmployee_id();
+			   }
+				
 					if (exists == true) {
 						
 						try {
 							PreparedStatement ps = connection.prepareStatement("call UPDATE_PERSON( " + "'" + personId + "','"
-									+ person.getFirstName() + "','" + person.getLastName() + "','" + person.getEmployee_id() + "')");
+									+ person.getFirstName() + "','" + person.getLastName() + "','" + EmployeeId + "')");
 
 							ps.executeUpdate();
 							
@@ -266,16 +275,16 @@ public class PersonDaoImpl {
 
 		return exists;
 	}
-	public int getPersonId(String personEmpId) {
-		int personID = 0;
+	public String getEmployeeId(Integer personID) {
+		String employeeID = null ;
 		try {
 
 			PreparedStatement ps = connection.prepareStatement(
-					"select PERSON_ID from PERSON where EMPLOYEE_ID = " + "'" + personEmpId + "'");
+					"select EMPLOYEE_ID from PERSON where PERSON_ID = " + "'" + personID + "'");
 			ResultSet rs = ps.executeQuery();
 
 			while (rs.next()) {
-				personID = rs.getInt("PERSON_ID");
+				employeeID = rs.getString("EMPLOYEE_ID");
 
 			}
 			rs.close();
@@ -283,7 +292,7 @@ public class PersonDaoImpl {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return personID;
+		return employeeID;
 	}
 
 }
