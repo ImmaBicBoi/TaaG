@@ -122,7 +122,7 @@ $('#add-attribute-confirm').click(function () {
 $('#edit-btn').click(function(){
     //hide/show edit/save buttons
     document.getElementById('edit-btn').style="display: none;"
-    document.getElementById('save-btn').style="display: block;"
+    document.getElementById('save-btn').style="display: inline;"
     document.getElementById('delete-btn').style ="display: inline;"
     //make editable and focus on the first editable line
     $('#details-title,#pos-ocfname, #pos-oclname, #namespan, #key1, #key1, #key2, #key3, #Value1, #Value2, #Value3').attr('contenteditable','true');
@@ -297,10 +297,14 @@ $('#save-btn').click(function(){
 $('#delete-btn').click(function(){
 
     console.log(getCurrentID());
-   var postitle = document.getElementById('pos-title').innerHTML;
- var key1 = document.getElementById('key1').innerHTML;
+    var postitle = document.getElementById('pos-title').innerHTML;
+    var key1 = document.getElementById('key1').innerHTML;
     var key2 = document.getElementById('key2').innerHTML;
     var key3 = document.getElementById('key3').innerHTML;
+    var value1 = document.getElementById('Value1').innerHTML;
+    var value2 = document.getElementById('Value2').innerHTML;
+    var value3 = document.getElementById('Value3').innerHTML;
+
 
     console.log("deleting the json");
     console.log(

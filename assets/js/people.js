@@ -24,6 +24,7 @@ function loadPeople() {
 									$('#phone').html("<span class='modal-headers'>Phone:</span>" + "<p id = 'ppl-phone' contenteditable='false'>" + data[i].phone + "</p>"); //insert number
                                     document.getElementById('ppl-edit-btn').style = "display: block;" //show EDIT button
                                     document.getElementById('ppl-save-btn').style = "display: none;" //hide  button
+                                    document.getElementById('ppl-delete-btn').style = "display: none;" // hide delete button
                                     document.getElementById('edit-btn').style = "display: none;" //hide  button
                                     document.getElementById('save-btn').style = "display: none;" //hide  button
 
@@ -96,7 +97,8 @@ function writePeopleJson() {
 $('#ppl-edit-btn').click(function(){
     //hide/show edit/save buttons
     document.getElementById('ppl-edit-btn').style="display: none;"
-    document.getElementById('ppl-save-btn').style="display: block;"
+    document.getElementById('ppl-save-btn').style="display: inline;"
+    document.getElementById('ppl-delete-btn').style= "display: inline;"
     //make editable and focus on the first editable line
     $('#ppl-fullname, #ppl-fname, #ppl-lname, #ppl-email, #ppl-phone').attr('contenteditable','true');
     $('#ppl-fname').focus();
@@ -139,8 +141,8 @@ $('#ppl-save-btn').click(function(){
 
     //hide/show save button
     document.getElementById('ppl-save-btn').style="display: none;"
-    document.getElementById('ppl-edit-btn').style="display: block;"
-
+    document.getElementById('ppl-edit-btn').style="display: inline;"
+    document.getElementById('ppl-delete-btn').style = "display: inline;"
     //change color   
 
     document.getElementById('ppl-fname').setAttribute(
@@ -161,28 +163,26 @@ $('#ppl-delete-btn').click(function(){
 
     console.log(getCurrentID());
 
-    var pplfname = document.getElementById('ppl-fname').innerHTML;
+     var pplfname = document.getElementById('ppl-fname').innerHTML;
     var ppllname = document.getElementById('ppl-lname').innerHTML;
-    var empos = document.getElementById('emp_pos').innerHTML;
-     var pplemail = document.getElementById('ppl-email').innerHTML;
+    var pplemail = document.getElementById('ppl-email').innerHTML;
     var pplphone = document.getElementById('ppl-phone').innerHTML;
 
-    console.log("deleting the json");
     console.log(
         "{" + "\n"
-         + "\t" + "first_name: " + pplfname + "," + "\n"
-        + "\t" + "last_name: " + ppllname + "," + "\n"
-        + "\t" + "emp_pos: " + empos + "," + "\n"
-        + "\t" + "email: " + pplemail + "," + "\n"
-        + "\t" + "phone: " + pplphone + "\n"
+        + "\t" + "Name: " + pplfname + " " +ppllname + "," + "\n"
+        + "\t" + "E-mail: " + pplemail + "," + "\n"
+        + "\t" + "Phone:  " + pplphone + "," + "\n"
         + "}"
-     );
+
+    );
 
 
+    console.log("deleting the json");
     
 
 
-       console.log(clearDetailsTab());
+       clearDetailsTab();
 
     document.getElementById('ppl-save-btn').style="display: none;";
     document.getElementById('ppl-edit-btn').style="display: none;";
