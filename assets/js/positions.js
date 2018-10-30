@@ -5,7 +5,7 @@ var positionID = document.getElementById('input-pos-id');
 var attOne = document.getElementById('input-att-one');
 var attTwo = document.getElementById('input-att-two');
 var attThree = document.getElementById('input-att-three');
-var text = null;
+var text = "";
 
 
 function loadPositions() {
@@ -99,12 +99,7 @@ $('#edit-btn').click(function(){
         $.each(data, function (i, field) {
             $('#namespan select').append(
                 $('<option/>').html(data[i].first_name + " " + data[i].last_name)
-                .click (function(event){
-                    var $sel = $("#namespan");
-                    var value = $sel.val();
-                    text = $("option:selected",$sel).text();
-               
-                })
+                
             )
         })
     });
@@ -131,6 +126,7 @@ $('#edit-btn').click(function(){
 });
 
 $('#save-btn').click(function(){
+
     
     var postitle = document.getElementById('pos-title').innerHTML;
     var fnamevalue = document.getElementById('pos-ocfname').innerHTML;
@@ -166,6 +162,11 @@ $('#save-btn').click(function(){
         + "}"
 
     );
+    
+    var sel = $("#namespan select");
+    var value = sel.val();
+    text = $("option:selected",sel).text();
+    console.log(text);
     
    
 
