@@ -152,7 +152,7 @@ $('#save-btn').click(function(){
     var key2 = document.getElementById('key2').innerHTML;
     var key3 = document.getElementById('key3').innerHTML;
 
-//print to console
+//print to console //ok
     console.log(
         "{" + "\n"
         + "\t" + "Name: " + namevalue + "\n"
