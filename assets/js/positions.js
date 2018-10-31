@@ -3,6 +3,7 @@
 var positionTitle = document.getElementById('input-pos-title');
 var positionID = document.getElementById('input-pos-id');
 var attArray = [];
+var attNameArray = [];
 
 
 
@@ -51,10 +52,11 @@ $('#add-position-confirm').click(function(){
     );
 
  
-
+    // adding attribute list to array     
     for (var attArrayIndex = 1; attArrayIndex <= attCount; attArrayIndex++ ) 
     {
         attArray.push($('#new-attribute_'+ attArrayIndex ).val());
+        attNameArray.push($('#new-attribute-name_'+ attArrayIndex ).val());
        // attArray.push.toString(document.getElementById('new-attribute_'+ attArrayIndex));
 
     }
@@ -62,10 +64,11 @@ $('#add-position-confirm').click(function(){
 
     // printing the attribute list
     var i = 0;
-    while (i < attArray.length) 
+    while (i < attNameArray.length) 
     {
         console.log(
-            "Attribute: " + attArray[i]
+            "Attribute Name: " + attNameArray[i] + "\n"
+            + "Attribute: " + attArray[i]
             
         );
 
@@ -100,7 +103,8 @@ $('#add-attribute-confirm').click(function () {
 
     var table = $(this).closest('form');
     if (table.find('input:text').length < 10) {   // The <20 is how many fields u wanna add of inputs
-        table.append('<div class="form-group"><label  class="col-sm-2 control-label">Attribute: </label> <div class="col-sm-2 col-sm-10"> <input type="text" class="form-control" id="new-attribute_' + attCount + '" placeholder="Input Attribute"/></div></div>');
+    //    table.append('<div class="form-group"><label  class="col-sm-2 control-label">Attribute: </label> <div class="col-sm-2 col-sm-10"> <input type="text" class="form-control" id="new-attribute_' + attCount + '" placeholder="Input Attribute"/></div></div>');
+    table.append('<div class="form-group"><div class="col-sm-2 col-sm-10"> <input type="text" class="form-control" id="new-attribute-name_' + attCount + '" placeholder="Input Attribute Name"/></div> <div class="col-sm-2 col-sm-10"> <input type="text" class="form-control" id="new-attribute_' + attCount + '" placeholder="Input Attribute"/></div></div>');
     }
 });
 
