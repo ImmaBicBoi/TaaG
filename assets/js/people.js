@@ -1,6 +1,11 @@
 //PEOPLE.JS - For JavaScript Functions that are directly related to people.
 var firstName = document.getElementById('input-first-name');
 var lastName = document.getElementById('input-last-name');
+var employeeID = document.getElementById('input-emp-id');
+var attPersonArray = [];
+var attPersonNameArray = [];
+
+
 var empPos = document.getElementById('input-emp-position');
 var email = document.getElementById('input-email');
 var phone = document.getElementById('input-phone');
@@ -49,21 +54,56 @@ $('#add-person-btn').click(function(){
 
 $('#add-people-confirm').click(function(){
 
-    console.log(
-        "{" + "\n"
-        + "\t" + "first_name: " + firstName.value + "," + "\n"
-        + "\t" + "last_name: " + lastName.value + "," + "\n"
-        + "\t" + "emp_pos: " + empPos.value + "," + "\n"
-        + "\t" + "email: " + email.value + "," + "\n"
-        + "\t" + "phone: " + phone.value + "\n"
-        + "}"
+    var personData = {
+        "first_name": firstName.value, 
+        "last_name": lastName.value,
+        "employee_id" : employeeID.value
+    };
 
-    );
 
+    // adding attribute list to array
+    for (var attArrayIndex = 1; attArrayIndex <= attCount; attArrayIndex++ ) 
+    {
+        attPersonArray.push($('#new-person-attribute_'+ attArrayIndex ).val());
+        attPersonNameArray.push($('#new-person-attribute-name_'+ attArrayIndex ).val());
+       // attArray.push.toString(document.getElementById('new-attribute_'+ attArrayIndex));
+
+    }
+
+
+    // printing the attribute list
+    var i = 0;
+    while (i < attPersonNameArray.length) 
+    {
+        console.log(
+            "Attribute Name: " + attPersonNameArray[i] + "\n"
+            + "Attribute: " + attPersonArray[i]
+            
+        );
+
+        i++;
+    }
+
+    
     $('#add-people-modal').modal('hide');
     loadPeople();
     //writePeopleJson();
 }); 
+
+
+var attCount = 0;
+
+//Dynamically adds new attributes to modal window
+$('#add-people-attribute-confirm').click(function () {
+    attCount++;
+
+    var table = $(this).closest('form');
+    if (table.find('input:text').length < 10) {   // The <20 is how many fields u wanna add of inputs
+    //    table.append('<div class="form-group"><label  class="col-sm-2 control-label">Attribute: </label> <div class="col-sm-2 col-sm-10"> <input type="text" class="form-control" id="new-attribute_' + attCount + '" placeholder="Input Attribute"/></div></div>');
+    table.append('<div class="form-group"><div class="col-sm-2 col-sm-10"> <input type="text" class="form-control" id="new-person-attribute-name_' + attCount + '" placeholder="Input Attribute Name"/></div> <div class="col-sm-2 col-sm-10"> <input type="text" class="form-control" id="new-person-attribute_' + attCount + '" placeholder="Input Attribute"/></div></div>');
+    }
+});
+
 
 
 // STILL BUGGY
@@ -97,13 +137,6 @@ function writePeopleJson() {
 
 }
 
-$('#add-people-attribute-confirm').click(function () {
-    var table = $(this).closest('form');
-    if (table.find('input:text').length < 10) {   // The <20 is how many fields u wanna add of inputs
-        table.append('<div class="form-group"><label  class="col-sm-2 control-label">Attribute: </label> <div class="col-sm-2 col-sm-10"> <input type="text" class="form-control id="new-people-attribute" placeholder="Input Attribute"/></div></div>');
-    }
-    attArray.push.toString(document.getElementById('new-attribute'));
-});
 
 $('#ppl-edit-btn').click(function(){
     //hide/show edit/save buttons
@@ -121,9 +154,9 @@ $('#ppl-edit-btn').click(function(){
     "style", "border: solid black; background: none");
 
 
-    $( "#person-attributes p" ).attr(
+    $( "#person-attributes p, #pos-id p" ).attr(
             "style", "border: solid black; background: none");
-    $( "#person-attributes p" ).attr(
+    $( "#person-attributes p, #pos-id p" ).attr(
             "contenteditable", "true");
 
    
@@ -144,7 +177,7 @@ $('#ppl-save-btn').click(function(){
     
     //make UN-editable 
     $('#ppl-fullname, #ppl-fname, #ppl-lname').attr('contenteditable','false');
-    $( "#person-attributes p" ).attr(
+    $( "#person-attributes p, #pos-id p" ).attr(
         "contenteditable", "false");
 
     //hide/show save button
@@ -159,7 +192,7 @@ $('#ppl-save-btn').click(function(){
     document.getElementById('ppl-lname').setAttribute(
     "style", "border: rgb(124,252,0); background: rgb(124,252,0)");
 
-    $( "#person-attributes p" ).attr(
+    $( "#person-attributes p, #pos-id p" ).attr(
         "style", "border: rgb(124,252,0); background: rgb(124,252,0)");
 
     
@@ -172,7 +205,7 @@ $('#ppl-delete-btn').click(function(){
     var pplfname = document.getElementById('ppl-fname').innerHTML;
     var ppllname = document.getElementById('ppl-lname').innerHTML;
     var empos = document.getElementById('emp_pos').innerHTML;
-     var pplemail = document.getElementById('ppl-email').innerHTML;
+    var pplemail = document.getElementById('ppl-email').innerHTML;
     var pplphone = document.getElementById('ppl-phone').innerHTML;
 
     console.log("deleting the json");
@@ -209,6 +242,8 @@ $('#ppl-delete-btn').click(function(){
     
     var person = getPerson(id);
     $('#person-attributes').html("");
+    var empID = person.employee_id;
+    $('#pos-id').html("<span class='modal-headers'>Employee ID: </span>" + "<p contenteditable='false'>"+ empID ) + "</p>"; //insert employee id 
     $.each(person.attributes, function (i, val){
         //console.log("app");
        $('#person-attributes').append("<span class='modal-headers'>"+ person.attributes[i].key +":</span>" + "<p contenteditable='false'>"+person.attributes[i].value +"</p>"); //insert positon adittional attributes

@@ -13,9 +13,9 @@
             $(function(){                
                 $("#postPerson, #postMessage").on("click", function(){
                     $.ajax({
-                        url: $(this).attr("id") === "postMessage" ? ctxPath+"/service/message/post" : ctxPath+"/service/position/2",
-                        type: "PUT",
-                        data: '{"name":"Softwa","parent_position_id":"1","job_id":"A11-22"}',
+                        url: $(this).attr("id") === "postMessage" ? ctxPath+"/service/message/post" : ctxPath+"/service/position",
+                        type: "POST",
+                        data: '{"name":"Test","parent_position_id":"2","job_id":"A11-66"}',
                         contentType: "application/json",
                         cache: false,
                         dataType: "json"

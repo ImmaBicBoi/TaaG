@@ -51,7 +51,11 @@ public class PositionDaoImpl implements Positions {
 		try {
 			cs = connection.prepareCall("call CREATE_POSITION (?,?,?,?,?)");
 			cs.setString(1, pos.getName());
-			cs.setInt(2, pos.getParentPositionID());
+			if(pos.getParentPositionID() != null) {
+				cs.setInt(2, pos.getParentPositionID());
+				}else {
+					cs.setNull(2, Types.INTEGER);
+				}
 			if(pos.getPersonID() != null) {
 			cs.setInt(3, pos.getPersonID());
 			}else {
@@ -137,7 +141,11 @@ public class PositionDaoImpl implements Positions {
 			
 			ps.setInt(1, positionId);
 			ps.setString(2, pos.getName());
+			if(pos.getParentPositionID() != null) {
 			ps.setInt(3, pos.getParentPositionID());
+			}else {
+				ps.setNull(3, Types.INTEGER);
+			}
 			if(pos.getPersonID() != null) {
 			ps.setInt(4, pos.getPersonID());
 			}else {

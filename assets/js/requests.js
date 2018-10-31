@@ -90,7 +90,7 @@ function loadAllPositions(){
 
 function createPerson(personData){
     //var data = {'bob':'foo','paul':'dog'};
-    //console.log("sending data: "+ JSON.stringify(personData));
+    console.log("sending data: "+ JSON.stringify(personData));
     $.ajax({
       url: "http://localhost:8080/Taag/service/person",
       type: 'POST',

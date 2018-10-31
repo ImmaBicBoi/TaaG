@@ -3,6 +3,7 @@
 var positionTitle = document.getElementById('input-pos-title');
 var positionID = document.getElementById('input-pos-id');
 var attArray = [];
+var attNameArray = [];
 
 
 
@@ -36,7 +37,6 @@ $('#add-position-btn').click(function(){
 $('#add-position-confirm').click(function(){
     var positionData = {
         "name": positionTitle.value, 
-        "parent_position_id": 0,
         "job_id": positionID.value
     };
     console.log(
@@ -51,10 +51,11 @@ $('#add-position-confirm').click(function(){
     );
 
  
-
+    // adding attribute list to array     
     for (var attArrayIndex = 1; attArrayIndex <= attCount; attArrayIndex++ ) 
     {
         attArray.push($('#new-attribute_'+ attArrayIndex ).val());
+        attNameArray.push($('#new-attribute-name_'+ attArrayIndex ).val());
        // attArray.push.toString(document.getElementById('new-attribute_'+ attArrayIndex));
 
     }
@@ -62,10 +63,11 @@ $('#add-position-confirm').click(function(){
 
     // printing the attribute list
     var i = 0;
-    while (i < attArray.length) 
+    while (i < attNameArray.length) 
     {
         console.log(
-            "Attribute: " + attArray[i]
+            "Attribute Name: " + attNameArray[i] + "\n"
+            + "Attribute: " + attArray[i]
             
         );
 
@@ -100,7 +102,8 @@ $('#add-attribute-confirm').click(function () {
 
     var table = $(this).closest('form');
     if (table.find('input:text').length < 10) {   // The <20 is how many fields u wanna add of inputs
-        table.append('<div class="form-group"><label  class="col-sm-2 control-label">Attribute: </label> <div class="col-sm-2 col-sm-10"> <input type="text" class="form-control" id="new-attribute_' + attCount + '" placeholder="Input Attribute"/></div></div>');
+    //    table.append('<div class="form-group"><label  class="col-sm-2 control-label">Attribute: </label> <div class="col-sm-2 col-sm-10"> <input type="text" class="form-control" id="new-attribute_' + attCount + '" placeholder="Input Attribute"/></div></div>');
+    table.append('<div class="form-group"><div class="col-sm-2 col-sm-10"> <input type="text" class="form-control" id="new-attribute-name_' + attCount + '" placeholder="Input Attribute Name"/></div> <div class="col-sm-2 col-sm-10"> <input type="text" class="form-control" id="new-attribute_' + attCount + '" placeholder="Input Attribute"/></div></div>');
     }
 });
 
@@ -120,9 +123,9 @@ $('#edit-btn').click(function(){
     //var select = document.getElementById('pos-title').innerHTML;
   
 
-    document.getElementsByTagName("span")[4].setAttribute('type', 'button'); 
-    document.getElementsByTagName("span")[4].setAttribute('class', 'btn btn-primary dropdown-toggle');
-    document.getElementsByTagName("span")[4].setAttribute('data-toggle', 'dropdown'); 
+    // document.getElementsByTagName("span")[4].setAttribute('type', 'button'); 
+    // document.getElementsByTagName("span")[4].setAttribute('class', 'btn btn-primary dropdown-toggle');
+    // document.getElementsByTagName("span")[4].setAttribute('data-toggle', 'dropdown'); 
 
 
 
@@ -136,9 +139,9 @@ $('#edit-btn').click(function(){
 
     $( "#details-title" ).attr(
         "style", "border: solid black; background: none");
-    $( "#pos-attributes p" ).attr(
+    $( "#pos-attributes p, #pos-id p" ).attr(
         "style", "border: solid black; background: none");
-    $( "#pos-attributes p" ).attr(
+    $( "#pos-attributes p, #pos-id p" ).attr(
         "contenteditable", "true");
 
 
@@ -170,7 +173,7 @@ $('#save-btn').click(function(){
         "style", "border: rgb(124,252,0); background: rgb(124,252,0)");
 
      
-    $( "#pos-attributes p" ).attr(
+    $( "#pos-attributes p, #pos-id p" ).attr(
         "style", "border: rgb(124,252,0); background: rgb(124,252,0)");
 
     //refresh page   --necessary???
@@ -179,30 +182,36 @@ $('#save-btn').click(function(){
 });
 
 //Opens the Right sidebar to show position details
-function openPositionsTab(id,name, occupantID){
+function openPositionsTab(id,name, occupantID,){
     //console.log("opening "+name);
     clearDetailsTab();
 
     var occupant = getPerson(occupantID);
-    var occupantName = ""
+    var occupantName = "";
+    
     if(occupantID == 0){
         occupantName = "-"
     }else{
         occupantName = occupant.first_name + " " + occupant.last_name;
     }
+    
    // console.log("personnn " + occupant.first_name);
     $('#details-title').html(name); //insert position title 
     $('#pos-heldby').html("<span class='modal-headers'>Position Held By: </span>" + "<p id = 'pos-ocname'contenteditable='false'>"+ occupantName ) + "</p>"; //insert position heldby name
-    
+
     $('#pos-attributes').html(""); //insert position attributes
     //console.log(attributes);
     var position = getPosition(id);
+    var jobID = position.job_id;
+    $('#pos-id').html("<span class='modal-headers'>Job ID: </span>" + "<p contenteditable='false'>"+ jobID ) + "</p>"; //insert position heldby name
+
     $.each(position.attributes, function (i, val){
         console.log("app");
        $('#pos-attributes').append("<span class='modal-headers'>"+ position.attributes[i].key +":</span>" + "<p id ='Value"+ i+ "' contenteditable='false'>"+position.attributes[i].value +"</p>"); //insert positon adittional attributes
 
     });
     
+
     setCurrentID(id);
     document.getElementById('edit-btn').style = "display: block;" //show EDIT button
     document.getElementById('ppl-save-btn').style = "display: none;" //hide  button
