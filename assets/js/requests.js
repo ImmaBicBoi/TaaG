@@ -5,6 +5,7 @@ function loadAllPersons(){
   console.log('loading persons from API');
     $.getJSON( "http://localhost:8080/Taag/service/person", function( data ) {
         var items = [];
+        console.log(data);
        // items.push(data.message);
         $.each( data.persons, function( key, val ) {
           items.push( "<li >" + data.persons[key].person_id + ": " + 
@@ -33,6 +34,7 @@ function loadAllPositions(){
     console.log('loading positions from API');
       $.getJSON( "http://localhost:8080/Taag/service/position", function( data ) {
           var items = [];
+          console.log(data);
          // items.push(data.message);
           $.each( data.positions, function( key, val ) {
             items.push( "<li >" + data.positions[key].position_id + ": " + 
@@ -115,3 +117,63 @@ function createPerson(personData){
         }
     });
   }
+
+
+  function updatePerson(personData){
+    console.log("sending data: "+ JSON.stringify(personData));
+    $.ajax({
+      url: "http://localhost:8080/Taag/service/person/"+getCurrentID(),
+      type: 'PUT',
+      contentType:'application/json',
+      data: JSON.stringify(personData),
+      dataType:'json',
+      async: false,
+      success: function(data,status, jqXHR){
+        //On ajax success do this
+        console.log("response "+ JSON.stringify(data) + " " + jqXHR.status);
+          },
+      error: function(xhr, ajaxOptions, thrownError) {
+          //On error do this
+            if (xhr.status == 200) {
+
+                alert(ajaxOptions);
+            }
+            else {
+                alert(xhr.status);
+                alert(thrownError);
+            }
+        }
+    });
+
+    loadAllPersons();
+  }
+
+  function updatePosition(positionData){
+    console.log("sending data: "+ JSON.stringify(positionData));
+    $.ajax({
+      url: "http://localhost:8080/Taag/service/position/"+getCurrentID(),
+      type: 'PUT',
+      contentType:'application/json',
+      data: JSON.stringify(positionData),
+      dataType:'json',
+      async: false,
+      success: function(data,status, jqXHR){
+        //On ajax success do this
+        console.log("response "+ JSON.stringify(data) + " " + jqXHR.status);
+          },
+      error: function(xhr, ajaxOptions, thrownError) {
+          //On error do this
+            if (xhr.status == 200) {
+
+                alert(ajaxOptions);
+            }
+            else {
+                alert(xhr.status);
+                alert(thrownError);
+            }
+        }
+    });
+
+    loadAllPositions();
+  }
+

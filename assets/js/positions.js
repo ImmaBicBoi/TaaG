@@ -153,6 +153,14 @@ $('#save-btn').click(function(){
     document.getElementById('save-btn').style="display: none;"
     document.getElementById('edit-btn').style="display: block;"
 
+    var postitle = document.getElementById('details-title').innerHTML;
+    console.log(postitle);
+
+    var positionData = {
+        "name": postitle
+    }
+    updatePosition(positionData);
+
     //change color   
 
     
