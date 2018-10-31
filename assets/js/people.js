@@ -1,6 +1,7 @@
 //PEOPLE.JS - For JavaScript Functions that are directly related to people.
 var firstName = document.getElementById('input-first-name');
 var lastName = document.getElementById('input-last-name');
+var employeeID = document.getElementById('input-emp-id');
 var attPersonArray = [];
 var attPersonNameArray = [];
 
@@ -21,18 +22,10 @@ $('#add-person-btn').click(function(){
 $('#add-people-confirm').click(function(){
     var personData = {
         "first_name": firstName.value, 
-        "last_name": lastName.value
+        "last_name": lastName.value,
+        "employee_id" : employeeID.value
     };
-    console.log(
-        "{" + "\n"
-        + "\t" + "first_name: " + firstName.value + "," + "\n"
-        + "\t" + "last_name: " + lastName.value + "," + "\n"
-        // + "\t" + "emp_pos: " + empPos.value + "," + "\n"
-        // + "\t" + "email: " + email.value + "," + "\n"
-        // + "\t" + "phone: " + phone.value + "\n"
-        + "}"
 
-    );
 
     // adding attribute list to array
     for (var attArrayIndex = 1; attArrayIndex <= attCount; attArrayIndex++ ) 
@@ -129,9 +122,9 @@ $('#ppl-edit-btn').click(function(){
     "style", "border: solid black; background: none");
 
 
-    $( "#person-attributes p" ).attr(
+    $( "#person-attributes p, #pos-id p" ).attr(
             "style", "border: solid black; background: none");
-    $( "#person-attributes p" ).attr(
+    $( "#person-attributes p, #pos-id p" ).attr(
             "contenteditable", "true");
 
    
@@ -148,7 +141,7 @@ $('#ppl-save-btn').click(function(){
 
     //make UN-editable 
     $('#ppl-fullname, #ppl-fname, #ppl-lname').attr('contenteditable','false');
-    $( "#person-attributes p" ).attr(
+    $( "#person-attributes p, #pos-id p" ).attr(
         "contenteditable", "false");
 
     //hide/show save button
@@ -163,7 +156,7 @@ $('#ppl-save-btn').click(function(){
     document.getElementById('ppl-lname').setAttribute(
     "style", "border: rgb(124,252,0); background: rgb(124,252,0)");
 
-    $( "#person-attributes p" ).attr(
+    $( "#person-attributes p, #pos-id p" ).attr(
         "style", "border: rgb(124,252,0); background: rgb(124,252,0)");
 
     
@@ -176,7 +169,7 @@ $('#ppl-delete-btn').click(function(){
     var pplfname = document.getElementById('ppl-fname').innerHTML;
     var ppllname = document.getElementById('ppl-lname').innerHTML;
     var empos = document.getElementById('emp_pos').innerHTML;
-     var pplemail = document.getElementById('ppl-email').innerHTML;
+    var pplemail = document.getElementById('ppl-email').innerHTML;
     var pplphone = document.getElementById('ppl-phone').innerHTML;
 
     console.log("deleting the json");
@@ -213,6 +206,8 @@ $('#ppl-delete-btn').click(function(){
     
     var person = getPerson(id);
     $('#person-attributes').html("");
+    var empID = person.employee_id;
+    $('#pos-id').html("<span class='modal-headers'>Employee ID: </span>" + "<p contenteditable='false'>"+ empID ) + "</p>"; //insert employee id 
     $.each(person.attributes, function (i, val){
         //console.log("app");
        $('#person-attributes').append("<span class='modal-headers'>"+ person.attributes[i].key +":</span>" + "<p contenteditable='false'>"+person.attributes[i].value +"</p>"); //insert positon adittional attributes
