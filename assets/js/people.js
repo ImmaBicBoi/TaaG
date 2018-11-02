@@ -167,7 +167,11 @@ $('#ppl-delete-btn').click(function(){
      var pplfname = document.getElementById('ppl-fname').innerHTML;
     var ppllname = document.getElementById('ppl-lname').innerHTML;
 <<<<<<< HEAD
+<<<<<<< HEAD
      var pplemail = document.getElementById('ppl-email').innerHTML;
+=======
+    var pplemail = document.getElementById('ppl-email').innerHTML;
+>>>>>>> a04dfb3ad279867dea73815a2ff6f10ae5c82a2c
 =======
     var pplemail = document.getElementById('ppl-email').innerHTML;
 >>>>>>> a04dfb3ad279867dea73815a2ff6f10ae5c82a2c
@@ -176,10 +180,16 @@ $('#ppl-delete-btn').click(function(){
     console.log(
         "{" + "\n"
 <<<<<<< HEAD
+<<<<<<< HEAD
          + "\t" + "first_name: " + pplfname + "," + "\n"
         + "\t" + "last_name: " + ppllname + "," + "\n"
         + "\t" + "email: " + pplemail + "," + "\n"
         + "\t" + "phone: " + pplphone + "\n"
+=======
+        + "\t" + "Name: " + pplfname + " " +ppllname + "," + "\n"
+        + "\t" + "E-mail: " + pplemail + "," + "\n"
+        + "\t" + "Phone:  " + pplphone + "," + "\n"
+>>>>>>> a04dfb3ad279867dea73815a2ff6f10ae5c82a2c
 =======
         + "\t" + "Name: " + pplfname + " " +ppllname + "," + "\n"
         + "\t" + "E-mail: " + pplemail + "," + "\n"

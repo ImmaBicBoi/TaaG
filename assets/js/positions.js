@@ -121,8 +121,13 @@ $('#add-attribute-confirm').click(function () {
 $('#edit-btn').click(function(){
     //hide/show edit/save buttons
     document.getElementById('edit-btn').style="display: none;"
+<<<<<<< HEAD
     document.getElementById('save-btn').style="display: block;"
     document.getElementById('delete-btn').style ="display: block;"
+=======
+    document.getElementById('save-btn').style="display: inline;"
+    document.getElementById('delete-btn').style ="display: inline;"
+>>>>>>> a04dfb3ad279867dea73815a2ff6f10ae5c82a2c
     //make editable and focus on the first editable line
     $('#details-title,#pos-ocfname, #pos-oclname, #namespan, #key1, #key1, #key2, #key3, #Value1, #Value2, #Value3').attr('contenteditable','true');
     $('#pos-title').focus();
@@ -307,10 +312,13 @@ $('#delete-btn').click(function(){
     var value2 = document.getElementById('Value2').innerHTML;
     var value3 = document.getElementById('Value3').innerHTML;
 
+<<<<<<< HEAD
 
     document.getElementById('edit-btn').style="display: none;"
     document.getElementById('save-btn').style="display: none;"
     document.getElementById('delete-btn').style ="display: none;"
+=======
+>>>>>>> a04dfb3ad279867dea73815a2ff6f10ae5c82a2c
 
     console.log("deleting the json");
     console.log(
