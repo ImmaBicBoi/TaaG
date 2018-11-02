@@ -21,15 +21,14 @@ function loadPositions() {
                                 .html(data[i].id + ": " + data[i].pos_name)
                                 .click(function (event) { //Attach a click event to the <h9> element
                                     clearDetailsTab();
-                                    $('#details-title').html(data[i].pos_name); //insert position title 
-                                    $('#pos-heldby').html("<span class='modal-headers'>Position Held By: </span>" + "<p id = 'pos-ocname'contenteditable='false'>" + data[i].pos_occupant_first_name + " " + data[i].pos_occupant_last_name) + "</p>"; //insert position heldby name
+                                    $('#details-title').html("<span>" + "<p id='pos-title'>" + data[i].pos_name +"</p>"+"</span>"); //insert position title 
+                                    $('#pos-heldby').html("<span class='modal-headers'>Position Held By: </span> <br>" + "<p><span id='namespan'>"+"<h9 id = 'pos-ocfname' contenteditable='false'>" + data[i].pos_occupant_first_name +"</h9>" + " " + "<h9 id = 'pos-oclname'contenteditable='false'>" + data[i].pos_occupant_last_name)+"</h9>"+" </span> </p><br>"; //insert position heldby name
                                     
-                                    $('#pos-attributes').html(""); //insert position attributes
-                                    $('#pos-attributes').append("<span class='modal-headers'>Key 1:</span>" + "<p id ='Value1' contenteditable='false'>Value 1</p>"); //insert positon adittional attributes
-                                    $('#pos-attributes').append("<span class='modal-headers'>Key 2:</span>" + "<p id ='Value2' contenteditable='false'>Value 2</p>"); //insert positon adittional attributes
-                                    $('#pos-attributes').append("<span class='modal-headers'>Key 3</span>" + "<p id ='Value3' contenteditable='false'>Value 3</p>"); //insert positon adittional attributes
-                                    
+                                    $('#pos-attributes').append("<span class='modal-headers'><h9 id='key1'>Key 1:</h9></span>" + "<p id ='Value1' contenteditable='false'>Value 1</p>"); //insert positon adittional attributes
+                                    $('#pos-attributes').append("<span class='modal-headers'><h9 id='key2'>Key 2:</h9></span>" + "<p id ='Value2' contenteditable='false'>Value 2</p>"); //insert positon adittional attributes
+                                    $('#pos-attributes').append("<span class='modal-headers'><h9 id='key3'>Key 3:</h9></span>" + "<p id ='Value3' contenteditable='false'>Value 3</p>"); //insert positon adittional attributes
                                     setCurrentID(data[i].id);
+
                                     document.getElementById('edit-btn').style = "display: block;" //show EDIT button
                                     document.getElementById('ppl-save-btn').style = "display: none;" //hide  button
                                     document.getElementById('ppl-edit-btn').style = "display: none;" //hide  button
@@ -123,7 +122,7 @@ $('#edit-btn').click(function(){
     //hide/show edit/save buttons
     document.getElementById('edit-btn').style="display: none;"
     document.getElementById('save-btn').style="display: block;"
-    document.getElementById('delete-btn').style ="display: inline;"
+    document.getElementById('delete-btn').style ="display: block;"
     //make editable and focus on the first editable line
     $('#details-title,#pos-ocfname, #pos-oclname, #namespan, #key1, #key1, #key2, #key3, #Value1, #Value2, #Value3').attr('contenteditable','true');
     $('#pos-title').focus();
@@ -131,7 +130,7 @@ $('#edit-btn').click(function(){
     
    // var postitle = document.getElementById('pos-title').innerHTML;
 
-    var select = document.getElementById('pos-title').innerHTML;
+    //var select = document.getElementById('pos-title').innerHTML;
     document.getElementsByTagName("p")[0].setAttribute('type', 'button'); 
     document.getElementsByTagName("p")[0].setAttribute('class', 'btn btn-primary dropdown-toggle');
     document.getElementsByTagName("p")[0].setAttribute('data-toggle', 'dropdown'); 
@@ -172,6 +171,7 @@ $('#edit-btn').click(function(){
    //      $select.append(data[i].pos_name);
    //    })
    //  });
+>>>>>>> a04dfb3ad279867dea73815a2ff6f10ae5c82a2c
 
 
     document.getElementById('pos-title').setAttribute(
@@ -208,7 +208,9 @@ $('#edit-btn').click(function(){
 });
 
 $('#save-btn').click(function(){
-
+    document.getElementById('edit-btn').style="display: block;"
+    document.getElementById('save-btn').style="display: none;"
+    document.getElementById('delete-btn').style ="display: none;"
 
     
     var postitle = document.getElementById('pos-title').innerHTML;
@@ -297,10 +299,18 @@ $('#save-btn').click(function(){
 $('#delete-btn').click(function(){
 
     console.log(getCurrentID());
-   var postitle = document.getElementById('pos-title').innerHTML;
- var key1 = document.getElementById('key1').innerHTML;
+    var postitle = document.getElementById('pos-title').innerHTML;
+    var key1 = document.getElementById('key1').innerHTML;
     var key2 = document.getElementById('key2').innerHTML;
     var key3 = document.getElementById('key3').innerHTML;
+    var value1 = document.getElementById('Value1').innerHTML;
+    var value2 = document.getElementById('Value2').innerHTML;
+    var value3 = document.getElementById('Value3').innerHTML;
+
+
+    document.getElementById('edit-btn').style="display: none;"
+    document.getElementById('save-btn').style="display: none;"
+    document.getElementById('delete-btn').style ="display: none;"
 
     console.log("deleting the json");
     console.log(
