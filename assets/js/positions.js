@@ -77,16 +77,18 @@ $('#position-list li').remove();
 }); 
 
 $('#edit-btn').click(function(){
-    //hide/show edit/save buttons
     document.getElementById('edit-btn').style="display: none;"
     document.getElementById('save-btn').style="display: block;"
+    document.getElementById('delete-btn').style ="display: block;"
     $('#details-title, #key1, #key1, #key2, #key3, #Value1, #Value2, #Value3').attr('contenteditable','true');
     $('#pos-title').focus();
+
+
+
+
+
     document.getElementById('pos-ocfname').style.display = "none";
     document.getElementById('pos-oclname').style.display = "none";    
-
-
-
     var CurrentOcName = document.getElementById("pos-ocfname").innerHTML + " " + document.getElementById("pos-oclname").innerHTML;
     //console.log(CurrentOcName); 
 
@@ -125,9 +127,7 @@ $('#edit-btn').click(function(){
 
 });
 
-$('#save-btn').click(function(){
-
-    
+$('#save-btn').click(function(){    
     //get updated value from the dropdown
     var sel = $("#namespan select");
     var value = sel.val();
@@ -137,10 +137,6 @@ $('#save-btn').click(function(){
     for (var i = 0; i < op.length; i++) {
         op[i].hidden = true;
     }
-    // var el = document.getElementsByTagName("namespan");
-    // var newEl = document.createElement('p');
-    // newEl.innerHTML = text;
-    // newEl.parentNode.replaceChild(el);
     
     var postitle = document.getElementById('pos-title').innerHTML;
     var namevalue = text;
@@ -176,15 +172,13 @@ $('#save-btn').click(function(){
 
     );
     
-   
 
-
-    //make UN-editable 
     $('#pos-ocfname, #pos-oclname, #namespan, #key1, #pos-title, #key1, #key2, #key3, #Value1, #Value2, #Value3').attr('contenteditable','false');
 
     //hide/show save button
     document.getElementById('save-btn').style="display: none;"
     document.getElementById('edit-btn').style="display: block;"
+    document.getElementById('delete-btn').style ="display: none;"
 
     //change color   
 
@@ -215,9 +209,37 @@ $('#save-btn').click(function(){
 
     document.getElementById('Value3').setAttribute(
     "style", "border: rgb(124,252,0); background: rgb(124,252,0)");
-    
+
+// }
+$('#delete-btn').click(function(){
+
+    // console.log(getCurrentID());
+    // var postitle = document.getElementById('pos-title').innerHTML;
+    // var key1 = document.getElementById('key1').innerHTML;
+    // var key2 = document.getElementById('key2').innerHTML;
+    // var key3 = document.getElementById('key3').innerHTML;
+    // var value1 = document.getElementById('Value1').innerHTML;
+    // var value2 = document.getElementById('Value2').innerHTML;
+    // var value3 = document.getElementById('Value3').innerHTML;
 
 
-//    location.reload();
-    
-});
+    // document.getElementById('edit-btn').style="display: none;"
+    // document.getElementById('save-btn').style="display: none;"
+    // document.getElementById('delete-btn').style ="display: none;"
+
+
+    // console.log("deleting the json");
+    // console.log(
+    //     "{" + "\n"
+    //     + "\t" + "Position_Title: " + postitle + "," + "\n"
+    //     + "\t" + "Arrtibute_One: " + key1 + "," + "\n"
+    //     + "\t" + "Attribute_Two: " + key2 + "," + "\n"
+    //     + "\t" + "Attribute_Three: " + key3 + "\n"
+    //     + "}"
+
+    // );
+
+
+
+
+    };
