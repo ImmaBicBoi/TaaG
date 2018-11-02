@@ -78,8 +78,8 @@ $('#position-list li').remove();
 
 $('#edit-btn').click(function(){
     document.getElementById('edit-btn').style="display: none;"
-    document.getElementById('save-btn').style="display: block;"
-    document.getElementById('delete-btn').style ="display: block;"
+    document.getElementById('save-btn').style="display: inline;"
+    document.getElementById('delete-btn').style ="display: inline;"
     $('#details-title, #key1, #key1, #key2, #key3, #Value1, #Value2, #Value3').attr('contenteditable','true');
     $('#pos-title').focus();
 
