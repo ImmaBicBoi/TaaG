@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home - Brand</title>
+    <title>Home - TaaG</title>
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic">
     <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
@@ -26,6 +26,7 @@
         </div>
     </nav>
     <div class="row" style="height:30px;min-height:30px;"></div>
+
     <!-- Add position popup-->
     <div class="modal fade" role="dialog" tabindex="-1" id="add-position-modal" style="margin-right:0px;margin-left:100px;">
         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
@@ -37,7 +38,7 @@
 
                 <!-- Modal Body -->
                 <div class="modal-body">
-                    <form name="position-form" id="position-form" class="form-horizontal" role="form">
+                    <form class="form-horizontal" role="form">
                         <div class="form-group">
                             <label class="col-sm-2 control-label" for="input-pos-title">Position Title</label>
                             <div class="col-sm-10">
@@ -50,46 +51,36 @@
                                 <input type="text" class="form-control" id="input-pos-id" placeholder="Input Position ID" />
                             </div>
                         </div>
-
-                        <!--  Hardcoded Add Atributes -->
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="input-att-one">Attribute 1</label>
+                            <div class="col-sm-2 col-sm-10">
+                                <input type="text" class="form-control" id="input-att-one" placeholder="Input Attribute 1" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="input-att-two">Attribute 2</label>
+                            <div class="col-sm-2 col-sm-10">
+                                <input type="text" class="form-control" id="input-att-two" placeholder="Input Attribute 2" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="input-att-three">Attribute 3</label>
+                            <div class="col-sm-2 col-sm-10">
+                                <input type="text" class="form-control" id="input-att-three" placeholder="Input Attribute 3" />
+                            </div>
+                        </div>
                         <!-- <div class="form-group">
-                        <label  class="col-sm-2 control-label"
-                                  for="input-att-one">Attribute 1</label>
-                        <div class="col-sm-2 col-sm-10">
-                            <input type="text" class="form-control" 
-                            id="input-att-one" placeholder="Input Attribute 1"/>
-                        </div>
-                      </div>
-                    <div class="form-group">
-                        <label  class="col-sm-2 control-label"
-                                  for="input-att-two">Attribute 2</label>
-                        <div class="col-sm-2 col-sm-10">
-                            <input type="text" class="form-control" 
-                            id="input-att-two" placeholder="Input Attribute 2"/>
-                        </div>
-                      </div>
-                    <div class="form-group">
-                        <label  class="col-sm-2 control-label"
-                                  for="input-att-three">Attribute 3</label>
-                        <div class="col-sm-2 col-sm-10">
-                            <input type="text" class="form-control" 
-                            id="input-att-three" placeholder="Input Attribute 3"/>
-                        </div>
-                      </div>
-                       -->
-                        <!-- <div class="form-group">
-                      <div class="col-sm-offset-2 col-sm-10">
-                        <div class="checkbox">
-                          <label>
-                              <input type="checkbox"/> Confirm
-                          </label>
-                        </div>
-                      </div>
-                    </div> -->
+                          <div class="col-sm-offset-2 col-sm-10">
+                            <div class="checkbox">
+                              <label>
+                                  <input type="checkbox"/> Confirm
+                              </label>
+                            </div>
+                          </div>
+                        </div> -->
                         <div class="form-group">
                             <div class="col-sm-2 col-sm-10">
-                                <button id="add-attribute-confirm" type="button" class="btn btn-default">+ Add
-                                    Attribute</button>
+                                <button type="submit" class="btn btn-default">+ Add Attribute</button>
                             </div>
                         </div>
                     </form>
@@ -104,81 +95,6 @@
         </div>
     </div>
 
-
-    <!-- Add people popup-->
-    <div class="modal fade" role="dialog" tabindex="-1" id="add-people-modal" style="margin-right:0px;margin-left:100px;">
-        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 id="position-modal-title">Add a New Person</h4><button type="button" class="close" data-dismiss="modal"
-                        aria-label="Close"><span aria-hidden="true">×</span></button>
-                </div>
-
-                <!-- Modal Body -->
-                <div class="modal-body">
-                    <form class="form-horizontal" role="form">
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label" for="input-first-name">First Name: </label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" id="input-first-name" placeholder="Enter First Name" />
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label" for="input-last-name">Last Name</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" id="input-last-name" placeholder="Enter Last Name: " />
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label" for="input-emp-id">Employee ID</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" id="input-emp-id" placeholder="Enter Employee ID: " />
-                            </div>
-                        </div>
-                        <!-- <div class="form-group">
-                            <label class="col-sm-2 control-label" for="input-emp-position">Position: </label>
-                            <div class="col-sm-2 col-sm-10">
-                                <input type="text" class="form-control" id="input-emp-position" placeholder="Enter Position: " />
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label" for="input-email">Email: </label>
-                            <div class="col-sm-2 col-sm-10">
-                                <input type="email" class="form-control" id="input-email" placeholder="Enter Email Address: " />
-                                <small id="email-foot" class="form-text text-muted">Please Enter a Valid Email.</small>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label" for="input-phone">Phone:</label>
-                            <div class="col-sm-2 col-sm-10">
-                                <input type="text" class="form-control" id="input-phone" placeholder="Enter Phone Number" />
-                                <small id="email-foot" class="form-text text-muted">Please Enter a Valid Phone Number.</small>
-                            </div>
-                        </div> -->
-
-                        <div class="form-group">
-                            <div class="col-sm-2 col-sm-10">
-                                <button id="add-people-attribute-confirm" type="button" class="btn btn-default">+ Add
-                                    Attribute</button>
-                            </div>
-                        </div>
-                        <!-- <div class="form-group">
-                      <div class="col-sm-offset-2 col-sm-10">
-                        <div class="checkbox">
-                          <label>
-                              <input type="checkbox"/> Confirm
-                          </label>
-                        </div>
-                      </div>
-                    </div> -->
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-light" type="button" data-dismiss="modal">Close</button>
-                    <button id="add-people-confirm" class="btn btn-primary" type="button">Confirm</button></div>
-            </div>
-        </div>
-    </div>
 
     <div></div>
     <div>
@@ -195,12 +111,12 @@
                                 </ul>
                                 <div class="tab-content scrollable">
                                     <div class="tab-pane active" role="tabpanel" id="tab-1">
-                                        <ul id="position-list" class="list-unstyled draggable-list">
+                                        <ul id="position-list" class="list-unstyled">
 
                                         </ul>
                                     </div>
                                     <div class="tab-pane" role="tabpanel" id="tab-2">
-                                        <ul id="people-list" class="list-unstyled draggable-list">
+                                        <ul id="people-list" class="list-unstyled">
 
                                         </ul>
                                     </div>
@@ -241,7 +157,7 @@
                                         <div class="details-body">
                                             <span id='pos-heldby'></span>
 
-                                            <span id='pos-id'></span>
+                                            <span id='pos-weight'></span>
                                             <span id='first-name'></span>
                                             <span id='last-name'></span>
                                             <div class="scrollable-modal">
@@ -253,24 +169,21 @@
 
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col" id="person-attributes">
-
-                                                    </div>
+                                                    <div class="col" id="email"> </div>
                                                 </div>
-
+                                                <div class="row">
+                                                    <div class="col" id="phone"></div>
+                                                </div>
 
                                             </div>
                                             <button class="btn btn-primary" type="button" id="edit-btn" style="display: none;"
-                                                style="margin-left:10px;">Edit</button>
+                                                style="margin-left:10px;">Edit position</button>
                                             <button class="btn btn-primary" type="button" id="save-btn" style="display: none;"
-                                                style="margin-left:10px;">Save</button>
-                                            <button class="btn btn-danger" type="button" id="delete-btn" style="display: none;">Delete</button>
-                                            <button class="btn btn-primary" type="button" id="ppl-edit-btn" style="display: none;"
-                                                style="margin-left:10px;">Edit info</button>
-                                            <button class="btn btn-primary" type="button" id="ppl-save-btn" style="display: none;"
                                                 style="margin-left:10px;">Save changes</button>
-                                            <button class="btn btn-danger" type="button" id="ppl-delete-btn" style="display: none;">Delete</button>
-
+                                                <button class="btn btn-primary" type="button" id="ppl-edit-btn" style="display: none;"
+                                                style="margin-left:10px;">Edit info</button>
+                                                <button class="btn btn-primary" type="button" id="ppl-save-btn" style="display: none;"
+                                                style="margin-left:10px;">Save changes</button>
                                         </div>
 
                                     </div>
@@ -291,11 +204,11 @@
                 <div class="col-lg-6 my-auto h-100 text-center text-lg-left">
                     <ul class="list-inline mb-2">
                         <li class="list-inline-item"><a href="#">About</a></li>
-                        <li class="list-inline-item"><span>⋅</span></li>
+                        <li class="list-inline-item"><span>·</span></li>
                         <li class="list-inline-item"><a href="#">Contact</a></li>
-                        <li class="list-inline-item"><span>⋅</span></li>
+                        <li class="list-inline-item"><span>·</span></li>
                         <li class="list-inline-item"><a href="#">Terms of &nbsp;Use</a></li>
-                        <li class="list-inline-item"><span>⋅</span></li>
+                        <li class="list-inline-item"><span>·</span></li>
                         <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
                     </ul>
                     <p class="text-muted small mb-4 mb-lg-0">© Brand 2018. All Rights Reserved.</p>
@@ -311,7 +224,6 @@
         </div>
     </footer>
     <script src="assets/js/jquery.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js" type="text/javascript"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
 
     <script type="text/javascript" src="assets/js/main.js"></script>
@@ -323,27 +235,13 @@
 
     <script type="text/javascript" src="assets/js/positions.js"></script>
     <script type="text/javascript" src="assets/js/people.js"></script>
-    <script type="text/javascript" src="assets/js/requests.js"></script>
     <script type="text/javascript" src="assets/js/graph.js"></script>
     <script>
         function main(container) {
 
-            var graph;
-            graph = initializeGraph(container);
-            //Local JSON FILES
-            //loadPositions();
-            //loadPeople();
-
-            //REMOTE API REQUESTS
-            loadAllPersons();
-            loadAllPositions();
-
-
-
-
-
-            //  console.log(arr);
-
+            initializeGraph(container);
+            loadPositions();
+            loadPeople();
         };
 
     </script>
