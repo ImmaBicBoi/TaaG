@@ -31,8 +31,10 @@ function loadPositions() {
                                             setCurrentID(data[i].id);
                                             document.getElementById('edit-btn').style="display: block;" //show EDIT button
                                             document.getElementById('save-btn').style="display: none;" //hide  button
+                                            document.getElementById('delete-btn').style = "display: none;"
                                             document.getElementById('ppl-edit-btn').style = "display: none;" //hide  button
                                             document.getElementById('ppl-save-btn').style = "display: none;" //hide  button
+                                            document.getElementById('ppl-delete-btn').style = "display: none;"
 
 
 

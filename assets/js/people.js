@@ -20,8 +20,10 @@ function loadPeople() {
                                     $('#phone').html("<span class='modal-headers'>Phone:</span>" + "<p id = 'ppl-phone' contenteditable='false'>" + data[i].phone + "</p>"); //insert number
                                     document.getElementById('ppl-edit-btn').style = "display: block;" //show EDIT button
                                     document.getElementById('ppl-save-btn').style = "display: none;" //hide  button
+                                    document.getElementById('ppl-delete-btn').style = "display: none;"
                                     document.getElementById('edit-btn').style = "display: none;" //hide  button
                                     document.getElementById('save-btn').style = "display: none;" //hide  button
+                                    document.getElementById('delete-btn').style = "display: none;"
 
                                 })
                         )
@@ -40,7 +42,7 @@ $('#add-person-btn').click(function(){
 
 $('#ppl-edit-btn').click(function(){
     //hide/show edit/save buttons
-    document.getElementById('ppl-delete-btn').style="display: block;";
+  
     document.getElementById('ppl-edit-btn').style="display: none;"
     document.getElementById('ppl-save-btn').style="display: inline;"
     document.getElementById('ppl-delete-btn').style= "display: inline;"
