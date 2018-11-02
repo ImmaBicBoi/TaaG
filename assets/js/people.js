@@ -42,6 +42,7 @@ $('#ppl-edit-btn').click(function(){
     //hide/show edit/save buttons
     document.getElementById('ppl-edit-btn').style="display: none;"
     document.getElementById('ppl-save-btn').style="display: block;"
+    document.getElementById('ppl-delete-btn').style ="display: block;"
     //make editable and focus on the first editable line
     $('#ppl-fullname, #ppl-fname, #ppl-lname, #ppl-email, #ppl-phone').attr('contenteditable','true');
     $('#ppl-fname').focus();
