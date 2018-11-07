@@ -80,11 +80,14 @@ $('#add-position-confirm').click(function(){
     // console.log(attTwo.value);
     // console.log(attThree.value);
 
-    $('#add-position-modal').modal('hide');
 
     attCount = 0;
     createPosition(positionData);
     loadAllPositions();
+
+    $("#position-form")[0].reset();
+    //document.getElementById('position-form').reset();   ALSO WORKS!!
+    $('#add-position-modal').modal('hide');
 }); 
 
 
@@ -98,6 +101,7 @@ var attCount = 0;
 
 //Dynamically adds new attributes to modal window
 $('#add-attribute-confirm').click(function () {
+    console.log('Add Attributes clicked');
     attCount++;
 
     var table = $(this).closest('form');
@@ -107,11 +111,81 @@ $('#add-attribute-confirm').click(function () {
     }
 });
 
+// Add attributes for the edit position function  -------------------------------------------------------------------------------------------------
+$('#edit-add-att-btn').click(function(){
+    $('#add-attributes-position-modal').modal('show');
+    console.log('Add Attributes clicked in the Edit Pane.');
+    //loadPositions();
+});
+
+$('#add-attribute-position-edit').click(function () {
+    console.log('add-attribute-position-edit clicked');
+    attCount++;
+
+    var table = $(this).closest('form');
+    if (table.find('input:text').length < 10) {   // The <20 is how many fields u wanna add of inputs
+    //    table.append('<div class="form-group"><label  class="col-sm-2 control-label">Attribute: </label> <div class="col-sm-2 col-sm-10"> <input type="text" class="form-control" id="new-attribute_' + attCount + '" placeholder="Input Attribute"/></div></div>');
+    table.append('<div class="form-group"><div class="col-sm-2 col-sm-10"> <input type="text" class="form-control" id="new-edit-attribute-position-name_' + attCount + '" placeholder="Input Attribute Name"/></div> <div class="col-sm-2 col-sm-10"> <input type="text" class="form-control" id="new-attribute_' + attCount + '" placeholder="Input Attribute"/></div></div>');
+    }
+});
+
+$('#add-attribute-position-edit-confirm').click(function(){
+ 
+    attNameArray = [];
+    attArray = [];
+
+    // adding attribute list to array     
+    for (var attArrayIndex = 1; attArrayIndex <= attCount; attArrayIndex++ ) 
+    {
+        attArray.push($('#new-attribute_'+ attArrayIndex ).val());
+        attNameArray.push($('#new-edit-attribute-position-name_'+ attArrayIndex ).val());
+       // attArray.push.toString(document.getElementById('new-attribute_'+ attArrayIndex));
+
+    }
+
+
+    // printing the attribute list
+    var i = 0;
+    while (i < attNameArray.length) 
+    {
+        console.log(
+            "Attribute Name: " + attNameArray[i] + "\n"
+            + "Attribute: " + attArray[i]
+            
+        );
+
+        i++;
+    }
+
+    // console.log(positionTitle.value);
+    // console.log(positionID.value);
+    // console.log(attOne.value);
+    // console.log(attTwo.value);
+    // console.log(attThree.value);
+
+    $('#add-position-modal').modal('hide');
+
+    attCount = 0;
+
+    $("#edit-position-att-form")[0].reset();
+    //document.getElementById('edit-position-att-form').reset();   ALSO WORKS!!
+    $('#add-attributes-position-modal').modal('hide');
+
+    loadAllPositions();
+}); 
+
+
+
+
+
+//------------------------------------------------------------------------------------------------------------------------------------------------
+
 
 //Changes Right sidebar to edit mode once "Edit" button is clicked
 $('#edit-btn').click(function(){
     //hide/show edit/save buttons
     document.getElementById('edit-btn').style="display: none;"
+    document.getElementById('edit-add-att-btn').style="display: block;"
     document.getElementById('save-btn').style="display: block;"
     //make editable and focus on the first editable line
     $('#details-title,#pos-ocfname, #pos-oclname, #namespan').attr('contenteditable','true');
@@ -154,6 +228,7 @@ $('#save-btn').click(function(){
 
     //hide/show save button
     document.getElementById('save-btn').style="display: none;"
+    document.getElementById('edit-add-att-btn').style="display: none;"
     document.getElementById('edit-btn').style="display: block;"
 
     var postitle = document.getElementById('details-title').innerHTML;
@@ -214,6 +289,7 @@ function openPositionsTab(id,name, occupantID,){
 
     setCurrentID(id);
     document.getElementById('edit-btn').style = "display: block;" //show EDIT button
+    document.getElementById('edit-add-att-btn').style = "display: none;" //hide  button
     document.getElementById('ppl-save-btn').style = "display: none;" //hide  button
     document.getElementById('ppl-edit-btn').style = "display: none;" //hide  button
     document.getElementById('save-btn').style = "display: none;" //hide  button
@@ -276,6 +352,7 @@ function loadPositions() {
                                     document.getElementById('ppl-save-btn').style = "display: none;" //hide  button
                                     document.getElementById('ppl-edit-btn').style = "display: none;" //hide  button
                                     document.getElementById('save-btn').style = "display: none;" //hide  button
+                                    document.getElementById('edit-add-att-btn').style = "display: none;" //hide  button
                                 })
                         )
                 );
