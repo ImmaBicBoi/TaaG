@@ -32,6 +32,7 @@ function loadPeople() {
                                     
                                     document.getElementById('ppl-edit-btn').style = "display: block;" //show EDIT button
                                     document.getElementById('ppl-save-btn').style = "display: none;" //hide  button
+                                    document.getElementById('edit-add-att-ppl-btn').style = "display: none;" //hide  button
                                     document.getElementById('edit-btn').style = "display: none;" //hide  button
                                     document.getElementById('save-btn').style = "display: none;" //hide  button
 
@@ -84,9 +85,13 @@ $('#add-people-confirm').click(function(){
         i++;
     }
 
-    
-    $('#add-people-modal').modal('hide');
+    attCount = 0;
     loadPeople();
+
+    $("#people-form")[0].reset();
+    //document.getElementById('people-form').reset();   ALSO WORKS!!
+    $('#add-people-modal').modal('hide');
+
     //writePeopleJson();
 }); 
 
@@ -103,6 +108,80 @@ $('#add-people-attribute-confirm').click(function () {
     table.append('<div class="form-group"><div class="col-sm-2 col-sm-10"> <input type="text" class="form-control" id="new-person-attribute-name_' + attCount + '" placeholder="Input Attribute Name"/></div> <div class="col-sm-2 col-sm-10"> <input type="text" class="form-control" id="new-person-attribute_' + attCount + '" placeholder="Input Attribute"/></div></div>');
     }
 });
+
+// Add attributes for the edit people function  -------------------------------------------------------------------------------------------------
+$('#edit-add-att-ppl-btn').click(function(){
+    $('#add-attributes-people-modal').modal('show');
+    console.log('Add Attributes clicked in the Edit Pane.');
+    //loadPositions();
+});
+
+$('#add-attribute-people-edit').click(function () {
+    console.log('add-attribute-people-edit clicked');
+    attCount++;
+
+    var table = $(this).closest('form');
+    if (table.find('input:text').length < 10) {   // The <20 is how many fields u wanna add of inputs
+    //    table.append('<div class="form-group"><label  class="col-sm-2 control-label">Attribute: </label> <div class="col-sm-2 col-sm-10"> <input type="text" class="form-control" id="new-attribute_' + attCount + '" placeholder="Input Attribute"/></div></div>');
+    table.append('<div class="form-group"><div class="col-sm-2 col-sm-10"> <input type="text" class="form-control" id="new-edit-attribute-people-name_' + attCount + '" placeholder="Input Attribute Name"/></div> <div class="col-sm-2 col-sm-10"> <input type="text" class="form-control" id="new-attribute_' + attCount + '" placeholder="Input Attribute"/></div></div>');
+    }
+});
+
+$('#add-attribute-people-edit-confirm').click(function(){
+ 
+    attPersonArray = [];
+    attPersonNameArray = [];
+
+    // adding attribute list to array     
+    for (var attArrayIndex = 1; attArrayIndex <= attCount; attArrayIndex++ ) 
+    {
+        attPersonArray.push($('#new-attribute_'+ attArrayIndex ).val());
+        attPersonNameArray.push($('#new-edit-attribute-people-name_'+ attArrayIndex ).val());
+       // attArray.push.toString(document.getElementById('new-attribute_'+ attArrayIndex));
+
+    }
+
+
+    // printing the attribute list
+    var i = 0;
+    while (i < attPersonNameArray.length) 
+    {
+        console.log(
+            "Attribute Name: " + attPersonNameArray[i] + "\n"
+            + "Attribute: " + attPersonArray[i]
+            
+        );
+
+        i++;
+    }
+
+    // console.log(positionTitle.value);
+    // console.log(positionID.value);
+    // console.log(attOne.value);
+    // console.log(attTwo.value);
+    // console.log(attThree.value);
+
+    $('#add-attributes-people-modal').modal('hide');
+
+    attCount = 0;
+
+    $("#edit-people-att-form")[0].reset();
+    //document.getElementById('edit-position-att-form').reset();   ALSO WORKS!!
+    $('#add-attributes-people-modal').modal('hide');
+
+    loadPeople();
+}); 
+
+
+
+
+
+//------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
 
 
 
@@ -141,6 +220,7 @@ function writePeopleJson() {
 $('#ppl-edit-btn').click(function(){
     //hide/show edit/save buttons
     document.getElementById('ppl-edit-btn').style="display: none;"
+    document.getElementById('edit-add-att-ppl-btn').style="display: block;"
     document.getElementById('ppl-save-btn').style="display: block;"
     //make editable and focus on the first editable line
     $('#ppl-fullname, #ppl-fname, #ppl-lname').attr('contenteditable','true');
@@ -182,6 +262,7 @@ $('#ppl-save-btn').click(function(){
 
     //hide/show save button
     document.getElementById('ppl-save-btn').style="display: none;"
+    document.getElementById('edit-add-att-ppl-btn').style="display: none;"
     document.getElementById('ppl-edit-btn').style="display: block;"
 
     //change color   
@@ -226,6 +307,7 @@ $('#ppl-delete-btn').click(function(){
        console.log(clearDetailsTab());
 
     document.getElementById('ppl-save-btn').style="display: none;";
+    document.getElementById('edit-add-att-ppl-btn').style="display: none;";
     document.getElementById('ppl-edit-btn').style="display: none;";
     document.getElementById('ppl-delete-btn').style="display: none;";
 
@@ -253,6 +335,7 @@ $('#ppl-delete-btn').click(function(){
     //$('#phone').html("<span class='modal-headers'>Phone:</span>" + "<p id = 'ppl-phone' contenteditable='false'>" + attribute + "</p>"); //insert number
     document.getElementById('ppl-edit-btn').style = "display: block;" //show EDIT button
     document.getElementById('ppl-save-btn').style = "display: none;" //hide  button
+    document.getElementById('edit-add-att-ppl-btn').style = "display: none;" //hide  button
     document.getElementById('edit-btn').style = "display: none;" //hide  button
     document.getElementById('save-btn').style = "display: none;" //hide  button
 
