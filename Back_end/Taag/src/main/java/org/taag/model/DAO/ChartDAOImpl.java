@@ -2,12 +2,15 @@ package org.taag.model.DAO;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import org.taag.connection.JDBCConnection;
 import org.taag.model.Chart;
 import org.taag.model.ChartMessages;
 import org.taag.model.Charts;
+import org.taag.model.Person;
 import org.taag.model.StatusMessage;
 
 public class ChartDAOImpl implements Charts{
@@ -63,9 +66,54 @@ public class ChartDAOImpl implements Charts{
 	}
 
 	public ChartMessages deleteChart(int chartId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		ChartMessages chartMessages = new ChartMessages();
+		try {
 
+			Boolean exists = checkChartId(chartId);
+			if (exists) {
+				PreparedStatement ps = connection.prepareStatement("call DELETE_CHART('" + chartId + "')");
+
+				ps.executeUpdate();
+				chartMessages.setMessage("Chart deleted successfully");
+				chartMessages.setStatus(statusMessages.GetStatus(StatusMessage.status.OK));			
+				ps.close();
+
+			} else {
+				chartMessages.setMessage("Error Chart with provided id does not exist");
+				chartMessages.setStatus(statusMessages.GetStatus(StatusMessage.status.NOCONTENT));
+			}
+
+		}
+
+		catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return chartMessages;
+
+		
+	}
+	private Boolean checkChartId(Integer chartId) {
+		Boolean exists = false;
+		try {
+			if (chartId != 0) {
+				PreparedStatement ps = connection
+						.prepareStatement("select * from ORG_CHART where CHART_ID=" + "'" + chartId + "'");
+				ResultSet rs = ps.executeQuery();
+				while (rs.next()) {
+
+					exists = true;
+
+				}
+				rs.close();
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return exists;
+	}
 	
 }

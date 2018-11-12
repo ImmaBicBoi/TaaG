@@ -3,6 +3,7 @@ package org.taag.model.DAO;
 import org.taag.model.Chart;
 import org.taag.model.ChartMessages;
 import org.taag.model.Charts;
+import org.taag.model.PersonMessages;
 
 public class ChartDAO implements Charts{
 	
@@ -26,8 +27,9 @@ public class ChartDAO implements Charts{
 	}
 
 	public ChartMessages deleteChart(int chartId) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		ChartMessages chartMessages = daoImpl.deleteChart(chartId);
+		return chartMessages;
 	}
 
 	

@@ -15,6 +15,7 @@ import org.json.simple.JSONObject;
 import org.taag.model.Chart;
 import org.taag.model.ChartMessages;
 import org.taag.model.Person;
+import org.taag.model.PersonMessages;
 import org.taag.model.DAO.ChartDAO;
 import org.taag.model.DAO.PersonDAO;
 
@@ -82,7 +83,17 @@ public class ChartService {
 	@Produces({ MediaType.APPLICATION_JSON })
 	@Path("{id}")
 	public Response deleteChart(@PathParam("id") int chartId) throws Exception {
-		return null;
+		ChartDAO cdao = new ChartDAO();
+		Response response = null;
+		ChartMessages chartMessages = cdao.deleteChart(chartId);
+				if (chartMessages.getStatus() != null) {
+		if (chartMessages.getStatus().equals("200")) {
+			response = Response.ok(chartMessages, MediaType.APPLICATION_JSON).build();
+		} else {
+			response = Response.status(Response.Status.NO_CONTENT).entity(chartMessages).build();
+		}
+		}
+		return response;
 		
 	}
 
