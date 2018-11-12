@@ -14,10 +14,8 @@ import javax.ws.rs.core.Response;
 import org.json.simple.JSONObject;
 import org.taag.model.Chart;
 import org.taag.model.ChartMessages;
-import org.taag.model.Person;
-import org.taag.model.PersonMessages;
 import org.taag.model.DAO.ChartDAO;
-import org.taag.model.DAO.PersonDAO;
+
 
 @Path("/chart")
 public class ChartService {

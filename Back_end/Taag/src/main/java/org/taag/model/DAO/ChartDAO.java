@@ -3,7 +3,6 @@ package org.taag.model.DAO;
 import org.taag.model.Chart;
 import org.taag.model.ChartMessages;
 import org.taag.model.Charts;
-import org.taag.model.PersonMessages;
 
 public class ChartDAO implements Charts{
 	

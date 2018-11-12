@@ -10,7 +10,6 @@ import org.taag.connection.JDBCConnection;
 import org.taag.model.Chart;
 import org.taag.model.ChartMessages;
 import org.taag.model.Charts;
-import org.taag.model.Person;
 import org.taag.model.StatusMessage;
 
 public class ChartDAOImpl implements Charts{
