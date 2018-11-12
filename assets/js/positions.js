@@ -188,7 +188,7 @@ $('#edit-btn').click(function(){
     document.getElementById('edit-add-att-btn').style="display: block;"
     document.getElementById('save-btn').style="display: block;"
     //make editable and focus on the first editable line
-    $('#details-title,#badge badge-pill badge-danger, #pos-ocfname, #pos-oclname, #namespan').attr('contenteditable','true');
+    $('#details-title,#badge badge-pill badge-secondary, #pos-ocfname, #pos-oclname, #namespan').attr('contenteditable','true');
     $('#pos-title').focus();
     
     
@@ -357,9 +357,9 @@ function loadPositions() {
                                     $('#pos-heldby').html("<span class='modal-headers'>Position Held By: </span>" + "<p id = 'pos-ocname'contenteditable='false'>" + data[i].pos_occupant_first_name + " " + data[i].pos_occupant_last_name) + "</p>"; //insert position heldby name
                                     
                                     $('#pos-attributes').html(""); //insert position attributes
-                                    $('#pos-attributes').append("<span class='modal-headers' id='key1'>Key 1:   </span>" + "<span class='badge badge-pill badge-danger' id='pill1'>X</span>"+ "<p id ='Value1' contenteditable='false'>Value 1</p>"); //insert positon adittional attributes
-                                    $('#pos-attributes').append("<span class='modal-headers' id='key2'>Key 2:   </span>" + "<span class='badge badge-pill badge-danger' id='pill2'>X</span>"+ "<p id ='Value2' contenteditable='false'>Value 2</p>"); //insert positon adittional attributes
-                                    $('#pos-attributes').append("<span class='modal-headers' id='key3'>Key 3:   </span>" + "<span class='badge badge-pill badge-danger' id='pill3'>X</span>"+ "<p id ='Value3' contenteditable='false'>Value 3</p>"); //insert positon adittional attributes
+                                    $('#pos-attributes').append("<span class='modal-headers' id='key1'>Key 1:      </span>" + "<span class='badge badge-pill badge-secondary float-right m-10' id='pill1'>X</span>"+ "<p id ='Value1' contenteditable='false'>Value 1</p>"); //insert positon adittional attributes
+                                    $('#pos-attributes').append("<span class='modal-headers' id='key2'>Key 2:      </span>" + "<span class='badge badge-pill badge-secondary float-right m-10' id='pill2'>X</span>"+ "<p id ='Value2' contenteditable='false'>Value 2</p>"); //insert positon adittional attributes
+                                    $('#pos-attributes').append("<span class='modal-headers' id='key3'>Key 3:      </span>" + "<span class='badge badge-pill badge-secondary float-right m-10' id='pill3'>X</span>"+ "<p id ='Value3' contenteditable='false'>Value 3</p>"); //insert positon adittional attributes
                                     
                                     setCurrentID(data[i].id);
                                     document.getElementById('edit-btn').style = "display: block;" //show EDIT button
