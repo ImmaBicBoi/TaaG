@@ -267,6 +267,9 @@ $('#save-btn').click(function(){
 
     //refresh page   --necessary???
     //location.reload();
+    document.getElementById('pill1').style = "display: none;" //hide  pill
+    document.getElementById('pill2').style = "display: none;" //hide  pill
+    document.getElementById('pill3').style = "display: none;" //hide  pill
     
 });
 
