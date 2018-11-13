@@ -25,9 +25,9 @@ function loadPeople() {
                                     
                                     $('#details-title').html(data[i].first_name + " " + data[i].last_name); //insert person title 
                                     $('#first-name').html("<span class='modal-headers'>First Name: </span>" + "<p id = 'ppl-fname' contenteditable='false'>" + data[i].first_name ) + "</p>"; //insert first name
-                                    $('#last-name').html("<span class='modal-headers'>Last Name:</span>" +  "<span class='badge badge-pill badge-secondary float-right m-10' id='ppl-pill1'>X</span>" + "<p id = 'ppl-lname' contenteditable='false'>" + data[i].last_name + "</p>"); //insert last name
+                                    $('#last-name').html("<span class='modal-headers'>Last Name:</span>" + "<p id = 'ppl-lname' contenteditable='false'>" + data[i].last_name + "</p>"); //insert last name
 									$('#email').html("<span class='modal-headers'>Email: </span>" + "<span class='badge badge-pill badge-secondary float-right m-10' id='ppl-pill1'>X</span>" +"<p id = 'ppl-email' contenteditable='false'>" + data[i].email + "</p>"); //insert email
-									$('#phone').html("<span class='modal-headers'>Phone:</span>" + "<span class='badge badge-pill badge-secondary float-right m-10' id='ppl-pill1'>X</span>" + "<p id = 'ppl-phone' contenteditable='false'>" + data[i].phone + "</p>"); //insert number
+									$('#phone').html("<span class='modal-headers'>Phone:</span>" + "<span class='badge badge-pill badge-secondary float-right m-10' id='ppl-pill2'>X</span>" + "<p id = 'ppl-phone' contenteditable='false'>" + data[i].phone + "</p>"); //insert number
                                     
                                     
                                     document.getElementById('ppl-edit-btn').style = "display: block;" //show EDIT button
@@ -38,7 +38,7 @@ function loadPeople() {
 
                                     document.getElementById('ppl-pill1').style = "display: none;" //hide  pill
                                     document.getElementById('ppl-pill2').style = "display: none;" //hide  pill
-                                    document.getElementById('ppl-pill3').style = "display: none;" //hide  pill
+                                    
 
                                 })
                         )
@@ -245,7 +245,22 @@ $('#ppl-edit-btn').click(function(){
 
     document.getElementById('ppl-pill1').style = "display: inline;" //show  pill
     document.getElementById('ppl-pill2').style = "display: inline;" //show  pill
-    document.getElementById('ppl-pill3').style = "display: inline;" //show  pill
+
+    $('#ppl-pill1').click(function() {
+        var pplemail = document.getElementById('ppl-email').innerHTML;
+        document.getElementById('ppl-email').style = "display: none";
+        document.getElementById('#email').style = "display: none";
+        document.getElementById('ppl-pill1').style = "display: none;" //hide  pill
+        console.log("Deleting email:  " + pplemail);
+    })
+
+    $('#ppl-pill2').click(function() {
+        var pplphone = document.getElementById('ppl-phone').innerHTML;
+        document.getElementById('ppl-phone').style = "display: none";
+        document.getElementById('#phone').style = "display: none";
+        document.getElementById('ppl-pill2').style = "display: none;" //hide  pill
+        console.log("Deleting phone:  " + pplphone);
+    })
 
     
 
@@ -287,7 +302,6 @@ $('#ppl-save-btn').click(function(){
         "style", "border: rgb(124,252,0); background: rgb(124,252,0)");
     document.getElementById('ppl-pill1').style = "display: none;" //hide  pill
     document.getElementById('ppl-pill2').style = "display: none;" //hide  pill
-    document.getElementById('ppl-pill3').style = "display: none;" //hide  pill
 
     
 });
@@ -323,6 +337,8 @@ $('#ppl-delete-btn').click(function(){
     document.getElementById('edit-add-att-ppl-btn').style="display: none;";
     document.getElementById('ppl-edit-btn').style="display: none;";
     document.getElementById('ppl-delete-btn').style="display: none;";
+    document.getElementById('ppl-pill1').style = "display: none;" //hide  pill
+    document.getElementById('ppl-pill2').style = "display: none;" //hide  pill
 
 
  });
