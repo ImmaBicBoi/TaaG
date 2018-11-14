@@ -184,35 +184,49 @@ $('#edit-btn').click(function(){
     document.getElementById('edit-position-att-form').style="display: block;" 
     document.getElementById('save-btn').style="display: block;"
     //make editable and focus on the first editable line
-    $('#details-title,#pos-ocfname, #pos-oclname, #namespan').attr('contenteditable','true');
+    $('#details-title,#badge badge-pill badge-secondary, #pos-ocfname, #pos-oclname, #namespan').attr('contenteditable','true');
     $('#pos-title').focus();
     
     
-   // var postitle = document.getElementById('pos-title').innerHTML;
-
-    //var select = document.getElementById('pos-title').innerHTML;
-  
-
-    // document.getElementsByTagName("span")[4].setAttribute('type', 'button'); 
-    // document.getElementsByTagName("span")[4].setAttribute('class', 'btn btn-primary dropdown-toggle');
-    // document.getElementsByTagName("span")[4].setAttribute('data-toggle', 'dropdown'); 
-
-
-
-
-
-    // document.getElementById('pos-ocfname').setAttribute(
-    // "style", "border: solid black; background: none");  //pick any color
-
-    // document.getElementById('pos-oclname').setAttribute(
-    // "style", "border: solid black; background: none");
-
-    $( "#details-title" ).attr(
+      $( "#details-title" ).attr(
         "style", "border: solid black; background: none");
     $( "#pos-attributes p, #pos-id p" ).attr(
         "style", "border: solid black; background: none");
     $( "#pos-attributes p, #pos-id p" ).attr(
         "contenteditable", "true");
+
+    document.getElementById('pill1').style = "display: inline;" //hide  pill
+    document.getElementById('pill2').style = "display: inline;" //hide  pill
+    document.getElementById('pill3').style = "display: inline;" //hide  pill
+
+    $('#pill1').click(function() {
+         var key1 = document.getElementById('key1').innerHTML;
+         document.getElementById('key1').style = "display: none";
+         var value1 = document.getElementById('Value1').innerHTML;
+         document.getElementById('Value1').style = "display: none";
+         document.getElementById('pill1').style = "display: none;" //hide  pill
+         console.log("Deleting values" + key1 +" and " + value1);
+         
+    })
+    $('#pill2').click(function() {
+         var key2 = document.getElementById('key2').innerHTML;
+         document.getElementById('key2').style = "display: none";
+         var value2 = document.getElementById('Value2').innerHTML;
+         document.getElementById('Value2').style = "display: none";
+         document.getElementById('pill2').style = "display: none;" //hide  pill
+         console.log("Deleting values" + key2 +" and " + value2);
+         
+    })
+
+    $('#pill3').click(function() {
+         var key3 = document.getElementById('key3').innerHTML;
+         document.getElementById('key3').style = "display: none";
+         var value3 = document.getElementById('Value3').innerHTML;
+         document.getElementById('Value3').style = "display: none";
+         document.getElementById('pill3').style = "display: none;" //hide  pill
+         console.log("Deleting values" + key3 +" and " + value3);
+         
+    })
 
 
 });
@@ -291,6 +305,9 @@ $('#save-btn').click(function(){
 
     //refresh page   --necessary???
     //location.reload();
+    document.getElementById('pill1').style = "display: none;" //hide  pill
+    document.getElementById('pill2').style = "display: none;" //hide  pill
+    document.getElementById('pill3').style = "display: none;" //hide  pill
     
 });
 
@@ -383,9 +400,15 @@ function loadPositions() {
                                     $('#pos-heldby').html("<span class='modal-headers'>Position Held By: </span>" + "<p id = 'pos-ocname'contenteditable='false'>" + data[i].pos_occupant_first_name + " " + data[i].pos_occupant_last_name) + "</p>"; //insert position heldby name
                                     
                                     $('#pos-attributes').html(""); //insert position attributes
+<<<<<<< HEAD
                                     $('#pos-attributes').append("<span class='modal-headers' >Key 1:</span>" + "<p id ='Value1'  contenteditable='false'>Value 1</p>"); //insert positon adittional attributes
                                     $('#pos-attributes').append("<span class='modal-headers'>Key 2:</span>" + "<p id ='Value2' contenteditable='false'>Value 2</p>"); //insert positon adittional attributes
                                     $('#pos-attributes').append("<span class='modal-headers'>Key 3</span>" + "<p id ='Value3' contenteditable='false'>Value 3</p>"); //insert positon adittional attributes
+=======
+                                    $('#pos-attributes').append("<span class='modal-headers' id='key1'>Key 1:      </span>" + "<span class='badge badge-pill badge-secondary float-right m-10' id='pill1'>X</span>"+ "<p id ='Value1' contenteditable='false'>Value 1</p>"); //insert positon adittional attributes
+                                    $('#pos-attributes').append("<span class='modal-headers' id='key2'>Key 2:      </span>" + "<span class='badge badge-pill badge-secondary float-right m-10' id='pill2'>X</span>"+ "<p id ='Value2' contenteditable='false'>Value 2</p>"); //insert positon adittional attributes
+                                    $('#pos-attributes').append("<span class='modal-headers' id='key3'>Key 3:      </span>" + "<span class='badge badge-pill badge-secondary float-right m-10' id='pill3'>X</span>"+ "<p id ='Value3' contenteditable='false'>Value 3</p>"); //insert positon adittional attributes
+>>>>>>> 2e1adaca1634c23904f7d1f0df611164a939e5c5
                                     
                                     setCurrentID(data[i].id);
                                     document.getElementById('edit-btn').style = "display: block;" //show EDIT button
@@ -395,6 +418,10 @@ function loadPositions() {
                                     document.getElementById('add-attribute-position-edit').style="display: none;"  // hide button
                                     document.getElementById('edit-position-att-form').style="display: none;"  // hide form
                                     document.getElementById('edit-add-att-btn').style = "display: none;" //hide  button
+                                    document.getElementById('pill1').style = "display: none;" //hide  pill
+                                    document.getElementById('pill2').style = "display: none;" //hide  pill
+                                    document.getElementById('pill3').style = "display: none;" //hide  pill
+                
                                 })
                         )
                 );
