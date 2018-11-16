@@ -1,7 +1,8 @@
 console.log('starting requests');
 
 function loadAllPersons(){
-  $('#people-list li').remove();
+    $('#people-list button').remove();
+    $('#people-list br').remove();
   console.log('loading persons from API');
     $.getJSON( "http://localhost:8080/Taag/service/person", function( data ) {
         var items = [];
@@ -31,7 +32,9 @@ function loadAllPersons(){
 
 
 function loadAllPositions(){
-  $('#position-list li').remove();
+  $('#position-list button').remove();
+  $('#position-list br').remove();
+
     console.log('loading positions from API');
       $.getJSON( "http://localhost:8080/Taag/service/position", function( data ) {
           var items = [];

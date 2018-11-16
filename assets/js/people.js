@@ -263,7 +263,7 @@ $('#ppl-delete-btn').click(function(){
     var returnData;
 
     if(id == 0){
-        console.log("person retrieval error");
+        console.log("no person found.");
         return null;
     }else{
         returnData = $.ajax({
@@ -277,4 +277,44 @@ $('#ppl-delete-btn').click(function(){
         //console.log("retrieving person " + jQuery.parseJSON(returnData.responseText));
         return jQuery.parseJSON(returnData.responseText);
 }
+ }
+
+ function getPersonID(name){
+    var personID = 0;
+    $.ajax({
+        url: "http://localhost:8080/Taag/service/person",
+        type: 'GET',
+        contentType:'application/json',
+        dataType:'json',
+        async: false,
+        success: function(data,status, jqXHR){
+          //On ajax success do this
+          //var output = JSON.parse(data);
+          //alert(data + " " + status);
+         // console.log("response"+data.message + " " + jqXHR.status);
+         $.each(data.persons, function (i, field) {
+            if(name == data.persons[i].first_name+' '+data.persons[i].last_name){
+                console.log("match!");
+                personID = data.persons[i].person_id;
+            }
+            //console.log(data.persons[i].first_name);
+        });
+         
+            },
+        error: function(xhr, ajaxOptions, thrownError) {
+            //On error do this
+              if (xhr.status == 200) {
+  
+                  alert(ajaxOptions);
+              }
+              else {
+                  alert(xhr.status);
+                  alert(thrownError);
+              }
+          }
+      });
+
+
+    //console.log("no match for " + name );
+    return personID;
  }
