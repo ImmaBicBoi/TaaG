@@ -141,7 +141,8 @@ function writePeopleJson() {
 $('#ppl-edit-btn').click(function(){
     //hide/show edit/save buttons
     document.getElementById('ppl-edit-btn').style="display: none;"
-    document.getElementById('ppl-save-btn').style="display: block;"
+    document.getElementById('ppl-save-btn').style="display: inline;"
+    document.getElementById('ppl-delete-btn').style ="display: inline;"
     //make editable and focus on the first editable line
     $('#ppl-fullname, #ppl-fname, #ppl-lname').attr('contenteditable','true');
     $('#ppl-fname').focus();
@@ -183,7 +184,7 @@ $('#ppl-save-btn').click(function(){
     //hide/show save button
     document.getElementById('ppl-save-btn').style="display: none;"
     document.getElementById('ppl-edit-btn').style="display: block;"
-
+    document.getElementById('pl-delete-btn').style ="display: none;"
     //change color   
 
     document.getElementById('ppl-fname').setAttribute(
@@ -199,36 +200,8 @@ $('#ppl-save-btn').click(function(){
 });
 
 $('#ppl-delete-btn').click(function(){
-
     console.log(getCurrentID());
-
-    var pplfname = document.getElementById('ppl-fname').innerHTML;
-    var ppllname = document.getElementById('ppl-lname').innerHTML;
-    var empos = document.getElementById('emp_pos').innerHTML;
-    var pplemail = document.getElementById('ppl-email').innerHTML;
-    var pplphone = document.getElementById('ppl-phone').innerHTML;
-
-    console.log("deleting the json");
-    console.log(
-        "{" + "\n"
-         + "\t" + "first_name: " + pplfname + "," + "\n"
-        + "\t" + "last_name: " + ppllname + "," + "\n"
-        + "\t" + "emp_pos: " + empos + "," + "\n"
-        + "\t" + "email: " + pplemail + "," + "\n"
-        + "\t" + "phone: " + pplphone + "\n"
-        + "}"
-     );
-
-
-    
-
-
-       console.log(clearDetailsTab());
-
-    document.getElementById('ppl-save-btn').style="display: none;";
-    document.getElementById('ppl-edit-btn').style="display: none;";
-    document.getElementById('ppl-delete-btn').style="display: none;";
-
+    deletePerson(getCurrentID());
 
  });
 

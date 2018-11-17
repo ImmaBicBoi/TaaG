@@ -184,3 +184,66 @@ function createPerson(personData){
     loadAllPositions();
   }
 
+function deletePosition(id){
+    console.log("deleting position id: " + id);
+    var data;
+    $.ajax({
+      url: "http://localhost:8080/Taag/service/position/"+ id,
+      type: 'DELETE',
+      contentType:'application/json',
+      data: data,
+      dataType:'json',
+      async: false,
+      success: function(data,status, jqXHR){
+        //On ajax success do this
+        console.log("position " + id +" deleted");
+        console.log(data.message);
+    },
+      error: function(xhr, ajaxOptions, thrownError) {
+          //On error do this
+            if (xhr.status == 200) {
+
+                alert(ajaxOptions);
+            }
+            else {
+                alert(xhr.status);
+                alert(thrownError);
+            }
+        }
+    });
+
+    loadAllPositions();
+    clearDetailsTab();
+}
+
+function deletePerson(id){
+    console.log("deleting person id: " + id);
+    var data;
+    $.ajax({
+      url: "http://localhost:8080/Taag/service/person/"+ id,
+      type: 'DELETE',
+      contentType:'application/json',
+      data: data,
+      dataType:'json',
+      async: false,
+      success: function(data,status, jqXHR){
+        //On ajax success do this
+        console.log("person " + id +" deleted");
+        console.log(data.message);
+    },
+      error: function(xhr, ajaxOptions, thrownError) {
+          //On error do this
+            if (xhr.status == 200) {
+
+                alert(ajaxOptions);
+            }
+            else {
+                alert(xhr.status);
+                alert(thrownError);
+            }
+        }
+    });
+
+    loadAllPositions();
+    clearDetailsTab();
+}

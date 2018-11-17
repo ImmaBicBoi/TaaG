@@ -112,7 +112,8 @@ $('#add-attribute-confirm').click(function () {
 $('#edit-btn').click(function(){
     //hide/show edit/save buttons
     document.getElementById('edit-btn').style="display: none;"
-    document.getElementById('save-btn').style="display: block;"
+    document.getElementById('save-btn').style="display: inline;"
+    document.getElementById('delete-btn').style ="display: inline;"
     //make editable and focus on the first editable line
     $('#details-title,#pos-ocfname, #pos-oclname, #namespan').attr('contenteditable','true');
     $('#pos-title').focus();
@@ -160,6 +161,7 @@ $('#save-btn').click(function(){
     //hide/show save button
     document.getElementById('save-btn').style="display: none;"
     document.getElementById('edit-btn').style="display: block;"
+    document.getElementById('delete-btn').style ="display: none;"
 
     var postitle = document.getElementById('details-title').innerHTML;
     console.log(postitle);
@@ -189,6 +191,13 @@ $('#save-btn').click(function(){
         
     
 });
+
+
+$('#delete-btn').click(function(){
+    console.log(getCurrentID());
+    deletePosition(getCurrentID());
+
+ });
 
 //Opens the Right sidebar to show position details
 function openPositionsTab(id,name, occupantID,){
