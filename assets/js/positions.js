@@ -167,23 +167,50 @@ $('#save-btn').click(function(){
     console.log(postitle);
 
     // This variable contains the Position attributes JSON object from the server
-    var posAttr = getPosition(getCurrentID()).attributes;
-
+    var jsonAttributes = getPosition(getCurrentID()).attributes;
+    var posAttr = [];
    
     
-    console.log("attributes:" + posAttr);
+    console.log("attributes json:" + jsonAttributes);
 
     var jobID = $('#pos-id p').html();
     console.log(jobID);
-    var positionData = {
-        "name": postitle,
-        "person_id": selectID,
-        "job_id" : jobID,
-        "attributes" :  posAttr
-
-        
+    var positionData;
+    
+    // FOR LOOP pushes JSON object contents to new array and 
+    // pushes all of the local changes to each attribute field
+    // to the array.
+    for(var i in jsonAttributes){
+        console.log(i + " " + jsonAttributes[i]);
+        posAttr.push(jsonAttributes[i]);
+        posAttr[i].key = $("#attrKey"+i).html();
+        posAttr[i].key = posAttr[i].key.substr(0,posAttr[i].key.length-1);
+        posAttr[i].value = $("#attrValue"+i).html();
+        console.log(i + " " + posAttr[i]);
 
     }
+    
+    if(selectID == 0){
+
+        positionData = {
+            "name": postitle,
+            "job_id" : jobID,
+            "attributes" :  posAttr
+        }
+
+    }else{
+
+        positionData = {
+            "name": postitle,
+            "person_id": selectID,
+            "job_id" : jobID,
+            "attributes" :  posAttr
+        }
+
+    }
+
+
+    
     updatePosition(positionData);
 
     //change color   
@@ -238,7 +265,7 @@ function openPositionsTab(id,name, occupantID,){
 
     $.each(position.attributes, function (i, val){
         console.log("app");
-       $('#pos-attributes').append("<span class='modal-headers'>"+ position.attributes[i].key +":</span>" + "<p id ='Value"+ i+ "' contenteditable='false'>"+position.attributes[i].value +"</p>"); //insert positon adittional attributes
+       $('#pos-attributes').append("<span id='attrKey"+ i +"' class='modal-headers'>"+ position.attributes[i].key +":</span>" + "<p id ='attrValue"+ i+ "' contenteditable='false'>"+position.attributes[i].value +"</p>"); //insert positon adittional attributes
 
     });
     

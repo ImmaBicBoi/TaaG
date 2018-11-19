@@ -158,7 +158,7 @@ function createPerson(personData){
   function updatePosition(positionData){
     console.log("sending data: "+ JSON.stringify(positionData));
     $.ajax({
-      url: "http://localhost:8080/Taag/service/position/"+getCurrentID(),
+      url: "http://localhost:8080/Taag/service/position/" + getCurrentID(),
       type: 'PUT',
       contentType:'application/json',
       data: JSON.stringify(positionData),
