@@ -166,9 +166,22 @@ $('#save-btn').click(function(){
     var postitle = document.getElementById('details-title').innerHTML;
     console.log(postitle);
 
+    // This variable contains the Position attributes JSON object from the server
+    var posAttr = getPosition(getCurrentID()).attributes;
+
+   
+    
+    console.log("attributes:" + posAttr);
+
+    var jobID = $('#pos-id p').html();
+    console.log(jobID);
     var positionData = {
         "name": postitle,
-        "person_id": selectID
+        "person_id": selectID,
+        "job_id" : jobID,
+        "attributes" :  posAttr
+
+        
 
     }
     updatePosition(positionData);
