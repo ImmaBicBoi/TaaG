@@ -50,6 +50,9 @@ function mxIconSet(state)
 			graph.removeCells([state.cell]);
 			mxEvent.consume(evt);
 			this.destroy();
+
+			// Nikhil - alter xmlDoc so that the cell thats being removed from the graph
+			// gets removed from xmlDoc
 		})
 	);
 	
@@ -70,6 +73,19 @@ mxIconSet.prototype.destroy = function()
 	
 	this.images = null;
 };
+
+//Jay and Nikhil
+$('#delete-cell-btn').click(function(){
+	// mxUtils.bind(this, function(evt)
+	// 	{
+	// 		graph.removeCells([state.cell]);
+	// 		mxEvent.consume(evt);
+	// 		this.destroy();
+	// 	})
+	
+	console.log("testing delete btn");
+	
+});
 
 function initializeGraph(container){
             // -------------------- mxGraph initialization ------------------------------------ //
