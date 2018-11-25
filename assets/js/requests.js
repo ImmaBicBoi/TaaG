@@ -247,3 +247,49 @@ function deletePerson(id){
     loadAllPositions();
     clearDetailsTab();
 }
+
+
+function saveGraph(graphData){
+    //var data = {'bob':'foo','paul':'dog'};
+    console.log("sending data: "+ JSON.stringify(graphData));
+    $.ajax({
+      url: "http://localhost:8080/Taag/service/chart",
+      type: 'POST',
+      contentType:'application/json',
+      data: JSON.stringify(graphData),
+      dataType:'json',
+      async: false,
+      success: function(data,status, jqXHR){
+        //On ajax success do this
+        //var output = JSON.parse(data);
+        //alert(data + " " + status);
+        console.log("response "+data + " " + jqXHR.status);
+          },
+      error: function(xhr, ajaxOptions, thrownError) {
+          //On error do this
+            if (xhr.status == 200) {
+
+                alert(ajaxOptions);
+            }
+            else {
+                alert(xhr.status);
+                alert(thrownError);
+            }
+        }
+    });
+  }
+
+  function loadGraph(){
+  // $('#position-list button').remove();
+  // $('#position-list br').remove();
+
+    console.log('loading graph from API');
+      $.getJSON( "http://localhost:8080/Taag/service/chart", function( data ) {
+          // var items = [];
+          console.log("loading graph...");
+          console.log(data);
+            loadGraphInitially(data.data);
+
+         
+    });
+  }
