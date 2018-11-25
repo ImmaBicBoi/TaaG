@@ -63,6 +63,28 @@ public class ChartDAOImpl implements Charts{
 			}
 			return chart;
 	}
+	
+	
+	public Chart getLatestChart() {
+		Chart chart = new Chart();
+		try {
+			CallableStatement cs = connection.prepareCall("call RETRIEVE_LATEST_CHART()");
+			ResultSet rs = cs.executeQuery();
+			
+			while(rs.next()) {
+				chart.setChart_id(rs.getInt("CHART_ID"));
+				chart.setName(rs.getString("CHART_NAME"));
+				chart.setData(rs.getString("CHART_DATA"));
+				chart.setMessage("Chart retrieved successfully");
+				chart.setStatus(statusMessages.GetStatus(StatusMessage.status.OK));
+			}
+			
+			
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+			return chart;
+	}
 
 	public ChartMessages deleteChart(int chartId) {
 		ChartMessages chartMessages = new ChartMessages();
@@ -114,5 +136,7 @@ public class ChartDAOImpl implements Charts{
 
 		return exists;
 	}
+
+	
 	
 }

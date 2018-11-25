@@ -31,6 +31,12 @@ public class ChartDAO implements Charts{
 		return chartMessages;
 	}
 
+	public Chart getLatestChart() {
+		Chart chart = new Chart();
+		chart = daoImpl.getLatestChart();
+		return chart;
+	}
+
 	
 	
 

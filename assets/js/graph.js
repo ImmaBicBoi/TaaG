@@ -323,3 +323,52 @@ function addPersonToolbarItem(graph, personToolbar, prototype, image, data, key)
 }	
 
 
+
+
+$('#save-graph-btn').click(function(){
+	var encoder  = new mxCodec();
+	var node = encoder.encode(graph.getModel());
+// xml = mxUtils.getXml(node);
+var xmlText = (new XMLSerializer()).serializeToString(node);
+ // console.log("xml text is..");
+ // console.log(xmlText);
+ var ret = xmlText.replace('<mxGraphModel>','');
+ var ret2 = ret.replace('</mxGraphModel>','');
+ // console.log(ret2);
+// var xmlText = new XMLSerializer().serializeToString(xml);
+console.log('save graph clicked.' +ret2);
+var graphData = {
+	"name": "Fairfield Univ",
+	"data": ret2
+
+}
+saveGraph(graphData);
+
+});
+
+
+function loadGraphInitially(data){
+
+	console.log("inside loadGrpahIntially.");
+	var xml = data;
+
+// var xml ='<root><mxCell id="0"/><mxCell id="1" parent="0"/><mxCell id="2" value="CEO" style="shape=rounded" vertex="1" parent="1"><mxGeometry x="90" y="110" width="100" height="40" as="geometry"/></mxCell><mxCell id="3" value="Developer" style="shape=rounded" vertex="1" parent="1"><mxGeometry x="70" y="230" width="100" height="40" as="geometry"/></mxCell><mxCell id="4" value="QA Tester" style="shape=rounded" vertex="1" parent="1"><mxGeometry x="170" y="280" width="100" height="40" as="geometry"/></mxCell><mxCell id="5" edge="1" parent="1" source="2" target="3"><mxGeometry relative="1" as="geometry"/></mxCell><mxCell id="6" edge="1" parent="1" source="2" target="4"><mxGeometry relative="1" as="geometry"/></mxCell></root>';
+console.log(xml);
+
+var doc = mxUtils.parseXml(xml);
+                      // XmlNode secondPrice = doc.GetElementsByTagName("root")[1];
+                      // console.log(secondPrice);
+                      var codec = new mxCodec(doc);
+                      var elt = doc.documentElement.firstChild;
+                    // console.log(elt);
+                    var cells = [];
+                    while (elt != null){                
+                    	cells.push(codec.decodeCell(elt));
+                        // graph.refresh();
+                        elt = elt.nextSibling;
+                      // console.log(cells);
+                  }
+
+                  graph.addCells(cells);
+
+              }   
