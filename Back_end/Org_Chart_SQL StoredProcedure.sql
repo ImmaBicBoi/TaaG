@@ -486,3 +486,20 @@ begin
 end$$
 delimiter ;
 
+
+/********************************************************/
+/*RETRIEVE LATEST CHART*/
+
+drop procedure if exists RETRIEVE_LATEST_CHART;
+delimiter $$
+create procedure RETRIEVE_LATEST_CHART ()
+begin
+		start transaction;
+		select CHART_ID,CHART_NAME,CHART_DATA from  ORG_CHART where CHART_ID = (select  max(CHART_ID)from ORG_CHART);
+		
+				
+    commit;
+    
+end$$
+delimiter ;
+
