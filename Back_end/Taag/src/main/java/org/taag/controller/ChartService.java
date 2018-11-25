@@ -69,6 +69,26 @@ public class ChartService {
 		
 	}
 	
+	
+	@GET
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response getLatestChart() throws Exception {
+		ChartDAO cdao = new ChartDAO();
+		Response response = null;
+		Chart chart = cdao.getLatestChart();
+		if (chart.getStatus() != null) {
+			if(chart.getStatus().equals("200")) {
+			response =  Response.ok(chart, MediaType.APPLICATION_JSON).build();
+			}
+		 else {
+			response =  Response.status(Response.Status.NO_CONTENT).build();
+		}
+		}
+		return response;
+		
+	}
+	
+	
 	@PUT
 	@Produces({ MediaType.APPLICATION_JSON })
 	@Path("{id}")

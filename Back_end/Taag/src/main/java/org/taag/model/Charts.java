@@ -7,6 +7,8 @@ public interface Charts {
 	public ChartMessages updateChart(Chart chart, int chartId);
 
 	public Chart getChart(int chartId);
+	
+	public Chart getLatestChart();
 
 	public ChartMessages deleteChart(int chartId);
 
