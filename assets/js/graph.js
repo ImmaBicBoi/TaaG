@@ -251,7 +251,7 @@ function addPositionToolbarItem(graph, posToolbar, prototype, image, data, key)
 			// Function that is executed when the image is dropped on
 			// the graph. The cell argument points to the cell under
 			// the mousepointer if there is one.
-			var funct = function(graph, evt, cell)
+    var onPositionTollbarChange = function(graph, evt, cell)
 			{
 				graph.stopEditing(false);
 				var pt = graph.getPointForEvent(evt);
@@ -265,9 +265,9 @@ function addPositionToolbarItem(graph, posToolbar, prototype, image, data, key)
 				//alert("TEST");
 			}
 			// Creates the image which is used as the drag icon (preview)
-            var img = posToolbar.addMode(null, null, funct);
+    var img = posToolbar.addMode(null, null, onPositionTollbarChange);
             mxUtils.setTextContent(img, data.positions[key].position_id + ": " + data.positions[key].name);
-			mxUtils.makeDraggable(img, graph, funct);
+    mxUtils.makeDraggable(img, graph, onPositionTollbarChange);
 			var xmlpos = xmlDoc.createElement('Position');
 			xmlpos.setAttribute('id',data.positions[key].position_id);
 			xmlpos.setAttribute('name',data.positions[key].name);
