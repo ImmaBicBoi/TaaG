@@ -27,7 +27,7 @@ public class ChartService {
 		
 		ChartMessages chartMessages = new ChartMessages();
 		ChartDAO chartDAO = new  ChartDAO();
-		chartDAO.saveChart(chart);
+		chartMessages = chartDAO.saveChart(chart);
 		
 		JSONObject obj = new JSONObject();
 		Response response = null;
