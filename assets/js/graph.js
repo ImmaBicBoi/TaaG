@@ -368,4 +368,26 @@ var doc = mxUtils.parseXml(xml);
 
                   graph.addCells(cells);
 
-              }   
+}
+
+graph.convertValueToString = function(cell)
+{
+    if (mxUtils.isNode(cell.value))
+    {
+        return cell.getAttribute('name', '')
+    }
+};
+
+var cellLabelChanged = graph.cellLabelChanged;
+graph.cellLabelChanged = function(cell, newValue, autoSize)
+{
+    if (mxUtils.isNode(cell.value))
+    {
+        // Clones the value for correct undo/redo
+        var elt = cell.value.cloneNode(true);
+        elt.setAttribute('name', newValue);
+        newValue = elt;
+    }
+
+    cellLabelChanged.apply(this, arguments);
+};
