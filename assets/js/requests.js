@@ -287,8 +287,11 @@ function saveGraph(graphData){
       $.getJSON( "http://localhost:8080/Taag/service/chart", function( data ) {
           // var items = [];
           console.log("loading graph...");
-          console.log(data);
+          //console.log(data);
+           if(data != null){
+          if(data.data != null)
             loadGraphInitially(data.data);
+        }
 
          
     });
