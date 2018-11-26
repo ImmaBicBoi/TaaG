@@ -263,6 +263,20 @@ function addPositionToolbarItem(graph, posToolbar, prototype, image, data, key)
         xmlPositionNode.setAttribute('position_id',data.positions[key].position_id);
         xmlPositionNode.setAttribute('name',data.positions[key].name);
         graph.model.setValue(vertex, xmlPositionNode);
+			// var tryClick = function(){
+			// 	console.log('yo');
+			// 	alert('yo');
+			// }
+			
+			$(img).click(function(){
+				openPositionsTab(data.positions[key].position_id,
+                    data.positions[key].name,
+                    data.positions[key].person_id);
+				setCurrentID(data.positions[key].position_id);
+				
+			});
+			$(img).addClass("draggable-list-button");
+		}
 
         mxGraph.prototype.isCellsEditable = false;
 
