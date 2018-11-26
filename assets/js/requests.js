@@ -263,7 +263,7 @@ function saveGraph(graphData){
         //On ajax success do this
         //var output = JSON.parse(data);
         //alert(data + " " + status);
-        console.log("response "+data + " " + jqXHR.status);
+        console.log("response "+JSON.stringify(data) + " " + jqXHR.status);
           },
       error: function(xhr, ajaxOptions, thrownError) {
           //On error do this
