@@ -289,35 +289,38 @@ function addPersonToolbarItem(graph, personToolbar, prototype, image, data, key)
     // Function that is executed when the image is dropped on
     // the graph. The cell argument points to the cell under
     // the mousepointer if there is one.
-    var funct = function(graph, evt, cell)
+    var onPersonToolbarChange = function(graph, evt, cell)
     {
         graph.stopEditing(false);
         var pt = graph.getPointForEvent(evt);
         var vertex = graph.getModel().cloneCell(prototype);
         vertex.geometry.x = pt.x;
         vertex.geometry.y = pt.y;
-        graph.model.setValue(vertex, data.persons[key].first_name + " " + data.persons[key].last_name);
+
+        var xmlPersonNode = xmlDoc.createElement('Person');
+        xmlPersonNode.setAttribute('person_id',data.persons[key].person_id);
+        xmlPersonNode.setAttribute('name',data.persons[key].first_name + " " + data.persons[key].last_name );
+
+        graph.model.setValue(vertex, xmlPersonNode);
         mxGraph.prototype.isCellsEditable = false;
+
+        //graph.model.setValue(vertex, data.persons[key].first_name + " " + data.persons[key].last_name);
 
         graph.setSelectionCells(graph.importCells([vertex], 0, 0, cell));
         //alert("TEST");
     }
     // Creates the image which is used as the drag icon (preview)
-    var img = personToolbar.addMode(null, null, funct);
-    mxUtils.setTextContent(img, data.persons[key].person_id + ": " + data.persons[key].first_name + " " + data.persons[key].last_name);
-    mxUtils.makeDraggable(img, graph, funct);
-    var xmlperson = xmlDoc.createElement('Person');
-    xmlperson.setAttribute('id',data.persons[key].person_id);
-    xmlperson.setAttribute('first_name',data.persons[key].first_name);
-    xmlperson.setAttribute('last_name',data.persons[key].last_name);
 
+    var img = personToolbar.addMode(null, null, onPersonToolbarChange);
+    mxUtils.setTextContent(img, data.persons[key].person_id + ": " + data.persons[key].first_name + " " + data.persons[key].last_name);
+    mxUtils.makeDraggable(img, graph, onPersonToolbarChange);
 
     $(img).click(function(){
         openPersonsTab(data.persons[key].person_id,data.persons[key].first_name,data.persons[key].last_name);
         setCurrentID(data.persons[key].person_id);
     });
     $(img).addClass("draggable-list-button");
-}	
+}
 
 $('#save-graph-btn').click(function(){
 	var encoder  = new mxCodec();
