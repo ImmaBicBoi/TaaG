@@ -255,31 +255,28 @@ function addPositionToolbarItem(graph, posToolbar, prototype, image, data, key)
 			{
 				graph.stopEditing(false);
 				var pt = graph.getPointForEvent(evt);
-				var vertex = graph.getModel().cloneCell(prototype);
-				vertex.geometry.x = pt.x;
-				vertex.geometry.y = pt.y;
-				graph.model.setValue(vertex, data.positions[key].name);
-				mxGraph.prototype.isCellsEditable = false;
-				
-				graph.setSelectionCells(graph.importCells([vertex], 0, 0, cell));
-				//alert("TEST");
-			}
-			// Creates the image which is used as the drag icon (preview)
-    var img = posToolbar.addMode(null, null, onPositionTollbarChange);
-            mxUtils.setTextContent(img, data.positions[key].position_id + ": " + data.positions[key].name);
-    mxUtils.makeDraggable(img, graph, onPositionTollbarChange);
-			var xmlpos = xmlDoc.createElement('Position');
-			xmlpos.setAttribute('id',data.positions[key].position_id);
-			xmlpos.setAttribute('name',data.positions[key].name);
-			// var test = toolbar.addItem(val, null, tryClick);
+        var vertex = graph.getModel().cloneCell(prototype);
+        vertex.geometry.x = pt.x;
+        vertex.geometry.y = pt.y;
 
-			// var tryClick = function(){
-			// 	console.log('yo');
-			// 	alert('yo');
-			// }
-			
-			$(img).click(function(){
-				openPositionsTab(data.positions[key].position_id,
+        var xmlPositionNode = xmlDoc.createElement('Position');
+        xmlPositionNode.setAttribute('position_id',data.positions[key].position_id);
+        xmlPositionNode.setAttribute('name',data.positions[key].name);
+        graph.model.setValue(vertex, xmlPositionNode);
+
+        mxGraph.prototype.isCellsEditable = false;
+
+        graph.setSelectionCells(graph.importCells([vertex], 0, 0, cell));
+    }
+
+    // Creates the image which is used as the drag icon (preview)
+    var img = posToolbar.addMode(null, null, onPositionTollbarChange);
+    mxUtils.setTextContent(img, data.positions[key].position_id + ": " + data.positions[key].name);
+    mxUtils.makeDraggable(img, graph, onPositionTollbarChange);
+
+
+    $(img).click(function(){
+        openPositionsTab(data.positions[key].position_id,
                     data.positions[key].name,
                     data.positions[key].person_id);
 				setCurrentID(data.positions[key].position_id);
