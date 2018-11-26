@@ -400,5 +400,106 @@ begin
 end$$
 delimiter ;
 
+/******************************************************/
+/***********       ORG_CHART             ***************/
+/******************************************************/
+
+drop table if exists ORG_CHART;
+
+create table ORG_CHART (
+	CHART_ID int NOT NULL AUTO_INCREMENT,
+	CHART_NAME varchar(30) NOT NULL,
+	CHART_DATA LONGTEXT NOT NULL,
+	
+	PRIMARY KEY (CHART_ID)
+);
+
+/******************************************************/
+
+/* INSERT CHART */
+
+drop procedure if exists CREATE_CHART;
+delimiter $$
+create procedure CREATE_CHART(in ChartName varchar(30), in ChartData LONGTEXT)			  
+							
+begin
+		start transaction;
+		insert into ORG_CHART (CHART_NAME, CHART_DATA) values (ChartName, ChartData);
+    commit;
+		
+   
+end$$
+delimiter ;
+
+/******************************************************/
+/* UPDATE CHART */
+
+drop procedure if exists UPDATE_CHART;
+
+delimiter $$
+create procedure UPDATE_CHART (in ChartId int(10), in ChartName varchar(30), 
+								  in ChartData LONGTEXT)
+begin
+		start transaction;
+		Update ORG_CHART 
+		SET 
+		 CHART_NAME = ChartName ,
+		 CHART_DATA = ChartData
+		
+		WHERE 
+		CHART_ID = ChartId;
+				
+    commit;
+    
+end$$
+delimiter ;
+
+/******************************************************/
+/* DELETE CHART */
+
+drop procedure if exists DELETE_CHART;
+delimiter $$
+create procedure DELETE_CHART (in ChartId int(10))
+begin
+		start transaction;
+		DELETE from ORG_CHART where CHART_ID = ChartId;
+				
+    commit;
+    
+end$$
+delimiter ;
+
+/******************************************************/
+/* RETRIEVE CHART BY ID */
+
+drop procedure if exists RETRIEVE_CHART;
+delimiter $$
+create procedure RETRIEVE_CHART (in ChartId int(10))
+begin
+		start transaction;
+		select CHART_ID,CHART_NAME,CHART_DATA from  ORG_CHART 
+		where CHART_ID = ChartId;
+		
+				
+    commit;
+    
+end$$
+delimiter ;
+
+/********************************************************/
+/*RETRIEVE LATEST CHART*/
+
+drop procedure if exists RETRIEVE_LATEST_CHART;
+delimiter $$
+create procedure RETRIEVE_LATEST_CHART ()
+begin
+		start transaction;
+		select CHART_ID,CHART_NAME,CHART_DATA from  ORG_CHART where CHART_ID = (select  max(CHART_ID)from ORG_CHART);
+		
+				
+    commit;
+    
+end$$
+delimiter ;
 
 
