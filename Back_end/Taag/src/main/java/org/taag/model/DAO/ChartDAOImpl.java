@@ -38,8 +38,21 @@ public class ChartDAOImpl implements Charts{
 	}
 
 	public ChartMessages updateChart(Chart chart, int chartId) {
-		// TODO Auto-generated method stub
-		return null;
+		ChartMessages chartMessages = new ChartMessages();
+		try {
+			CallableStatement cs = connection.prepareCall("call UPDATE_CHART(?,?,?)");
+			cs.setInt(1, chartId);
+			cs.setString(2,chart.getName());
+			cs.setString(3, chart.getData());
+			
+			chartMessages.setMessage("chart saved successfully");
+			chartMessages.setStatus(statusMessages.GetStatus(StatusMessage.status.OK));
+			}catch (Exception e) {
+				e.printStackTrace();
+				chartMessages.setStatus(statusMessages.GetStatus(StatusMessage.status.ERROR));
+				chartMessages.setMessage("Error: unable to save graph, missing required parameter");
+			}
+		return chartMessages;
 	}
 
 	public Chart getChart(int chartId) {

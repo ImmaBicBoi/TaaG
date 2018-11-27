@@ -25,5 +25,7 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="//Asgard/Documents/Coding Projects/Java Projects/External_JARs/json-simple-1.1.1.jar"/>
+	<classpathentry kind="lib" path="//Asgard/Documents/Coding Projects/Java Projects/External_JARs/mysql-connector-java-5.1.44-bin.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
