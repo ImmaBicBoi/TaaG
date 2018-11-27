@@ -50,6 +50,7 @@ function mxIconSet(state)
 			graph.removeCells([state.cell]);
 			mxEvent.consume(evt);
 			this.destroy();
+			document.getElementById('delete-cell-btn').disabled = true;
 		})
 	);
 	
@@ -78,6 +79,7 @@ $('#delete-cell-btn').click(function(){
 
 	var cell = graph.getSelectionCells()
 	graph.removeCells(cell);
+
 	document.getElementById('delete-cell-btn').disabled = true;
 	console.log("testing delete btn");
 	
