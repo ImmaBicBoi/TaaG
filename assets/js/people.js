@@ -26,8 +26,8 @@ function loadPeople() {
                                     $('#details-title').html(data[i].first_name + " " + data[i].last_name); //insert person title 
                                     $('#first-name').html("<span class='modal-headers'>First Name: </span>" + "<p id = 'ppl-fname' contenteditable='false'>" + data[i].first_name ) + "</p>"; //insert first name
                                     $('#last-name').html("<span class='modal-headers'>Last Name:</span>" + "<p id = 'ppl-lname' contenteditable='false'>" + data[i].last_name + "</p>"); //insert last name
-									$('#email').html("<span class='modal-headers'>Email:</span>" + "<p id = 'ppl-email' contenteditable='false'>" + data[i].email + "</p>"); //insert email
-									$('#phone').html("<span class='modal-headers'>Phone:</span>" + "<p id = 'ppl-phone' contenteditable='false'>" + data[i].phone + "</p>"); //insert number
+                                    $('#email').html("<span class='modal-headers'>Email:</span>" + "<p id = 'ppl-email' contenteditable='false'>" + data[i].email + "</p>"); //insert email
+                                    $('#phone').html("<span class='modal-headers'>Phone:</span>" + "<p id = 'ppl-phone' contenteditable='false'>" + data[i].phone + "</p>"); //insert number
                                     
                                     
                                     document.getElementById('ppl-edit-btn').style = "display: block;" //show EDIT button
@@ -140,6 +140,7 @@ function writePeopleJson() {
 
 $('#ppl-edit-btn').click(function(){
     //hide/show edit/save buttons
+    document.getElementById('delete-cell-btn').disabled = "true;"
     document.getElementById('ppl-edit-btn').style="display: none;"
     document.getElementById('ppl-save-btn').style="display: inline;"
     document.getElementById('ppl-delete-btn').style ="display: inline;"
@@ -160,7 +161,6 @@ $('#ppl-edit-btn').click(function(){
     $( "#person-attributes p, #pos-id p" ).attr(
             "contenteditable", "true");
 
-   
 
 });
 

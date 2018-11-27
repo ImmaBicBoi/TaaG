@@ -111,6 +111,7 @@ $('#add-attribute-confirm').click(function () {
 //Changes Right sidebar to edit mode once "Edit" button is clicked
 $('#edit-btn').click(function(){
     //hide/show edit/save buttons
+    document.getElementById('delete-cell-btn').disabled = "true;"
     document.getElementById('edit-btn').style="display: none;"
     document.getElementById('save-btn').style="display: inline;"
     document.getElementById('delete-btn').style ="display: inline;"
