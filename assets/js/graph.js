@@ -79,7 +79,7 @@ $('#delete-cell-btn').click(function(){
 
 	var cell = graph.getSelectionCells()
 	graph.removeCells(cell);
-
+     savetheGraph();
 	document.getElementById('delete-cell-btn').disabled = true;
 	console.log("testing delete btn");
 	
@@ -135,6 +135,7 @@ function initializeGraph(container){
 				// Enables new connections in the graph
 				graph.setConnectable(true);
 				graph.setMultigraph(false);
+				graph.setCellsResizable(false);
 
 				graph.addListener(mxEvent.CLICK, function (sender, evt) {
 
@@ -341,6 +342,11 @@ function addPersonToolbarItem(graph, personToolbar, prototype, image, data, key)
 
 
 $('#save-graph-btn').click(function(){
+	
+savetheGraph();
+});
+
+function savetheGraph(){
 	var encoder  = new mxCodec();
 	var node = encoder.encode(graph.getModel());
 // xml = mxUtils.getXml(node);
@@ -358,8 +364,7 @@ var graphData = {
 
 }
 saveGraph(graphData);
-
-});
+}
 
 
 function loadGraphInitially(data){
