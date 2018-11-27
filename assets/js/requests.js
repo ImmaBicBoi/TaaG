@@ -263,6 +263,10 @@ function saveGraph(graphData){
         //On ajax success do this
         //var output = JSON.parse(data);
         //alert(data + " " + status);
+		if(jqXHR.status == 200){
+      var div = document.getElementById('messages');
+      div.innerHTML += 'Chart Saved Succesfully';
+    }
         console.log("response "+JSON.stringify(data) + " " + jqXHR.status);
           },
       error: function(xhr, ajaxOptions, thrownError) {
