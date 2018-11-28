@@ -235,14 +235,14 @@ $('#save-btn').click(function(){
 
 
 $('#delete-btn').click(function(){
-    var answer = confirm("Delete this position from the database?")
+    var answer = confirm("Delete this position from the database?");
     if (answer) {
     console.log(getCurrentID());
     deletePosition(getCurrentID());
     alert("Deleting the position:" + getCurrentID());
     }
     else {
-   //do nothing
+	clearDetailsTab();
     }
 
  });

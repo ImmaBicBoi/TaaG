@@ -224,7 +224,7 @@ $('#ppl-delete-btn').click(function(){
     alert("Deleting the person:" + pplfname + " " + ppllname);
     }
     else {
-   //do nothing
+   clearDetailsTab();
     }
 
  });
