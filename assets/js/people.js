@@ -217,8 +217,15 @@ $('#ppl-save-btn').click(function(){
 });
 
 $('#ppl-delete-btn').click(function(){
+    var ans = confirm("Delete this person from the database?")
+    if (answer) {
     console.log(getCurrentID());
     deletePerson(getCurrentID());
+    alert("Deleting the person:" + pplfname + " " + ppllname);
+    }
+    else {
+   //do nothing
+    }
 
  });
 
