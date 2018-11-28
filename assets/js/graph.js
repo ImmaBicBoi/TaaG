@@ -307,7 +307,7 @@ function initializeGraph(container){
 function addPositionVertex(icon, w, h, style, data, key)
 		{
 			var tableObject = new Table('TABLENAME');
-			var vertex = new mxCell(tableObject , new mxGeometry(0, 0, 200, 28), 'table');
+			var vertex = new mxCell(tableObject , new mxGeometry(0, 0, 200, 60), 'table');
 			vertex.setVertex(true);
 
 			addPositionToolbarItem(graph, posToolbar, vertex, icon, data, key);
@@ -633,7 +633,8 @@ function configureStylesheet(graph)
 			style[mxConstants.STYLE_LABEL_BACKGROUNDCOLOR] = '#FFFFFF';
 			style[mxConstants.STYLE_STROKEWIDTH] = '2';
 			style[mxConstants.STYLE_ROUNDED] = true;
-			style[mxConstants.STYLE_EDGE] = mxEdgeStyle.EntityRelation;
+			style[mxConstants.STYLE_EDGE] = mxEdgeStyle.TopToBottom;
+
 		};
 
 var currentCell;
