@@ -281,7 +281,7 @@ function initializeGraph(container){
 			if (this.isHtmlLabel(cell))
 			{
 				if(getCurrentCell() != null){
-					var label = getCurrentCell().value.name + getCurrentCell().value.person_id;
+					var label = getCurrentCell().value.name;
 				}else var label = '';
 				console.log("label looks like: " + label + mxUtils.htmlEntities(cell.value.name, false) + cell.value.name);
 				return (label);
