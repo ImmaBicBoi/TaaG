@@ -281,7 +281,7 @@ function initializeGraph(container){
 			if (this.isHtmlLabel(cell))
 			{
 				if(getCurrentCell() != null){
-					var label = getCurrentCell().value.name;
+					var label = "("+getCurrentCell().value.person_id + ") "+ getCurrentCell().value.name;
 				}else var label = '';
 				console.log("label looks like: " + label + mxUtils.htmlEntities(cell.value.name, false) + cell.value.name);
 				return (label);
@@ -349,13 +349,12 @@ function addPositionToolbarItem(graph, posToolbar, prototype, image, data, key)
 			// the mousepointer if there is one.
 			var funct = function(graph, evt, cell)
 			{
-				
 				graph.stopEditing(false);
 				var pt = graph.getPointForEvent(evt);
 				var vertex = graph.getModel().cloneCell(prototype);
 				vertex.geometry.x = pt.x;
 				vertex.geometry.y = pt.y;
-				graph.model.setValue(vertex, data.positions[key].name);
+				graph.model.setValue(vertex, data.positions[key].position_id +" "+ data.positions[key].name);
 				mxGraph.prototype.isCellsEditable = false;
 				
 				graph.setSelectionCells(graph.importCells([vertex], 0, 0, cell));
