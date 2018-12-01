@@ -10,12 +10,12 @@ org\taag\model\Positions.class
 org\taag\model\Persons.class
 org\taag\controller\AttributeService.class
 org\taag\model\StatusMessage$1.class
-org\taag\model\AttributeCreateJson.class
 org\taag\controller\PersonService.class
 org\taag\model\Charts.class
 org\taag\model\PreDefinedAttributes.class
 org\taag\model\AttributeMessages.class
 org\taag\model\Attributes.class
+org\taag\model\AttributeJsonDeserialize.class
 org\taag\model\Position.class
 org\taag\controller\PositionService.class
 org\taag\model\PersonMessages.class

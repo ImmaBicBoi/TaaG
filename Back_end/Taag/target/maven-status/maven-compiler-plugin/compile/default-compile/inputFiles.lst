@@ -4,7 +4,6 @@ D:\SEM3_classes\Agile\workspace\Taag\src\main\java\org\taag\model\Position.java
 D:\SEM3_classes\Agile\workspace\Taag\src\main\java\org\taag\controller\AttributeService.java
 D:\SEM3_classes\Agile\workspace\Taag\src\main\java\org\taag\model\ChartMessages.java
 D:\SEM3_classes\Agile\workspace\Taag\src\main\java\org\taag\model\DAO\PersonDaoImpl.java
-D:\SEM3_classes\Agile\workspace\Taag\src\main\java\org\taag\model\AttributeCreateJson.java
 D:\SEM3_classes\Agile\workspace\Taag\src\main\java\org\taag\model\Charts.java
 D:\SEM3_classes\Agile\workspace\Taag\src\main\java\org\taag\model\StatusMessage.java
 D:\SEM3_classes\Agile\workspace\Taag\src\main\java\org\taag\model\DAO\PersonDAO.java
@@ -13,6 +12,7 @@ D:\SEM3_classes\Agile\workspace\Taag\src\main\java\org\taag\model\Person.java
 D:\SEM3_classes\Agile\workspace\Taag\src\main\java\org\taag\model\DAO\AttributeDAO.java
 D:\SEM3_classes\Agile\workspace\Taag\src\main\java\org\taag\application\ApplicationContex.java
 D:\SEM3_classes\Agile\workspace\Taag\src\main\java\org\taag\model\DAO\AttributeDAOImpl.java
+D:\SEM3_classes\Agile\workspace\Taag\src\main\java\org\taag\model\AttributeJsonDeserialize.java
 D:\SEM3_classes\Agile\workspace\Taag\src\main\java\org\taag\controller\PositionService.java
 D:\SEM3_classes\Agile\workspace\Taag\src\main\java\org\taag\model\Positions.java
 D:\SEM3_classes\Agile\workspace\Taag\src\main\java\org\taag\model\DAO\ChartDAO.java

@@ -215,7 +215,7 @@ public class PositionDaoImpl implements Positions {
 				rs = ps.executeQuery();
 				while (rs.next()) {
 					Attributes attribute = new Attributes();
-					attribute.setKey(rs.getString("POS_ATTR_KEY"));
+					attribute.setKey(rs.getString("ATTR_KEY"));
 					attribute.setValue(rs.getString("POS_ATTR_VALUE"));
 					attributes.add(attribute);
 				}

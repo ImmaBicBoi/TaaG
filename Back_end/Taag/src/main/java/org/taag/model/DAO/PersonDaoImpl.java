@@ -153,7 +153,7 @@ public class PersonDaoImpl {
 			rs = ps.executeQuery();
 			while (rs.next()) {
 				Attributes attribute = new Attributes();
-				attribute.setKey(rs.getString("PER_ATTR_KEY"));
+				attribute.setKey(rs.getString("ATTR_KEY"));
 				attribute.setValue(rs.getString("PER_ATTR_VALUE"));
 				attributes.add(attribute);
 			}

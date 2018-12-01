@@ -1,6 +1,7 @@
 package org.taag.controller;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -19,9 +20,9 @@ public class AttributeService {
 	@POST
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response createOrUpdateAttribute(AttributeJsonDeserialize attriObj) throws Exception {
+	public Response createAttribute(AttributeJsonDeserialize attriObj) throws Exception {
 		AttributeDAO adao = new AttributeDAO();
-		AttributeMessages attributeMessages = adao.createOrUpdateAttribute(attriObj);
+		AttributeMessages attributeMessages = adao.createAttribute(attriObj);
 		JSONObject obj = new JSONObject();
 		Response response = null;
         if(attributeMessages.getMessage() != null) {
@@ -42,5 +43,21 @@ public class AttributeService {
 
 		
 	}
+	
+	
+	@GET
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response getAttribute() throws Exception {
+		AttributeDAO adao = new AttributeDAO();
+		AttributeMessages attributeMessages = adao.getPredefinedAttributes();
+		if (attributeMessages!= null) {
+			return Response.ok(attributeMessages, MediaType.APPLICATION_JSON).build();
+		} else {
+			return Response.status(Response.Status.NO_CONTENT).build();
+		}
+		
+	}
+	
+	
 
 }

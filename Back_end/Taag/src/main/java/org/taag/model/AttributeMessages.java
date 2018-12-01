@@ -1,5 +1,7 @@
 package org.taag.model;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -10,8 +12,8 @@ public class AttributeMessages {
 
 	public String message;
 	public String status;
-	public Person person;
-	public Position position;
+	public List<Person> person;
+	public List<Position> position;
 	
 
 	@JsonProperty(value = "message")
@@ -31,18 +33,18 @@ public class AttributeMessages {
 	}
 	
 	@JsonProperty(value = "person")
-	public Person getPerson() {
+	public List<Person> getPerson() {
 		return person;
 	}
-	public void setPerson(Person person) {
+	public void setPerson(List<Person> person) {
 		this.person = person;
 	}
 	
 	@JsonProperty(value = "position")
-	public Position getPosition() {
+	public List<Position> getPosition() {
 		return position;
 	}
-	public void setPosition(Position position) {
+	public void setPosition(List<Position> position) {
 		this.position = position;
 	}
 	

@@ -558,4 +558,32 @@ begin
 end$$
 delimiter ;
 /******************************************************/
+/******************************************************/
+/*RETRIEVE POSITION ATTRIBUTE*/
 
+drop procedure if exists RETRIEVE_ATTRIBUTE_TYPE_POSITION;
+delimiter $$
+create procedure RETRIEVE_ATTRIBUTE_TYPE_POSITION ()
+begin
+		start transaction;
+		select ATTR_ID,ATTR_KEY,ATTR_ORDER,IS_VISIBLE from attribute where attr_type = 'Position';
+		
+    commit;
+    
+end$$
+delimiter ;
+
+/******************************************************/
+/*RETRIEVE PERSON ATTRIBUTE*/
+
+drop procedure if exists RETRIEVE_ATTRIBUTE_TYPE_PEOPLE;
+delimiter $$
+create procedure RETRIEVE_ATTRIBUTE_TYPE_PEOPLE ()
+begin
+		start transaction;
+		select ATTR_ID,ATTR_KEY,ATTR_ORDER,IS_VISIBLE from attribute where attr_type = 'Person';
+		
+    commit;
+    
+end$$
+delimiter ;
