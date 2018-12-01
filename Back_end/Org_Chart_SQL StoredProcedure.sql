@@ -440,8 +440,9 @@ drop procedure if exists UPDATE_CHART;
 delimiter $$
 create procedure UPDATE_CHART (in ChartName varchar(30),  in ChartData LONGTEXT)
 begin
+        declare chartId INT;
 		start transaction;
-		SET chartId = Select CHART_ID from ORG_CHART ;
+        select CHART_ID into chartId from ORG_CHART ;
 		Select chartId;
 		
 		Update ORG_CHART 
