@@ -129,7 +129,7 @@ drop table if exists POSITION_ATTRIBUTE;
 
 create table POSITION_ATTRIBUTE (
 	POS_ATTR_ID int NOT NULL AUTO_INCREMENT,
-	POS_ATTR_KEY varchar(255),
+	POS_ATTR_KEY int(10) NOT NULL,
 	POS_ATTR_VALUE varchar(255),
 	POSITION_ID int (10) NOT NULL ,
 	
@@ -140,26 +140,26 @@ create table POSITION_ATTRIBUTE (
 /* INSERT DUMMY DATA INTO POSITION ATTRIBUTE TABLE */
 
 insert into POSITION_ATTRIBUTE (POS_ATTR_KEY,POS_ATTR_VALUE,POSITION_ID) values 
-('Type','Full Time',1),
-('Base Pay','$ 250,000',1),
-('Type','Full Time',2),
-('Type','Full Time',3),
-('Type','Full Time',4),
-('Type','Full Time',5),
-('Type','Full Time',6),
-('Years of experience','8 years',6),
-('Type','Full Time',7),
-('Programming Language skill','Java',7),
-('Type','Full Time',8),
-('Type','Full Time',9),
-('Type','Part Time',10);
+(1,'Full Time',1),
+(2,'$ 250,000',1),
+(1,'Full Time',2),
+(1,'Full Time',3),
+(1,'Full Time',4),
+(1,'Full Time',5),
+(1,'Full Time',6),
+(3,'8 years',6),
+(1,'Full Time',7),
+(3,'Java',7),
+(1,'Full Time',8),
+(1,'Full Time',9),
+(1,'Part Time',10);
 
 /******************************************************/
 /* INSERT POSITION ATTRIBUTES */
 
 drop procedure if exists CREATE_POSITION_ATTR;
 delimiter $$
-create procedure CREATE_POSITION_ATTR ( in attr_key varchar(255), in attr_value varchar(255),in PosId int (10))
+create procedure CREATE_POSITION_ATTR ( in attr_key int(10), in attr_value varchar(255),in PosId int (10))
 							
 begin
 		start transaction;
@@ -193,8 +193,9 @@ delimiter $$
 create procedure RETRIEVE_POSITION_ATTR (in PosId int(10))
 begin
 		start transaction;
-		select POS_ATTR_KEY,POS_ATTR_VALUE from  POSITION_ATTRIBUTE
-		where POSITION_ID = PosId;
+		select A.ATTR_KEY,P.POS_ATTR_VALUE from  ATTRIBUTE A, POSITION_ATTRIBUTE P
+		where POSITION_ID = PosId
+		AND A.ATTR_ID = P.POS_ATTR_KEY;
 			
     commit;
     
@@ -340,18 +341,17 @@ create table PERSON_ATTRIBUTE (
 /* INSERT DUMMY DATA INTO PERSON ATTRIBUTE TABLE */
 
 insert into PERSON_ATTRIBUTE (PER_ATTR_KEY,PER_ATTR_VALUE,PERSON_ID ) values 
-('Email','frank.ellison@gmail.com',1),
-('Office','Fairfield, CT',1),
-('Email','sarah.mitchell@gmail.com',2),
-('Address','Main Ave, Stamford', 3),
-('Email','rachel.green@gmail.com', 4),
-('Mobile Number','728-584-7730', 5),
-('DOB','06-09-1987', 6),
-('Email','peter.clark@gmail.com', 7),
-('Contact Number','257-317-9134', 7),
-('DOB','3-02-1990', 8),
-('Address','Belden Ave, Fairfield',9),
-('Email','jason.murray@gmail.com', 10);
+(1,'frank.ellison@gmail.com',1),
+(2,'Fairfield, CT',1),
+(1,'sarah.mitchell@gmail.com',2),
+(3,'Main Ave, Stamford', 3),
+(1,'rachel.green@gmail.com', 4),
+(4,'728-584-7730', 5),
+(5,'06-09-1987', 6),
+(1,'peter.clark@gmail.com', 7),
+(5,'3-02-1990', 8),
+(3,'Belden Ave, Fairfield',9),
+(1,'jason.murray@gmail.com', 10);
 
 /******************************************************/
 /* INSERT PERSON ATTRIBUTES*/
@@ -392,8 +392,9 @@ delimiter $$
 create procedure RETRIEVE_PERSON_ATTR (in PerId int(10))
 begin
 		start transaction;
-		select PER_ATTR_KEY, PER_ATTR_VALUE from  PERSON_ATTRIBUTE 
-		where PERSON_ID = PerId;
+		select A.ATTR_KEY,P.PER_ATTR_VALUE from  ATTRIBUTE A, PERSON_ATTRIBUTE P
+		where PERSON_ID = PerId
+		AND A.ATTR_ID = P.PER_ATTR_KEY;
 				
     commit;
     
@@ -437,10 +438,12 @@ delimiter ;
 drop procedure if exists UPDATE_CHART;
 
 delimiter $$
-create procedure UPDATE_CHART (in ChartId int(10), in ChartName varchar(30), 
-								  in ChartData LONGTEXT)
+create procedure UPDATE_CHART (in ChartName varchar(30),  in ChartData LONGTEXT)
 begin
 		start transaction;
+		SET chartId = Select CHART_ID from ORG_CHART ;
+		Select chartId;
+		
 		Update ORG_CHART 
 		SET 
 		 CHART_NAME = ChartName ,
@@ -470,23 +473,6 @@ end$$
 delimiter ;
 
 /******************************************************/
-/* RETRIEVE CHART BY ID */
-
-drop procedure if exists RETRIEVE_CHART;
-delimiter $$
-create procedure RETRIEVE_CHART (in ChartId int(10))
-begin
-		start transaction;
-		select CHART_ID,CHART_NAME,CHART_DATA from  ORG_CHART 
-		where CHART_ID = ChartId;
-		
-				
-    commit;
-    
-end$$
-delimiter ;
-
-/********************************************************/
 /*RETRIEVE LATEST CHART*/
 
 drop procedure if exists RETRIEVE_LATEST_CHART;
@@ -494,7 +480,7 @@ delimiter $$
 create procedure RETRIEVE_LATEST_CHART ()
 begin
 		start transaction;
-		select CHART_ID,CHART_NAME,CHART_DATA from  ORG_CHART where CHART_ID = (select  max(CHART_ID)from ORG_CHART);
+		select CHART_ID,CHART_NAME,CHART_DATA from  ORG_CHART;
 		
 				
     commit;
@@ -502,4 +488,73 @@ begin
 end$$
 delimiter ;
 
+/******************************************************/
+/*CREATE ATTRIBUTE TABLE*/
+drop table if exists ATTRIBUTE;
+
+create table ATTRIBUTE (
+	ATTR_ID int NOT NULL AUTO_INCREMENT,
+	ATTR_KEY varchar(30) NOT NULL,
+	ATTR_ORDER int (10) NOT NULL,
+	IS_VISIBLE BOOLEAN NOT NULL,
+	ATTR_TYPE varchar(10) NOT NULL,
+	
+	PRIMARY KEY (ATTR_ID)
+);
+
+/* INSERT DUMMY DATA INTO ATTRIBUTE TABLE */
+
+insert into ATTRIBUTE (ATTR_KEY,ATTR_ORDER,IS_VISIBLE,ATTR_TYPE) values 
+('Email',1,1,'Person'),
+('Office',2,1,'Person'),
+('Address',3,0,'Person'),
+('Mobile Number',4,0,'Person'),
+('DOB',5,0,'Person'),
+('Type',1,1,'Position'),
+('Base Pay',2,1,'Position'),
+('Years of Experience',3,0,'Position'),
+('Programming Language skill',4,0,'Position');
+
+/******************************************************/
+/*INSERT INTO ATTRIBUTE TABLE*/
+
+drop procedure if exists INSERT_ATTRIBUTE;
+delimiter $$
+create procedure INSERT_ATTRIBUTE(in att_key varchar(30), in Att_odr int (10), 
+								  in is_vis BOOLEAN , in att_typ varchar(10))			  
+							
+begin
+		start transaction;
+		insert into ATTRIBUTE (ATTR_KEY, ATTR_ORDER, IS_VISIBLE, ATTR_TYPE) values (att_key, Att_odr, is_vis, att_typ);
+    commit;
+		
+   
+end$$
+delimiter ;
+
+/******************************************************/
+/*UPDATE ATTRIBUTE TABLE*/
+
+drop procedure if exists UPDATE_ATTRIBUTE;
+
+delimiter $$
+create procedure UPDATE_ATTRIBUTE (in id int(10), in att_key varchar(30), in Att_odr int (10), 
+								  in is_vis BOOLEAN)
+begin
+		start transaction;
+				
+		Update ATTRIBUTE 
+		SET 
+		 ATTR_KEY = att_key,
+		 ATTR_ORDER = Att_odr ,
+		 IS_VISIBLE = is_vis
+		
+		WHERE 
+		ATTR_ID = id;
+				
+    commit;
+    
+end$$
+delimiter ;
+/******************************************************/
 
