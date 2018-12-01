@@ -5,11 +5,16 @@ org\taag\model\DAO\ChartDAO.class
 org\taag\model\ChartMessages.class
 org\taag\model\Chart.class
 org\taag\model\DAO\PositionDaoImpl.class
+org\taag\model\DAO\AttributeDAOImpl.class
 org\taag\model\Positions.class
 org\taag\model\Persons.class
+org\taag\controller\AttributeService.class
 org\taag\model\StatusMessage$1.class
+org\taag\model\AttributeCreateJson.class
 org\taag\controller\PersonService.class
 org\taag\model\Charts.class
+org\taag\model\PreDefinedAttributes.class
+org\taag\model\AttributeMessages.class
 org\taag\model\Attributes.class
 org\taag\model\Position.class
 org\taag\controller\PositionService.class
@@ -20,6 +25,7 @@ org\taag\model\DAO\PositionDAO.class
 org\taag\application\ApplicationContex.class
 org\taag\model\DAO\ChartDAOImpl.class
 org\taag\model\DAO\PersonDaoImpl.class
+org\taag\model\DAO\AttributeDAO.class
 org\taag\connection\JDBCConnection.class
 org\taag\model\Person.class
 org\taag\model\DAO\PersonDAO.class

@@ -13,9 +13,9 @@
             $(function(){                
                 $("#postPerson, #postMessage").on("click", function(){
                     $.ajax({
-                        url: $(this).attr("id") === "postMessage" ? ctxPath+"/service/message/post" : ctxPath+"/service/chart",
+                        url: $(this).attr("id") === "postMessage" ? ctxPath+"/service/message/post" : ctxPath+"/service/attribute",
                         type: "POST",
-                        data: '{"name": "fairfield","data": "test"}',
+                        data: '{"position":[{"key": "Location","order": "2","is_visible":"true"},{"key": "Type","order": "2","is_visible":"true"}],"person":[{"key": "Level","order": "1","is_visible":"false"}]}',
                         contentType: "application/json",
                         cache: false,
                         dataType: "json"
