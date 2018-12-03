@@ -1,353 +1,566 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Team at a Glance</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic"
+    />
+    <link rel="stylesheet" href="assets/fonts/font-awesome.min.css" />
+    <link rel="stylesheet" href="assets/css/Highlight-Clean.css" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+  </head>
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home - Brand</title>
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic">
-    <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
-    <link rel="stylesheet" href="assets/css/Highlight-Clean.css">
-    <link rel="stylesheet" href="assets/css/main.css">
-
-
-
-
-
-
-</head>
-
-<body onload="main(document.getElementById('graphContainer'))">
+  <body onload="main(document.getElementById('graphContainer'))">
     <nav class="navbar navbar-light navbar-expand bg-light navigation-clean">
-        <div class="container"><a class="navbar-brand" href="#">TaaG</a><button class="navbar-toggler" data-toggle="collapse"
-                data-target="#navcol-1"></button>
-            <div class="collapse navbar-collapse" id="navcol-1"></div>
-        </div>
+      <div class="container">
+        <a class="navbar-brand" href="#">TaaG</a
+        ><button
+          class="navbar-toggler"
+          data-toggle="collapse"
+          data-target="#navcol-1"
+        ></button>
+        <div class="collapse navbar-collapse" id="navcol-1"></div>
+      </div>
     </nav>
+	<div id="messages" style="color:#08DC03;font-weight:bold;text-align: center;font-size: 20px;box-sizing: border-box;width: 50%;padding: 15px; ">
+    </div>
     <div class="row" style="height:30px;min-height:30px;"></div>
-    <!-- Add position popup-->
-    <div class="modal fade" role="dialog" tabindex="-1" id="add-position-modal" style="margin-right:0px;margin-left:100px;">
-        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 id="position-modal-title">Add a New Position</h4><button type="button" class="close"
-                        data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    <!-- Add position popup -->
+    <div
+      class="modal fade"
+      role="dialog"
+      tabindex="-1"
+      id="add-position-modal"
+      style="margin-right:0px;margin-left:100px;"
+    >
+      <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 id="position-modal-title">Add a New Position</h4>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+
+          <!-- Modal Body -->
+          <div class="modal-body">
+            <form
+              name="position-form"
+              id="position-form"
+              class="form-horizontal"
+              role="form"
+            >
+              <div class="form-group">
+                <label class="col-sm-2 control-label" for="input-pos-title"
+                  >Position Title</label
+                >
+                <div class="col-sm-10">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="input-pos-title"
+                    placeholder="Input Position Title"
+                  />
                 </div>
-
-                <!-- Modal Body -->
-                <div class="modal-body">
-                    <form name="position-form" id="position-form" class="form-horizontal" role="form">
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label" for="input-pos-title">Position Title</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" id="input-pos-title" placeholder="Input Position Title" />
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label" for="input-pos-id">Position ID</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" id="input-pos-id" placeholder="Input Position ID" />
-                            </div>
-                        </div>
-
-                        <!--  Hardcoded Add Atributes -->
-                        <!-- <div class="form-group">
-                        <label  class="col-sm-2 control-label"
-                                  for="input-att-one">Attribute 1</label>
-                        <div class="col-sm-2 col-sm-10">
-                            <input type="text" class="form-control" 
-                            id="input-att-one" placeholder="Input Attribute 1"/>
-                        </div>
-                      </div>
-                    <div class="form-group">
-                        <label  class="col-sm-2 control-label"
-                                  for="input-att-two">Attribute 2</label>
-                        <div class="col-sm-2 col-sm-10">
-                            <input type="text" class="form-control" 
-                            id="input-att-two" placeholder="Input Attribute 2"/>
-                        </div>
-                      </div>
-                    <div class="form-group">
-                        <label  class="col-sm-2 control-label"
-                                  for="input-att-three">Attribute 3</label>
-                        <div class="col-sm-2 col-sm-10">
-                            <input type="text" class="form-control" 
-                            id="input-att-three" placeholder="Input Attribute 3"/>
-                        </div>
-                      </div>
-                       -->
-                        <!-- <div class="form-group">
-                      <div class="col-sm-offset-2 col-sm-10">
-                        <div class="checkbox">
-                          <label>
-                              <input type="checkbox"/> Confirm
-                          </label>
-                        </div>
-                      </div>
-                    </div> -->
-                        <div class="form-group">
-                            <div class="col-sm-2 col-sm-10">
-                                <button id="add-attribute-confirm" type="button" class="btn btn-default">+ Add
-                                    Attribute</button>
-                            </div>
-                        </div>
-                    </form>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label" for="input-pos-id"
+                  >Position ID</label
+                >
+                <div class="col-sm-10">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="input-pos-id"
+                    placeholder="Input Position ID"
+                  />
                 </div>
+              </div>
 
+              <!-- Hardcoded Add Atributes -->
+              <!--
+                <div class="form-group">
+                    <label  class="col-sm-2 control-label"
+                              for="input-att-one">Attribute 1</label>
+                    <div class="col-sm-2 col-sm-10">
+                        <input type="text" class="form-control"
+                        id="input-att-one" placeholder="Input Attribute 1"/>
+                    </div>
+                  </div>
+                <div class="form-group">
+                    <label  class="col-sm-2 control-label"
+                              for="input-att-two">Attribute 2</label>
+                    <div class="col-sm-2 col-sm-10">
+                        <input type="text" class="form-control"
+                        id="input-att-two" placeholder="Input Attribute 2"/>
+                    </div>
+                  </div>
+                <div class="form-group">
+                    <label  class="col-sm-2 control-label"
+                              for="input-att-three">Attribute 3</label>
+                    <div class="col-sm-2 col-sm-10">
+                        <input type="text" class="form-control"
+                        id="input-att-three" placeholder="Input Attribute 3"/>
+                    </div>
+                  </div>
+              -->
+              <!--
+                <div class="form-group">
+                  <div class="col-sm-offset-2 col-sm-10">
+                    <div class="checkbox">
+                      <label>
+                          <input type="checkbox"/> Confirm
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              -->
+              <div class="form-group">
+                <div class="col-sm-2 col-sm-10">
+                  <button
+                    id="add-attribute-confirm"
+                    type="button"
+                    class="btn btn-default"
+                  >
+                    + Add Attribute
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
 
-
-                <div class="modal-footer">
-                    <button class="btn btn-light" type="button" data-dismiss="modal">Close</button>
-                    <button id="add-position-confirm" class="btn btn-primary" type="button">Confirm</button></div>
-            </div>
+          <div class="modal-footer">
+            <button class="btn btn-light" type="button" data-dismiss="modal">
+              Close
+            </button>
+            <button
+              id="add-position-confirm"
+              class="btn btn-primary"
+              type="button"
+            >
+              Confirm
+            </button>
+          </div>
         </div>
+      </div>
     </div>
 
+    <!-- Add people popup -->
+    <div
+      class="modal fade"
+      role="dialog"
+      tabindex="-1"
+      id="add-people-modal"
+      style="margin-right:0px;margin-left:100px;"
+    >
+      <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 id="position-modal-title">Add a New Person</h4>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
 
-    <!-- Add people popup-->
-    <div class="modal fade" role="dialog" tabindex="-1" id="add-people-modal" style="margin-right:0px;margin-left:100px;">
-        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 id="position-modal-title">Add a New Person</h4><button type="button" class="close" data-dismiss="modal"
-                        aria-label="Close"><span aria-hidden="true">×</span></button>
+          <!-- Modal Body -->
+          <div class="modal-body">
+            <form class="form-horizontal" role="form">
+              <div class="form-group">
+                <label class="col-sm-2 control-label" for="input-first-name"
+                  >First Name:
+                </label>
+                <div class="col-sm-10">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="input-first-name"
+                    placeholder="Enter First Name"
+                  />
                 </div>
-
-                <!-- Modal Body -->
-                <div class="modal-body">
-                    <form class="form-horizontal" role="form">
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label" for="input-first-name">First Name: </label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" id="input-first-name" placeholder="Enter First Name" />
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label" for="input-last-name">Last Name</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" id="input-last-name" placeholder="Enter Last Name: " />
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label" for="input-emp-id">Employee ID</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" id="input-emp-id" placeholder="Enter Employee ID: " />
-                            </div>
-                        </div>
-                        <!-- <div class="form-group">
-                            <label class="col-sm-2 control-label" for="input-emp-position">Position: </label>
-                            <div class="col-sm-2 col-sm-10">
-                                <input type="text" class="form-control" id="input-emp-position" placeholder="Enter Position: " />
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label" for="input-email">Email: </label>
-                            <div class="col-sm-2 col-sm-10">
-                                <input type="email" class="form-control" id="input-email" placeholder="Enter Email Address: " />
-                                <small id="email-foot" class="form-text text-muted">Please Enter a Valid Email.</small>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label" for="input-phone">Phone:</label>
-                            <div class="col-sm-2 col-sm-10">
-                                <input type="text" class="form-control" id="input-phone" placeholder="Enter Phone Number" />
-                                <small id="email-foot" class="form-text text-muted">Please Enter a Valid Phone Number.</small>
-                            </div>
-                        </div> -->
-
-                        <div class="form-group">
-                            <div class="col-sm-2 col-sm-10">
-                                <button id="add-people-attribute-confirm" type="button" class="btn btn-default">+ Add
-                                    Attribute</button>
-                            </div>
-                        </div>
-                        <!-- <div class="form-group">
-                      <div class="col-sm-offset-2 col-sm-10">
-                        <div class="checkbox">
-                          <label>
-                              <input type="checkbox"/> Confirm
-                          </label>
-                        </div>
-                      </div>
-                    </div> -->
-                    </form>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label" for="input-last-name"
+                  >Last Name</label
+                >
+                <div class="col-sm-10">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="input-last-name"
+                    placeholder="Enter Last Name: "
+                  />
                 </div>
-                <div class="modal-footer">
-                    <button class="btn btn-light" type="button" data-dismiss="modal">Close</button>
-                    <button id="add-people-confirm" class="btn btn-primary" type="button">Confirm</button></div>
-            </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label" for="input-emp-id"
+                  >Employee ID</label
+                >
+                <div class="col-sm-10">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="input-emp-id"
+                    placeholder="Enter Employee ID: "
+                  />
+                </div>
+              </div>
+              <!--
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="input-emp-position">Position: </label>
+                    <div class="col-sm-2 col-sm-10">
+                        <input type="text" class="form-control" id="input-emp-position" placeholder="Enter Position: " />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="input-email">Email: </label>
+                    <div class="col-sm-2 col-sm-10">
+                        <input type="email" class="form-control" id="input-email" placeholder="Enter Email Address: " />
+                        <small id="email-foot" class="form-text text-muted">Please Enter a Valid Email.</small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="input-phone">Phone:</label>
+                    <div class="col-sm-2 col-sm-10">
+                        <input type="text" class="form-control" id="input-phone" placeholder="Enter Phone Number" />
+                        <small id="email-foot" class="form-text text-muted">Please Enter a Valid Phone Number.</small>
+                    </div>
+                </div>
+              -->
+
+              <div class="form-group">
+                <div class="col-sm-2 col-sm-10">
+                  <button
+                    id="add-people-attribute-confirm"
+                    type="button"
+                    class="btn btn-default"
+                  >
+                    + Add Attribute
+                  </button>
+                </div>
+              </div>
+              <!--
+                <div class="form-group">
+                  <div class="col-sm-offset-2 col-sm-10">
+                    <div class="checkbox">
+                      <label>
+                          <input type="checkbox"/> Confirm
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              -->
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-light" type="button" data-dismiss="modal">
+              Close
+            </button>
+            <button
+              id="add-people-confirm"
+              class="btn btn-primary"
+              type="button"
+            >
+              Confirm
+            </button>
+          </div>
         </div>
+      </div>
     </div>
 
     <div></div>
     <div>
-        <div class="container-fluid" style="min-height:500px;">
-            <div class="row" style="min-height:500px; max-height:600px;">
-                <!-- Left Sidebar-->
-                <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-2" style="max-width:250px;">
-                    <div class="row  ">
-                        <div class="col ">
-                            <div class="">
-                                <ul class="nav nav-tabs">
-                                    <li class="nav-item"><a class="nav-link active" role="tab" data-toggle="tab" href="#tab-1">Positions</a></li>
-                                    <li class="nav-item"><a class="nav-link" role="tab" data-toggle="tab" href="#tab-2">People</a></li>
-                                </ul>
-                                <div class="tab-content scrollable">
-                                    <div class="tab-pane active" role="tabpanel" id="tab-1">
-                                        <ul id="position-list" class="list-unstyled draggable-list">
-
-                                        </ul>
-                                    </div>
-                                    <div class="tab-pane" role="tabpanel" id="tab-2">
-                                        <ul id="people-list" class="list-unstyled draggable-list">
-
-                                        </ul>
-                                    </div>
-
-                                </div>
-                            </div>
-
-                        </div>
+      <div class="container-fluid" style="min-height:500px;">
+        <div class="row" style="min-height:500px; max-height:600px;">
+          <!-- Left Sidebar -->
+          <div
+            class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-2"
+            style="max-width:250px;"
+          >
+            <div class="row  ">
+              <div class="col ">
+                <div class="">
+                  <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                      <a
+                        class="nav-link active"
+                        role="tab"
+                        data-toggle="tab"
+                        href="#tab-1"
+                        >Positions</a
+                      >
+                    </li>
+                    <li class="nav-item">
+                      <a
+                        class="nav-link"
+                        role="tab"
+                        data-toggle="tab"
+                        href="#tab-2"
+                        >People</a
+                      >
+                    </li>
+                  </ul>
+                  <div class="tab-content scrollable">
+                    <div class="tab-pane active" role="tabpanel" id="tab-1">
+                      <ul
+                        id="position-list"
+                        class="list-unstyled draggable-list"
+                      ></ul>
                     </div>
+                    <div class="tab-pane" role="tabpanel" id="tab-2">
+                      <ul
+                        id="people-list"
+                        class="list-unstyled draggable-list"
+                      ></ul>
+                    </div>
+                  </div>
                 </div>
-                <!-- Add Buttons-->
-                <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-8">
-                    <div id="add-btns" class="row">
-                        <div class="col"><button id="add-position-btn" class="btn btn-primary" type="button">Add
-                                Position</button></div>
-                        <div class="col"><button id="add-person-btn" class="btn btn-primary" type="button">Add Person</button></div>
-
-                    </div>
-                    <!-- MxGraph-->
-                    <div class="row" style="height:198px;background-color:#f4faff;min-height:500px;">
-                        <div class="col-xl-12" id="graphContainer"></div>
-                    </div>
-                </div>
-                <!-- Right Sidebar-->
-                <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-2" style="max-width:250px;">
-                    <div class="row  ">
-                        <div class="col ">
-
-                            <div class="" id="details-tab">
-                                <div class="row" style="height:38px;">
-
-                                </div>
-
-                                <div class="row" style="height:198px;background-color:#fff9f2;min-height:500px;">
-                                    <div class="col scrollable">
-                                        <h4 id="details-title"></h4>
-
-                                        <div class="details-body">
-                                            <span id='pos-heldby'></span>
-
-                                            <span id='pos-id'></span>
-                                            <span id='first-name'></span>
-                                            <span id='last-name'></span>
-                                            <div class="scrollable-modal">
-                                                <div class="row">
-                                                    <div class="col" id="pos-attributes">
-
-                                                    </div>
-
-
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col" id="person-attributes">
-
-                                                    </div>
-                                                </div>
-
-
-                                            </div>
-                                            <button class="btn btn-primary" type="button" id="edit-btn" style="display: none;"
-                                                style="margin-left:10px;">Edit</button>
-                                            <button class="btn btn-primary" type="button" id="save-btn" style="display: none;"
-                                                style="margin-left:10px;">Save</button>
-                                            <button class="btn btn-danger" type="button" id="delete-btn" style="display: none;">Delete</button>
-                                            <button class="btn btn-primary" type="button" id="ppl-edit-btn" style="display: none;"
-                                                style="margin-left:10px;">Edit info</button>
-                                            <button class="btn btn-primary" type="button" id="ppl-save-btn" style="display: none;"
-                                                style="margin-left:10px;">Save changes</button>
-                                            <button class="btn btn-danger" type="button" id="ppl-delete-btn" style="display: none;">Delete</button>
-
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                            </div>
-
-
-                        </div>
-                    </div>
-                </div>
+              </div>
             </div>
+          </div>
+          <!-- Add Buttons -->
+          <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-8">
+            <div id="add-btns" class="row">
+              <div class="col">
+                <button
+                  id="add-position-btn"
+                  class="btn btn-primary"
+                  type="button"
+                >
+                  Add Position
+                </button>
+              </div>
+              <div class="col">
+                <button
+                  id="add-person-btn"
+                  class="btn btn-primary"
+                  type="button"
+                >
+                  Add Person
+                </button>
+              </div>
+              <div class="col">
+                <button
+                  id="save-graph-btn"
+                  class="btn btn-success"
+                  type="button"
+                >
+                  Save Graph
+                </button>
+              </div>
+              <div class="col">
+                <!-- Button is disabled on loading the page -->
+                <button
+                  id="delete-cell-btn"
+                  class="btn btn-danger"
+                  type="button" disabled="disabled"
+                >
+                  Delete
+                </button>
+              </div>
+
+              <div class="col">
+                <!-- Button is disabled on loading the page -->
+                <button
+                  id="zoomin-btn"
+                  class="badge badge-pill badge-light" 
+                >
+                  +
+                </button>
+              </div>
+
+               <div class="col">
+                <!-- Button is disabled on loading the page -->
+                <button
+                  id="zoomout-btn"
+                  class="badge badge-pill badge-light" 
+                >
+                  -
+                </button>
+              </div>
+             
+            </div>
+            <!-- MxGraph -->
+            <div
+              class="row"
+              style="height:198px;background-color:#f4faff;min-height:500px;"
+            >
+              <div class="col-xl-12" id="graphContainer">
+
+              </div>
+            </div>
+          </div>
+          <!-- Right Sidebar -->
+          <div
+            class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-2"
+            style="max-width:250px;"
+          >
+            <div class="row  ">
+              <div class="col ">
+                <div class="" id="details-tab">
+                  <div class="row" style="height:38px;"></div>
+
+                  <div
+                    class="row"
+                    style="height:198px;background-color:#fff9f2;min-height:500px;"
+                  >
+                    <div class="col scrollable">
+                      <h4 id="details-title"></h4>
+
+                      <div class="details-body">
+                        <span id="pos-heldby"></span>
+
+                        <span id="pos-id"></span> <span id="first-name"></span>
+                        <span id="last-name"></span>
+                        <div class="scrollable-modal">
+                          <div class="row">
+                            <div class="col" id="pos-attributes"></div>
+                          </div>
+                          <div class="row">
+                            <div class="col" id="person-attributes"></div>
+                          </div>
+                        </div>
+                        <button
+                          class="btn btn-primary"
+                          type="button"
+                          id="edit-btn"
+                          style="display: none;"
+                          style="margin-left:10px;"
+                        >
+                          Edit
+                        </button>
+                        <button
+                          class="btn btn-primary"
+                          type="button"
+                          id="save-btn"
+                          style="display: none;"
+                          style="margin-left:10px;"
+                        >
+                          Save
+                        </button>
+                        <button
+                          class="btn btn-danger"
+                          type="button"
+                          id="delete-btn"
+                          style="display: none;"
+                        >
+                          Delete
+                        </button>
+                        <button
+                          class="btn btn-primary"
+                          type="button"
+                          id="ppl-edit-btn"
+                          style="display: none;"
+                          style="margin-left:10px;"
+                        >
+                          Edit
+                        </button>
+                        <button
+                          class="btn btn-primary"
+                          type="button"
+                          id="ppl-save-btn"
+                          style="display: none;"
+                          style="margin-left:10px;"
+                        >
+                          Save
+                        </button>
+                        <button
+                          class="btn btn-danger"
+                          type="button"
+                          id="ppl-delete-btn"
+                          style="display: none;"
+                        >
+                          Delete
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
     <footer class="footer bg-light">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6 my-auto h-100 text-center text-lg-left">
-                    <ul class="list-inline mb-2">
-                        <li class="list-inline-item"><a href="#">About</a></li>
-                        <li class="list-inline-item"><span>⋅</span></li>
-                        <li class="list-inline-item"><a href="#">Contact</a></li>
-                        <li class="list-inline-item"><span>⋅</span></li>
-                        <li class="list-inline-item"><a href="#">Terms of &nbsp;Use</a></li>
-                        <li class="list-inline-item"><span>⋅</span></li>
-                        <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
-                    </ul>
-                    <p class="text-muted small mb-4 mb-lg-0">© Brand 2018. All Rights Reserved.</p>
-                </div>
-                <div class="col-lg-6 my-auto h-100 text-center text-lg-right">
-                    <ul class="list-inline mb-0">
-                        <li class="list-inline-item"><a href="#"><i class="fa fa-facebook fa-2x fa-fw"></i></a></li>
-                        <li class="list-inline-item"><a href="#"><i class="fa fa-twitter fa-2x fa-fw"></i></a></li>
-                        <li class="list-inline-item"><a href="#"><i class="fa fa-instagram fa-2x fa-fw"></i></a></li>
-                    </ul>
-                </div>
-            </div>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6 my-auto h-100 text-center text-lg-left">
+            <ul class="list-inline mb-2">
+              <li class="list-inline-item"><a href="#">About</a></li>
+              <li class="list-inline-item"><span>⋅</span></li>
+              <li class="list-inline-item"><a href="#">Contact</a></li>
+              <li class="list-inline-item"><span>⋅</span></li>
+              <li class="list-inline-item">
+                <a href="#">Terms of &nbsp;Use</a>
+              </li>
+              <li class="list-inline-item"><span>⋅</span></li>
+              <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
+            </ul>
+            <p class="text-muted small mb-4 mb-lg-0">
+              © Brand 2018. All Rights Reserved.
+            </p>
+          </div>
+          <div class="col-lg-6 my-auto h-100 text-center text-lg-right">
+            <ul class="list-inline mb-0">
+              <li class="list-inline-item">
+                <a href="#"><i class="fa fa-facebook fa-2x fa-fw"></i></a>
+              </li>
+              <li class="list-inline-item">
+                <a href="#"><i class="fa fa-twitter fa-2x fa-fw"></i></a>
+              </li>
+              <li class="list-inline-item">
+                <a href="#"><i class="fa fa-instagram fa-2x fa-fw"></i></a>
+              </li>
+            </ul>
+          </div>
         </div>
+      </div>
     </footer>
     <script src="assets/js/jquery.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js" type="text/javascript"></script>
+    <script
+      src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"
+      type="text/javascript"
+    ></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
 
     <script type="text/javascript" src="assets/js/main.js"></script>
 
     <script type="text/javascript">
-        mxBasePath = 'javascript/src';
+      mxBasePath = "javascript/src";
     </script>
     <script type="text/javascript" src="assets/js/mxClient.js"></script>
-
     <script type="text/javascript" src="assets/js/positions.js"></script>
     <script type="text/javascript" src="assets/js/people.js"></script>
     <script type="text/javascript" src="assets/js/requests.js"></script>
     <script type="text/javascript" src="assets/js/graph.js"></script>
     <script>
-        function main(container) {
+      function main(container) {
+        initializeGraph(container);
+        //Local JSON FILES
+        //loadPositions();
+        //loadPeople();
 
-            var graph;
-            graph = initializeGraph(container);
-            //Local JSON FILES
-            //loadPositions();
-            //loadPeople();
+        //REMOTE API REQUESTS
+        loadAllPersons();
+        loadAllPositions();
+        loadGraph();
 
-            //REMOTE API REQUESTS
-            loadAllPersons();
-            loadAllPositions();
-
-
-
-
-
-            //  console.log(arr);
-
-        };
-
+        //  console.log(arr);
+      }
     </script>
-
-</body>
-
+  </body>
 </html>
