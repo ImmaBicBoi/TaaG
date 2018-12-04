@@ -23,6 +23,15 @@ $('#zoomout-btn').click(function(){
     
 });
 
+//************************************************************
+//enable panning
+graph.setCellsMovable(false);
+graph.setAutoSizeCells(true);
+graph.setPanning(true);
+graph.centerZoom = false;
+graph.panningHandler.useLeftButtonForPanning = true;
+
+//*************************************************************
 
 				
 //document.body.appendChild(tbContainer);
