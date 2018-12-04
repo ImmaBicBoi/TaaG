@@ -129,7 +129,7 @@ drop table if exists POSITION_ATTRIBUTE;
 
 create table POSITION_ATTRIBUTE (
 	POS_ATTR_ID int NOT NULL AUTO_INCREMENT,
-	POS_ATTR_KEY int(10) NOT NULL,
+	POS_ATTR_KEY varchar(255),
 	POS_ATTR_VALUE varchar(255),
 	POSITION_ID int (10) NOT NULL ,
 	
@@ -159,7 +159,7 @@ insert into POSITION_ATTRIBUTE (POS_ATTR_KEY,POS_ATTR_VALUE,POSITION_ID) values
 
 drop procedure if exists CREATE_POSITION_ATTR;
 delimiter $$
-create procedure CREATE_POSITION_ATTR ( in attr_key int(10), in attr_value varchar(255),in PosId int (10))
+create procedure CREATE_POSITION_ATTR ( in attr_key varchar(255), in attr_value varchar(255),in PosId int (10))
 							
 begin
 		start transaction;
