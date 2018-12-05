@@ -12,6 +12,11 @@ public class AttributeDAO implements PreDefinedAttributes{
 		AttributeMessages attributeMessages = attributeDAOImpl.createAttribute(attriObj);
 		return attributeMessages;
 	}
+	
+	public AttributeMessages updateAttribute(AttributeJsonDeserialize attriObj) {
+		AttributeMessages attributeMessages = attributeDAOImpl.updateAttributes(attriObj);
+		return attributeMessages;
+	}
 
 	public AttributeMessages getPredefinedAttributes() {
 		AttributeMessages attributeMessages = attributeDAOImpl.getPredefinedAttributes();

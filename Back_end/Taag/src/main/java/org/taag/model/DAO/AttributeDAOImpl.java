@@ -63,6 +63,46 @@ public class AttributeDAOImpl implements PreDefinedAttributes {
 		return attributeMessages;
 	}
 
+	public AttributeMessages updateAttributes(AttributeJsonDeserialize attriObj) {
+		try {
+			CallableStatement cs = connection.prepareCall("call UPDATE_ATTRIBUTE(?,?,?,?)");
+			if (attriObj.getPositions() != null) {
+				if (!attriObj.getPositions().isEmpty()) {
+					for (Position pos : attriObj.getPositions()) {
+						cs.setInt(1,pos.getAttribute_id());
+						cs.setString(2, pos.key);
+						cs.setInt(3, pos.order);
+						cs.setBoolean(4, pos.getIs_visible());
+						cs.executeUpdate();
+					}
+				}
+			}
+
+			if (attriObj.getPersons() != null) {
+				if (!attriObj.getPersons().isEmpty()) {
+					for (Person per : attriObj.getPersons()) {
+						cs.setInt(1,per.getAttribute_id());
+						cs.setString(2, per.key);
+						cs.setInt(3, per.order);
+						cs.setBoolean(4, per.getIs_visible());
+						cs.executeUpdate();
+					}
+				}
+			}
+
+			attributeMessages.setMessage("attributes updated successfully");
+			attributeMessages.setStatus(statusMessages.GetStatus(StatusMessage.status.OK));
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			attributeMessages.setStatus(statusMessages.GetStatus(StatusMessage.status.ERROR));
+			attributeMessages.setMessage("Error: unable to update attributes, missing required parameter");
+		}
+		
+		
+		return attributeMessages;
+	}
+	
 	public AttributeMessages getPredefinedAttributes() {
 		PreparedStatement ps;
 		ResultSet rs;
