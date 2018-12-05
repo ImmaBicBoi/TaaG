@@ -193,9 +193,8 @@ delimiter $$
 create procedure RETRIEVE_POSITION_ATTR (in PosId int(10))
 begin
 		start transaction;
-		select A.ATTR_KEY,P.POS_ATTR_VALUE from  ATTRIBUTE A, POSITION_ATTRIBUTE P
-		where POSITION_ID = PosId
-		AND A.ATTR_ID = P.POS_ATTR_KEY;
+		select POS_ATTR_KEY,POS_ATTR_VALUE from  POSITION_ATTRIBUTE
+		where POSITION_ID = PosId;
 			
     commit;
     
@@ -392,10 +391,9 @@ delimiter $$
 create procedure RETRIEVE_PERSON_ATTR (in PerId int(10))
 begin
 		start transaction;
-		select A.ATTR_KEY,P.PER_ATTR_VALUE from  ATTRIBUTE A, PERSON_ATTRIBUTE P
-		where PERSON_ID = PerId
-		AND A.ATTR_ID = P.PER_ATTR_KEY;
-				
+		select PER_ATTR_KEY, PER_ATTR_VALUE from  PERSON_ATTRIBUTE 
+		where PERSON_ID = PerId;
+		
     commit;
     
 end$$
