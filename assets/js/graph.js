@@ -19,6 +19,8 @@ posToolbar.enabled = false;
 var personToolbar = new mxToolbar(tbPersonContainer);
 personToolbar.enabled = false;
 
+var dataGlobal;
+
 // Defines a new class for all icons
 function mxIconSet(state)
 {
@@ -191,13 +193,17 @@ function initializeGraph(container){
 			if (cell != null) {
 				// SelectGraphCell(cell);
 				graph.setSelectionCell(cell);
+			 graph.getModel().getCell(cell.id);
+			 console.log(cell);
+			 getRightSideBar(cell , evt);
+				
 				document.getElementById('delete-cell-btn').disabled= false;
 				console.log("testing");
+				evt.consume();
 			}else
 			document.getElementById('delete-cell-btn').disabled = true;
 			evt.consume();
 		});
-
 
 				
 		// Defines the tolerance before removing the icons
@@ -349,6 +355,7 @@ function addPositionToolbarItem(graph, posToolbar, prototype, image, data, key)
 			// the mousepointer if there is one.
 			var funct = function(graph, evt, cell)
 			{
+                dataGlobal = data;
 				graph.stopEditing(false);
 				var pt = graph.getPointForEvent(evt);
 				var vertex = graph.getModel().cloneCell(prototype);
@@ -358,7 +365,9 @@ function addPositionToolbarItem(graph, posToolbar, prototype, image, data, key)
 				mxGraph.prototype.isCellsEditable = false;
 				
 				graph.setSelectionCells(graph.importCells([vertex], 0, 0, cell));
-				//alert("TEST");
+
+
+				// alert("TEST");
 			}
 			// Creates the image which is used as the drag icon (preview)
             var img = posToolbar.addMode(null, null, funct);
@@ -382,6 +391,8 @@ function addPositionToolbarItem(graph, posToolbar, prototype, image, data, key)
 				document.getElementById('delete-cell-btn').disabled = true;
 			});
 			$(img).addClass("draggable-list-button");
+
+
 		}
 
 function addPersonToolbarItem(graph, personToolbar, prototype, image, data, key)
@@ -391,6 +402,7 @@ function addPersonToolbarItem(graph, personToolbar, prototype, image, data, key)
 	// the mousepointer if there is one.
 	var funct = function(graph, evt, cell)
 	{
+		 dataGlobal = data;
 		graph.stopEditing(false);
 		var pt = graph.getPointForEvent(evt);
 		var vertex = graph.getModel().cloneCell(prototype);
@@ -455,7 +467,7 @@ function addPersonToolbarItem(graph, personToolbar, prototype, image, data, key)
 
 		vertex.geometry.x = pt.x;
 		vertex.geometry.y = pt.y;
-		graph.model.setValue(vertex, data.persons[key].first_name + " " + data.persons[key].last_name);
+		graph.model.setValue(vertex, data.persons[key].person_id + " " + data.persons[key].first_name + " " + data.persons[key].last_name);
 		mxGraph.prototype.isCellsEditable = false;
 		//console.log("dropped person: " + data.persons[key].first_name + " " + data.persons[key].last_name);
 		
@@ -643,4 +655,24 @@ function setCurrentCell(cell){
 
 function getCurrentCell(){
 	return currentCell;
+}
+
+function getRightSideBar(cell, evt){
+	
+
+	var str = cell.value;
+			 var id = str.slice(0,2);
+               console.log(id);
+
+               //dataGlobal is global variable holding Data
+	            console.log(dataGlobal);
+
+	            //checks if the position table with id retrivied from cell, if exists opens positionTab
+               if(dataGlobal.positions != null){
+               	
+	            openPositionsTab(dataGlobal.positions[id-1].position_id,
+                    dataGlobal.positions[id-1].name,
+                    dataGlobal.positions[id-1].person_id);
+	            } else //if positions doesn't exist it opens persons tab
+	           openPersonsTab(dataGlobal.persons[id-1].person_id,dataGlobal.persons[id-1].first_name,dataGlobal.persons[id-1].last_name);
 }
