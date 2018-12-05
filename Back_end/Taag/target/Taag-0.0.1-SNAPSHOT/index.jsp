@@ -13,9 +13,9 @@
             $(function(){                
                 $("#postPerson, #postMessage").on("click", function(){
                     $.ajax({
-                        url: $(this).attr("id") === "postMessage" ? ctxPath+"/service/message/post" : ctxPath+"/service/position",
+                        url: $(this).attr("id") === "postMessage" ? ctxPath+"/service/message/post" : ctxPath+"/service/person",
                         type: "POST",
-                        data: '{"name":"Soft","parent_position_id":"1","job_id": "A11-11","attributes":[{"key":"2","value":"Part Time"},{"key":"2","value":"TestVal2"}]}',
+                        data: '{"first_name":"Bindu","last_name":"Madhavi","employee_id": "A11-11","attributes":[{"key":"Type","value":"Part Time"},{"key":"2","value":"TestVal2"}]}',
                         contentType: "application/json",
                         cache: false,
                         dataType: "json"
