@@ -26,8 +26,10 @@
         <div class="collapse navbar-collapse" id="navcol-1"></div>
       </div>
     </nav>
-	<div id="messages" style="color:#08DC03;font-weight:bold;text-align: center;font-size: 20px;box-sizing: border-box;width: 50%;padding: 15px; ">
-    </div>
+    <div
+      id="messages"
+      style="color:#08DC03;font-weight:bold;text-align: center;font-size: 20px;box-sizing: border-box;width: 50%;padding: 15px; "
+    ></div>
     <div class="row" style="height:30px;min-height:30px;"></div>
     <!-- Add position popup -->
     <div
@@ -366,7 +368,8 @@
                 <button
                   id="delete-cell-btn"
                   class="btn btn-danger"
-                  type="button" disabled="disabled"
+                  type="button"
+                  disabled="disabled"
                 >
                   Delete
                 </button>
@@ -534,6 +537,7 @@
         //REMOTE API REQUESTS
         loadAllPersons();
         loadAllPositions();
+        loadAllAttributes();
         loadGraph();
 
         //  console.log(arr);
