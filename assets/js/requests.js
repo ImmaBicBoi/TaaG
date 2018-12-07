@@ -64,6 +64,27 @@ function loadAllPositions(){
         
   }
 
+  function loadAllAttributes(){
+    //CLEAR WINDOW
+    // $('#position-list button').remove();
+    // $('#position-list br').remove();
+  
+      console.log('loading attributes from API');
+        
+      //change this line once the API is ready
+        $.getJSON( "mockdata/mock_attributes.json", function( data ) {
+        
+           //this is how you can access each item in the json object
+            $.each( data.position, function( key, val ) {
+                console.log(data.position[key].key);
+            });
+            $.each( data.person, function( key, val ) {
+                console.log(data.person[key].key);
+            });
+          });
+          
+          
+    }
 
   function createPosition(positionData){
     //var data = {'bob':'foo','paul':'dog'};
