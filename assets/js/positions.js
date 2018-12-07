@@ -113,31 +113,12 @@ $('#edit-btn').click(function(){
     //hide/show edit/save buttons
     document.getElementById('delete-cell-btn').disabled = "true;"
     document.getElementById('edit-btn').style="display: none;"
-    document.getElementById('save-btn').style="display: block;"
+    document.getElementById('save-btn').style="display: inline;"
+    document.getElementById('delete-btn').style ="display: inline;"
     //make editable and focus on the first editable line
     $('#details-title,#pos-ocfname, #pos-oclname, #namespan').attr('contenteditable','true');
     $('#pos-title').focus();
     
-    
-   // var postitle = document.getElementById('pos-title').innerHTML;
-
-    //var select = document.getElementById('pos-title').innerHTML;
-  
-
-    // document.getElementsByTagName("span")[4].setAttribute('type', 'button'); 
-    // document.getElementsByTagName("span")[4].setAttribute('class', 'btn btn-primary dropdown-toggle');
-    // document.getElementsByTagName("span")[4].setAttribute('data-toggle', 'dropdown'); 
-
-
-
-
-
-    // document.getElementById('pos-ocfname').setAttribute(
-    // "style", "border: solid black; background: none");  //pick any color
-
-    // document.getElementById('pos-oclname').setAttribute(
-    // "style", "border: solid black; background: none");
-
     $( "#details-title" ).attr(
         "style", "border: solid black; background: none");
     $( "#pos-attributes p, #pos-id p" ).attr(
@@ -146,20 +127,45 @@ $('#edit-btn').click(function(){
         "contenteditable", "true");
 
 
+    document.getElementById('pos-ocfname').style.display = "none";
+    //document.getElementById('pos-oclname').style.display = "none";    
+    var CurrentOcName = document.getElementById("pos-ocfname").innerHTML;
+    //console.log(CurrentOcName); 
+
+    $('#namespan select').remove();
+    $('#namespan').append(
+        $('<select/>').append(
+        $('<option/>').html(CurrentOcName)
+    ));
+
+    $.getJSON('http://localhost:8080/Taag/service/person', function (data) {
+        $.each(data.persons, function (i, field) {
+            $('#namespan select').append(
+                $('<option/>').html(data.persons[i].first_name + " " + data.persons[i].last_name)
+            )
+            //console.log(data.persons[i].first_name);
+        })
+    });
+
 });
 
 // Saves changes on the right sidebar once "Save" button is clicked
 $('#save-btn').click(function(){
     //make UN-editable 
-    $('#pos-ocfname, #pos-oclname, #pos-title').attr('contenteditable','false');
+    $('#pos-ocfname, #pos-oclname, #pos-title, #namespan').attr('contenteditable','false');
+
+    var selectValue = $('#namespan select :selected').val();
+    var selectID = getPersonID(selectValue);
+
+    console.log(selectValue + ":" + selectID);
 
     //hide/show save button
     document.getElementById('save-btn').style="display: none;"
     document.getElementById('edit-btn').style="display: block;"
+    document.getElementById('delete-btn').style ="display: none;"
 
     var postitle = document.getElementById('details-title').innerHTML;
     console.log(postitle);
-
 
     // This variable contains the Position attributes JSON object from the server
     var jsonAttributes = getPosition(getCurrentID()).attributes;
@@ -209,7 +215,8 @@ $('#save-btn').click(function(){
     updatePosition(positionData);
 
     //change color   
-
+    $('#namespan select').remove();
+    $('#namespan').html("<h9 id = 'pos-ocfname' contenteditable='false'>" + selectValue +"</h9>");
     
     // document.getElementById('pos-oclname').setAttribute(
     // "style", "border: rgb(124,252,0); background: rgb(124,252,0)");
@@ -220,10 +227,18 @@ $('#save-btn').click(function(){
     $( "#pos-attributes p, #pos-id p" ).attr(
         "style", "border: rgb(124,252,0); background: rgb(124,252,0)");
 
-    //refresh page   --necessary???
-    //location.reload();
+    $('#namespan').attr(
+        "style", "border: rgb(124,252,0); background: rgb(124,252,0)");
+        
     
 });
+
+
+$('#delete-btn').click(function(){
+    console.log(getCurrentID());
+    deletePosition(getCurrentID());
+
+ });
 
 //Opens the Right sidebar to show position details
 function openPositionsTab(id,name, occupantID,){
@@ -234,14 +249,14 @@ function openPositionsTab(id,name, occupantID,){
     var occupantName = "";
     
     if(occupantID == 0){
-        occupantName = "-"
+        occupantName = "N/A"
     }else{
         occupantName = occupant.first_name + " " + occupant.last_name;
     }
     
    // console.log("personnn " + occupant.first_name);
     $('#details-title').html(name); //insert position title 
-    $('#pos-heldby').html("<span class='modal-headers'>Position Held By: </span>" + "<p id = 'pos-ocname'contenteditable='false'>"+ occupantName ) + "</p>"; //insert position heldby name
+    $('#pos-heldby').html("<span class='modal-headers'>Position Held By: </span> <br>" + "<p><span id='namespan'>"+"<h9 id = 'pos-ocfname' contenteditable='false'>" + occupantName +"</h9>" + " " +" </span> </p><br>"); //insert position heldby name
 
     $('#pos-attributes').html(""); //insert position attributes
     //console.log(attributes);
@@ -308,8 +323,8 @@ function loadPositions() {
                                 .click(function (event) { //Attach a click event to the <h9> element
                                     clearDetailsTab();
                                     $('#details-title').html(data[i].pos_name); //insert position title 
-                                    $('#pos-heldby').html("<span class='modal-headers'>Position Held By: </span>" + "<p id = 'pos-ocname'contenteditable='false'>" + data[i].pos_occupant_first_name + " " + data[i].pos_occupant_last_name) + "</p>"; //insert position heldby name
-                                    
+                                    $('#pos-heldby').html("<span class='modal-headers'>Position Held By: </span> <br>" + "<p><span id='namespan'>"+"<h9 id = 'pos-ocfname' contenteditable='false'>" + data[i].pos_occupant_first_name +"</h9>" + " " + "<h9 id = 'pos-oclname'contenteditable='false'>" + data[i].pos_occupant_last_name)+"</h9>"+" </span> </p><br>"; //insert position heldby name
+                                                                                
                                     $('#pos-attributes').html(""); //insert position attributes
                                     $('#pos-attributes').append("<span class='modal-headers'>Key 1:</span>" + "<p id ='Value1' contenteditable='false'>Value 1</p>"); //insert positon adittional attributes
                                     $('#pos-attributes').append("<span class='modal-headers'>Key 2:</span>" + "<p id ='Value2' contenteditable='false'>Value 2</p>"); //insert positon adittional attributes
