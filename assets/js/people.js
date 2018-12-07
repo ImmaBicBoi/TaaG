@@ -301,34 +301,6 @@ $('#ppl-delete-btn').click(function(){
     console.log(getCurrentID());
     deletePerson(getCurrentID());
 
-    var pplfname = document.getElementById('ppl-fname').innerHTML;
-    var ppllname = document.getElementById('ppl-lname').innerHTML;
-    var empos = document.getElementById('emp_pos').innerHTML;
-    var pplemail = document.getElementById('ppl-email').innerHTML;
-    var pplphone = document.getElementById('ppl-phone').innerHTML;
-
-    console.log("deleting the json");
-    console.log(
-        "{" + "\n"
-         + "\t" + "first_name: " + pplfname + "," + "\n"
-        + "\t" + "last_name: " + ppllname + "," + "\n"
-        + "\t" + "emp_pos: " + empos + "," + "\n"
-        + "\t" + "email: " + pplemail + "," + "\n"
-        + "\t" + "phone: " + pplphone + "\n"
-        + "}"
-     );
-
-
-    
-
-
-       console.log(clearDetailsTab());
-
-    document.getElementById('ppl-save-btn').style="display: none;";
-    document.getElementById('ppl-edit-btn').style="display: none;";
-    document.getElementById('ppl-delete-btn').style="display: none;";
-
-
  });
 
 

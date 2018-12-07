@@ -183,8 +183,8 @@ $('#edit-btn').click(function(){
     document.getElementById('add-attribute-position-edit').style="display: block;"
     document.getElementById('edit-add-att-btn').style="display: block;"
     document.getElementById('edit-position-att-form').style="display: block;" 
-    document.getElementById('save-btn').style="display: block;"
     document.getElementById('delete-btn').style ="display: inline;"
+    document.getElementById('save-btn').style="display: inline;"
     //make editable and focus on the first editable line
     $('#details-title,#pos-ocfname, #pos-oclname, #namespan').attr('contenteditable','true');
     $('#pos-title').focus();
@@ -349,11 +349,6 @@ $('#save-btn').click(function(){
      
     $( "#pos-attributes p, #pos-id p" ).attr(
         "style", "border: rgb(124,252,0); background: rgb(124,252,0)");
-
-    $('#namespan').attr(
-        "style", "border: rgb(124,252,0); background: rgb(124,252,0)");
-        
-    loadAllPositions();
 
     //refresh page   --necessary???
     //location.reload();

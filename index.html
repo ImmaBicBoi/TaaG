@@ -243,64 +243,15 @@
                 </div>
               -->
 
-                <!-- Modal Body -->
-                <div class="modal-body">
-                    <form name="people-form" id="people-form" class="form-horizontal" role="form">
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label" for="input-first-name">First Name: </label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" id="input-first-name" placeholder="Enter First Name" />
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label" for="input-last-name">Last Name</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" id="input-last-name" placeholder="Enter Last Name: " />
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label" for="input-emp-id">Employee ID</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" id="input-emp-id" placeholder="Enter Employee ID: " />
-                            </div>
-                        </div>
-                        <!-- <div class="form-group">
-                            <label class="col-sm-2 control-label" for="input-emp-position">Position: </label>
-                            <div class="col-sm-2 col-sm-10">
-                                <input type="text" class="form-control" id="input-emp-position" placeholder="Enter Position: " />
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label" for="input-email">Email: </label>
-                            <div class="col-sm-2 col-sm-10">
-                                <input type="email" class="form-control" id="input-email" placeholder="Enter Email Address: " />
-                                <small id="email-foot" class="form-text text-muted">Please Enter a Valid Email.</small>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label" for="input-phone">Phone:</label>
-                            <div class="col-sm-2 col-sm-10">
-                                <input type="text" class="form-control" id="input-phone" placeholder="Enter Phone Number" />
-                                <small id="email-foot" class="form-text text-muted">Please Enter a Valid Phone Number.</small>
-                            </div>
-                        </div> -->
-
-                        <div class="form-group">
-                            <div class="col-sm-2 col-sm-10">
-                                <button id="add-people-attribute-confirm" type="button" class="btn btn-default">+ Add
-                                    Attribute</button>
-                            </div>
-                        </div>
-                        <!-- <div class="form-group">
-                      <div class="col-sm-offset-2 col-sm-10">
-                        <div class="checkbox">
-                          <label>
-                              <input type="checkbox"/> Confirm
-                          </label>
-                        </div>
-                      </div>
-                    </div> -->
-                    </form>
+              <div class="form-group">
+                <div class="col-sm-2 col-sm-10">
+                  <button
+                    id="add-people-attribute-confirm"
+                    type="button"
+                    class="btn btn-default"
+                  >
+                    + Add Attribute
+                  </button>
                 </div>
               </div>
               <!--
@@ -330,74 +281,6 @@
           </div>
         </div>
       </div>
-    </div>
-
-    <!-- Add Attribute popup for Position in the EDIT PANEL (RIGHT SIDEBAR FOR POSITION)-->
-    <!-- <div class="modal fade" role="dialog" tabindex="-1" id="add-attributes-position-modal" style="margin-right:0px;margin-left:100px;">
-        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 id="position-modal-title">Add Attributes</h4><button type="button" class="close"
-                        data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                </div> -->
-
-                <!-- Modal Body -->
-                <!-- <div class="modal-body">
-                    <form name="edit-position-att-form" id="edit-position-att-form" class="form-horizontal" role="form">
-                        <div class="form-group">
-                            <label class="control-label" >Click the Button Below to Add Attributes</label>                           
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-sm-2 col-sm-10">
-                                <button id="add-attribute-position-edit" type="button" class="btn btn-default">+ Add
-                                    Attribute</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-
-
-
-                <div class="modal-footer">
-                    <button class="btn btn-light" type="button" data-dismiss="modal">Close</button>
-                    <button id="add-attribute-position-edit-confirm" class="btn btn-primary" type="button">Confirm</button></div>
-            </div>
-        </div>
-    </div> -->
-
-    <!-- Add Attribute popup for PEOPLE in the EDIT PANEL (RIGHT SIDEBAR FOR POSITION)-->
-    <div class="modal fade" role="dialog" tabindex="-1" id="add-attributes-people-modal" style="margin-right:0px;margin-left:100px;">
-        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 id="position-modal-title">Add Attributes</h4><button type="button" class="close"
-                        data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                </div>
-
-                <!-- Modal Body -->
-                <div class="modal-body">
-                    <form name="edit-people-att-form" id="edit-people-att-form" class="form-horizontal" role="form">
-                        <div class="form-group">
-                            <label class="control-label" >Click the Button Below to Add Attributes</label>                           
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-sm-2 col-sm-10">
-                                <button id="add-attribute-people-edit" type="button" class="btn btn-default">+ Add
-                                    Attribute</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-
-
-
-                <div class="modal-footer">
-                    <button class="btn btn-light" type="button" data-dismiss="modal">Close</button>
-                    <button id="add-attribute-people-edit-confirm" class="btn btn-primary" type="button">Confirm</button></div>
-            </div>
-        </div>
     </div>
 
     <div></div>
@@ -520,74 +403,15 @@
                       <div class="details-body">
                         <span id="pos-heldby"></span>
 
-                                <div class="row" style="height:198px;background-color:#fff9f2;min-height:500px;">
-                                    <div class="col scrollable">
-                                        <h4 id="details-title"></h4>
-
-                                        <div class="details-body">
-                                            <span id='pos-heldby'></span>
-
-                                            <span id='pos-id'></span>
-                                            <span id='first-name'></span>
-                                            <span id='last-name'></span>
-                                            <div class="scrollable-modal">
-                                                <div class="row">
-                                                    <div class="col" id="pos-attributes">
-
-                                                    </div>
-
-
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col" id="person-attributes">
-
-                                                    </div>
-                                                </div>
-
-                                                <!-- Add Attribute popup for Position in the EDIT PANEL (RIGHT SIDEBAR FOR POSITION)-->
-                                            <div >
-                                                <form name="edit-position-att-form" id="edit-position-att-form" style="display: none" class="form-horizontal" role="form">
-                                                    <div class="form-group">
-                                                        <label class="control-label" >Form Test</label>                           
-                                                    </div>
-
-                                                    <div class="form-group">
-                                                        <div class="col-sm-2 col-sm-10">
-                                                            <button id="add-attribute-position-edit" type="button" style="display: none" class="btn btn-default">+ Add
-                                                                Attribute</button>
-                                                        </div>
-                                                    </div>
-                                                </form>
-                                                        </div>
-
-
-                                            </div>
-
-
-                                            </div>
-                                            <button class="btn btn-primary" type="button" id="edit-btn" style="display: none;"
-                                                style="margin-left:10px;">Edit</button>
-                                            <button class="btn btn-primary" type="button" id="edit-add-att-btn" style="display: none;"
-                                                style="margin-left:10px;">Add Another Attribute</button>
-                                            <button class="btn btn-primary" type="button" id="save-btn" style="display: none;"
-                                                style="margin-left:10px;">Save</button>
-                                            <button class="btn btn-danger" type="button" id="delete-btn" style="display: none;">Delete</button>
-                                            <button class="btn btn-primary" type="button" id="ppl-edit-btn" style="display: none;"
-                                                style="margin-left:10px;">Edit info</button>
-                                            <button class="btn btn-primary" type="button" id="edit-add-att-ppl-btn" style="display: none;"
-                                                style="margin-left:10px;">Add Another Attribute</button>
-                                            <button class="btn btn-primary" type="button" id="ppl-save-btn" style="display: none;"
-                                                style="margin-left:10px;">Save changes</button>
-                                            <button class="btn btn-danger" type="button" id="ppl-delete-btn" style="display: none;">Delete</button>
-
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                            </div>
-
-
+                        <span id="pos-id"></span> <span id="first-name"></span>
+                        <span id="last-name"></span>
+                        <div class="scrollable-modal">
+                          <div class="row">
+                            <div class="col" id="pos-attributes"></div>
+                          </div>
+                          <div class="row">
+                            <div class="col" id="person-attributes"></div>
+                          </div>
                         </div>
                         <button
                           class="btn btn-primary"
