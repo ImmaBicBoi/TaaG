@@ -47,7 +47,6 @@ function mxIconSet(state)
 {
 	this.images = [];
 	var graph = state.view.graph;
-
 	
 	// Delete
 	var img = mxUtils.createImage('images/delete.png');
@@ -296,7 +295,7 @@ function initializeGraph(container){
 
 		// Stops editing on enter or escape keypress
 		var keyHandler = new mxKeyHandler(graph);
-		var rubberband = new mxRubberband(graph);		
+		var rubberband = new mxRubberband(graph);			
 
 		// Creates a dynamic HTML label for column fields
 		graph.getLabel = function(cell)
@@ -309,6 +308,7 @@ function initializeGraph(container){
 				console.log("label looks like: " + label + mxUtils.htmlEntities(cell.value.name, false) + cell.value.name);
 				return (label);
 			}
+
 			
 			return mxGraph.prototype.getLabel.apply(this, arguments); // "supercall"
 		};
@@ -666,4 +666,6 @@ function setCurrentCell(cell){
 
 function getCurrentCell(){
 	return currentCell;
+
 }
+

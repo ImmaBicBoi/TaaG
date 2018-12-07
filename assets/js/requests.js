@@ -57,6 +57,27 @@ function loadAllPositions(){
         });
   }
 
+  function loadAllAttributes(){
+    //CLEAR WINDOW
+    // $('#position-list button').remove();
+    // $('#position-list br').remove();
+  
+      console.log('loading attributes from API');
+        
+      //change this line once the API is ready
+        $.getJSON( "mockdata/mock_attributes.json", function( data ) {
+        
+           //this is how you can access each item in the json object
+            $.each( data.position, function( key, val ) {
+                console.log(data.position[key].key);
+            });
+            $.each( data.person, function( key, val ) {
+                console.log(data.person[key].key);
+            });
+          });
+          
+          
+    }
 
   function createPosition(positionData){
     //var data = {'bob':'foo','paul':'dog'};
@@ -151,7 +172,7 @@ function createPerson(personData){
   function updatePosition(positionData){
     console.log("sending data: "+ JSON.stringify(positionData));
     $.ajax({
-      url: "http://localhost:8080/Taag/service/position/"+getCurrentID(),
+      url: "http://localhost:8080/Taag/service/position/" + getCurrentID(),
       type: 'PUT',
       contentType:'application/json',
       data: JSON.stringify(positionData),
@@ -175,5 +196,123 @@ function createPerson(personData){
     });
 
     loadAllPositions();
+  }
+
+
+function deletePosition(id){
+    console.log("deleting position id: " + id);
+    var data;
+    $.ajax({
+      url: "http://localhost:8080/Taag/service/position/"+ id,
+      type: 'DELETE',
+      contentType:'application/json',
+      data: data,
+      dataType:'json',
+      async: false,
+      success: function(data,status, jqXHR){
+        //On ajax success do this
+        console.log("position " + id +" deleted");
+        console.log(data.message);
+    },
+      error: function(xhr, ajaxOptions, thrownError) {
+          //On error do this
+            if (xhr.status == 200) {
+
+                alert(ajaxOptions);
+            }
+            else {
+                alert(xhr.status);
+                alert(thrownError);
+            }
+        }
+    });
+
+    loadAllPositions();
+    clearDetailsTab();
+}
+
+function deletePerson(id){
+    console.log("deleting person id: " + id);
+    var data;
+    $.ajax({
+      url: "http://localhost:8080/Taag/service/person/"+ id,
+      type: 'DELETE',
+      contentType:'application/json',
+      data: data,
+      dataType:'json',
+      async: false,
+      success: function(data,status, jqXHR){
+        //On ajax success do this
+        console.log("person " + id +" deleted");
+        console.log(data.message);
+    },
+      error: function(xhr, ajaxOptions, thrownError) {
+          //On error do this
+            if (xhr.status == 200) {
+
+                alert(ajaxOptions);
+            }
+            else {
+                alert(xhr.status);
+                alert(thrownError);
+            }
+        }
+    });
+
+    loadAllPositions();
+    clearDetailsTab();
+}
+
+
+function saveGraph(graphData){
+    //var data = {'bob':'foo','paul':'dog'};
+    console.log("sending data: "+ JSON.stringify(graphData));
+    $.ajax({
+      url: "http://localhost:8080/Taag/service/chart",
+      type: 'POST',
+      contentType:'application/json',
+      data: JSON.stringify(graphData),
+      dataType:'json',
+      async: false,
+      success: function(data,status, jqXHR){
+        //On ajax success do this
+        //var output = JSON.parse(data);
+        //alert(data + " " + status);
+		if(jqXHR.status == 200){
+      var div = document.getElementById('messages');
+      div.innerHTML += 'Chart Saved Succesfully';
+    }
+        console.log("response "+JSON.stringify(data) + " " + jqXHR.status);
+          },
+      error: function(xhr, ajaxOptions, thrownError) {
+          //On error do this
+            if (xhr.status == 200) {
+
+                alert(ajaxOptions);
+            }
+            else {
+                alert(xhr.status);
+                alert(thrownError);
+            }
+        }
+    });
+  }
+
+  function loadGraph(){
+  // $('#position-list button').remove();
+  // $('#position-list br').remove();
+
+    console.log('loading graph from API');
+      $.getJSON( "http://localhost:8080/Taag/service/chart", function( data ) {
+          // var items = [];
+          console.log("loading graph...");
+          //console.log(data);
+           if(data != null){
+          if(data.data != null)
+            loadGraphInitially(data.data);
+        }
+
+         
+    });
   }
 

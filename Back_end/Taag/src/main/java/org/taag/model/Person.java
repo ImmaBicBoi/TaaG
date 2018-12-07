@@ -16,6 +16,12 @@ public class Person {
 	public String message;
 	public String status;
 	public List<Attributes> attribute;
+//	public PreDefinedAttribute preDefinedAttribute;
+	public Integer attribute_id;
+	public String key;
+	public Integer order;
+	public Boolean is_visible;
+	public String type;
 	
 
 	@JsonProperty(value = "first_name")
@@ -81,7 +87,55 @@ public class Person {
 	public void setAttribute(List<Attributes> attribute) {
 		this.attribute = attribute;
 	}
+	
+//	@JsonIgnore
+//	public PreDefinedAttribute getPreDefinedAttribute() {
+//		return preDefinedAttribute;
+//	}
+//	public void setPreDefinedAttribute(PreDefinedAttribute preDefinedAttribute) {
+//		this.preDefinedAttribute = preDefinedAttribute;
+//	}
 
+	
+	@JsonProperty(value = "attribute_id")
+	public Integer getAttribute_id() {
+		return attribute_id;
+	}
+	public void setAttribute_id(Integer attribute_id) {
+		this.attribute_id = attribute_id;
+	}
+	
+	@JsonProperty(value = "key")
+	public String getKey() {
+		return key;
+	}
+	public void setKey(String key) {
+		this.key = key;
+	}
+	
+	@JsonProperty(value = "order")
+	public Integer getOrder() {
+		return order;
+	}
+	public void setOrder(Integer order) {
+		this.order = order;
+	}
+	
+	@JsonProperty(value = "is_visible")
+	public Boolean getIs_visible() {
+		return is_visible;
+	}
+	public void setIs_visible(Boolean is_visible) {
+		this.is_visible = is_visible;
+	}
+	
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
 	
 	
 

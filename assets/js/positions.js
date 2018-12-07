@@ -111,6 +111,7 @@ $('#add-attribute-confirm').click(function () {
 //Changes Right sidebar to edit mode once "Edit" button is clicked
 $('#edit-btn').click(function(){
     //hide/show edit/save buttons
+    document.getElementById('delete-cell-btn').disabled = "true;"
     document.getElementById('edit-btn').style="display: none;"
     document.getElementById('save-btn').style="display: block;"
     //make editable and focus on the first editable line
@@ -159,9 +160,52 @@ $('#save-btn').click(function(){
     var postitle = document.getElementById('details-title').innerHTML;
     console.log(postitle);
 
-    var positionData = {
-        "name": postitle
+
+    // This variable contains the Position attributes JSON object from the server
+    var jsonAttributes = getPosition(getCurrentID()).attributes;
+    var posAttr = [];
+   
+    
+    console.log("attributes json:" + jsonAttributes);
+
+    var jobID = $('#pos-id p').html();
+    console.log(jobID);
+    var positionData;
+    
+    // FOR LOOP pushes JSON object contents to new array and 
+    // pushes all of the local changes to each attribute field
+    // to the array.
+    for(var i in jsonAttributes){
+        console.log(i + " " + jsonAttributes[i]);
+        posAttr.push(jsonAttributes[i]);
+        posAttr[i].key = $("#attrKey"+i).html();
+        posAttr[i].key = posAttr[i].key.substr(0,posAttr[i].key.length-1);
+        posAttr[i].value = $("#attrValue"+i).html();
+        console.log(i + " " + posAttr[i]);
+
     }
+    
+    if(selectID == 0){
+
+        positionData = {
+            "name": postitle,
+            "job_id" : jobID,
+            "attributes" :  posAttr
+        }
+
+    }else{
+
+        positionData = {
+            "name": postitle,
+            "person_id": selectID,
+            "job_id" : jobID,
+            "attributes" :  posAttr
+        }
+
+    }
+
+
+    
     updatePosition(positionData);
 
     //change color   
@@ -207,7 +251,7 @@ function openPositionsTab(id,name, occupantID,){
 
     $.each(position.attributes, function (i, val){
         console.log("app");
-       $('#pos-attributes').append("<span class='modal-headers'>"+ position.attributes[i].key +":</span>" + "<p id ='Value"+ i+ "' contenteditable='false'>"+position.attributes[i].value +"</p>"); //insert positon adittional attributes
+       $('#pos-attributes').append("<span id='attrKey"+ i +"' class='modal-headers'>"+ position.attributes[i].key +":</span>" + "<p id ='attrValue"+ i+ "' contenteditable='false'>"+position.attributes[i].value +"</p>"); //insert positon adittional attributes
 
     });
     

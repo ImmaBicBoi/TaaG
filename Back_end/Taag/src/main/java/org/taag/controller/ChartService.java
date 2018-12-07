@@ -27,7 +27,7 @@ public class ChartService {
 		
 		ChartMessages chartMessages = new ChartMessages();
 		ChartDAO chartDAO = new  ChartDAO();
-		chartDAO.saveChart(chart);
+		chartMessages = chartDAO.saveChart(chart);
 		
 		JSONObject obj = new JSONObject();
 		Response response = null;
@@ -69,11 +69,52 @@ public class ChartService {
 		
 	}
 	
+	
+	@GET
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response getLatestChart() throws Exception {
+		ChartDAO cdao = new ChartDAO();
+		Response response = null;
+		Chart chart = cdao.getLatestChart();
+		if (chart.getStatus() != null) {
+			if(chart.getStatus().equals("200")) {
+			response =  Response.ok(chart, MediaType.APPLICATION_JSON).build();
+			}
+		 else {
+			response =  Response.status(Response.Status.NO_CONTENT).build();
+		}
+		}
+		return response;
+		
+	}
+	
+	
 	@PUT
 	@Produces({ MediaType.APPLICATION_JSON })
 	@Path("{id}")
 	public Response updateChart(Chart chart, @PathParam("id") int chartId) throws Exception {
-		return null;
+		ChartMessages chartMessages = new ChartMessages();
+		ChartDAO chartDAO = new  ChartDAO();
+		chartMessages = chartDAO.updateChart(chart, chartId);
+		
+		JSONObject obj = new JSONObject();
+		Response response = null;
+
+		if(chartMessages.getMessage() != null) {
+			obj.put("message", chartMessages.getMessage());
+		}
+		if (chartMessages.getStatus() != null) {
+			if (chartMessages.getStatus().equals("200")) {
+				response = Response.ok(obj, MediaType.APPLICATION_JSON).build();
+			} else if(chartMessages.getStatus().equals("204")){
+				response = Response.status(Response.Status.NO_CONTENT).entity(obj).build();
+			}
+			else {
+				response = Response.status(Response.Status.BAD_REQUEST).entity(chartMessages).build();
+			}
+			}
+		
+		return response;
 		
 	}
 	
