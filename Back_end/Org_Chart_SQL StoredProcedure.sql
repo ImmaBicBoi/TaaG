@@ -140,19 +140,19 @@ create table POSITION_ATTRIBUTE (
 /* INSERT DUMMY DATA INTO POSITION ATTRIBUTE TABLE */
 
 insert into POSITION_ATTRIBUTE (POS_ATTR_KEY,POS_ATTR_VALUE,POSITION_ID) values 
-(1,'Full Time',1),
-(2,'$ 250,000',1),
-(1,'Full Time',2),
-(1,'Full Time',3),
-(1,'Full Time',4),
-(1,'Full Time',5),
-(1,'Full Time',6),
-(3,'8 years',6),
-(1,'Full Time',7),
-(3,'Java',7),
-(1,'Full Time',8),
-(1,'Full Time',9),
-(1,'Part Time',10);
+('Type','Full Time',1),
+('Base Pay','$ 250,000',1),
+('Type','Full Time',2),
+('Type','Full Time',3),
+('Type','Full Time',4),
+('Type','Full Time',5),
+('Type','Full Time',6),
+('Years of experience','8 years',6),
+('Type','Full Time',7),
+('Programming Language skill','Java',7),
+('Type','Full Time',8),
+('Type','Full Time',9),
+('Type','Part Time',10);
 
 /******************************************************/
 /* INSERT POSITION ATTRIBUTES */
@@ -340,17 +340,19 @@ create table PERSON_ATTRIBUTE (
 /* INSERT DUMMY DATA INTO PERSON ATTRIBUTE TABLE */
 
 insert into PERSON_ATTRIBUTE (PER_ATTR_KEY,PER_ATTR_VALUE,PERSON_ID ) values 
-(1,'frank.ellison@gmail.com',1),
-(2,'Fairfield, CT',1),
-(1,'sarah.mitchell@gmail.com',2),
-(3,'Main Ave, Stamford', 3),
-(1,'rachel.green@gmail.com', 4),
-(4,'728-584-7730', 5),
-(5,'06-09-1987', 6),
-(1,'peter.clark@gmail.com', 7),
-(5,'3-02-1990', 8),
-(3,'Belden Ave, Fairfield',9),
-(1,'jason.murray@gmail.com', 10);
+('Email','frank.ellison@gmail.com',1),
+('Office','Fairfield, CT',1),
+('Email','sarah.mitchell@gmail.com',2),
+('Address','Main Ave, Stamford', 3),
+('Email','rachel.green@gmail.com', 4),
+('Mobile Number','728-584-7730', 5),
+('DOB','06-09-1987', 6),
+('Email','peter.clark@gmail.com', 7),
+('Contact Number','257-317-9134', 7),
+('DOB','3-02-1990', 8),
+('Address','Belden Ave, Fairfield',9),
+('Email','jason.murray@gmail.com', 10);
+
 
 /******************************************************/
 /* INSERT PERSON ATTRIBUTES*/
@@ -480,8 +482,7 @@ create procedure RETRIEVE_LATEST_CHART ()
 begin
 		start transaction;
 		select CHART_ID,CHART_NAME,CHART_DATA from  ORG_CHART;
-		
-				
+						
     commit;
     
 end$$
@@ -565,7 +566,7 @@ create procedure RETRIEVE_ATTRIBUTE_TYPE_POSITION ()
 begin
 		start transaction;
 		select ATTR_ID,ATTR_KEY,ATTR_ORDER,IS_VISIBLE from attribute where attr_type = 'Position';
-		
+	
     commit;
     
 end$$
@@ -581,6 +582,44 @@ begin
 		start transaction;
 		select ATTR_ID,ATTR_KEY,ATTR_ORDER,IS_VISIBLE from attribute where attr_type = 'Person';
 		
+    commit;
+    
+end$$
+delimiter ;
+
+/******************************************************/
+/*RETRIEVE ALL PEOPLE WITH ATTRIBUTES*/
+drop procedure if exists RETRIEVE_ALL_PEOPLE_WITH_ATTR;
+delimiter $$
+create procedure RETRIEVE_ALL_PEOPLE_WITH_ATTR (in perId int(10))
+begin
+		start transaction;
+		select pa.PER_ATTR_KEY, pa.PER_ATTR_VALUE from PERSON_ATTRIBUTE pa, ATTRIBUTE a
+		where pa.PER_ATTR_KEY = a.ATTR_KEY
+		and pa.PERSON_ID = perId
+		and a.IS_VISIBLE = true
+		and a.ATTR_TYPE = "Person"
+		ORDER BY a.ATTR_ORDER;	
+	
+    commit;
+    
+end$$
+delimiter ;
+
+/******************************************************/
+/*RETRIEVE ALL POSITIONS WITH ATTRIBUTE*/
+drop procedure if exists RETRIEVE_ALL_POSITIONS_WITH_ATTR;
+delimiter $$
+create procedure RETRIEVE_ALL_POSITIONS_WITH_ATTR (in posId int(10))
+begin
+		start transaction;
+		select pa.PER_ATTR_KEY, pa.PER_ATTR_VALUE from PERSON_ATTRIBUTE pa, ATTRIBUTE a
+		where pa.PER_ATTR_KEY = a.ATTR_KEY
+		and pa.POSITION_ID = posId
+		and a.IS_VISIBLE = true
+		and a.ATTR_TYPE = "Position"
+		ORDER BY a.ATTR_ORDER;	
+	
     commit;
     
 end$$
