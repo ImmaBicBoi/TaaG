@@ -10,6 +10,29 @@ var graph = new mxGraph(document.getElementById('graphContainer'), model);
 var tbPositionContainer = document.getElementById('position-list');
 var tbPersonContainer = document.getElementById('people-list');
 
+//zoomin button
+$('#zoomin-btn').click(function(){
+    graph.zoomIn();
+    console.log('zoomin clicked.');
+   
+});
+//zoomout button
+$('#zoomout-btn').click(function(){
+    graph.zoomOut();
+    console.log('zoomout clicked.');
+    
+});
+
+//************************************************************
+//enable panning
+graph.setCellsMovable(false);
+graph.setAutoSizeCells(true);
+graph.setPanning(true);
+graph.centerZoom = false;
+graph.panningHandler.useLeftButtonForPanning = true;
+
+//*************************************************************
+
 				
 //document.body.appendChild(tbContainer);
 // Creates new toolbar without event processing
@@ -24,7 +47,6 @@ function mxIconSet(state)
 {
 	this.images = [];
 	var graph = state.view.graph;
-
 	
 	// Delete
 	var img = mxUtils.createImage('images/delete.png');
@@ -286,6 +308,7 @@ function initializeGraph(container){
 				console.log("label looks like: " + label + mxUtils.htmlEntities(cell.value.name, false) + cell.value.name);
 				return (label);
 			}
+
 			
 			return mxGraph.prototype.getLabel.apply(this, arguments); // "supercall"
 		};
@@ -643,4 +666,6 @@ function setCurrentCell(cell){
 
 function getCurrentCell(){
 	return currentCell;
+
 }
+

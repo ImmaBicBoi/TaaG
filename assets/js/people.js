@@ -142,8 +142,7 @@ $('#ppl-edit-btn').click(function(){
     //hide/show edit/save buttons
     document.getElementById('delete-cell-btn').disabled = "true;"
     document.getElementById('ppl-edit-btn').style="display: none;"
-    document.getElementById('ppl-save-btn').style="display: inline;"
-    document.getElementById('ppl-delete-btn').style ="display: inline;"
+    document.getElementById('ppl-save-btn').style="display: block;"
     //make editable and focus on the first editable line
     $('#ppl-fullname, #ppl-fname, #ppl-lname').attr('contenteditable','true');
     $('#ppl-fname').focus();
@@ -201,7 +200,9 @@ $('#ppl-save-btn').click(function(){
     //hide/show save button
     document.getElementById('ppl-save-btn').style="display: none;"
     document.getElementById('ppl-edit-btn').style="display: block;"
+
     document.getElementById('ppl-delete-btn').style ="display: none;"
+
     //change color   
 
     document.getElementById('ppl-fname').setAttribute(
@@ -217,8 +218,36 @@ $('#ppl-save-btn').click(function(){
 });
 
 $('#ppl-delete-btn').click(function(){
+
     console.log(getCurrentID());
-    deletePerson(getCurrentID());
+
+    var pplfname = document.getElementById('ppl-fname').innerHTML;
+    var ppllname = document.getElementById('ppl-lname').innerHTML;
+    var empos = document.getElementById('emp_pos').innerHTML;
+    var pplemail = document.getElementById('ppl-email').innerHTML;
+    var pplphone = document.getElementById('ppl-phone').innerHTML;
+
+    console.log("deleting the json");
+    console.log(
+        "{" + "\n"
+         + "\t" + "first_name: " + pplfname + "," + "\n"
+        + "\t" + "last_name: " + ppllname + "," + "\n"
+        + "\t" + "emp_pos: " + empos + "," + "\n"
+        + "\t" + "email: " + pplemail + "," + "\n"
+        + "\t" + "phone: " + pplphone + "\n"
+        + "}"
+     );
+
+
+    
+
+
+       console.log(clearDetailsTab());
+
+    document.getElementById('ppl-save-btn').style="display: none;";
+    document.getElementById('ppl-edit-btn').style="display: none;";
+    document.getElementById('ppl-delete-btn').style="display: none;";
+
 
  });
 
@@ -253,7 +282,7 @@ $('#ppl-delete-btn').click(function(){
     var returnData;
 
     if(id == 0){
-        console.log("no person found.");
+        console.log("person retrieval error");
         return null;
     }else{
         returnData = $.ajax({
@@ -267,44 +296,4 @@ $('#ppl-delete-btn').click(function(){
         //console.log("retrieving person " + jQuery.parseJSON(returnData.responseText));
         return jQuery.parseJSON(returnData.responseText);
 }
- }
-
- function getPersonID(name){
-    var personID = 0;
-    $.ajax({
-        url: "http://localhost:8080/Taag/service/person",
-        type: 'GET',
-        contentType:'application/json',
-        dataType:'json',
-        async: false,
-        success: function(data,status, jqXHR){
-          //On ajax success do this
-          //var output = JSON.parse(data);
-          //alert(data + " " + status);
-         // console.log("response"+data.message + " " + jqXHR.status);
-         $.each(data.persons, function (i, field) {
-            if(name == data.persons[i].first_name+' '+data.persons[i].last_name){
-                console.log("match!");
-                personID = data.persons[i].person_id;
-            }
-            //console.log(data.persons[i].first_name);
-        });
-         
-            },
-        error: function(xhr, ajaxOptions, thrownError) {
-            //On error do this
-              if (xhr.status == 200) {
-  
-                  alert(ajaxOptions);
-              }
-              else {
-                  alert(xhr.status);
-                  alert(thrownError);
-              }
-          }
-      });
-
-
-    //console.log("no match for " + name );
-    return personID;
  }

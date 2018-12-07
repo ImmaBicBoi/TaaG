@@ -1,30 +1,28 @@
 console.log('starting requests');
 
 function loadAllPersons(){
-    $('#people-list button').remove();
-    $('#people-list br').remove();
+  $('#people-list li').remove();
   console.log('loading persons from API');
     $.getJSON( "http://localhost:8080/Taag/service/person", function( data ) {
         var items = [];
         console.log(data);
        // items.push(data.message);
         $.each( data.persons, function( key, val ) {
-        //   items.push( "<li >" + data.persons[key].person_id + ": " + 
-        //   data.persons[key].first_name+ " " +
-        //   data.persons[key].last_name+ "</li>" );
+          items.push( "<li >" + data.persons[key].person_id + ": " + 
+          data.persons[key].first_name+ " " +
+          data.persons[key].last_name+ "</li>" );
 
-        //   $("<li/>", {
-        //       html: data.persons[key].person_id + ": " + 
-        //       data.persons[key].first_name+ " " +
-        //       data.persons[key].last_name
-        //     }).click(function (event){
-        //         openPersonsTab(data.persons[key].person_id,data.persons[key].first_name,data.persons[key].last_name);
-        //         console.log("testing "+ data.persons[key].first_name);
-        //         setCurrentID(data.persons[key].person_id);
-        //     }).appendTo("#tab-2 ul");
+          $("<li/>", {
+              html: data.persons[key].person_id + ": " + 
+              data.persons[key].first_name+ " " +
+              data.persons[key].last_name
+            }).click(function (event){
+                openPersonsTab(data.persons[key].person_id,data.persons[key].first_name,data.persons[key].last_name);
+                console.log("testing "+ data.persons[key].first_name);
+                setCurrentID(data.persons[key].person_id);
+            }).appendTo("#tab-2 ul");
 
-            addPersonVertex('', 100, 40, 'shape=rounded', data, key);
-            $('<br/>').appendTo("#tab-2 ul");
+
           
         });
       });
@@ -32,36 +30,31 @@ function loadAllPersons(){
 
 
 function loadAllPositions(){
-  $('#position-list button').remove();
-  $('#position-list br').remove();
-
+  $('#position-list li').remove();
     console.log('loading positions from API');
       $.getJSON( "http://localhost:8080/Taag/service/position", function( data ) {
           var items = [];
           console.log(data);
          // items.push(data.message);
           $.each( data.positions, function( key, val ) {
-            // items.push( "<li >" + data.positions[key].position_id + ": " + 
-            // data.positions[key].name +"</li>" );
+            items.push( "<li >" + data.positions[key].position_id + ": " + 
+            data.positions[key].name +"</li>" );
   
-            // $("<li/>", {
-            //     html: data.positions[key].position_id + ": " + 
-            //     data.positions[key].name
-            //   }).click(function (event){
-            //       openPositionsTab(
-            //         data.positions[key].position_id,
-            //         data.positions[key].name,
-            //         data.positions[key].person_id);
-            //         setCurrentID(data.positions[key].position_id);
-            //       //console.log("testing "+ data.positions[key].attributes);
-            //   }).appendTo("#tab-1 ul");
+            $("<li/>", {
+                html: data.positions[key].position_id + ": " + 
+                data.positions[key].name
+              }).click(function (event){
+                  openPositionsTab(
+                    data.positions[key].position_id,
+                    data.positions[key].name,
+                    data.positions[key].person_id);
+                    setCurrentID(data.positions[key].position_id);
+                  //console.log("testing "+ data.positions[key].attributes);
+              }).appendTo("#tab-1 ul");
   
-              addPositionVertex('', 100, 40, 'shape=rounded', data, key);
-              $('<br/>').appendTo("#tab-1 ul");
+            
           });
         });
-        
-        
   }
 
   function loadAllAttributes(){
@@ -205,6 +198,7 @@ function createPerson(personData){
     loadAllPositions();
   }
 
+
 function deletePosition(id){
     console.log("deleting position id: " + id);
     var data;
@@ -321,3 +315,4 @@ function saveGraph(graphData){
          
     });
   }
+
