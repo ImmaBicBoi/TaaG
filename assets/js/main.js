@@ -61,3 +61,16 @@ function clearDetailsTab(){
 		
 	console.log('cleared tab');
 }
+
+function getVisiblePosAttributes(){
+	var attr = loadAllAttributes();
+	var visibleAttr = [];
+	console.log(attr);
+	for(var i = 0; i < attr.position.length; i++){
+		 if(attr.position[i].is_visible){
+			visibleAttr.push(attr.position[i]);
+		 }
+	}
+	//console.log(visibleAttr + "is visible");
+	return visibleAttr;
+}

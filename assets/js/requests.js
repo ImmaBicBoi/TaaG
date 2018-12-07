@@ -70,21 +70,36 @@ function loadAllPositions(){
     // $('#position-list br').remove();
   
       console.log('loading attributes from API');
-        
-      //change this line once the API is ready
-        $.getJSON( "mockdata/mock_attributes.json", function( data ) {
-        
-           //this is how you can access each item in the json object
-            $.each( data.position, function( key, val ) {
-                console.log(data.position[key].key);
-            });
-            $.each( data.person, function( key, val ) {
-                console.log(data.person[key].key);
-            });
+        var attr;
+
+          $.ajax({
+            url: "http://localhost:8080/Taag/service/attribute",
+            type: 'GET',
+            contentType:'application/json',
+            dataType:'json',
+            async: false,
+            success: function(data,status, jqXHR){
+              //On ajax success do this
+              //var output = JSON.parse(data);
+              //alert(data + " " + status);
+              attr = data;
+              console.log("response"+data.message + " " + jqXHR.status);
+                },
+            error: function(xhr, ajaxOptions, thrownError) {
+                //On error do this
+                  if (xhr.status == 200) {
+      
+                      alert(ajaxOptions);
+                  }
+                  else {
+                      alert(xhr.status);
+                      alert(thrownError);
+                  }
+              }
           });
-          
-          
+          return attr;
     }
+
 
   function createPosition(positionData){
     //var data = {'bob':'foo','paul':'dog'};
