@@ -6,6 +6,7 @@ public class Attributes {
 	
 	public String key;
 	public String value;
+	public Integer order;
 	
 	
 	@JsonProperty(value = "key")
@@ -23,6 +24,15 @@ public class Attributes {
 	public void setValue(String value) {
 		this.value = value;
 	}
+	
+	public Integer getOrder() {
+		return order;
+	}
+	public void setOrder(Integer order) {
+		this.order = order;
+	}
+	
+	
 	
 	
 

@@ -30,6 +30,8 @@ public class ApplicationContex extends Application{
         resources.add(org.taag.provider.MyJacksonJsonProvider.class);
         resources.add(org.taag.controller.PersonService.class);
         resources.add(org.taag.controller.PositionService.class);
+        resources.add(org.taag.controller.ChartService.class);
+        resources.add(org.taag.controller.AttributeService.class);
         //==> we could also choose packages, see below getProperties()
         
         System.out.println("REST configuration ended successfully.");

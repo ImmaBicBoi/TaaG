@@ -7,10 +7,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.taag.connection.JDBCConnection;
 import org.taag.model.Attributes;
+import org.taag.model.Person;
+import org.taag.model.PersonMessages;
 import org.taag.model.Position;
 import org.taag.model.PositionMessages;
 import org.taag.model.Positions;
@@ -382,6 +386,65 @@ public class PositionDaoImpl implements Positions {
 			e.printStackTrace();
 		}
 		return jobId;
+	}
+
+	@Override
+	public PositionMessages getAllPositionsAttributes() {
+		List<Position> positions = new ArrayList<Position>();
+		PositionMessages positionMessages = new PositionMessages();
+		List<Position> positionAttr = new ArrayList<Position>();
+		Map<Position, List<Attributes>> map = new HashMap<>();
+		PreparedStatement ps;
+		ResultSet rs;
+
+		try {
+			 ps = connection.prepareStatement("call RETRIEVE_ALL_POSITIONS");
+			 rs = ps.executeQuery();
+			while (rs.next()) {
+				Position position = new Position();
+				position.setName(rs.getString("POSITION_NAME"));
+				position.setPersonID(rs.getInt("PERSON_ID"));
+				position.setParentPositionID(rs.getInt("PARENT_POS_ID"));
+				position.setPositionID(rs.getInt("POSITION_ID"));
+				position.setJobId(rs.getString("JOB_ID"));
+				positions.add(position);
+
+			}
+			
+			for (Position pos : positions) {
+				ps = connection.prepareStatement("call RETRIEVE_ALL_POSITIONS_WITH_ATTR(?)");
+				ps.setInt(1, pos.getPositionID());
+				rs = ps.executeQuery();
+				List<Attributes> attributes = new ArrayList<Attributes>();
+				while (rs.next()) {
+					Attributes attribute = new Attributes();
+					attribute.setKey(rs.getString("POS_ATTR_KEY"));
+					attribute.setValue(rs.getString("POS_ATTR_VALUE"));
+					attribute.setOrder(rs.getInt("ATTR_ORDER"));
+					attributes.add(attribute);
+					map.put(pos, attributes);
+				}
+			}
+
+			for (Map.Entry<Position, List<Attributes>> entry : map.entrySet()) {
+				Position key = entry.getKey();
+				List<Attributes> value = entry.getValue();
+				key.setAttribute(value);
+				positionAttr.add(key);
+				positionMessages.setPositions(positionAttr);
+			}
+			
+			
+			positionMessages.setMessage("Position retrieved successfully");
+			positionMessages.setStatus(statusMessages.GetStatus(StatusMessage.status.OK));
+
+			rs.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return positionMessages;
 	}
 
 //	public int getPositionId(String positionName) {

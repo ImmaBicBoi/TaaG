@@ -11,4 +11,6 @@ public interface Persons {
 	public PersonMessages deletePerson(int personId);
 
 	public PersonMessages getAllPersons();
+	
+	public PersonMessages getAllPersonsAttributes();
 }

@@ -353,6 +353,7 @@ insert into PERSON_ATTRIBUTE (PER_ATTR_KEY,PER_ATTR_VALUE,PERSON_ID ) values
 ('Address','Belden Ave, Fairfield',9),
 ('Email','jason.murray@gmail.com', 10);
 
+
 /******************************************************/
 /* INSERT PERSON ATTRIBUTES*/
 
@@ -394,11 +395,232 @@ begin
 		start transaction;
 		select PER_ATTR_KEY, PER_ATTR_VALUE from  PERSON_ATTRIBUTE 
 		where PERSON_ID = PerId;
+		
+    commit;
+    
+end$$
+delimiter ;
+
+/******************************************************/
+/***********       ORG_CHART             ***************/
+/******************************************************/
+
+drop table if exists ORG_CHART;
+
+create table ORG_CHART (
+	CHART_ID int NOT NULL AUTO_INCREMENT,
+	CHART_NAME varchar(30) NOT NULL,
+	CHART_DATA LONGTEXT NOT NULL,
+	
+	PRIMARY KEY (CHART_ID)
+);
+
+/******************************************************/
+
+/* INSERT CHART */
+
+drop procedure if exists CREATE_CHART;
+delimiter $$
+create procedure CREATE_CHART(in ChartName varchar(30), in ChartData LONGTEXT)			  
+							
+begin
+		start transaction;
+		insert into ORG_CHART (CHART_NAME, CHART_DATA) values (ChartName, ChartData);
+    commit;
+		
+   
+end$$
+delimiter ;
+
+/******************************************************/
+/* UPDATE CHART */
+
+drop procedure if exists UPDATE_CHART;
+
+delimiter $$
+create procedure UPDATE_CHART (in ChartName varchar(30),  in ChartData LONGTEXT)
+begin
+        declare chartId INT;
+		start transaction;
+        select CHART_ID into chartId from ORG_CHART ;
+		Select chartId;
+		
+		Update ORG_CHART 
+		SET 
+		 CHART_NAME = ChartName ,
+		 CHART_DATA = ChartData
+		
+		WHERE 
+		CHART_ID = ChartId;
 				
     commit;
     
 end$$
 delimiter ;
 
+/******************************************************/
+/* DELETE CHART */
 
+drop procedure if exists DELETE_CHART;
+delimiter $$
+create procedure DELETE_CHART (in ChartId int(10))
+begin
+		start transaction;
+		DELETE from ORG_CHART where CHART_ID = ChartId;
+				
+    commit;
+    
+end$$
+delimiter ;
 
+/******************************************************/
+/*RETRIEVE LATEST CHART*/
+
+drop procedure if exists RETRIEVE_LATEST_CHART;
+delimiter $$
+create procedure RETRIEVE_LATEST_CHART ()
+begin
+		start transaction;
+		select CHART_ID,CHART_NAME,CHART_DATA from  ORG_CHART;
+						
+    commit;
+    
+end$$
+delimiter ;
+
+/******************************************************/
+/*CREATE ATTRIBUTE TABLE*/
+drop table if exists ATTRIBUTE;
+
+create table ATTRIBUTE (
+	ATTR_ID int NOT NULL AUTO_INCREMENT,
+	ATTR_KEY varchar(30) NOT NULL,
+	ATTR_ORDER int (10) NOT NULL,
+	IS_VISIBLE BOOLEAN NOT NULL,
+	ATTR_TYPE varchar(10) NOT NULL,
+	
+	PRIMARY KEY (ATTR_ID)
+);
+
+/* INSERT DUMMY DATA INTO ATTRIBUTE TABLE */
+
+insert into ATTRIBUTE (ATTR_KEY,ATTR_ORDER,IS_VISIBLE,ATTR_TYPE) values 
+('Email',1,1,'Person'),
+('Office',2,1,'Person'),
+('Address',3,0,'Person'),
+('Mobile Number',4,0,'Person'),
+('DOB',5,0,'Person'),
+('Type',1,1,'Position'),
+('Base Pay',2,1,'Position'),
+('Years of Experience',3,0,'Position'),
+('Programming Language skill',4,0,'Position');
+
+/******************************************************/
+/*INSERT INTO ATTRIBUTE TABLE*/
+
+drop procedure if exists INSERT_ATTRIBUTE;
+delimiter $$
+create procedure INSERT_ATTRIBUTE(in att_key varchar(30), in Att_odr int (10), 
+								  in is_vis BOOLEAN , in att_typ varchar(10))			  
+							
+begin
+		start transaction;
+		insert into ATTRIBUTE (ATTR_KEY, ATTR_ORDER, IS_VISIBLE, ATTR_TYPE) values (att_key, Att_odr, is_vis, att_typ);
+    commit;
+		
+   
+end$$
+delimiter ;
+
+/******************************************************/
+/*UPDATE ATTRIBUTE TABLE*/
+
+drop procedure if exists UPDATE_ATTRIBUTE;
+
+delimiter $$
+create procedure UPDATE_ATTRIBUTE (in id int(10), in att_key varchar(30), in Att_odr int (10), 
+								  in is_vis BOOLEAN)
+begin
+		start transaction;
+				
+		Update ATTRIBUTE 
+		SET 
+		 ATTR_KEY = att_key,
+		 ATTR_ORDER = Att_odr ,
+		 IS_VISIBLE = is_vis
+		
+		WHERE 
+		ATTR_ID = id;
+				
+    commit;
+    
+end$$
+delimiter ;
+/******************************************************/
+/******************************************************/
+/*RETRIEVE POSITION ATTRIBUTE*/
+
+drop procedure if exists RETRIEVE_ATTRIBUTE_TYPE_POSITION;
+delimiter $$
+create procedure RETRIEVE_ATTRIBUTE_TYPE_POSITION ()
+begin
+		start transaction;
+		select ATTR_ID,ATTR_KEY,ATTR_ORDER,IS_VISIBLE from attribute where attr_type = 'Position';
+	
+    commit;
+    
+end$$
+delimiter ;
+
+/******************************************************/
+/*RETRIEVE PERSON ATTRIBUTE*/
+
+drop procedure if exists RETRIEVE_ATTRIBUTE_TYPE_PEOPLE;
+delimiter $$
+create procedure RETRIEVE_ATTRIBUTE_TYPE_PEOPLE ()
+begin
+		start transaction;
+		select ATTR_ID,ATTR_KEY,ATTR_ORDER,IS_VISIBLE from attribute where attr_type = 'Person';
+		
+    commit;
+    
+end$$
+delimiter ;
+
+/******************************************************/
+/*RETRIEVE ALL PEOPLE WITH ATTRIBUTES*/
+drop procedure if exists RETRIEVE_ALL_PEOPLE_WITH_ATTR;
+delimiter $$
+create procedure RETRIEVE_ALL_PEOPLE_WITH_ATTR (in perId int(10))
+begin
+		start transaction;
+		select pa.PER_ATTR_KEY, pa.PER_ATTR_VALUE, a.ATTR_ORDER from PERSON_ATTRIBUTE pa, ATTRIBUTE a
+		where pa.PER_ATTR_KEY = a.ATTR_KEY
+		and pa.PERSON_ID = perId
+		and a.IS_VISIBLE = true
+		and a.ATTR_TYPE = "Person"
+		ORDER BY a.ATTR_ORDER;	
+	
+    commit;
+    
+end$$
+delimiter ;
+
+/******************************************************/
+/*RETRIEVE ALL POSITIONS WITH ATTRIBUTE*/
+drop procedure if exists RETRIEVE_ALL_POSITIONS_WITH_ATTR;
+delimiter $$
+create procedure RETRIEVE_ALL_POSITIONS_WITH_ATTR (in posId int(10))
+begin
+		start transaction;
+		select pa.POS_ATTR_KEY, pa.POS_ATTR_VALUE, a.ATTR_ORDER from POSITION_ATTRIBUTE pa, ATTRIBUTE a
+		where pa.POS_ATTR_KEY = a.ATTR_KEY
+		and pa.POSITION_ID = posId
+		and a.IS_VISIBLE = true
+		and a.ATTR_TYPE = "Position"
+		ORDER BY a.ATTR_ORDER;	
+	
+    commit;
+    
+end$$
+delimiter ;

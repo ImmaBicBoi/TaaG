@@ -26,8 +26,8 @@ function loadPeople() {
                                     $('#details-title').html(data[i].first_name + " " + data[i].last_name); //insert person title 
                                     $('#first-name').html("<span class='modal-headers'>First Name: </span>" + "<p id = 'ppl-fname' contenteditable='false'>" + data[i].first_name ) + "</p>"; //insert first name
                                     $('#last-name').html("<span class='modal-headers'>Last Name:</span>" + "<p id = 'ppl-lname' contenteditable='false'>" + data[i].last_name + "</p>"); //insert last name
-									$('#email').html("<span class='modal-headers'>Email:</span>" + "<p id = 'ppl-email' contenteditable='false'>" + data[i].email + "</p>"); //insert email
-									$('#phone').html("<span class='modal-headers'>Phone:</span>" + "<p id = 'ppl-phone' contenteditable='false'>" + data[i].phone + "</p>"); //insert number
+                                    $('#email').html("<span class='modal-headers'>Email:</span>" + "<p id = 'ppl-email' contenteditable='false'>" + data[i].email + "</p>"); //insert email
+                                    $('#phone').html("<span class='modal-headers'>Phone:</span>" + "<p id = 'ppl-phone' contenteditable='false'>" + data[i].phone + "</p>"); //insert number
                                     
                                     
                                     document.getElementById('ppl-edit-btn').style = "display: block;" //show EDIT button
@@ -219,9 +219,11 @@ function writePeopleJson() {
 
 $('#ppl-edit-btn').click(function(){
     //hide/show edit/save buttons
+    document.getElementById('delete-cell-btn').disabled = "true;"
     document.getElementById('ppl-edit-btn').style="display: none;"
     document.getElementById('edit-add-att-ppl-btn').style="display: block;"
     document.getElementById('ppl-save-btn').style="display: block;"
+    document.getElementById('ppl-delete-btn').style ="display: inline;"
     //make editable and focus on the first editable line
     $('#ppl-fullname, #ppl-fname, #ppl-lname').attr('contenteditable','true');
     $('#ppl-fname').focus();
@@ -239,7 +241,6 @@ $('#ppl-edit-btn').click(function(){
     $( "#person-attributes p, #pos-id p" ).attr(
             "contenteditable", "true");
 
-   
 
 });
 
@@ -248,10 +249,27 @@ $('#ppl-save-btn').click(function(){
     //cannot get the current id into here????
     var pplfname = document.getElementById('ppl-fname').innerHTML;
     var ppllname = document.getElementById('ppl-lname').innerHTML;
+    var personData;
+    var personAttr = [];
 
-    var personData = {
+    var jsonAttributes = getPerson(getCurrentID()).attributes;
+    // FOR LOOP pushes JSON object contents to new array and 
+    // pushes all of the local changes to each attribute field
+    // to the array.
+    for(var i in jsonAttributes){
+        console.log(i + " " + jsonAttributes[i]);
+        personAttr.push(jsonAttributes[i]);
+        personAttr[i].key = $("#attrKey"+i).html();
+        personAttr[i].key = personAttr[i].key.substr(0,personAttr[i].key.length-1);
+        personAttr[i].value = $("#attrValue"+i).html();
+        console.log(i + " " + personAttr[i]);
+
+    }
+
+    personData = {
         "first_name": pplfname,
-        "last_name": ppllname
+        "last_name": ppllname,
+        "attributes": personAttr
     }
     updatePerson(personData);
     
@@ -264,7 +282,7 @@ $('#ppl-save-btn').click(function(){
     document.getElementById('ppl-save-btn').style="display: none;"
     document.getElementById('edit-add-att-ppl-btn').style="display: none;"
     document.getElementById('ppl-edit-btn').style="display: block;"
-
+    document.getElementById('ppl-delete-btn').style ="display: none;"
     //change color   
 
     document.getElementById('ppl-fname').setAttribute(
@@ -280,8 +298,8 @@ $('#ppl-save-btn').click(function(){
 });
 
 $('#ppl-delete-btn').click(function(){
-
     console.log(getCurrentID());
+    deletePerson(getCurrentID());
 
     var pplfname = document.getElementById('ppl-fname').innerHTML;
     var ppllname = document.getElementById('ppl-lname').innerHTML;
@@ -307,7 +325,6 @@ $('#ppl-delete-btn').click(function(){
        console.log(clearDetailsTab());
 
     document.getElementById('ppl-save-btn').style="display: none;";
-    document.getElementById('edit-add-att-ppl-btn').style="display: none;";
     document.getElementById('ppl-edit-btn').style="display: none;";
     document.getElementById('ppl-delete-btn').style="display: none;";
 
@@ -328,7 +345,7 @@ $('#ppl-delete-btn').click(function(){
     $('#pos-id').html("<span class='modal-headers'>Employee ID: </span>" + "<p contenteditable='false'>"+ empID ) + "</p>"; //insert employee id 
     $.each(person.attributes, function (i, val){
         //console.log("app");
-       $('#person-attributes').append("<span class='modal-headers'>"+ person.attributes[i].key +":</span>" + "<p contenteditable='false'>"+person.attributes[i].value +"</p>"); //insert positon adittional attributes
+       $('#person-attributes').append("<span id='attrKey" +i+ "' class='modal-headers'>"+ person.attributes[i].key +":</span>" + "<p id='attrValue"+i+ "' contenteditable='false'>"+person.attributes[i].value +"</p>"); //insert positon adittional attributes
 
     });
     //$('#email').html("<span class='modal-headers'>Email:</span>" + "<p id = 'ppl-email' contenteditable='false'>" + attribute + "</p>"); //insert email
@@ -346,7 +363,7 @@ $('#ppl-delete-btn').click(function(){
     var returnData;
 
     if(id == 0){
-        console.log("person retrieval error");
+        console.log("no person found.");
         return null;
     }else{
         returnData = $.ajax({
@@ -360,4 +377,44 @@ $('#ppl-delete-btn').click(function(){
         //console.log("retrieving person " + jQuery.parseJSON(returnData.responseText));
         return jQuery.parseJSON(returnData.responseText);
 }
+ }
+
+ function getPersonID(name){
+    var personID = 0;
+    $.ajax({
+        url: "http://localhost:8080/Taag/service/person",
+        type: 'GET',
+        contentType:'application/json',
+        dataType:'json',
+        async: false,
+        success: function(data,status, jqXHR){
+          //On ajax success do this
+          //var output = JSON.parse(data);
+          //alert(data + " " + status);
+         // console.log("response"+data.message + " " + jqXHR.status);
+         $.each(data.persons, function (i, field) {
+            if(name == data.persons[i].first_name+' '+data.persons[i].last_name){
+                console.log("match!");
+                personID = data.persons[i].person_id;
+            }
+            //console.log(data.persons[i].first_name);
+        });
+         
+            },
+        error: function(xhr, ajaxOptions, thrownError) {
+            //On error do this
+              if (xhr.status == 200) {
+  
+                  alert(ajaxOptions);
+              }
+              else {
+                  alert(xhr.status);
+                  alert(thrownError);
+              }
+          }
+      });
+
+
+    //console.log("no match for " + name );
+    return personID;
  }

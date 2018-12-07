@@ -11,5 +11,7 @@ public interface Positions {
 	public PositionMessages deletePosition(int positionId);
 
 	public PositionMessages getAllPositions();
+	
+	public PositionMessages getAllPositionsAttributes();
 
 }

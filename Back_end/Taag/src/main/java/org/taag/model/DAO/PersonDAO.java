@@ -10,17 +10,11 @@ public class PersonDAO implements Persons {
 
 	public PersonMessages createPerson(Person psn) {
 		PersonMessages PersonMessages;
-		if(psn.getPersonID() == null) {
-			psn.setPersonID(0);
-		}
 		 PersonMessages = daoImpl.createPerson(psn);
 		return PersonMessages;
 	}
 
 	public PersonMessages updatePerson(Person psn, int PersonId) {
-		if(psn.getPersonID() == null) {
-			psn.setPersonID(0);
-		}
 		PersonMessages PersonMessages = daoImpl.updatePerson(psn, PersonId);
 		return PersonMessages;
 	}
@@ -38,6 +32,11 @@ public class PersonDAO implements Persons {
 
 	public PersonMessages getAllPersons() {
 		PersonMessages PersonMessages = daoImpl.getAllPersons();
+		return PersonMessages;
+	}
+
+	public PersonMessages getAllPersonsAttributes() {
+		PersonMessages PersonMessages = daoImpl.getAllPersonsAttributes();
 		return PersonMessages;
 	}
 
