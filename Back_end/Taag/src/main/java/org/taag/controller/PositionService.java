@@ -84,6 +84,20 @@ public class PositionService {
 			return Response.status(Response.Status.NO_CONTENT).build();
 		}
 	}
+	
+	
+	@GET
+	@Path("/all")
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response getAllPositionsAttributes() {
+		PositionDAO pdao = new PositionDAO();
+		PositionMessages positionMessages = pdao.getAllPositionsAttributes();
+		if (positionMessages.getPositions() != null) {
+			return Response.ok(positionMessages, MediaType.APPLICATION_JSON).build();
+		} else {
+			return Response.status(Response.Status.NO_CONTENT).build();
+		}
+	}
 
 	@PUT
 	@Produces({ MediaType.APPLICATION_JSON })

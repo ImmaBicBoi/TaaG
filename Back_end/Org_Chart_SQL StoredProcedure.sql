@@ -594,7 +594,7 @@ delimiter $$
 create procedure RETRIEVE_ALL_PEOPLE_WITH_ATTR (in perId int(10))
 begin
 		start transaction;
-		select pa.PER_ATTR_KEY, pa.PER_ATTR_VALUE from PERSON_ATTRIBUTE pa, ATTRIBUTE a
+		select pa.PER_ATTR_KEY, pa.PER_ATTR_VALUE, a.ATTR_ORDER from PERSON_ATTRIBUTE pa, ATTRIBUTE a
 		where pa.PER_ATTR_KEY = a.ATTR_KEY
 		and pa.PERSON_ID = perId
 		and a.IS_VISIBLE = true
@@ -613,8 +613,8 @@ delimiter $$
 create procedure RETRIEVE_ALL_POSITIONS_WITH_ATTR (in posId int(10))
 begin
 		start transaction;
-		select pa.PER_ATTR_KEY, pa.PER_ATTR_VALUE from PERSON_ATTRIBUTE pa, ATTRIBUTE a
-		where pa.PER_ATTR_KEY = a.ATTR_KEY
+		select pa.POS_ATTR_KEY, pa.POS_ATTR_VALUE, a.ATTR_ORDER from POSITION_ATTRIBUTE pa, ATTRIBUTE a
+		where pa.POS_ATTR_KEY = a.ATTR_KEY
 		and pa.POSITION_ID = posId
 		and a.IS_VISIBLE = true
 		and a.ATTR_TYPE = "Position"

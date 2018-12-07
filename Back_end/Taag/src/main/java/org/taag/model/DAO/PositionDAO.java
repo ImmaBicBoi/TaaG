@@ -35,5 +35,11 @@ public class PositionDAO implements Positions {
 		return positionMessages;
 	}
 
+	@Override
+	public PositionMessages getAllPositionsAttributes() {
+		PositionMessages positionMessages = daoImpl.getAllPositionsAttributes();
+		return positionMessages;
+	}
+
 
 }

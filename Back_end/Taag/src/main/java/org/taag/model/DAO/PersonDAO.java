@@ -35,6 +35,11 @@ public class PersonDAO implements Persons {
 		return PersonMessages;
 	}
 
+	public PersonMessages getAllPersonsAttributes() {
+		PersonMessages PersonMessages = daoImpl.getAllPersonsAttributes();
+		return PersonMessages;
+	}
+
 	
 
 

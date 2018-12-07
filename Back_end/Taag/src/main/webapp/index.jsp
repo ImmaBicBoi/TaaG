@@ -13,9 +13,9 @@
             $(function(){                
                 $("#postPerson, #postMessage").on("click", function(){
                     $.ajax({
-                        url: $(this).attr("id") === "postMessage" ? ctxPath+"/service/message/post" : ctxPath+"/service/person",
+                        url: $(this).attr("id") === "postMessage" ? ctxPath+"/service/message/post" : ctxPath+"/service/attribute",
                         type: "POST",
-                        data: '{"first_name":"Bindu","last_name":"Madhavi","employee_id": "A11-11","attributes":[{"key":"Type","value":"Part Time"},{"key":"2","value":"TestVal2"}]}',
+                        data: '{"position":[{"key":"Level","order":"2","is_visible":"true"}],"person":[{"key":"Location","order":"1","is_visible":"true"}]}',
                         contentType: "application/json",
                         cache: false,
                         dataType: "json"
@@ -31,7 +31,7 @@
 	   <ul>
 	       <li><a href="<%=request.getContextPath() %>/service/message"><%=request.getContextPath() %>/service/message</a></li>
 	       <li><a href="<%=request.getContextPath() %>/service/message/ping"><%=request.getContextPath() %>/service/message/ping</a></li>
-	       <li><a href="<%=request.getContextPath() %>/service/attribute"><%=request.getContextPath() %>/service/person/get</a></li>
+	       <li><a href="<%=request.getContextPath() %>/service/person/all"><%=request.getContextPath() %>/service/person/get</a></li>
            <li><button id="postPerson">Post Person</button></li>
            <li><button id="postMessage">Post Message</button></li>
 	   </ul>

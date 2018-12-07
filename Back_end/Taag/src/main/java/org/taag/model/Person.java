@@ -16,6 +16,7 @@ public class Person {
 	public String message;
 	public String status;
 	public List<Attributes> attribute;
+	public Attributes attr;
 //	public PreDefinedAttribute preDefinedAttribute;
 	public Integer attribute_id;
 	public String key;
@@ -88,6 +89,8 @@ public class Person {
 		this.attribute = attribute;
 	}
 	
+	
+	
 //	@JsonIgnore
 //	public PreDefinedAttribute getPreDefinedAttribute() {
 //		return preDefinedAttribute;
@@ -97,6 +100,12 @@ public class Person {
 //	}
 
 	
+	public Attributes getAttr() {
+		return attr;
+	}
+	public void setAttr(Attributes attr) {
+		this.attr = attr;
+	}
 	@JsonProperty(value = "attribute_id")
 	public Integer getAttribute_id() {
 		return attribute_id;

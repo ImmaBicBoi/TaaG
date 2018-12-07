@@ -83,6 +83,21 @@ public class PersonService {
 		}
 	}
 
+	
+	@GET
+	@Path("/all")
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response getAllPersonsAttributes() {
+		PersonDAO pdao = new PersonDAO();
+		PersonMessages personMessages = pdao.getAllPersonsAttributes();
+		if (personMessages.getPersons() != null) {
+			return Response.ok(personMessages, MediaType.APPLICATION_JSON).build();
+		} else {
+			return Response.status(Response.Status.NO_CONTENT).build();
+		}
+	}
+
+	
 	@PUT
 	@Produces({ MediaType.APPLICATION_JSON })
 	@Path("{id}")
