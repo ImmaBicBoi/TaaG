@@ -359,6 +359,7 @@ function addPositionToolbarItem(graph, posToolbar, prototype, image, data, key)
 				
 				graph.setSelectionCells(graph.importCells([vertex], 0, 0, cell));
 				//alert("TEST");
+				updateGraphElements();
 			}
 			// Creates the image which is used as the drag icon (preview)
             var img = posToolbar.addMode(null, null, funct);
@@ -643,4 +644,20 @@ function setCurrentCell(cell){
 
 function getCurrentCell(){
 	return currentCell;
+}
+
+function updateGraphElements(){
+	var positions = graph.getChildCells(graph.getDefaultParent(), true, true);
+	var attr = getVisiblePosAttributes();
+	//console.log(positions);
+	for (var i = 0; i < positions.length; i++){
+		//console.log(positions[i].value);
+		console.log("changing size of cell to accomodate attribute count");
+
+		for(var j = 0; j < attr.length; j++){
+			console.log("adding " + attr[j].key + " to " + positions[i].value);
+
+		}
+	}
+
 }
