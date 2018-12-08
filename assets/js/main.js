@@ -74,3 +74,15 @@ function getVisiblePosAttributes(){
 	//console.log(visibleAttr + "is visible");
 	return visibleAttr;
 }
+
+function findPosValueByKey(id,key){
+	var posData = getPosition(id);
+	console.log(posData.attributes[0].key + " TEST")
+	for(var i = 0; i < posData.attributes.length; i++){
+		if(posData.attributes[i].key == key){
+			return posData.attributes[i].value;
+		}
+	}
+
+	return "N/A";
+}

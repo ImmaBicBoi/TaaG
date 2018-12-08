@@ -192,7 +192,7 @@ function initializeGraph(container){
 				// SelectGraphCell(cell);
 				graph.setSelectionCell(cell);
 				document.getElementById('delete-cell-btn').disabled= false;
-				console.log("testing");
+				console.log("testing. is this cell a position?:" + graph.isSwimlane(cell) + " and this cell has " + cell.getChildCount() + " children");
 			}else
 			document.getElementById('delete-cell-btn').disabled = true;
 			evt.consume();
@@ -282,7 +282,7 @@ function initializeGraph(container){
 			{
 				if(getCurrentCell() != null){
 					var label = "("+getCurrentCell().value.person_id + ") "+ getCurrentCell().value.name;
-				}else var label = '';
+				}else var label = ''+ mxUtils.htmlEntities(cell.value.name, false);
 				console.log("label looks like: " + label + mxUtils.htmlEntities(cell.value.name, false) + cell.value.name);
 				return (label);
 			}
@@ -418,7 +418,7 @@ function addPersonToolbarItem(graph, personToolbar, prototype, image, data, key)
 			pt.y -= pstate.y;
 			var columnCount = graph.model.getChildCount(parent)+1;
 			//parentPos = graph.
-			parent.setGeometry(new mxGeometry(pstate.x, pstate.y, 200, 60));
+			//parent.setGeometry(new mxGeometry(pstate.x, pstate.y, 200, 60));
 			//parent.imageSize = 50;
 			//name = mxUtils.prompt('Enter name for new column', 'COLUMN'+columnCount);
 		}
@@ -649,15 +649,43 @@ function getCurrentCell(){
 function updateGraphElements(){
 	var positions = graph.getChildCells(graph.getDefaultParent(), true, true);
 	var attr = getVisiblePosAttributes();
-	//console.log(positions);
+	var cellHeight = 60 + (attr.length)*26;
+	console.log("new height:" + cellHeight);
+	var pstate;
+	var positionArr;
+	var positionID;
 	for (var i = 0; i < positions.length; i++){
-		//console.log(positions[i].value);
-		console.log("changing size of cell to accomodate attribute count");
+		if(graph.isSwimlane(positions[i])){
+			pstate = graph.getView().getState(positions[i]);
+			positionArr = positions[i].value.split(" ");
+			positionID = parseInt(positionArr[0]);
+			//console.log(positions[i].value);
+			console.log("changing size of cell to accomodate attribute count for ID " + positionID);
+			positions[i].setGeometry(new mxGeometry(pstate.x, pstate.y, 200, cellHeight));
+			graph.getView().clear(positions[i], false, false);
+			graph.getView().validate();
+			//newColumn(positions[i], "", pstate, 0);
+			for(var j = 0; j < attr.length; j++){
+				console.log("adding " + attr[j].key + " to " + positions[i].value);
+				newColumn(positions[i], attr[j].key+ ": "+ findPosValueByKey(positionID,attr[j].key), pstate, j+1);
 
-		for(var j = 0; j < attr.length; j++){
-			console.log("adding " + attr[j].key + " to " + positions[i].value);
-
+			}
 		}
 	}
 
+}
+
+function newColumn(parent, text, pstate, index){
+
+	var columnObject = new Column(text);
+	var vertex = new mxCell(columnObject, new mxGeometry(0, (index)*26, 200, 26), 'shape=rounded');
+	vertex.setVertex(true);
+	vertex.setConnectable(false);
+	vertex.value.name = text;
+	var model = graph.getModel();
+	
+	//graph.insertVertex(parent, null, text, pstate.x, pstate.y, 200, 26)
+	graph.addCell(vertex, parent,index);
+	//graph.setSelectionCell(v1);
+				
 }
