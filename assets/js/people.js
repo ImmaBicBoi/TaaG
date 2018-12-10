@@ -49,6 +49,7 @@ function loadPeople() {
 $('#add-person-btn').click(function(){
     $('#add-people-modal').modal('show');
     console.log('Add Person clicked.');
+    loadGlobalattrper();
     //loadPositions();
 }); 
 
@@ -308,3 +309,18 @@ $('#ppl-delete-btn').click(function(){
     //console.log("no match for " + name );
     return personID;
  }
+
+ function loadGlobalattrper(){
+    $.getJSON('http://localhost:8080/Taag/service/attribute', function (data) {
+
+          var gbper1 = data.person[0].key;
+          var gbper2 = data.person[1].key;
+          var gbper3 = data.person[2].key;
+          var gbper4 = data.person[3].key;
+         
+          document.getElementById('gbper1').innerHTML = '1:'+ gbper1 ;
+          document.getElementById('gbper2').innerHTML = '2:'+ gbper2 ;
+          document.getElementById('gbper3').innerHTML = '3:'+ gbper3 ;
+          document.getElementById('gbper4').innerHTML = '4:'+ gbper4 ;
+    });
+}

@@ -7,7 +7,6 @@ var attNameArray = [];
 
 
 
-
 //Makes positions on the left sidebar draggable
 function loadDraggablePositions() {
 
@@ -28,8 +27,11 @@ function loadDraggablePositions() {
 
 //loads modal window once "Add Position" button is clicked
 $('#add-position-btn').click(function(){
+    
     $('#add-position-modal').modal('show');
+  
     console.log('Add Position clicked.');
+ loadGlobalattr();
     //loadPositions();
 }); 
 
@@ -79,6 +81,7 @@ $('#add-position-confirm').click(function(){
     // console.log(attOne.value);
     // console.log(attTwo.value);
     // console.log(attThree.value);
+
 
     $('#add-position-modal').modal('hide');
 
@@ -351,3 +354,17 @@ function loadPositions() {
     console.log('positions loaded.');
     
 };
+
+function loadGlobalattr(){
+    $.getJSON('http://localhost:8080/Taag/service/attribute', function (data) {
+
+          var gbpos1 = data.position[0].key;
+          var gbpos2 = data.position[1].key;
+          var gbpos3 = data.position[2].key;
+          var gbpos4 = data.position[3].key;
+          document.getElementById('gbp1').innerHTML = '1:'+ gbpos1 ;
+          document.getElementById('gbp2').innerHTML = '2:'+ gbpos2 ;
+          document.getElementById('gbp3').innerHTML = '3:'+ gbpos3 ;
+          document.getElementById('gbp4').innerHTML = '4:'+ gbpos4 ;
+    });
+}
