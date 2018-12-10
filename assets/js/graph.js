@@ -401,7 +401,7 @@ function addPersonToolbarItem(graph, personToolbar, prototype, image, data, key)
 				alert("Please drag person into Position correctly!");
 				return;
 			}
-            newPersonColumn(parent, name);
+            newPersonColumn(parent, name, data.persons[key].person_id);
 
             // var pstate = graph.getView().getState(parent);
 			// var childCount = graph.model.getChildCount(parent);
@@ -522,13 +522,14 @@ function loadGraphInitially(data){
 function Table(name)
 {
 	this.name = name;
+	this.isPersonExists = false;
 };
 
 Table.prototype.clone = function()
 {
 	return mxUtils.clone(this);
 };
-
+Table.prototype.isPersonExists = false;
 // Defines the column user object
 function Column(name)
 {
@@ -644,13 +645,52 @@ function newColumn(parent, text, pstate, index){
 	graph.addCell(vertex, parent,index);
 }
 
-function newPersonColumn(parent, text) {
+function newPersonColumn(parent, text, personId) {
 	var existingChildCount = parent.getChildCount();
+	if (checkIfPositionHasPerson(parent)) {
+        alert("Person already exists in this Position");
+        return;
+    }
+    if (checkIfPersonExistsInAnotherPosition(personId)) {
+        alert("Person already exists in another Position");
+        return;
+    }
     var columnObject = new Column(text);
+    columnObject.person_id = personId;
+
+
     var vertex = new mxCell(columnObject, new mxGeometry(0, (existingChildCount+1)*26, 200, 26), 'shape=rounded');
     vertex.setVertex(true);
     vertex.setConnectable(false);
     vertex.value.name = text;
     var model = graph.getModel();
     graph.addCell(vertex, parent);
+}
+
+function checkIfPositionHasPerson(parent) {
+    var existingChildCount = parent.getChildCount();
+    for(var i =0; i<existingChildCount; i++) {
+        if (parent.children[i].value.person_id != undefined && parent.children[i].value.person_id != 0) {
+            return true;
+        }
+    }
+    return false;
+}
+function checkIfPersonExistsInAnotherPosition(PersonId) {
+	var ExistingPersonId = PersonId;
+    var existingPositionsNodeCount = graph.getDefaultParent().getChildCount();
+
+    for(var i =0; i<existingPositionsNodeCount;i++){
+    	var parent = graph.getDefaultParent().children[i];
+    	var childCount = parent.getChildCount();
+        for(var j =0; j<childCount; j++) {
+            if (parent.children[j].value.person_id != undefined && parent.children[j].value.person_id != 0) {
+                if(parent.children[j].value.person_id == ExistingPersonId){
+                    return true;
+				}
+            }
+        }
+
+	}
+	return false;
 }
