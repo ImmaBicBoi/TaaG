@@ -322,10 +322,6 @@ function addPersonVertex(icon, w, h, style, data, key)
 			vertex.setConnectable(false);
 
 			addPersonToolbarItem(graph, personToolbar, vertex, icon, data, key);
-
-			
-			
-			
 		};
 
 function makeDraggable(){
@@ -401,67 +397,73 @@ function addPersonToolbarItem(graph, personToolbar, prototype, image, data, key)
 		if (!isTable)
 		{
 			parent = cell;
-			var pstate = graph.getView().getState(parent);
-			var childCount = graph.model.getChildCount(parent);
-			if (parent == null || pstate == null)
-			{
-				//mxUtils.alert('Drop target must be a table');
+			if (cell == null) {
+				alert("Please drag person into Position correctly!");
 				return;
 			}
-			if (childCount > 0)
-			{
-				//mxUtils.alert('Drop target is full');
-				return;
-			}
-			
-			pt.x -= pstate.x;
-			pt.y -= pstate.y;
-			var columnCount = graph.model.getChildCount(parent)+1;
+            newPersonColumn(parent, name);
+
+            // var pstate = graph.getView().getState(parent);
+			// var childCount = graph.model.getChildCount(parent);
+			// if (parent == null || pstate == null)
+			// {
+			// 	//mxUtils.alert('Drop target must be a table');
+			// 	return;
+			// }
+			// if (childCount > 0)
+			// {
+			// 	//mxUtils.alert('Drop target is full');
+			// 	return;
+			// }
+            //
+			// pt.x -= pstate.x;
+			// pt.y -= pstate.y;
+			// var columnCount = graph.model.getChildCount(parent)+1;
 			//parentPos = graph.
 			//parent.setGeometry(new mxGeometry(pstate.x, pstate.y, 200, 60));
 			//parent.imageSize = 50;
 			//name = mxUtils.prompt('Enter name for new column', 'COLUMN'+columnCount);
 		}
-
-		if (name != null)
-				{
-					var v1 = model.cloneCell(vertex);
-					
-					model.beginUpdate();
-					try
-					{
-						v1.value.name = name;
-						v1.value.person_id = data.persons[key].person_id;
-						v1.geometry.x = pt.x;
-						v1.geometry.y = pt.y;
-						console.log("just dropped person with id: "+ v1.value.person_id + " and name " + v1.value.name);
-						//graph.addCell(v1, parent);
-						setCurrentCell(v1);
-						if (isTable)
-						{
-							v1.geometry.alternateBounds = new mxRectangle(0, 0, v1.geometry.width, v1.geometry.height);
-							v1.children[0].value.name = name + '_ID';
-							//parent.insert(v1);
-							//graph.addCell(v1, parent);
-						}
-					}
-					finally
-					{
-						model.endUpdate();
-					}
-					
-					graph.setSelectionCell(v1);
-				}
-
-
-		vertex.geometry.x = pt.x;
-		vertex.geometry.y = pt.y;
-		graph.model.setValue(vertex, data.persons[key].first_name + " " + data.persons[key].last_name);
-		mxGraph.prototype.isCellsEditable = false;
-		//console.log("dropped person: " + data.persons[key].first_name + " " + data.persons[key].last_name);
-		
-		
-		graph.setSelectionCells(graph.importCells([vertex], 0, 0, cell));
+        //
+		// if (name != null)
+		// 		{
+		// 			var v1 = model.cloneCell(vertex);
+		//
+		// 			model.beginUpdate();
+		// 			try
+		// 			{
+		// 				v1.value.name = name;
+		// 				v1.value.person_id = data.persons[key].person_id;
+		// 				v1.geometry.x = pt.x;
+		// 				v1.geometry.y = pt.y;
+		// 				console.log("just dropped person with id: "+ v1.value.person_id + " and name " + v1.value.name);
+		// 				//graph.addCell(v1, parent);
+		// 				setCurrentCell(v1);
+		// 				if (isTable)
+		// 				{
+		// 					v1.geometry.alternateBounds = new mxRectangle(0, 0, v1.geometry.width, v1.geometry.height);
+		// 					v1.children[0].value.name = name + '_ID';
+		// 					//parent.insert(v1);
+		// 					//graph.addCell(v1, parent);
+		// 				}
+		// 			}
+		// 			finally
+		// 			{
+		// 				model.endUpdate();
+		// 			}
+		//
+		// 			graph.setSelectionCell(v1);
+		// 		}
+        //
+        //
+		// vertex.geometry.x = pt.x;
+		// vertex.geometry.y = pt.y;
+		// graph.model.setValue(vertex, data.persons[key].first_name + " " + data.persons[key].last_name);
+		// mxGraph.prototype.isCellsEditable = false;
+		// //console.log("dropped person: " + data.persons[key].first_name + " " + data.persons[key].last_name);
+		//
+		//
+		// graph.setSelectionCells(graph.importCells([vertex], 0, 0, cell));
 		//alert("TEST");
 	}
 	// Creates the image which is used as the drag icon (preview)
@@ -492,18 +494,11 @@ $('#save-graph-btn').click(function(){
 function savetheGraph(){
 	var encoder  = new mxCodec();
 	var node = encoder.encode(graph.getModel());
-	// xml = mxUtils.getXml(node);
 	var xmlText = (new XMLSerializer()).serializeToString(node);
-	// console.log("xml text is..");
-	// console.log(xmlText);
-	var ret = xmlText.replace('<mxGraphModel>','');
-	var ret2 = ret.replace('</mxGraphModel>','');
-	// console.log(ret2);
-	// var xmlText = new XMLSerializer().serializeToString(xml);
-	console.log('save graph clicked.' +ret2);
+	console.log('save graph clicked.' + xmlText);
 	var graphData = {
 		"name": "Fairfield Univ",
-		"data": ret2
+		"data": xmlText
 
 	}
 	saveGraph(graphData);
@@ -514,49 +509,13 @@ function loadGraphInitially(data){
 
 	console.log("inside loadGrpahIntially.");
 	var xml = data;
-
-	// var xml ='<root><mxCell id="0"/><mxCell id="1" parent="0"/><mxCell id="2" value="CEO" style="shape=rounded" vertex="1" parent="1"><mxGeometry x="90" y="110" width="100" height="40" as="geometry"/></mxCell><mxCell id="3" value="Developer" style="shape=rounded" vertex="1" parent="1"><mxGeometry x="70" y="230" width="100" height="40" as="geometry"/></mxCell><mxCell id="4" value="QA Tester" style="shape=rounded" vertex="1" parent="1"><mxGeometry x="170" y="280" width="100" height="40" as="geometry"/></mxCell><mxCell id="5" edge="1" parent="1" source="2" target="3"><mxGeometry relative="1" as="geometry"/></mxCell><mxCell id="6" edge="1" parent="1" source="2" target="4"><mxGeometry relative="1" as="geometry"/></mxCell></root>';
 	console.log(xml);
 
-	var doc = mxUtils.parseXml(xml);
-                      // XmlNode secondPrice = doc.GetElementsByTagName("root")[1];
-                      // console.log(secondPrice);
-                      var codec = new mxCodec(doc);
-                      var elt = doc.documentElement.firstChild;
-                    // console.log(elt);
-                    var cells = [];
-                    while (elt != null){                
-                    	cells.push(codec.decodeCell(elt));
-                        // graph.refresh();
-                        elt = elt.nextSibling;
-                      // console.log(cells);
-                  }
-
-                  graph.addCells(cells);
-
+    var doc = mxUtils.parseXml(xml);
+    var codec = new mxCodec(doc);
+    codec.decode(doc.documentElement, graph.getModel());
+    graph.refresh();
 }   
-
-// graph.convertValueToString = function(cell)
-// {
-// 	if (mxUtils.isNode(cell.value))
-// 	{
-// 		return cell.getAttribute('name', '')
-// 	}
-// };
-
-// var cellLabelChanged = graph.cellLabelChanged;
-// graph.cellLabelChanged = function(cell, newValue, autoSize)
-// {
-// 	if (mxUtils.isNode(cell.value))
-// 	{
-// 		// Clones the value for correct undo/redo
-// 		var elt = cell.value.cloneNode(true);
-// 		elt.setAttribute('name', newValue);
-// 		newValue = elt;
-// 	}
-
-// 	cellLabelChanged.apply(this, arguments);
-// };
 
 
 // Defines the table user object
@@ -668,7 +627,6 @@ function updateGraphElements(){
 			for(var j = 0; j < attr.length; j++){
 				console.log("adding " + attr[j].key + " to " + positions[i].value);
 				newColumn(positions[i], attr[j].key+ ": "+ findPosValueByKey(positionID,attr[j].key), pstate, j+1);
-
 			}
 		}
 	}
@@ -683,9 +641,16 @@ function newColumn(parent, text, pstate, index){
 	vertex.setConnectable(false);
 	vertex.value.name = text;
 	var model = graph.getModel();
-	
-	//graph.insertVertex(parent, null, text, pstate.x, pstate.y, 200, 26)
 	graph.addCell(vertex, parent,index);
-	//graph.setSelectionCell(v1);
-				
+}
+
+function newPersonColumn(parent, text) {
+	var existingChildCount = parent.getChildCount();
+    var columnObject = new Column(text);
+    var vertex = new mxCell(columnObject, new mxGeometry(0, (existingChildCount+1)*26, 200, 26), 'shape=rounded');
+    vertex.setVertex(true);
+    vertex.setConnectable(false);
+    vertex.value.name = text;
+    var model = graph.getModel();
+    graph.addCell(vertex, parent);
 }
