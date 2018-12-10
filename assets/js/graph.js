@@ -668,11 +668,12 @@ function getRightSideBar(cell, evt){
 	            console.log(dataGlobal);
 
 	            //checks if the position table with id retrivied from cell, if exists opens positionTab
-               if(dataGlobal.positions != null){
+               if(graph.isSwimlane(cell) == true){
                	
-	            openPositionsTab(dataGlobal.positions[id-1].position_id,
-                    dataGlobal.positions[id-1].name,
-                    dataGlobal.positions[id-1].person_id);
-	            } else //if positions doesn't exist it opens persons tab
-	           openPersonsTab(dataGlobal.persons[id-1].person_id,dataGlobal.persons[id-1].first_name,dataGlobal.persons[id-1].last_name);
+	            openPositionsTab(dataGlobalpos.positions[id-1].position_id,
+                    dataGlobalpos.positions[id-1].name,
+                    dataGlobalpos.positions[id-1].person_id);
+	            } else  //if positions doesn't exist it opens persons tab
+	            //console.log(dataGlobal);
+	           openPersonsTab(dataGlobalper.persons[id-1].person_id,dataGlobalper.persons[id-1].first_name,dataGlobalper.persons[id-1].last_name);
 }
