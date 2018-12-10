@@ -10,6 +10,30 @@ var graph = new mxGraph(document.getElementById('graphContainer'), model);
 var tbPositionContainer = document.getElementById('position-list');
 var tbPersonContainer = document.getElementById('people-list');
 
+
+//zoomin button
+$('#zoomin-btn').click(function(){
+    graph.zoomIn();
+    console.log('zoomin clicked.');
+   
+});
+//zoomout button
+$('#zoomout-btn').click(function(){
+    graph.zoomOut();
+    console.log('zoomout clicked.');
+    
+});
+
+//************************************************************
+//enable panning
+graph.setCellsMovable(false);
+graph.setAutoSizeCells(true);
+graph.setPanning(true);
+graph.centerZoom = false;
+graph.panningHandler.useLeftButtonForPanning = true;
+
+//*************************************************************
+
 				
 //document.body.appendChild(tbContainer);
 // Creates new toolbar without event processing
