@@ -345,6 +345,12 @@ function addPositionToolbarItem(graph, posToolbar, prototype, image, data, key)
 			// the mousepointer if there is one.
 			var funct = function(graph, evt, cell)
 			{
+				var posValue = data.positions[key].position_id +" "+ data.positions[key].name;
+                if (checkIfPositionExists(posValue)){
+                    alert("Position already exists in the graph");
+                   // $('#messages').html("Position already exists in the graph");
+                    return;
+                }
 				graph.stopEditing(false);
 				var pt = graph.getPointForEvent(evt);
 				var vertex = graph.getModel().cloneCell(prototype);
@@ -398,6 +404,7 @@ function addPersonToolbarItem(graph, personToolbar, prototype, image, data, key)
 		{
 			parent = cell;
 			if (cell == null) {
+                //$('#messages').html("Please drag person into Position correctly!");
 				alert("Please drag person into Position correctly!");
 				return;
 			}
@@ -522,14 +529,12 @@ function loadGraphInitially(data){
 function Table(name)
 {
 	this.name = name;
-	this.isPersonExists = false;
 };
 
 Table.prototype.clone = function()
 {
 	return mxUtils.clone(this);
 };
-Table.prototype.isPersonExists = false;
 // Defines the column user object
 function Column(name)
 {
@@ -649,10 +654,12 @@ function newPersonColumn(parent, text, personId) {
 	var existingChildCount = parent.getChildCount();
 	if (checkIfPositionHasPerson(parent)) {
         alert("Person already exists in this Position");
+       // $('#messages').html("Person already exists in this Position");
         return;
     }
     if (checkIfPersonExistsInAnotherPosition(personId)) {
         alert("Person already exists in another Position");
+       // $('#messages').html("Person already exists in another Position");
         return;
     }
     var columnObject = new Column(text);
@@ -693,4 +700,15 @@ function checkIfPersonExistsInAnotherPosition(PersonId) {
 
 	}
 	return false;
+}
+function checkIfPositionExists(PositionValue){
+ var ExistingPos = PositionValue;
+    var existingPositionsNodeCount = graph.getDefaultParent().getChildCount();
+    for(var i =0; i<existingPositionsNodeCount;i++){
+        var position = graph.getDefaultParent().children[i];
+        if(position.value ==  ExistingPos){
+        	return true;
+		}
+    }
+    return false;
 }
