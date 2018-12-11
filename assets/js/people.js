@@ -86,7 +86,7 @@ $('#add-people-confirm').click(function(){
 
     
     $('#add-people-modal').modal('hide');
-    loadPeople();
+    loadAllPersons();
     //writePeopleJson();
 }); 
 
