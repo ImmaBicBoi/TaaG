@@ -9,7 +9,7 @@ var graph = new mxGraph(document.getElementById('graphContainer'), model);
 // Creates the div for the toolbars
 var tbPositionContainer = document.getElementById('position-list');
 var tbPersonContainer = document.getElementById('people-list');
-
+var newDroppedPosition = false;
 
 //zoomin button
 $('#zoomin-btn').click(function(){
@@ -241,6 +241,7 @@ function initializeGraph(container){
 					document.getElementById('delete-cell-btn').disabled= false;
 				}
 				console.log("testing. is this cell a position?:" + graph.isSwimlane(cell) + " and this cell has " + cell.getChildCount() + " children");
+				console.log(cell.children);
 			}else
 			document.getElementById('delete-cell-btn').disabled = true;
 			evt.consume();
@@ -416,7 +417,7 @@ function addPositionToolbarItem(graph, posToolbar, prototype, image, data, key)
 				//alert("TEST");
 				updateGraphElements();
 				openPositionsTab(data.positions[key].position_id,data.positions[key].name,data.positions[key].person_id);
-
+				
 			}
 			// Creates the image which is used as the drag icon (preview)
             var img = posToolbar.addMode(null, null, funct);
@@ -677,37 +678,34 @@ function updateGraphElements(){
 	var pstate;
 	var positionArr;
 	var positionID;
+	var positionData;
 	for (var i = 0; i < positions.length; i++){
 		if(graph.isSwimlane(positions[i])){
 			pstate = graph.getView().getState(positions[i]);
 			positionArr = positions[i].value.split(" ");
 			positionID = parseInt(positionArr[0]);
+			positionData = getPosition(positionID);
 			//console.log(positions[i].value);
 			console.log("changing size of cell to accomodate attribute count for ID " + positionID);
 			positions[i].setGeometry(new mxGeometry(pstate.x, pstate.y, 200, cellHeight));
 			for(var j=0; j < positions[i].getChildCount();j++){
 				
-				if(positions[i].children[j].value.type == "attribute"){
+				if(positions[i].children[j].value.type == "attribute" || positions[i].children[j].value.type == "person"){
 					positions[i].children[j].value.name = "";
+					positions[i].children[j].value.type = "";
 					positions[i].children[j].remove();
+					//positions[i].remove(j)
 				}
 				
 			}			
-			//newColumn(positions[i], "", pstate, 0);
 			for(var j = 0; j < attr.length; j++){
-				
-				// if(positions[i].children != null && positions[i].children[j] != null){
-				// 	if(positions[i].children[j].value.type == "attribute"){
-				// 		console.log("removing " + positions[i].children[j].value.name + " from "+ positions[i].value);
-						
-				// 		console.log(positions[i].remove(j));
-				// 		//graph.removeCells(positions[i].children[j]);
-				// 		//graph.removeCell(positions[i].children[j]);
-				// 	}
-					
-				// }
+
 				console.log("adding " + attr[j].key + " to " + positions[i].value);
 				newColumn(positions[i], attr[j].key+ ": "+ findPosValueByKey(positionID,attr[j].key), pstate, j+1);
+			}
+			if(positionData.person_id > 0){
+				loadPersonIntoPosition(positions[i], positionData.person_id);
+
 			}
 			graph.getView().clear(positions[i], false, false);
 			graph.getView().validate();
@@ -729,13 +727,19 @@ function newColumn(parent, text, pstate, index){
 }
 
 function newPersonColumn(parent, text, personId) {
-	var existingChildCount = parent.getChildCount();
-	if (checkIfPositionHasPerson(parent)) {
+
+	var existingChildCount = 0;
+	for(var i = 0; i < parent.getChildCount(); i++){
+		if(parent.children[i].value.type == "attribute"){
+			existingChildCount++;
+		}
+	}
+	if (checkIfPositionHasPerson(parent) && !newDroppedPosition) {
         alert("Person already exists in this Position");
        // $('#messages').html("Person already exists in this Position");
         return;
     }
-    if (checkIfPersonExistsInAnotherPosition(personId)) {
+    if (checkIfPersonExistsInAnotherPosition(personId) && !newDroppedPosition) {
         alert("Person already exists in another Position");
        // $('#messages').html("Person already exists in another Position");
         return;
@@ -743,7 +747,7 @@ function newPersonColumn(parent, text, personId) {
     var columnObject = new Column(text);
     columnObject.person_id = personId;
 
-
+	console.log("adding person " +text+" to position " + parent.getValue() +" which has " + existingChildCount + " children.");
     var vertex = new mxCell(columnObject, new mxGeometry(0, (existingChildCount+1)*26, 200, 26), 'shape=rounded');
     vertex.setVertex(true);
     vertex.setConnectable(false);
@@ -754,7 +758,14 @@ function newPersonColumn(parent, text, personId) {
 	console.log(parent.value);
 	var posID = parent.getValue().split(" ");
 	vertex.value.parent_id = posID[0];
-	updateRelationship(personId, parseInt(posID[0]));
+	if(!newDroppedPosition){
+		updateRelationship(personId, parseInt(posID[0]));
+	}else{
+		graph.getView().clear(parent, false, false);
+			graph.getView().validate();
+	}
+	
+	newDroppedPosition = false;
 }
 
 function checkIfPositionHasPerson(parent) {
@@ -794,4 +805,10 @@ function checkIfPositionExists(PositionValue){
 		}
     }
     return false;
+}
+
+function loadPersonIntoPosition(parent, personID){
+	var person = getPerson(personID);
+	newDroppedPosition = true;
+	newPersonColumn(parent, person.first_name + " " + person.last_name, personID );
 }
