@@ -266,7 +266,12 @@ function openPositionsTab(id,name, occupantID,){
 
     $.each(position.attributes, function (i, val){
         console.log("app");
-       $('#pos-attributes').append("<span id='attrKey"+ i +"' class='modal-headers'>"+ position.attributes[i].key +":</span>" + "<p id ='attrValue"+ i+ "' contenteditable='false'>"+position.attributes[i].value +"</p>"); //insert positon adittional attributes
+        if(position.attributes[i].value == null){
+            $('#pos-attributes').append("<span id='attrKey"+ i +"' class='modal-headers'>"+ position.attributes[i].key +":</span>" + "<p id ='attrValue"+ i+ "' contenteditable='false'>N/A</p>"); //insert positon adittional attributes
+        }else{
+            $('#pos-attributes').append("<span id='attrKey"+ i +"' class='modal-headers'>"+ position.attributes[i].key +":</span>" + "<p id ='attrValue"+ i+ "' contenteditable='false'>"+position.attributes[i].value +"</p>"); //insert positon adittional attributes
+
+        }
 
     });
     

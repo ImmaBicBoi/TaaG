@@ -236,8 +236,12 @@ $('#ppl-delete-btn').click(function(){
     $('#pos-id').html("<span class='modal-headers'>Employee ID: </span>" + "<p contenteditable='false'>"+ empID ) + "</p>"; //insert employee id 
     $.each(person.attributes, function (i, val){
         //console.log("app");
-       $('#person-attributes').append("<span id='attrKey" +i+ "' class='modal-headers'>"+ person.attributes[i].key +":</span>" + "<p id='attrValue"+i+ "' contenteditable='false'>"+person.attributes[i].value +"</p>"); //insert positon adittional attributes
-
+        if(person.attributes[i].value == null){
+            $('#person-attributes').append("<span id='attrKey" +i+ "' class='modal-headers'>"+ person.attributes[i].key +":</span>" + "<p id='attrValue"+i+ "' contenteditable='false'>N/A</p>"); //insert positon adittional attributes
+        }else{
+            $('#person-attributes').append("<span id='attrKey" +i+ "' class='modal-headers'>"+ person.attributes[i].key +":</span>" + "<p id='attrValue"+i+ "' contenteditable='false'>"+person.attributes[i].value +"</p>"); //insert positon adittional attributes
+ 
+        }
     });
     //$('#email').html("<span class='modal-headers'>Email:</span>" + "<p id = 'ppl-email' contenteditable='false'>" + attribute + "</p>"); //insert email
     //$('#phone').html("<span class='modal-headers'>Phone:</span>" + "<p id = 'ppl-phone' contenteditable='false'>" + attribute + "</p>"); //insert number
