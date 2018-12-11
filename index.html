@@ -368,6 +368,7 @@
                   class="btn btn-danger"
                   type="button"
                   disabled="disabled"
+                  onclick="disappear()"
                 >
                   Delete
                 </button>
@@ -545,7 +546,7 @@
 
       function disappear(){
           console.log("timeout...");
-  document.getElementById("messages").innerHTML = "";
+  // document.getElementById("messages").innerHTML = "";
   setTimeout(function(){ 
       document.getElementById("messages").innerHTML = "";
   }, 1000);

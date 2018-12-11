@@ -301,7 +301,7 @@ function saveGraph(graphData){
         //alert(data + " " + status);
 		if(jqXHR.status == 200){
       var div = document.getElementById('messages');
-      div.innerHTML +=" ";
+      document.getElementById("messages").innerHTML = "";
       div.innerHTML += 'Chart Saved Succesfully';
     }
         console.log("response "+JSON.stringify(data) + " " + jqXHR.status);
