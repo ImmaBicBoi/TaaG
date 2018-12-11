@@ -415,7 +415,7 @@ function addPositionToolbarItem(graph, posToolbar, prototype, image, data, key)
 				
 				graph.setSelectionCells(graph.importCells([vertex], 0, 0, cell));
 				//alert("TEST");
-				updateGraphElements();
+				updateGraphElements(data.positions[key].position_id);
 				openPositionsTab(data.positions[key].position_id,data.positions[key].name,data.positions[key].person_id);
 				
 			}
@@ -670,7 +670,7 @@ function getCurrentCell(){
 	return currentCell;
 }
 
-function updateGraphElements(){
+function updateGraphElements(positionIdToUpdate){
 	var positions = graph.getChildCells(graph.getDefaultParent(), true, true);
 	var attr = getVisiblePosAttributes();
 	var cellHeight = 60 + (attr.length)*26;
@@ -685,30 +685,21 @@ function updateGraphElements(){
 			positionArr = positions[i].value.split(" ");
 			positionID = parseInt(positionArr[0]);
 			positionData = getPosition(positionID);
-			//console.log(positions[i].value);
-			console.log("changing size of cell to accomodate attribute count for ID " + positionID);
-			positions[i].setGeometry(new mxGeometry(pstate.x, pstate.y, 200, cellHeight));
-			for(var j=0; j < positions[i].getChildCount();j++){
-				
-				if(positions[i].children[j].value.type == "attribute" || positions[i].children[j].value.type == "person"){
-					positions[i].children[j].value.name = "";
-					positions[i].children[j].value.type = "";
-					positions[i].children[j].remove();
-					//positions[i].remove(j)
-				}
-				
-			}			
-			for(var j = 0; j < attr.length; j++){
+            if (positionID === positionIdToUpdate) {
+                console.log("changing size of cell to accomodate attribute count for ID " + positionID);
+                positions[i].setGeometry(new mxGeometry(pstate.x, pstate.y, 200, cellHeight));
+                for(var j = 0; j < attr.length; j++){
 
-				console.log("adding " + attr[j].key + " to " + positions[i].value);
-				newColumn(positions[i], attr[j].key+ ": "+ findPosValueByKey(positionID,attr[j].key), pstate, j+1);
-			}
-			if(positionData.person_id > 0){
-				loadPersonIntoPosition(positions[i], positionData.person_id);
+                    console.log("adding " + attr[j].key + " to " + positions[i].value);
+                    newColumn(positions[i], attr[j].key+ ": "+ findPosValueByKey(positionID,attr[j].key), pstate, j+1);
+                }
+                if(positionData.person_id > 0){
+                    loadPersonIntoPosition(positions[i], positionData.person_id);
 
-			}
-			graph.getView().clear(positions[i], false, false);
-			graph.getView().validate();
+                }
+                graph.getView().clear(positions[i], false, false);
+                graph.getView().validate();
+            }
 		}
 	}
 
