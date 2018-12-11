@@ -93,6 +93,7 @@ $('#delete-cell-btn').click(function(){
 
 			}else{
 				alert("An error occured. Could Not Update relationship.");
+				document.getElementById('delete-cell-btn').disabled = true;
 				return;
 			}
 		}
@@ -211,7 +212,7 @@ function initializeGraph(container){
 				// SelectGraphCell(cell);
 				graph.setSelectionCell(cell);
 				if(cell.value.type == "attribute"){
-
+					document.getElementById('delete-cell-btn').disabled= true;
 				}else{
 					document.getElementById('delete-cell-btn').disabled= false;
 				}
