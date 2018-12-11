@@ -278,7 +278,7 @@ function initializeGraph(container){
 					}
 				}
 				var checkCell = me.getCell();
-				if(checkCell.value.type == "attribute"){
+				if(checkCell != null && checkCell.value.type == "attribute"){
 					var tmp = graph.view.getState(null);
 				}else{
 					var tmp = graph.view.getState(me.getCell());
@@ -685,7 +685,10 @@ function updateGraphElements(){
 			//console.log(positions[i].value);
 			console.log("changing size of cell to accomodate attribute count for ID " + positionID);
 			positions[i].setGeometry(new mxGeometry(pstate.x, pstate.y, 200, cellHeight));
-			
+			for(var j=0; j < positions[i].getChildCount();j++){
+				positions[i].children[j].value.name = "";
+				positions[i].children[j].remove();
+			}			
 			//newColumn(positions[i], "", pstate, 0);
 			for(var j = 0; j < attr.length; j++){
 				
