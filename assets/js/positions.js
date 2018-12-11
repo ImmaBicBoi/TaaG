@@ -127,25 +127,22 @@ $('#edit-btn').click(function(){
         "contenteditable", "true");
 
 
-    document.getElementById('pos-ocfname').style.display = "none";
+    //document.getElementById('pos-ocfname').style.display = "none";
     //document.getElementById('pos-oclname').style.display = "none";    
     var CurrentOcName = document.getElementById("pos-ocfname").innerHTML;
     //console.log(CurrentOcName); 
 
-    $('#namespan select').remove();
-    $('#namespan').append(
-        $('<select/>').append(
-        $('<option/>').html(CurrentOcName)
-    ));
+    //$('#namespan select').remove();
+    //$('#namespan').html(CurrentOcName);
 
-    $.getJSON('http://localhost:8080/Taag/service/person', function (data) {
-        $.each(data.persons, function (i, field) {
-            $('#namespan select').append(
-                $('<option/>').html(data.persons[i].first_name + " " + data.persons[i].last_name)
-            )
-            //console.log(data.persons[i].first_name);
-        })
-    });
+    // $.getJSON('http://localhost:8080/Taag/service/person', function (data) {
+    //     $.each(data.persons, function (i, field) {
+    //         $('#namespan select').append(
+    //             $('<option/>').html(data.persons[i].first_name + " " + data.persons[i].last_name)
+    //         )
+    //         //console.log(data.persons[i].first_name);
+    //     })
+    // });
 
 });
 
@@ -154,8 +151,8 @@ $('#save-btn').click(function(){
     //make UN-editable 
     $('#pos-ocfname, #pos-oclname, #pos-title, #namespan').attr('contenteditable','false');
 
-    var selectValue = $('#namespan select :selected').val();
-    var selectID = getPersonID(selectValue);
+    var selectValue = $('#pos-ocfname').html();
+    //var selectID = getPersonID(selectValue);
 
     console.log(selectValue + ":" + selectID);
 
@@ -165,6 +162,8 @@ $('#save-btn').click(function(){
     document.getElementById('delete-btn').style ="display: none;"
 
     var postitle = document.getElementById('details-title').innerHTML;
+    var selectID = getPersonID(selectValue);
+
     console.log(postitle);
 
     // This variable contains the Position attributes JSON object from the server
