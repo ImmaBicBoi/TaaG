@@ -83,10 +83,13 @@ $('#delete-cell-btn').click(function(){
 
 		if(cells[i].value.type == "person"){
 			console.log("deleting cell inside " +cells[i].value.parent_id);
-			var position = cells[i].value.parent_id;
+			var positionID = cells[i].value.parent_id;
+			var parentName = cells[i].getParent().getValue().split(" ");
+			if(positionID > 0){
+				updateRelationship(0, positionID);
+				
+				openPositionsTab(positionID,parentName[1],0);
 
-			if(position > 0){
-				updateRelationship(0, position);
 
 			}else{
 				alert("An error occured. Could Not Update relationship.");
@@ -94,10 +97,10 @@ $('#delete-cell-btn').click(function(){
 			}
 		}
 	}
+	
 	graph.removeCells(cells);
      savetheGraph();
 	document.getElementById('delete-cell-btn').disabled = true;
-	console.log("testing delete btn");
 	
 });
 
@@ -106,7 +109,7 @@ function initializeGraph(container){
             // Checks if the browser is supported
             // Defines an icon for creating new connections in the connection handler.
 			// This will automatically disable the highlighting of the source vertex.
-			mxConnectionHandler.prototype.connectImage = new mxImage('images/connector.gif', 16, 16);
+		//	mxConnectionHandler.prototype.connectImage = new mxImage('images/connector.gif', 16, 16);
 		
 			// Checks if browser is supported
 			if (!mxClient.isBrowserSupported())
@@ -207,7 +210,11 @@ function initializeGraph(container){
 			if (cell != null) {
 				// SelectGraphCell(cell);
 				graph.setSelectionCell(cell);
-				document.getElementById('delete-cell-btn').disabled= false;
+				if(cell.value.type == "attribute"){
+
+				}else{
+					document.getElementById('delete-cell-btn').disabled= false;
+				}
 				console.log("testing. is this cell a position?:" + graph.isSwimlane(cell) + " and this cell has " + cell.getChildCount() + " children");
 			}else
 			document.getElementById('delete-cell-btn').disabled = true;
@@ -245,8 +252,13 @@ function initializeGraph(container){
 						return;
 					}
 				}
-				
-				var tmp = graph.view.getState(me.getCell());
+				var checkCell = me.getCell();
+				if(checkCell.value.type == "attribute"){
+					var tmp = graph.view.getState(null);
+				}else{
+					var tmp = graph.view.getState(me.getCell());
+
+				}
 				
 				// Ignores everything but vertices
 				// if (graph.isMouseDown || (tmp != null && !graph.getModel().isVertex(tmp.cell)))
@@ -378,6 +390,8 @@ function addPositionToolbarItem(graph, posToolbar, prototype, image, data, key)
 				graph.setSelectionCells(graph.importCells([vertex], 0, 0, cell));
 				//alert("TEST");
 				updateGraphElements();
+				openPositionsTab(data.positions[key].position_id,data.positions[key].name,data.positions[key].person_id);
+
 			}
 			// Creates the image which is used as the drag icon (preview)
             var img = posToolbar.addMode(null, null, funct);
@@ -424,8 +438,9 @@ function addPersonToolbarItem(graph, personToolbar, prototype, image, data, key)
 				alert("Please drag person into Position correctly!");
 				return;
 			}
+			var parentID = parent.getValue().split(" ");
             newPersonColumn(parent, name, data.persons[key].person_id);
-
+			openPositionsTab(parentID[0],parentID[1],data.persons[key].person_id);
             // var pstate = graph.getView().getState(parent);
 			// var childCount = graph.model.getChildCount(parent);
 			// if (parent == null || pstate == null)
@@ -607,7 +622,7 @@ function configureStylesheet(graph)
 			style[mxConstants.STYLE_VERTICAL_ALIGN] = 'middle';
 			style[mxConstants.STYLE_FONTSIZE] = '12';
 			style[mxConstants.STYLE_FONTSTYLE] = 1;
-			style[mxConstants.STYLE_IMAGE] = 'images/icons48/table.png';
+			//style[mxConstants.STYLE_IMAGE] = 'images/icons48/table.png';
 			// Looks better without opacity if shadow is enabled
 			//style[mxConstants.STYLE_OPACITY] = '80';
 			style[mxConstants.STYLE_SHADOW] = 1;
