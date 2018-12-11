@@ -229,7 +229,7 @@ $('#save-btn').click(function(){
     $('#namespan').attr(
         "style", "border: rgb(124,252,0); background: rgb(124,252,0)");
         
-    
+    updateGraphElements();
 });
 
 

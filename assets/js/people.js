@@ -213,7 +213,7 @@ $('#ppl-save-btn').click(function(){
     $( "#person-attributes p, #pos-id p" ).attr(
         "style", "border: rgb(124,252,0); background: rgb(124,252,0)");
 
-    
+    updateGraphElements();
 });
 
 $('#ppl-delete-btn').click(function(){
