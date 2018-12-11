@@ -373,29 +373,25 @@
                 </button>
               </div>
 
-              <div class="col-4" id="messages" style="color:#08DC03;font-weight:bold;text-align: center;font-size: 20px;box-sizing: border-box;width: 50%;" >
-    </div>
+              <div
+                class="col-3"
+                id="messages"
+                style="color:#08DC03;font-weight:bold; display:table-cell; text-align: center; vertical-align: middle; font-size: 12px;box-sizing: border-box;"
+              ></div>
 
               <div class="col">
                 <!-- Button is disabled on loading the page -->
-                <button
-                  id="zoomin-btn"
-                  class="badge badge-pill badge-light" 
-                >
+                <button id="zoomin-btn" class="badge badge-pill badge-light">
                   +
                 </button>
               </div>
 
-               <div class="col">
+              <div class="col">
                 <!-- Button is disabled on loading the page -->
-                <button
-                  id="zoomout-btn"
-                  class="badge badge-pill badge-light" 
-                >
+                <button id="zoomout-btn" class="badge badge-pill badge-light">
                   -
                 </button>
               </div>
-
             </div>
             <!-- MxGraph -->
             <div
@@ -565,14 +561,13 @@
         //  console.log(arr);
       }
 
-function disappear(){
-          console.log("timeout...");
-  // document.getElementById("messages").innerHTML = "";
-  setTimeout(function(){ 
-      document.getElementById("messages").innerHTML = "";
-  }, 1000);
-}
-
+      function disappear() {
+        console.log("timeout...");
+        // document.getElementById("messages").innerHTML = "";
+        setTimeout(function() {
+          document.getElementById("messages").innerHTML = "";
+        }, 1000);
+      }
     </script>
   </body>
 </html>
