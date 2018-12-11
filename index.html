@@ -26,10 +26,6 @@
         <div class="collapse navbar-collapse" id="navcol-1"></div>
       </div>
     </nav>
-    <div
-      id="messages"
-      style="color:#08DC03;font-weight:bold;text-align: center;font-size: 20px;box-sizing: border-box;width: 50%;padding: 15px; "
-    ></div>
     <div class="row" style="height:30px;min-height:30px;"></div>
     <!-- Add position popup -->
     <div
@@ -359,6 +355,7 @@
                   id="save-graph-btn"
                   class="btn btn-success"
                   type="button"
+                  onclick="disappear()"
                 >
                   Save Graph
                 </button>
@@ -370,10 +367,13 @@
                   class="btn btn-danger"
                   type="button"
                   disabled="disabled"
+                  onclick="disappear()"
                 >
                   Delete
                 </button>
               </div>
+              <div class="col-4" id="messages" style="color:#08DC03;font-weight:bold;text-align: center;font-size: 20px;box-sizing: border-box;width: 50%;" >
+    </div>
             </div>
             <!-- MxGraph -->
             <div
@@ -542,6 +542,15 @@
 
         //  console.log(arr);
       }
+      
+function disappear(){
+          console.log("timeout...");
+  // document.getElementById("messages").innerHTML = "";
+  setTimeout(function(){ 
+      document.getElementById("messages").innerHTML = "";
+  }, 1000);
+}
+
     </script>
   </body>
 </html>
