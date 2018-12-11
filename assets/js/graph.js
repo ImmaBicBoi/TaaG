@@ -686,8 +686,12 @@ function updateGraphElements(){
 			console.log("changing size of cell to accomodate attribute count for ID " + positionID);
 			positions[i].setGeometry(new mxGeometry(pstate.x, pstate.y, 200, cellHeight));
 			for(var j=0; j < positions[i].getChildCount();j++){
-				positions[i].children[j].value.name = "";
-				positions[i].children[j].remove();
+				
+				if(positions[i].children[j].value.type == "attribute"){
+					positions[i].children[j].value.name = "";
+					positions[i].children[j].remove();
+				}
+				
 			}			
 			//newColumn(positions[i], "", pstate, 0);
 			for(var j = 0; j < attr.length; j++){
