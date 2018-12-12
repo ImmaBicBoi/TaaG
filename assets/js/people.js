@@ -4,7 +4,11 @@ var lastName = document.getElementById('input-last-name');
 var employeeID = document.getElementById('input-emp-id');
 var attPersonArray = [];
 var attPersonNameArray = [];
-
+var perArray = [];
+var perArrayval =[];
+var perdata;
+var attrNameperId= [];
+var attrValueperId= [];
 
 var empPos = document.getElementById('input-emp-position');
 var email = document.getElementById('input-email');
@@ -55,39 +59,54 @@ $('#add-person-btn').click(function(){
 
 $('#add-people-confirm').click(function(){
 
+
+
+
+console.log("confirm clicked...")
+for(var i = 0;i<attrNameperId.length; i++){
+    // console.log(attrValueId[i]);
+    var name = attrNameperId[i];
+    var value = document.getElementById(attrValueperId[i]).value;
+    var attributeperData = {"key": name,"value":value};
+    attPersonArray.push(attributeperData);
+    // attNameArray.push(name);
+    // console.log(value);
+}
     var personData = {
         "first_name": firstName.value, 
         "last_name": lastName.value,
-        "employee_id" : employeeID.value
+        "employee_id" : employeeID.value,
+        "attributes": attPersonArray
     };
 
-
+console.log(personData);
     // adding attribute list to array
-    for (var attArrayIndex = 1; attArrayIndex <= attCount; attArrayIndex++ ) 
-    {
-        attPersonArray.push($('#new-person-attribute_'+ attArrayIndex ).val());
-        attPersonNameArray.push($('#new-person-attribute-name_'+ attArrayIndex ).val());
-       // attArray.push.toString(document.getElementById('new-attribute_'+ attArrayIndex));
+    // for (var attArrayIndex = 1; attArrayIndex <= attCount; attArrayIndex++ ) 
+    // {
+    //     attPersonArray.push($('#new-person-attribute_'+ attArrayIndex ).val());
+    //     attPersonNameArray.push($('#new-person-attribute-name_'+ attArrayIndex ).val());
+    //    // attArray.push.toString(document.getElementById('new-attribute_'+ attArrayIndex));
 
-    }
+    // }
 
 
-    // printing the attribute list
-    var i = 0;
-    while (i < attPersonNameArray.length) 
-    {
-        console.log(
-            "Attribute Name: " + attPersonNameArray[i] + "\n"
-            + "Attribute: " + attPersonArray[i]
+    // // printing the attribute list
+    // var i = 0;
+    // while (i < attPersonNameArray.length) 
+    // {
+    //     console.log(
+    //         "Attribute Name: " + attPersonNameArray[i] + "\n"
+    //         + "Attribute: " + attPersonArray[i]
             
-        );
+    //     );
 
-        i++;
-    }
+    //     i++;
+    // }
 
     
     $('#add-people-modal').modal('hide');
-    loadPeople();
+    createPerson(personData);
+    loadAllPersons();
     //writePeopleJson();
 }); 
 
@@ -214,7 +233,7 @@ $('#ppl-save-btn').click(function(){
     $( "#person-attributes p, #pos-id p" ).attr(
         "style", "border: rgb(124,252,0); background: rgb(124,252,0)");
 
-    
+    updateGraphElements();
 });
 
 $('#ppl-delete-btn').click(function(){
@@ -237,8 +256,12 @@ $('#ppl-delete-btn').click(function(){
     $('#pos-id').html("<span class='modal-headers'>Employee ID: </span>" + "<p contenteditable='false'>"+ empID ) + "</p>"; //insert employee id 
     $.each(person.attributes, function (i, val){
         //console.log("app");
-       $('#person-attributes').append("<span id='attrKey" +i+ "' class='modal-headers'>"+ person.attributes[i].key +":</span>" + "<p id='attrValue"+i+ "' contenteditable='false'>"+person.attributes[i].value +"</p>"); //insert positon adittional attributes
-
+        if(person.attributes[i].value == null){
+            $('#person-attributes').append("<span id='attrKey" +i+ "' class='modal-headers'>"+ person.attributes[i].key +":</span>" + "<p id='attrValue"+i+ "' contenteditable='false'>N/A</p>"); //insert positon adittional attributes
+        }else{
+            $('#person-attributes').append("<span id='attrKey" +i+ "' class='modal-headers'>"+ person.attributes[i].key +":</span>" + "<p id='attrValue"+i+ "' contenteditable='false'>"+person.attributes[i].value +"</p>"); //insert positon adittional attributes
+ 
+        }
     });
     //$('#email').html("<span class='modal-headers'>Email:</span>" + "<p id = 'ppl-email' contenteditable='false'>" + attribute + "</p>"); //insert email
     //$('#phone').html("<span class='modal-headers'>Phone:</span>" + "<p id = 'ppl-phone' contenteditable='false'>" + attribute + "</p>"); //insert number
@@ -309,18 +332,40 @@ $('#ppl-delete-btn').click(function(){
     //console.log("no match for " + name );
     return personID;
  }
-
  function loadGlobalattrper(){
     $.getJSON('http://localhost:8080/Taag/service/attribute', function (data) {
 
-          var gbper1 = data.person[0].key;
-          var gbper2 = data.person[1].key;
-          var gbper3 = data.person[2].key;
-          var gbper4 = data.person[3].key;
+          // var gbper1 = data.person[0].key;
+          // var gbper2 = data.person[1].key;
+          // var gbper3 = data.person[2].key;
+          // var gbper4 = data.person[3].key;
          
-          document.getElementById('gbper1').innerHTML = '1:'+ gbper1 ;
-          document.getElementById('gbper2').innerHTML = '2:'+ gbper2 ;
-          document.getElementById('gbper3').innerHTML = '3:'+ gbper3 ;
-          document.getElementById('gbper4').innerHTML = '4:'+ gbper4 ;
+          // document.getElementById('gbper1').innerHTML = '1:'+ gbper1 ;
+          // document.getElementById('gbper2').innerHTML = '2:'+ gbper2 ;
+          // document.getElementById('gbper3').innerHTML = '3:'+ gbper3 ;
+          // document.getElementById('gbper4').innerHTML = '4:'+ gbper4 ;
+
+           perdata = data;
+          var perAttr = data.person;
+          for(var i = 0; i<=data.person.length-1;i++){
+            console.log(data.person[i].key);
+            // var attrName =[];
+            // var attrValue =[];
+            var parent = document.getElementById("attrper");
+
+            var newlabel = document.createElement("Label");
+            newlabel.setAttribute("for",data.person[i].key);
+            newlabel.setAttribute("id",'attrName'+i);
+            newlabel.innerHTML = data.person[i].key;
+            parent.appendChild(newlabel);
+            
+            var input = document.createElement("input");
+            input.setAttribute('type', 'text');
+            input.setAttribute("id",'attrValue'+i);
+            parent.appendChild(input);
+            
+            attrNameperId.push(newlabel.textContent);
+            attrValueperId.push("attrValue"+i);
+        }
     });
 }

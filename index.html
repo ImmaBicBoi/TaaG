@@ -26,10 +26,6 @@
         <div class="collapse navbar-collapse" id="navcol-1"></div>
       </div>
     </nav>
-    <div
-      id="messages"
-      style="color:#08DC03;font-weight:bold;text-align: center;font-size: 20px;box-sizing: border-box;width: 50%;padding: 15px; "
-    ></div>
     <div class="row" style="height:30px;min-height:30px;"></div>
     <!-- Add position popup -->
     <div
@@ -126,12 +122,15 @@
                   </div>
                 </div>
               -->
-                <div class="form-group">
+
+
+
+             <!-- <div class="form-group" id="">
                     <label class="col-sm-4 control-label" for="input-global-att1" id="gbp1">  </label>
                     <div class="col-sm-6 col-sm-10">
                         <input type="text" class="form-control" id="input-global-att1" placeholder="Enter value: " />
                     </div>
-                </div>
+                </d iv>
  <div class="form-group">
                     <label class="col-sm-6 control-label" for="input-global-att2" id="gbp2">  </label>
                     <div class="col-sm-2 col-sm-10">
@@ -149,9 +148,12 @@
                     <div class="col-sm-2 col-sm-10">
                         <input type="text" class="form-control" id="input-global-att4" placeholder="Enter value: " />
                     </div>
-                </div> 
+                </div>  -->
 
-               
+
+                <div class="row" id="attrpos">
+                            <!-- <div class="col" id="gbpos-attributes"></div> -->
+                          </div>
               <div class="form-group">
                 <div class="col-sm-2 col-sm-10">
                   <button
@@ -246,31 +248,6 @@
                   />
                 </div>
               </div>
- <div class="form-group">
-                    <label class="col-sm-4 control-label" for="input-global-att1" id="gbper1">  </label>
-                    <div class="col-sm-6 col-sm-10">
-                        <input type="text" class="form-control" id="input-global-att1" placeholder="Enter value: " />
-                    </div>
-                </div>
- <div class="form-group">
-                    <label class="col-sm-6 control-label" for="input-global-att2" id="gbper2">  </label>
-                    <div class="col-sm-2 col-sm-10">
-                        <input type="text" class="form-control" id="input-global-att2" placeholder="Enter value: " />
-                    </div>
-                </div>
-                 <div class="form-group">
-                    <label class="col-sm-6 control-label" for="input-global-att3" id="gbper3">  </label>
-                    <div class="col-sm-2 col-sm-10">
-                        <input type="text" class="form-control" id="input-global-att3" placeholder="Enter value: " />
-                    </div>
-                </div>
-                 <div class="form-group">
-                    <label class="col-sm-6 control-label" for="input-global-att4" id="gbper4">  </label>
-                    <div class="col-sm-2 col-sm-10">
-                        <input type="text" class="form-control" id="input-global-att4" placeholder="Enter value: " />
-                    </div>
-                </div> 
-            
               <!--
                 <div class="form-group">
                     <label class="col-sm-2 control-label" for="input-emp-position">Position: </label>
@@ -293,6 +270,34 @@
                     </div>
                 </div>
               -->
+             <!--   <div class="form-group">
+                    <label class="col-sm-4 control-label" for="input-global-att1" id="gbper1">  </label>
+                    <div class="col-sm-6 col-sm-10">
+                        <input type="text" class="form-control" id="input-global-att1" placeholder="Enter value: " />
+                    </div>
+                </div>
+ <div class="form-group">
+                    <label class="col-sm-6 control-label" for="input-global-att2" id="gbper2">  </label>
+                    <div class="col-sm-2 col-sm-10">
+                        <input type="text" class="form-control" id="input-global-att2" placeholder="Enter value: " />
+                    </div>
+                </div>
+                 <div class="form-group">
+                    <label class="col-sm-6 control-label" for="input-global-att3" id="gbper3">  </label>
+                    <div class="col-sm-2 col-sm-10">
+                        <input type="text" class="form-control" id="input-global-att3" placeholder="Enter value: " />
+                    </div>
+                </div>
+                 <div class="form-group">
+                    <label class="col-sm-6 control-label" for="input-global-att4" id="gbper4">  </label>
+                    <div class="col-sm-2 col-sm-10">
+                        <input type="text" class="form-control" id="input-global-att4" placeholder="Enter value: " />
+                    </div>
+                </div> --> 
+            
+ <div class="row" id="attrper">
+                            <!-- <div class="col" id="gbpos-attributes"></div> -->
+                          </div>
 
               <div class="form-group">
                 <div class="col-sm-2 col-sm-10">
@@ -410,6 +415,7 @@
                   id="save-graph-btn"
                   class="btn btn-success"
                   type="button"
+                  onclick="disappear()"
                 >
                   Save Graph
                 </button>
@@ -421,8 +427,29 @@
                   class="btn btn-danger"
                   type="button"
                   disabled="disabled"
+                  onclick="disappear()"
                 >
                   Delete
+                </button>
+              </div>
+
+              <div
+                class="col-3"
+                id="messages"
+                style="color:#08DC03;font-weight:bold; display:table-cell; text-align: center; vertical-align: middle; font-size: 12px;box-sizing: border-box;"
+              ></div>
+
+              <div class="col">
+                <!-- Button is disabled on loading the page -->
+                <button id="zoomin-btn" class="badge badge-pill badge-light">
+                  +
+                </button>
+              </div>
+
+              <div class="col">
+                <!-- Button is disabled on loading the page -->
+                <button id="zoomout-btn" class="badge badge-pill badge-light">
+                  -
                 </button>
               </div>
             </div>
@@ -592,6 +619,14 @@
         loadGraph();
 
         //  console.log(arr);
+      }
+
+      function disappear() {
+        console.log("timeout...");
+        // document.getElementById("messages").innerHTML = "";
+        setTimeout(function() {
+          document.getElementById("messages").innerHTML = "";
+        }, 1000);
       }
     </script>
   </body>

@@ -4,6 +4,12 @@ var positionTitle = document.getElementById('input-pos-title');
 var positionID = document.getElementById('input-pos-id');
 var attArray = [];
 var attNameArray = [];
+var posArray = [];
+var posArrayval =[];
+var posdata;
+var attrNameId= [];
+var attrValueId= [];
+
 
 
 
@@ -27,61 +33,84 @@ function loadDraggablePositions() {
 
 //loads modal window once "Add Position" button is clicked
 $('#add-position-btn').click(function(){
-    
     $('#add-position-modal').modal('show');
-  
     console.log('Add Position clicked.');
- loadGlobalattr();
+     loadGlobalattr();
     //loadPositions();
 }); 
 
 //Extracts Values onces "Confirm" button is clicked 
 $('#add-position-confirm').click(function(){
+  console.log("confirm clicked...")
+for(var i = 0;i<attrNameId.length; i++){
+    // console.log(attrValueId[i]);
+    var name = attrNameId[i];
+    var value = document.getElementById(attrValueId[i]).value;
+    var attributeData = {"key": name,"value":value};
+    attArray.push(attributeData);
+    // attNameArray.push(name);
+    // console.log(value);
+}
+// var gbattr1=  document.getElementById('input-global-att1').value;
+// var gbattr2 =  document.getElementById('input-global-att2').value;
+// var gbattr3 =  document.getElementById('input-global-att3').value;
+// var gbattr4 =  document.getElementById('input-global-att4').value;
+
+
+
+
+// var vl = {gbattr1, gbattr2, gbattr3, gbattr4};
+// console.log(vl);
+
     var positionData = {
         "name": positionTitle.value, 
-        "job_id": positionID.value
+        "job_id": positionID.value,
+         "attributes":attArray
+
+
     };
-    console.log(
-        "{" + "\n"
-        + "\t" + "Position_Title: " + positionTitle.value + "," + "\n"
-        + "\t" + "Position_ID: " + positionID.value + "," + "\n"
-        // + "\t" + "Arrtibute_One: " + attOne.value + "," + "\n"  // Hardcoded
-        // + "\t" + "Attribute_Two: " + attTwo.value + "," + "\n"
-        // + "\t" + "Attribute_Three: " + attThree.value + "\n"
-        + "}"
+    console.log(positionData);
+    // console.log(
+    //     "{" + "\n"
+    //     + "\t" + "Position_Title: " + positionTitle.value + "," + "\n"
+    //     + "\t" + "Position_ID: " + positionID.value + "," + "\n"
+    //     // + "\t" + "Arrtibute_One: " + attOne.value + "," + "\n"  // Hardcoded
+    //     // + "\t" + "Attribute_Two: " + attTwo.value + "," + "\n"
+    //     // + "\t" + "Attribute_Three: " + attThree.value + "\n"
+    //     + "}"
 
-    );
+    // );
 
- 
+
+
     // adding attribute list to array     
-    for (var attArrayIndex = 1; attArrayIndex <= attCount; attArrayIndex++ ) 
-    {
-        attArray.push($('#new-attribute_'+ attArrayIndex ).val());
-        attNameArray.push($('#new-attribute-name_'+ attArrayIndex ).val());
-       // attArray.push.toString(document.getElementById('new-attribute_'+ attArrayIndex));
+    // for (var attArrayIndex = 1; attArrayIndex <= attCount; attArrayIndex++ ) 
+    // {
+    //     attArray.push($('#new-attribute_'+ attArrayIndex ).val());
+    //     attNameArray.push($('#new-attribute-name_'+ attArrayIndex ).val());
+    //    // attArray.push.toString(document.getElementById('new-attribute_'+ attArrayIndex));
 
-    }
+    // }
 
 
     // printing the attribute list
-    var i = 0;
-    while (i < attNameArray.length) 
-    {
-        console.log(
-            "Attribute Name: " + attNameArray[i] + "\n"
-            + "Attribute: " + attArray[i]
+    // var i = 0;
+    // while (i < attNameArray.length) 
+    // {
+    //     console.log(
+    //         "Attribute Name: " + attNameArray[i] + "\n"
+    //         + "Attribute: " + attArray[i]
             
-        );
+    //     );
 
-        i++;
-    }
+    //     i++;
+    // }
 
     // console.log(positionTitle.value);
     // console.log(positionID.value);
     // console.log(attOne.value);
     // console.log(attTwo.value);
     // console.log(attThree.value);
-
 
     $('#add-position-modal').modal('hide');
 
@@ -102,7 +131,6 @@ var attCount = 0;
 //Dynamically adds new attributes to modal window
 $('#add-attribute-confirm').click(function () {
     attCount++;
-
     var table = $(this).closest('form');
     if (table.find('input:text').length < 10) {   // The <20 is how many fields u wanna add of inputs
     //    table.append('<div class="form-group"><label  class="col-sm-2 control-label">Attribute: </label> <div class="col-sm-2 col-sm-10"> <input type="text" class="form-control" id="new-attribute_' + attCount + '" placeholder="Input Attribute"/></div></div>');
@@ -130,25 +158,22 @@ $('#edit-btn').click(function(){
         "contenteditable", "true");
 
 
-    document.getElementById('pos-ocfname').style.display = "none";
+    //document.getElementById('pos-ocfname').style.display = "none";
     //document.getElementById('pos-oclname').style.display = "none";    
     var CurrentOcName = document.getElementById("pos-ocfname").innerHTML;
     //console.log(CurrentOcName); 
 
-    $('#namespan select').remove();
-    $('#namespan').append(
-        $('<select/>').append(
-        $('<option/>').html(CurrentOcName)
-    ));
+    //$('#namespan select').remove();
+    //$('#namespan').html(CurrentOcName);
 
-    $.getJSON('http://localhost:8080/Taag/service/person', function (data) {
-        $.each(data.persons, function (i, field) {
-            $('#namespan select').append(
-                $('<option/>').html(data.persons[i].first_name + " " + data.persons[i].last_name)
-            )
-            //console.log(data.persons[i].first_name);
-        })
-    });
+    // $.getJSON('http://localhost:8080/Taag/service/person', function (data) {
+    //     $.each(data.persons, function (i, field) {
+    //         $('#namespan select').append(
+    //             $('<option/>').html(data.persons[i].first_name + " " + data.persons[i].last_name)
+    //         )
+    //         //console.log(data.persons[i].first_name);
+    //     })
+    // });
 
 });
 
@@ -157,8 +182,8 @@ $('#save-btn').click(function(){
     //make UN-editable 
     $('#pos-ocfname, #pos-oclname, #pos-title, #namespan').attr('contenteditable','false');
 
-    var selectValue = $('#namespan select :selected').val();
-    var selectID = getPersonID(selectValue);
+    var selectValue = $('#pos-ocfname').html();
+    //var selectID = getPersonID(selectValue);
 
     console.log(selectValue + ":" + selectID);
 
@@ -168,6 +193,8 @@ $('#save-btn').click(function(){
     document.getElementById('delete-btn').style ="display: none;"
 
     var postitle = document.getElementById('details-title').innerHTML;
+    var selectID = getPersonID(selectValue);
+
     console.log(postitle);
 
     // This variable contains the Position attributes JSON object from the server
@@ -233,7 +260,7 @@ $('#save-btn').click(function(){
     $('#namespan').attr(
         "style", "border: rgb(124,252,0); background: rgb(124,252,0)");
         
-    
+    updateGraphElements();
 });
 
 
@@ -269,7 +296,12 @@ function openPositionsTab(id,name, occupantID,){
 
     $.each(position.attributes, function (i, val){
         console.log("app");
-       $('#pos-attributes').append("<span id='attrKey"+ i +"' class='modal-headers'>"+ position.attributes[i].key +":</span>" + "<p id ='attrValue"+ i+ "' contenteditable='false'>"+position.attributes[i].value +"</p>"); //insert positon adittional attributes
+        if(position.attributes[i].value == null){
+            $('#pos-attributes').append("<span id='attrKey"+ i +"' class='modal-headers'>"+ position.attributes[i].key +":</span>" + "<p id ='attrValue"+ i+ "' contenteditable='false'>N/A</p>"); //insert positon adittional attributes
+        }else{
+            $('#pos-attributes').append("<span id='attrKey"+ i +"' class='modal-headers'>"+ position.attributes[i].key +":</span>" + "<p id ='attrValue"+ i+ "' contenteditable='false'>"+position.attributes[i].value +"</p>"); //insert positon adittional attributes
+
+        }
 
     });
     
@@ -354,17 +386,44 @@ function loadPositions() {
     console.log('positions loaded.');
     
 };
-
 function loadGlobalattr(){
     $.getJSON('http://localhost:8080/Taag/service/attribute', function (data) {
+    console.log("loading attr");
+          // var gbpos1 = data.position[0].key;
+          // var gbpos2 = data.position[1].key;
+          // var gbpos3 = data.position[2].key;
+          // var gbpos4 = data.position[3].key;
+          // document.getElementById('gbp1').innerHTML = '1:'+ gbpos1 ;
+          // document.getElementById('gbp2').innerHTML = '2:'+ gbpos2 ;
+          // document.getElementById('gbp3').innerHTML = '3:'+ gbpos3 ;
+          // document.getElementById('gbp4').innerHTML = '4:'+ gbpos4 ;
+          posdata = data;
+          var posAttr = data.position;
+          for(var i = 0; i<=data.position.length-1;i++){
+            console.log(data.position[i].key);
+            // var attrName =[];
+            // var attrValue =[];
+            var parent = document.getElementById("attrpos");
 
-          var gbpos1 = data.position[0].key;
-          var gbpos2 = data.position[1].key;
-          var gbpos3 = data.position[2].key;
-          var gbpos4 = data.position[3].key;
-          document.getElementById('gbp1').innerHTML = '1:'+ gbpos1 ;
-          document.getElementById('gbp2').innerHTML = '2:'+ gbpos2 ;
-          document.getElementById('gbp3').innerHTML = '3:'+ gbpos3 ;
-          document.getElementById('gbp4').innerHTML = '4:'+ gbpos4 ;
+            var newlabel = document.createElement("Label");
+            newlabel.setAttribute("for",data.position[i].key);
+            newlabel.setAttribute("id",'attrName'+i);
+            newlabel.innerHTML = data.position[i].key;
+            parent.appendChild(newlabel);
+            
+            var input = document.createElement("input");
+            input.setAttribute('type', 'text');
+            input.setAttribute("id",'attrValue'+i);
+            parent.appendChild(input);
+            
+            attrNameId.push(newlabel.textContent);
+            attrValueId.push("attrValue"+i);
+            // console.log(attrNameId);
+            // var value = input.value;
+            // posArrayval.push(value);
+            // posArray.push(data.position[i].key);
+          }
+
+
     });
 }
