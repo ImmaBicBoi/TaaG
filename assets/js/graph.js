@@ -10,6 +10,7 @@ var graph = new mxGraph(document.getElementById('graphContainer'), model);
 var tbPositionContainer = document.getElementById('position-list');
 var tbPersonContainer = document.getElementById('people-list');
 var newDroppedPosition = false;
+var newDroppedPerson = false;
 
 //zoomin button
 $('#zoomin-btn').click(function(){
@@ -476,7 +477,8 @@ function addPersonToolbarItem(graph, personToolbar, prototype, image, data, key)
 				return;
 			}
 			var parentID = parent.getValue().split(" ");
-			var parentName = parent.getValue().substr(parent.getValue().indexOf(' ')+1)
+			var parentName = parent.getValue().substr(parent.getValue().indexOf(' ')+1);
+			newDroppedPerson = true;
             newPersonColumn(parent, name, data.persons[key].person_id);
 			openPositionsTab(parentID[0],parentName,data.persons[key].person_id);
 
@@ -657,6 +659,38 @@ function updateGraphElements(positionIdToUpdate){
 	}
 
 }
+
+function updatePersonAttributes(personID){
+	var positions = graph.getChildCells(graph.getDefaultParent(), true, true);
+	var visiblePersonAttributes = getVisiblePersonAttributes();
+	var posChildren;
+	var personData = getPerson(personID);
+	
+	// //first find the relevant position
+	// for(var i = 0; i < positions.length; i++){
+	// 	if(positions[i].value.person_id == personID){
+	// 		posChildren = positions[i].children;
+	// 		//loop through person Attributes and update them
+	// 		for(var j=0; j < posChildren.length; j++){
+	// 			if(posChildren[j].value.type == "personAttribute"){
+	// 				posChildren[j].value.name = visiblePersonAttributes[j].key + ": "
+	// 			}
+	// 		}
+
+	// 	}
+	// 	graph.getView().clear(positions[i], false, false);
+	// 	graph.getView().validate();
+	// }
+	for(var i = 0; i < positions.length; i++){
+		if(positions[i].value.person_id == personID){
+			console.log("---------updating " + positions[i].value.name);
+			newPersonAttributeColumn(positions[i],personID);
+			
+		}
+
+	}
+
+}
 function newPersonAttributeColumn(PositionNode,PersonId){
    var existingChildren = PositionNode.getChildCount();
 
@@ -746,6 +780,7 @@ function checkIfPositionHasPerson(parent) {
     }
     return false;
 }
+
 function checkIfPersonExistsInAnotherPosition(PersonId) {
 	var ExistingPersonId = PersonId;
     var existingPositionsNodeCount = graph.getDefaultParent().getChildCount();
@@ -769,7 +804,8 @@ function checkIfPersonExistsInAnotherDBPosition(personID) {
 	var positionData = loadAllPositions();
 	console.log(positionData);
 	for(var i = 0; i < positionData.positions.length; i++){
-		if(positionData.positions[i].person_id == personID){
+		if(positionData.positions[i].person_id == personID && newDroppedPerson){
+			newDroppedPerson = false;
 			return true;
 		}
 	}

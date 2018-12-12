@@ -103,6 +103,7 @@ function getVisiblePosAttributes(){
 	return visibleAttr;
 }
 
+
 function findPosValueByKey(id,key){
 	var posData = getPosition(id);
 	for(var i = 0; i < posData.attributes.length; i++){
