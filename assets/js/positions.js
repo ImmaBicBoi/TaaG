@@ -350,6 +350,11 @@ $('#save-btn').click(function(){
     $( "#pos-attributes p, #pos-id p" ).attr(
         "style", "border: rgb(124,252,0); background: rgb(124,252,0)");
 
+    $('#namespan').attr(
+        "style", "border: rgb(124,252,0); background: rgb(124,252,0)");
+        
+    loadAllPositions();
+
     //refresh page   --necessary???
     //location.reload();
     

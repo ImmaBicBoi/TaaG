@@ -366,3 +366,31 @@ function saveGraph(graphData){
          
     });
   }
+  function updatePositionAttribute(positionData){
+    console.log("sending data: "+ JSON.stringify(positionData));
+    $.ajax({
+      url: "http://localhost:8080/Taag/service/position/"+getCurrentID(),
+      type: 'PUT',
+      contentType:'application/json',
+      data: JSON.stringify(positionData),
+      dataType:'json',
+      async: false,
+      success: function(data,status, jqXHR){
+        //On ajax success do this
+        console.log("response "+ JSON.stringify(data) + " " + jqXHR.status);
+          },
+      error: function(xhr, ajaxOptions, thrownError) {
+          //On error do this
+            if (xhr.status == 200) {
+
+                alert(ajaxOptions);
+            }
+            else {
+                alert(xhr.status);
+                alert(thrownError);
+            }
+        }
+    });
+
+    loadAllPositions();
+  }
