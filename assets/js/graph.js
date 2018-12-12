@@ -102,17 +102,28 @@ $('#delete-cell-btn').click(function(){
 	// graph.setSelectionCell(cell);
 
 	var cells = graph.getSelectionCells();
-
+	var deleteAttrCells = [];
 	for(var i = 0; i < cells.length; i++){
 
 		if(cells[i].value.type == "person"){
 			console.log("deleting cell inside " +cells[i].value.parent_id);
 			var positionID = cells[i].value.parent_id;
 			var parentName = cells[i].getParent().getValue().split(" ");
+			var attributes = cells[i].getParent().children;
+
+			for(var j =0; j < attributes.length; j++){
+				if(attributes[j].value.type == "personAttribute"){
+					deleteAttrCells.push(attributes[j]);
+				}
+			}
+			graph.removeCells(deleteAttrCells);
+			resizePosition(cells[i].getParent());
+			console.log(attributes);
 			if(positionID > 0){
 				updateRelationship(0, positionID);
 				
 				openPositionsTab(positionID,parentName[1],0);
+
 
 
 			}else{
@@ -764,4 +775,11 @@ function loadPersonIntoPosition(parent, personID){
 	var person = getPerson(personID);
 	newDroppedPosition = true;
 	newPersonColumn(parent, person.first_name + " " + person.last_name, personID );
+}
+
+function resizePosition(position){
+	var pstate = graph.getView().getState(position);
+	var attr = getVisiblePosAttributes();
+	var cellHeight = 60 + (attr.length)*26;
+	position.setGeometry(new mxGeometry(pstate.x, pstate.y, 200, cellHeight));
 }
