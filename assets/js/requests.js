@@ -34,34 +34,49 @@ function loadAllPersons(){
 function loadAllPositions(){
   $('#position-list button').remove();
   $('#position-list br').remove();
-
+    var positionData;
     console.log('loading positions from API');
-      $.getJSON( "http://localhost:8080/Taag/service/position", function( data ) {
-          var items = [];
-          console.log(data);
-         // items.push(data.message);
-          $.each( data.positions, function( key, val ) {
-            // items.push( "<li >" + data.positions[key].position_id + ": " + 
-            // data.positions[key].name +"</li>" );
-  
-            // $("<li/>", {
-            //     html: data.positions[key].position_id + ": " + 
-            //     data.positions[key].name
-            //   }).click(function (event){
-            //       openPositionsTab(
-            //         data.positions[key].position_id,
-            //         data.positions[key].name,
-            //         data.positions[key].person_id);
-            //         setCurrentID(data.positions[key].position_id);
-            //       //console.log("testing "+ data.positions[key].attributes);
-            //   }).appendTo("#tab-1 ul");
-  
-              addPositionVertex('', 100, 40, 'shape=rounded', data, key);
-              $('<br/>').appendTo("#tab-1 ul");
+    //   $.getJSON( "http://localhost:8080/Taag/service/position", function( data ) {
+    //       var items = [];
+    //       console.log(data);
+    //       positionData = data;
+    //      // items.push(data.message);
+    //       $.each( data.positions, function( key, val ) {
+                
+    //           addPositionVertex('', 100, 40, 'shape=rounded', data, key);
+    //           $('<br/>').appendTo("#tab-1 ul");
+    //       });
+    //     });
+
+        $.ajax({
+            url: "http://localhost:8080/Taag/service/position",
+            type: 'GET',
+            contentType:'application/json',
+            dataType:'json',
+            async: false,
+            success: function(data,status, jqXHR){
+              //On ajax success do this
+              positionData = data;
+              $.each( data.positions, function( key, val ) {
+                
+                addPositionVertex('', 100, 40, 'shape=rounded', data, key);
+                $('<br/>').appendTo("#tab-1 ul");
+            });
+              console.log("response"+data.message + " " + jqXHR.status);
+                },
+            error: function(xhr, ajaxOptions, thrownError) {
+                //On error do this
+                  if (xhr.status == 200) {
+      
+                      alert(ajaxOptions);
+                  }
+                  else {
+                      alert(xhr.status);
+                      alert(thrownError);
+                  }
+              }
           });
-        });
-        
-        
+          return positionData;
   }
 
   function loadAllAttributes(){

@@ -108,7 +108,7 @@ $('#delete-cell-btn').click(function(){
 		if(cells[i].value.type == "person"){
 			console.log("deleting cell inside " +cells[i].value.parent_id);
 			var positionID = cells[i].value.parent_id;
-			var parentName = cells[i].getParent().getValue().split(" ");
+			var parentName = cells[i].getParent().getValue().substr(cells[i].getParent().getValue().indexOf(' ')+1)
 			var attributes = cells[i].getParent().children;
 
 			for(var j =0; j < attributes.length; j++){
@@ -122,7 +122,7 @@ $('#delete-cell-btn').click(function(){
 			if(positionID > 0){
 				updateRelationship(0, positionID);
 				
-				openPositionsTab(positionID,parentName[1],0);
+				openPositionsTab(positionID,parentName,0);
 
 
 
@@ -476,8 +476,9 @@ function addPersonToolbarItem(graph, personToolbar, prototype, image, data, key)
 				return;
 			}
 			var parentID = parent.getValue().split(" ");
+			var parentName = parent.getValue().substr(parent.getValue().indexOf(' ')+1)
             newPersonColumn(parent, name, data.persons[key].person_id);
-			openPositionsTab(parentID[0],parentID[1],data.persons[key].person_id);
+			openPositionsTab(parentID[0],parentName,data.persons[key].person_id);
 
 		}
 
@@ -696,16 +697,20 @@ function newPersonColumn(parent, text, personId) {
 			existingChildCount++;
 		}
 	}
-	if (checkIfPositionHasPerson(parent) && !newDroppedPosition) {
+	if (checkIfPositionHasPerson(parent)) {
         alert("Person already exists in this Position");
        // $('#messages').html("Person already exists in this Position");
         return;
     }
-    if (checkIfPersonExistsInAnotherPosition(personId) && !newDroppedPosition) {
-        alert("Person already exists in another Position");
+    if (checkIfPersonExistsInAnotherPosition(personId)) {
+        alert("Person already exists in another Position cell");
        // $('#messages').html("Person already exists in another Position");
         return;
-    }
+	}
+	if(checkIfPersonExistsInAnotherDBPosition(personId)){
+		alert("Person already exists in another Position");
+		return;
+	}
     var columnObject = new Column(text);
     columnObject.person_id = personId;
 
@@ -759,6 +764,18 @@ function checkIfPersonExistsInAnotherPosition(PersonId) {
 	}
 	return false;
 }
+
+function checkIfPersonExistsInAnotherDBPosition(personID) {
+	var positionData = loadAllPositions();
+	console.log(positionData);
+	for(var i = 0; i < positionData.positions.length; i++){
+		if(positionData.positions[i].person_id == personID){
+			return true;
+		}
+	}
+
+	return false;
+}
 function checkIfPositionExists(PositionValue){
  var ExistingPos = PositionValue;
     var existingPositionsNodeCount = graph.getDefaultParent().getChildCount();
@@ -781,5 +798,5 @@ function resizePosition(position){
 	var pstate = graph.getView().getState(position);
 	var attr = getVisiblePosAttributes();
 	var cellHeight = 60 + (attr.length)*26;
-	position.setGeometry(new mxGeometry(pstate.x, pstate.y, 200, cellHeight));
+	position.setGeometry(new mxGeometry(pstate.x - 4, pstate.y, 200, cellHeight));
 }
