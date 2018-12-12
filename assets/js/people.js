@@ -86,12 +86,12 @@ $('#add-people-confirm').click(function(){
     }
 
     attCount = 0;
-    loadPeople();
+
 
     $("#people-form")[0].reset();
     //document.getElementById('people-form').reset();   ALSO WORKS!!
     $('#add-people-modal').modal('hide');
-
+    loadAllPersons();
     //writePeopleJson();
 }); 
 
@@ -294,7 +294,7 @@ $('#ppl-save-btn').click(function(){
     $( "#person-attributes p, #pos-id p" ).attr(
         "style", "border: rgb(124,252,0); background: rgb(124,252,0)");
 
-    
+    updatePersonAttributes(getCurrentID());
 });
 
 $('#ppl-delete-btn').click(function(){
@@ -317,8 +317,12 @@ $('#ppl-delete-btn').click(function(){
     $('#pos-id').html("<span class='modal-headers'>Employee ID: </span>" + "<p contenteditable='false'>"+ empID ) + "</p>"; //insert employee id 
     $.each(person.attributes, function (i, val){
         //console.log("app");
-       $('#person-attributes').append("<span id='attrKey" +i+ "' class='modal-headers'>"+ person.attributes[i].key +":</span>" + "<p id='attrValue"+i+ "' contenteditable='false'>"+person.attributes[i].value +"</p>"); //insert positon adittional attributes
-
+        if(person.attributes[i].value == null){
+            $('#person-attributes').append("<span id='attrKey" +i+ "' class='modal-headers'>"+ person.attributes[i].key +":</span>" + "<p id='attrValue"+i+ "' contenteditable='false'>N/A</p>"); //insert positon adittional attributes
+        }else{
+            $('#person-attributes').append("<span id='attrKey" +i+ "' class='modal-headers'>"+ person.attributes[i].key +":</span>" + "<p id='attrValue"+i+ "' contenteditable='false'>"+person.attributes[i].value +"</p>"); //insert positon adittional attributes
+ 
+        }
     });
     //$('#email').html("<span class='modal-headers'>Email:</span>" + "<p id = 'ppl-email' contenteditable='false'>" + attribute + "</p>"); //insert email
     //$('#phone').html("<span class='modal-headers'>Phone:</span>" + "<p id = 'ppl-phone' contenteditable='false'>" + attribute + "</p>"); //insert number

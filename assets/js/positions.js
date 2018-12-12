@@ -197,25 +197,22 @@ $('#edit-btn').click(function(){
         "contenteditable", "true");
 
 
-    document.getElementById('pos-ocfname').style.display = "none";
+    //document.getElementById('pos-ocfname').style.display = "none";
     //document.getElementById('pos-oclname').style.display = "none";    
     var CurrentOcName = document.getElementById("pos-ocfname").innerHTML;
     //console.log(CurrentOcName); 
 
-    $('#namespan select').remove();
-    $('#namespan').append(
-        $('<select/>').append(
-        $('<option/>').html(CurrentOcName)
-    ));
+    //$('#namespan select').remove();
+    //$('#namespan').html(CurrentOcName);
 
-    $.getJSON('http://localhost:8080/Taag/service/person', function (data) {
-        $.each(data.persons, function (i, field) {
-            $('#namespan select').append(
-                $('<option/>').html(data.persons[i].first_name + " " + data.persons[i].last_name)
-            )
-            //console.log(data.persons[i].first_name);
-        })
-    });
+    // $.getJSON('http://localhost:8080/Taag/service/person', function (data) {
+    //     $.each(data.persons, function (i, field) {
+    //         $('#namespan select').append(
+    //             $('<option/>').html(data.persons[i].first_name + " " + data.persons[i].last_name)
+    //         )
+    //         //console.log(data.persons[i].first_name);
+    //     })
+    // });
 
 });
 
@@ -224,8 +221,8 @@ $('#save-btn').click(function(){
     //make UN-editable 
     $('#pos-ocfname, #pos-oclname, #pos-title, #namespan').attr('contenteditable','false');
 
-    var selectValue = $('#namespan select :selected').val();
-    var selectID = getPersonID(selectValue);
+    var selectValue = $('#pos-ocfname').html();
+    //var selectID = getPersonID(selectValue);
 
     console.log(selectValue + ":" + selectID);
 
@@ -288,6 +285,8 @@ $('#save-btn').click(function(){
     // --------------------------------------------------------------------------------------------
 
     var postitle = document.getElementById('details-title').innerHTML;
+    var selectID = getPersonID(selectValue);
+
     console.log(postitle);
 
     // This variable contains the Position attributes JSON object from the server
@@ -353,11 +352,10 @@ $('#save-btn').click(function(){
     $('#namespan').attr(
         "style", "border: rgb(124,252,0); background: rgb(124,252,0)");
         
-    loadAllPositions();
 
-    //refresh page   --necessary???
-    //location.reload();
-    
+    updateGraphElements();
+
+    loadAllPositions();
 });
 
 
@@ -393,7 +391,12 @@ function openPositionsTab(id,name, occupantID,){
 
     $.each(position.attributes, function (i, val){
         console.log("app");
-       $('#pos-attributes').append("<span id='attrKey"+ i +"' class='modal-headers'>"+ position.attributes[i].key +":</span>" + "<p id ='attrValue"+ i+ "' contenteditable='false'>"+position.attributes[i].value +"</p>"); //insert positon adittional attributes
+        if(position.attributes[i].value == null){
+            $('#pos-attributes').append("<span id='attrKey"+ i +"' class='modal-headers'>"+ position.attributes[i].key +":</span>" + "<p id ='attrValue"+ i+ "' contenteditable='false'>N/A</p>"); //insert positon adittional attributes
+        }else{
+            $('#pos-attributes').append("<span id='attrKey"+ i +"' class='modal-headers'>"+ position.attributes[i].key +":</span>" + "<p id ='attrValue"+ i+ "' contenteditable='false'>"+position.attributes[i].value +"</p>"); //insert positon adittional attributes
+
+        }
 
     });
     
