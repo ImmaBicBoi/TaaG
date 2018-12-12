@@ -467,68 +467,9 @@ function addPersonToolbarItem(graph, personToolbar, prototype, image, data, key)
 			var parentID = parent.getValue().split(" ");
             newPersonColumn(parent, name, data.persons[key].person_id);
 			openPositionsTab(parentID[0],parentID[1],data.persons[key].person_id);
-            // var pstate = graph.getView().getState(parent);
-			// var childCount = graph.model.getChildCount(parent);
-			// if (parent == null || pstate == null)
-			// {
-			// 	//mxUtils.alert('Drop target must be a table');
-			// 	return;
-			// }
-			// if (childCount > 0)
-			// {
-			// 	//mxUtils.alert('Drop target is full');
-			// 	return;
-			// }
-            //
-			// pt.x -= pstate.x;
-			// pt.y -= pstate.y;
-			// var columnCount = graph.model.getChildCount(parent)+1;
-			//parentPos = graph.
-			//parent.setGeometry(new mxGeometry(pstate.x, pstate.y, 200, 60));
-			//parent.imageSize = 50;
-			//name = mxUtils.prompt('Enter name for new column', 'COLUMN'+columnCount);
+
 		}
-        //
-		// if (name != null)
-		// 		{
-		// 			var v1 = model.cloneCell(vertex);
-		//
-		// 			model.beginUpdate();
-		// 			try
-		// 			{
-		// 				v1.value.name = name;
-		// 				v1.value.person_id = data.persons[key].person_id;
-		// 				v1.geometry.x = pt.x;
-		// 				v1.geometry.y = pt.y;
-		// 				console.log("just dropped person with id: "+ v1.value.person_id + " and name " + v1.value.name);
-		// 				//graph.addCell(v1, parent);
-		// 				setCurrentCell(v1);
-		// 				if (isTable)
-		// 				{
-		// 					v1.geometry.alternateBounds = new mxRectangle(0, 0, v1.geometry.width, v1.geometry.height);
-		// 					v1.children[0].value.name = name + '_ID';
-		// 					//parent.insert(v1);
-		// 					//graph.addCell(v1, parent);
-		// 				}
-		// 			}
-		// 			finally
-		// 			{
-		// 				model.endUpdate();
-		// 			}
-		//
-		// 			graph.setSelectionCell(v1);
-		// 		}
-        //
-        //
-		// vertex.geometry.x = pt.x;
-		// vertex.geometry.y = pt.y;
-		// graph.model.setValue(vertex, data.persons[key].first_name + " " + data.persons[key].last_name);
-		// mxGraph.prototype.isCellsEditable = false;
-		// //console.log("dropped person: " + data.persons[key].first_name + " " + data.persons[key].last_name);
-		//
-		//
-		// graph.setSelectionCells(graph.importCells([vertex], 0, 0, cell));
-		//alert("TEST");
+
 	}
 	// Creates the image which is used as the drag icon (preview)
 	var img = personToolbar.addMode(null, null, funct);
@@ -704,6 +645,25 @@ function updateGraphElements(positionIdToUpdate){
 	}
 
 }
+function newPersonAttributeColumn(PositionNode,PersonId){
+   var existingChildren = PositionNode.getChildCount();
+
+    var personAttr = getVisiblePersonAttributes();
+    for(var j = 0; j < personAttr.length; j++){
+
+    var text = personAttr[j].key + findPersonValueByKey(PersonId,personAttr[j].key)
+    var columnObject = new Column(text);
+    var vertex = new mxCell(columnObject, new mxGeometry(0, (existingChildren+1+j) * 26, 200, 26), 'shape=rounded');
+    vertex.setVertex(true);
+    vertex.setConnectable(false);
+    vertex.value.name = personAttr[j].key + " : " + findPersonValueByKey(PersonId,personAttr[j].key);
+    vertex.value.type = "personAttribute";
+    var model = graph.getModel();
+    graph.addCell(vertex, PositionNode);
+
+    }
+
+}
 
 function newColumn(parent, text, pstate, index){
 
@@ -747,6 +707,7 @@ function newPersonColumn(parent, text, personId) {
     var model = graph.getModel();
 	graph.addCell(vertex, parent);
 	console.log(parent.value);
+    newPersonAttributeColumn(parent,personId);
 	var posID = parent.getValue().split(" ");
 	vertex.value.parent_id = posID[0];
 	if(!newDroppedPosition){
@@ -758,6 +719,7 @@ function newPersonColumn(parent, text, personId) {
 	
 	newDroppedPosition = false;
 }
+
 
 function checkIfPositionHasPerson(parent) {
     var existingChildCount = parent.getChildCount();

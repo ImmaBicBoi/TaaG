@@ -62,6 +62,34 @@ function clearDetailsTab(){
 	console.log('cleared tab');
 }
 
+function getVisiblePersonAttributes(){
+    var attr = loadAllAttributes();
+    var visibleAttr = [];
+    console.log(attr);
+    for(var i = 0; i < attr.person.length; i++){
+        if(attr.person[i].is_visible){
+            visibleAttr.push(attr.person[i]);
+        }
+    }
+    //console.log(visibleAttr + "is visible");
+    return visibleAttr;
+}
+function findPersonValueByKey(id,key){
+    var personData = getPerson(id);
+    for(var i = 0; i < personData.attributes.length; i++){
+        if(personData.attributes[i].key == key){
+            if(personData.attributes[i].value == null){
+                return "N/A"
+            }else{
+                return personData.attributes[i].value;
+            }
+
+        }
+    }
+
+    return "N/A";
+}
+
 function getVisiblePosAttributes(){
 	var attr = loadAllAttributes();
 	var visibleAttr = [];
