@@ -58,37 +58,27 @@ $('#add-people-confirm').click(function(){
     var personData = {
         "first_name": firstName.value, 
         "last_name": lastName.value,
-        "employee_id" : employeeID.value
-    };
+        "employee_id": "N/A",
+        "attributes": []
+        };
 
+        attr = loadAllAttributes();
+        var attributes = [];
+        $.each(attr.person, function(key, value) {
+            var attributeKey = value.key;
+            var newattr = {"key": attributeKey,
+                            "value": "N/A"};
+            attributes.push(newattr);
+        });
+    
+        personData.attributes = attributes;
+    
+        console.log(personData);
+    
 
-    // adding attribute list to array
-    for (var attArrayIndex = 1; attArrayIndex <= attCount; attArrayIndex++ ) 
-    {
-        attPersonArray.push($('#new-person-attribute_'+ attArrayIndex ).val());
-        attPersonNameArray.push($('#new-person-attribute-name_'+ attArrayIndex ).val());
-       // attArray.push.toString(document.getElementById('new-attribute_'+ attArrayIndex));
+    createPerson(personData);
 
-    }
-
-
-    // printing the attribute list
-    var i = 0;
-    while (i < attPersonNameArray.length) 
-    {
-        console.log(
-            "Attribute Name: " + attPersonNameArray[i] + "\n"
-            + "Attribute: " + attPersonArray[i]
-            
-        );
-
-        i++;
-    }
-
-    attCount = 0;
-
-
-    $("#people-form")[0].reset();
+    //$("#people-form")[0].reset();
     //document.getElementById('people-form').reset();   ALSO WORKS!!
     $('#add-people-modal').modal('hide');
     loadAllPersons();
