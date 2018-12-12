@@ -64,3 +64,16 @@
 
 .dropped {
 }
+
+/* Sortable for attributes Cog------------------------------------*/
+#sortable { list-style-type: none; margin: 0; padding: 0; width: 60%; margin-left: 1em; }
+#sortable li { margin: 0 3px 3px 3px; padding: 0.4em; padding-left: 1.5em; font-size: 1.4em; height: 80px; }
+#sortable li span { position: absolute; margin-left: -1.3em; }
+
+#sortable-people { list-style-type: none; margin: 0; padding: 0; width: 60%; margin-left: 1em; }
+#sortable-people li { margin: 0 3px 3px 3px; padding: 0.4em; padding-left: 1.5em; font-size: 1.4em; height: 80px; }
+#sortable-people li span { position: absolute; margin-left: -1.3em; }
+
+/* .sort-icon{  width: 30 ; height: 30 ; }   Doesnt Work   Have to hardcode :(  */
+
+

@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="assets/fonts/font-awesome.min.css" />
     <link rel="stylesheet" href="assets/css/Highlight-Clean.css" />
     <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="assets/css/jquery-ui.css" />
   </head>
 
   <body onload="main(document.getElementById('graphContainer'))">
@@ -374,6 +375,16 @@
                   Delete
                 </button>
               </div>
+              <div class="col">
+                <!-- Button is disabled on loading the page -->
+                <button
+                  id="cog-settings-btn"
+                  class="btn btn-success"
+                  type="button"
+                >
+                  Edit Global Attributes
+                </button>
+              </div>
             </div>
             <!-- MxGraph -->
             <div
@@ -383,6 +394,161 @@
               <div class="col-xl-12" id="graphContainer"></div>
             </div>
           </div>
+          <!-- Global Cog Popup -->
+          <div
+          class="modal fade"
+          role="dialog"
+          tabindex="-1"
+          id="attributes-cog-modal"
+          style="margin-right:0px;margin-left:100px;"
+        >
+          <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 id="cog-modal-title">Edit Global Attributes</h4>
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">×</span>
+                </button>
+              </div>
+
+              <!-- Modal Body -->
+              <div class="modal-body">
+                
+                    <div role="tabpanel">
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active"><a href="#position-cog" role="tab" data-toggle="tab">Position</a>
+    
+                            </li>
+                            <li role="presentation"><a href="#people-cog"  role="tab" data-toggle="tab">People</a>
+    
+                            </li>
+                        </ul>
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane active" id="position-cog">
+
+                            <br><div class="col-sm-2 col-sm-10">Click the attributes below to edit</div> <br>
+
+                            <ul id="sortable" >
+                                
+                              <!-- PLACEHOLDER for testing -->
+                              <!-- <li class="ui-state-default" ><span><img src="images\sortable.png" alt="sort-icon" width="30"  height="30" ;></span>
+                                  <div class="col-sm-2 col-sm-10"> <input type="text" class="form-control" id="attribute-position-cog-name_1" value="Location"/> </div> 
+                                  <div class="col-sm-2 col-sm-10"><input type="checkbox" name="attribute-position-cog-visible_1" value="Visible" checked> Visible</div>
+                                </li> -->
+                                <!-- <li class="ui-state-default"><span><img src="images\sortable.png" alt="sort-icon" width="30"  height="30" ;></span>
+                                  <div class="col-sm-2 col-sm-10"> <input type="text" class="form-control" id="attribute-position-cog-name_2" value="Salary"/> </div> 
+                                  <div class="col-sm-2 col-sm-10"><input type="checkbox" name="attribute-position-cog-visible_2" value="Visible" > Visible</div>
+                                </li>
+                                <li class="ui-state-default"><span><img src="images\sortable.png" alt="sort-icon" width="30"  height="30" ;></span>
+                                  <div class="col-sm-2 col-sm-10"> <input type="text" class="form-control" id="attribute-position-cog-name_3" value="Level (Part/Full)"/> </div> 
+                                  <div class="col-sm-2 col-sm-10"><input type="checkbox" name="attribute-position-cog-visible_3" value="Visible" checked> Visible</div>
+                                </li> -->
+
+                              </ul>
+                              
+                            <br><div class="col-sm-2 col-sm-10">Click the button below to Add the position attributes</div> <br>
+
+                            <form id="position-cog-form">
+                              <div class="form-group">
+                                  <div class="col-sm-2 col-sm-10">
+                                    <button
+                                      id="add-attribute-position-cog"
+                                      type="button"
+                                      class="btn btn-default"
+                                    >
+                                      + Add Position Attribute
+                                    </button>
+                                  </div>
+                                </div>
+                            </form>
+
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="people-cog">
+
+                                <br><div class="col-sm-2 col-sm-10">Click the attributes below to edit</div> <br>
+
+                                <ul id="sortable-people" >
+
+                                    <!-- PLACEHOLDER for testing -->
+                                    <!-- <li class="ui-state-default" ><span><img src="images\sortable.png" alt="sort-icon" width="30"  height="30" ;></span>
+                                      <div class="col-sm-2 col-sm-10"> <input type="text" class="form-control" id="attribute-people-cog-name_1" value="Phone"/> </div> 
+                                      <div class="col-sm-2 col-sm-10"><input type="checkbox" name="attribute-people-cog-visible_1" value="Visible" > Visible</div>
+                                    </li>
+                                    <li class="ui-state-default"><span><img src="images\sortable.png" alt="sort-icon" width="30"  height="30" ;></span>
+                                      <div class="col-sm-2 col-sm-10"> <input type="text" class="form-control" id="attribute-people-cog-name_2" value="Email"/> </div> 
+                                      <div class="col-sm-2 col-sm-10"><input type="checkbox" name="attribute-people-cog-visible_2" value="Visible" > Visible</div>
+                                    </li>
+                                    <li class="ui-state-default"><span><img src="images\sortable.png" alt="sort-icon" width="30"  height="30" ;></span>
+                                      <div class="col-sm-2 col-sm-10"> <input type="text" class="form-control" id="attribute-people-cog-name_3" value="Address"/> </div> 
+                                      <div class="col-sm-2 col-sm-10"><input type="checkbox" name="attribute-people-cog-visible_3" value="Visible" checked> Visible</div>
+                                    </li> -->
+    
+                                  </ul>
+
+                                
+                                <!-- <div class="form-group">
+                                    <div class="col-sm-2 col-sm-10"> <input type="text" class="form-control" id="attribute-people-cog-name_1" value="Phone"/> </div> 
+                                  <div class="col-sm-2 col-sm-10"><input type="checkbox" name="attribute-people-cog-visible_1" value="Visible" > Visible</div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-2 col-sm-10"> <input type="text" class="form-control" id="attribute-people-cog-name_2" value="Email"/> </div> 
+                                  <div class="col-sm-2 col-sm-10"><input type="checkbox" name="attribute-people-cog-visible_2" value="Visible" > Visible</div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-2 col-sm-10"> <input type="text" class="form-control" id="attribute-people-cog-name_3" value="Address"/> </div> 
+                                  <div class="col-sm-2 col-sm-10"><input type="checkbox" name="attribute-people-cog-visible_3" value="Visible" checked> Visible</div>
+                                </div> -->
+
+                                <br><div class="col-sm-2 col-sm-10">Click the button below to Add the people attributes</div> <br> 
+
+                                <form id="people-cog-form">
+                                  <div class="form-group">
+                                      <div class="col-sm-2 col-sm-10">
+                                        <button
+                                          id="add-attribute-people-cog"
+                                          type="button"
+                                          class="btn btn-default"
+                                        >
+                                          + Add Person Attribute
+                                        </button>
+                                      </div>
+                                    </div>
+                                </form>
+
+                                
+
+                            </div>
+                        </div>
+
+                  </div>
+                
+              </div>
+
+              <div class="modal-footer">
+                <button id="cog-close" class="btn btn-light" type="button" data-dismiss="modal">
+                  Close
+                </button>
+                <button
+                  id="add-cog-confirm"
+                  class="btn btn-primary"
+                  type="button"
+                >
+                  Confirm
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
           <!-- Right Sidebar -->
           <div
             class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-2"
@@ -511,6 +677,7 @@
       </div>
     </footer>
     <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery-ui.js"></script>
     <script
       src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"
       type="text/javascript"
@@ -527,6 +694,7 @@
     <script type="text/javascript" src="assets/js/people.js"></script>
     <script type="text/javascript" src="assets/js/requests.js"></script>
     <script type="text/javascript" src="assets/js/graph.js"></script>
+    <script type="text/javascript" src="assets/js/attributes.js"></script>
     <script>
       function main(container) {
         initializeGraph(container);
