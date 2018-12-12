@@ -403,9 +403,9 @@ function openPositionsTab(id,name, occupantID,){
 
     setCurrentID(id);
     document.getElementById('edit-btn').style = "display: block;" //show EDIT button
-    document.getElementById('add-attribute-position-edit').style="display: none;" // hide button
-    document.getElementById('edit-add-att-btn').style = "display: none;" //hide  button
-    document.getElementById('edit-position-att-form').style="display: none;"  // hide form
+    // document.getElementById('add-attribute-position-edit').style="display: none;" // hide button
+    // document.getElementById('edit-add-att-btn').style = "display: none;" //hide  button
+    // document.getElementById('edit-position-att-form').style="display: none;"  // hide form
     document.getElementById('ppl-save-btn').style = "display: none;" //hide  button
     document.getElementById('ppl-edit-btn').style = "display: none;" //hide  button
     document.getElementById('save-btn').style = "display: none;" //hide  button
