@@ -129,30 +129,30 @@ $('#add-cog-confirm').click(function(){
     var posAttributes = [];
     var peopleAttributes = [];
 
-    // loading the preloaded position attributes into the array to load into the attrData to send 
-    for (var i = 1; i <= posAttPreloadCount; ++i) {
+    // // loading the preloaded position attributes into the array to load into the attrData to send 
+    // for (var i = 1; i <= posAttPreloadCount; ++i) {
 
-        var keyName = document.getElementById('attribute-position-cog-name_'+ i);
-        var order = i;
-        var checkboxElement = 'attribute-position-cog-visible_' + i;
-        var visible = false;
+    //     var keyName = document.getElementById('attribute-position-cog-name_'+ i);
+    //     var order = i;
+    //     var checkboxElement = 'attribute-position-cog-visible_' + i;
+    //     var visible = false;
         
-        //if($('#' + checkboxElement).prop('checked'))
-        //if(document.getElementById(checkboxElement).checked) 
-        if(document.getElementById(checkboxElement).checked) 
-        {
-            visible = 'true';
-        } else {
-            visible = 'false';
-        }
+    //     //if($('#' + checkboxElement).prop('checked'))
+    //     //if(document.getElementById(checkboxElement).checked) 
+    //     if(document.getElementById(checkboxElement).checked) 
+    //     {
+    //         visible = 'true';
+    //     } else {
+    //         visible = 'false';
+    //     }
 
 
-        posAttributes[i-1] = {  // -1 to start at index 0
-            "key": keyName.value,
-            "order": order, 
-            "is_visible": visible
-        };;
-    }
+    //     posAttributes[i-1] = {  // -1 to start at index 0
+    //         "key": keyName.value,
+    //         "order": order, 
+    //         "is_visible": visible
+    //     };;
+    // }
 
     // loading the new position attributes into the array to load into the attrData to send 
     for (var i = 1; i <= attPosCount; ++i) {
@@ -173,7 +173,7 @@ $('#add-cog-confirm').click(function(){
         }
 
 
-        posAttributes[i+posAttPreloadCount -1] = {    // Adds after the preloaded loop above , -1 because index starts at 0
+        posAttributes[i -1] = {    // Adds after the preloaded loop above , -1 because index starts at 0
             "key": keyName.value,
             "order": order, 
             "is_visible": visible
@@ -181,29 +181,29 @@ $('#add-cog-confirm').click(function(){
     }
 
     // loading the preloaded people attributes into the array to load into the attrData to send 
-    for (var i = 1; i <= peopleAttPreloadCount; ++i) {
+    // for (var i = 1; i <= peopleAttPreloadCount; ++i) {
 
-        var keyName = document.getElementById('attribute-people-cog-name_'+ i);
-        var order = i;
-        var checkboxElement = 'attribute-people-cog-visible_' + i;
-        var visible = false;
+    //     var keyName = document.getElementById('attribute-people-cog-name_'+ i);
+    //     var order = i;
+    //     var checkboxElement = 'attribute-people-cog-visible_' + i;
+    //     var visible = false;
         
-        //if($('#' + checkboxElement).prop('checked'))
-        //if(document.getElementById(checkboxElement).checked) 
-        if(document.getElementById(checkboxElement).checked) 
-        {
-            visible = 'true';
-        } else {
-            visible = 'false';
-        }
+    //     //if($('#' + checkboxElement).prop('checked'))
+    //     //if(document.getElementById(checkboxElement).checked) 
+    //     if(document.getElementById(checkboxElement).checked) 
+    //     {
+    //         visible = 'true';
+    //     } else {
+    //         visible = 'false';
+    //     }
 
 
-        peopleAttributes[i-1] = {  // -1 to start at index 0
-            "key": keyName.value,
-            "order": order, 
-            "is_visible": visible
-        };;
-    }
+    //     peopleAttributes[i-1] = {  // -1 to start at index 0
+    //         "key": keyName.value,
+    //         "order": order, 
+    //         "is_visible": visible
+    //     };;
+    // }
 
     // loading the new people attributes into the array to load into the attrData to send 
     for (var i = 1; i <= attPeopleCount; ++i) {
@@ -224,7 +224,7 @@ $('#add-cog-confirm').click(function(){
         }
 
 
-        peopleAttributes[i+peopleAttPreloadCount-1] = {    // Adds after the preloaded loop above  , -1 because index starts at 0
+        peopleAttributes[i-1] = {    // Adds after the preloaded loop above  , -1 because index starts at 0
             "key": keyName.value,
             "order": order, 
             "is_visible": visible
