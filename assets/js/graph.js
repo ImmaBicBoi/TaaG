@@ -235,7 +235,7 @@ function initializeGraph(container){
 			if (cell != null) {
 				// SelectGraphCell(cell);
 				graph.setSelectionCell(cell);
-				if(cell.value.type == "attribute"){
+				if(cell.value.type == "attribute" || cell.value.type == "personAttribute"){
 					document.getElementById('delete-cell-btn').disabled= true;
 				}else{
 					document.getElementById('delete-cell-btn').disabled= false;
@@ -279,7 +279,7 @@ function initializeGraph(container){
 					}
 				}
 				var checkCell = me.getCell();
-				if(checkCell != null && checkCell.value.type == "attribute"){
+				if(checkCell != null && (checkCell.value.type == "attribute" || checkCell.value.type == "personAttribute")){
 					var tmp = graph.view.getState(null);
 				}else{
 					var tmp = graph.view.getState(me.getCell());
@@ -336,8 +336,8 @@ function initializeGraph(container){
 			{
 				if(getCurrentCell() != null){
 					var label = "("+getCurrentCell().value.person_id + ") "+ getCurrentCell().value.name;
-				}else var label = ''+ mxUtils.htmlEntities(cell.value.name, false);
-				console.log("label looks like: " + label + mxUtils.htmlEntities(cell.value.name, false) + cell.value.name);
+				}else var label = ''+ cell.value.name;
+				console.log("label looks like: " + label);
 				return (label);
 			}
 			
@@ -702,7 +702,7 @@ function newPersonColumn(parent, text, personId) {
     var vertex = new mxCell(columnObject, new mxGeometry(0, (existingChildCount+1)*26, 200, 26), 'shape=rounded');
     vertex.setVertex(true);
     vertex.setConnectable(false);
-	vertex.value.name = text;
+	vertex.value.name = '<b style="border: 1px solid black;"> ' + text + ' </b>';
 	vertex.value.type = "person";
     var model = graph.getModel();
 	graph.addCell(vertex, parent);
