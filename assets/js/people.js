@@ -221,7 +221,7 @@ $('#ppl-edit-btn').click(function(){
     //hide/show edit/save buttons
     document.getElementById('delete-cell-btn').disabled = "true;"
     document.getElementById('ppl-edit-btn').style="display: none;"
-    document.getElementById('edit-add-att-ppl-btn').style="display: block;"
+    //document.getElementById('edit-add-att-ppl-btn').style="display: block;"
     document.getElementById('ppl-save-btn').style="display: block;"
     document.getElementById('ppl-delete-btn').style ="display: inline;"
     //make editable and focus on the first editable line
@@ -280,7 +280,7 @@ $('#ppl-save-btn').click(function(){
 
     //hide/show save button
     document.getElementById('ppl-save-btn').style="display: none;"
-    document.getElementById('edit-add-att-ppl-btn').style="display: none;"
+    //document.getElementById('edit-add-att-ppl-btn').style="display: none;"
     document.getElementById('ppl-edit-btn').style="display: block;"
     document.getElementById('ppl-delete-btn').style ="display: none;"
     //change color   
@@ -328,7 +328,7 @@ $('#ppl-delete-btn').click(function(){
     //$('#phone').html("<span class='modal-headers'>Phone:</span>" + "<p id = 'ppl-phone' contenteditable='false'>" + attribute + "</p>"); //insert number
     document.getElementById('ppl-edit-btn').style = "display: block;" //show EDIT button
     document.getElementById('ppl-save-btn').style = "display: none;" //hide  button
-    document.getElementById('edit-add-att-ppl-btn').style = "display: none;" //hide  button
+    //document.getElementById('edit-add-att-ppl-btn').style = "display: none;" //hide  button
     document.getElementById('edit-btn').style = "display: none;" //hide  button
     document.getElementById('save-btn').style = "display: none;" //hide  button
 

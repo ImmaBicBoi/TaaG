@@ -153,9 +153,9 @@ $('#edit-btn').click(function(){
     //hide/show edit/save buttons
     document.getElementById('delete-cell-btn').disabled = "true;"
     document.getElementById('edit-btn').style="display: none;"
-    document.getElementById('add-attribute-position-edit').style="display: block;"
-    document.getElementById('edit-add-att-btn').style="display: block;"
-    document.getElementById('edit-position-att-form').style="display: block;" 
+    //document.getElementById('add-attribute-position-edit').style="display: block;"
+    //document.getElementById('edit-add-att-btn').style="display: block;"
+    //document.getElementById('edit-position-att-form').style="display: block;" 
     document.getElementById('delete-btn').style ="display: inline;"
     document.getElementById('save-btn').style="display: inline;"
     //make editable and focus on the first editable line
@@ -201,9 +201,9 @@ $('#save-btn').click(function(){
 
     //hide/show save button
     document.getElementById('save-btn').style="display: none;"
-    document.getElementById('add-attribute-position-edit').style="display: none;"
-    document.getElementById('edit-add-att-btn').style="display: none;"
-    document.getElementById('edit-position-att-form').style="display: none;"  // hide form
+    //document.getElementById('add-attribute-position-edit').style="display: none;"
+    //document.getElementById('edit-add-att-btn').style="display: none;"
+    //document.getElementById('edit-position-att-form').style="display: none;"  // hide form
     document.getElementById('edit-btn').style="display: block;"
     document.getElementById('delete-btn').style ="display: none;"
 
@@ -251,7 +251,7 @@ $('#save-btn').click(function(){
 
     attCount = 0;
 
-    $("#edit-position-att-form")[0].reset();
+    //$("#edit-position-att-form")[0].reset();
     //document.getElementById('edit-position-att-form').reset();   ALSO WORKS!!
     $('#add-attributes-position-modal').modal('hide');
 
