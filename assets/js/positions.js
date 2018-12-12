@@ -33,55 +33,28 @@ $('#add-position-btn').click(function(){
     //loadPositions();
 }); 
 
+
 //Extracts Values onces "Confirm" button is clicked 
 $('#add-position-confirm').click(function(){
     var positionData = {
         "name": positionTitle.value, 
-        "job_id": positionID.value
+        "job_id": positionID.value,
+        "attributes":[
+        ]
     };
-    console.log(
-        "{" + "\n"
-        + "\t" + "Position_Title: " + positionTitle.value + "," + "\n"
-        + "\t" + "Position_ID: " + positionID.value + "," + "\n"
-        // + "\t" + "Arrtibute_One: " + attOne.value + "," + "\n"  // Hardcoded
-        // + "\t" + "Attribute_Two: " + attTwo.value + "," + "\n"
-        // + "\t" + "Attribute_Three: " + attThree.value + "\n"
-        + "}"
+    attr = loadAllAttributes();
+    var attributes = [];
+    $.each(attr.position, function(key, value) {
+        var attributeKey = value.key;
+        var newattr = {"key": attributeKey,
+                        "value": "N/A"};
+        attributes.push(newattr);
+    });
 
-    );
+    positionData.attributes = attributes;
 
- 
-    // adding attribute list to array     
-    for (var attArrayIndex = 1; attArrayIndex <= attCount; attArrayIndex++ ) 
-    {
-        attArray.push($('#new-attribute_'+ attArrayIndex ).val());
-        attNameArray.push($('#new-attribute-name_'+ attArrayIndex ).val());
-       // attArray.push.toString(document.getElementById('new-attribute_'+ attArrayIndex));
+    console.log(positionData);
 
-    }
-
-
-    // printing the attribute list
-    var i = 0;
-    while (i < attNameArray.length) 
-    {
-        console.log(
-            "Attribute Name: " + attNameArray[i] + "\n"
-            + "Attribute: " + attArray[i]
-            
-        );
-
-        i++;
-    }
-
-    // console.log(positionTitle.value);
-    // console.log(positionID.value);
-    // console.log(attOne.value);
-    // console.log(attTwo.value);
-    // console.log(attThree.value);
-
-
-    attCount = 0;
     createPosition(positionData);
     loadAllPositions();
 
