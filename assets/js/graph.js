@@ -10,6 +10,7 @@ var graph = new mxGraph(document.getElementById('graphContainer'), model);
 var tbPositionContainer = document.getElementById('position-list');
 var tbPersonContainer = document.getElementById('people-list');
 var newDroppedPosition = false;
+var newDroppedPerson = false;
 
 //zoomin button
 $('#zoomin-btn').click(function(){
@@ -102,17 +103,28 @@ $('#delete-cell-btn').click(function(){
 	// graph.setSelectionCell(cell);
 
 	var cells = graph.getSelectionCells();
-
+	var deleteAttrCells = [];
 	for(var i = 0; i < cells.length; i++){
 
 		if(cells[i].value.type == "person"){
 			console.log("deleting cell inside " +cells[i].value.parent_id);
 			var positionID = cells[i].value.parent_id;
-			var parentName = cells[i].getParent().getValue().split(" ");
+			var parentName = cells[i].getParent().getValue().substr(cells[i].getParent().getValue().indexOf(' ')+1)
+			var attributes = cells[i].getParent().children;
+
+			for(var j =0; j < attributes.length; j++){
+				if(attributes[j].value.type == "personAttribute"){
+					deleteAttrCells.push(attributes[j]);
+				}
+			}
+			graph.removeCells(deleteAttrCells);
+			resizePosition(cells[i].getParent());
+			console.log(attributes);
 			if(positionID > 0){
 				updateRelationship(0, positionID);
 				
-				openPositionsTab(positionID,parentName[1],0);
+				openPositionsTab(positionID,parentName,0);
+
 
 
 			}else{
@@ -235,7 +247,7 @@ function initializeGraph(container){
 			if (cell != null) {
 				// SelectGraphCell(cell);
 				graph.setSelectionCell(cell);
-				if(cell.value.type == "attribute"){
+				if(cell.value.type == "attribute" || cell.value.type == "personAttribute"){
 					document.getElementById('delete-cell-btn').disabled= true;
 				}else{
 					document.getElementById('delete-cell-btn').disabled= false;
@@ -279,7 +291,7 @@ function initializeGraph(container){
 					}
 				}
 				var checkCell = me.getCell();
-				if(checkCell != null && checkCell.value.type == "attribute"){
+				if(checkCell != null && (checkCell.value.type == "attribute" || checkCell.value.type == "personAttribute")){
 					var tmp = graph.view.getState(null);
 				}else{
 					var tmp = graph.view.getState(me.getCell());
@@ -336,8 +348,8 @@ function initializeGraph(container){
 			{
 				if(getCurrentCell() != null){
 					var label = "("+getCurrentCell().value.person_id + ") "+ getCurrentCell().value.name;
-				}else var label = ''+ mxUtils.htmlEntities(cell.value.name, false);
-				console.log("label looks like: " + label + mxUtils.htmlEntities(cell.value.name, false) + cell.value.name);
+				}else var label = ''+ cell.value.name;
+				console.log("label looks like: " + label);
 				return (label);
 			}
 			
@@ -415,7 +427,7 @@ function addPositionToolbarItem(graph, posToolbar, prototype, image, data, key)
 				
 				graph.setSelectionCells(graph.importCells([vertex], 0, 0, cell));
 				//alert("TEST");
-				updateGraphElements();
+				updateGraphElements(data.positions[key].position_id);
 				openPositionsTab(data.positions[key].position_id,data.positions[key].name,data.positions[key].person_id);
 				
 			}
@@ -465,70 +477,13 @@ function addPersonToolbarItem(graph, personToolbar, prototype, image, data, key)
 				return;
 			}
 			var parentID = parent.getValue().split(" ");
+			var parentName = parent.getValue().substr(parent.getValue().indexOf(' ')+1);
+			newDroppedPerson = true;
             newPersonColumn(parent, name, data.persons[key].person_id);
-			openPositionsTab(parentID[0],parentID[1],data.persons[key].person_id);
-            // var pstate = graph.getView().getState(parent);
-			// var childCount = graph.model.getChildCount(parent);
-			// if (parent == null || pstate == null)
-			// {
-			// 	//mxUtils.alert('Drop target must be a table');
-			// 	return;
-			// }
-			// if (childCount > 0)
-			// {
-			// 	//mxUtils.alert('Drop target is full');
-			// 	return;
-			// }
-            //
-			// pt.x -= pstate.x;
-			// pt.y -= pstate.y;
-			// var columnCount = graph.model.getChildCount(parent)+1;
-			//parentPos = graph.
-			//parent.setGeometry(new mxGeometry(pstate.x, pstate.y, 200, 60));
-			//parent.imageSize = 50;
-			//name = mxUtils.prompt('Enter name for new column', 'COLUMN'+columnCount);
+			openPositionsTab(parentID[0],parentName,data.persons[key].person_id);
+
 		}
-        //
-		// if (name != null)
-		// 		{
-		// 			var v1 = model.cloneCell(vertex);
-		//
-		// 			model.beginUpdate();
-		// 			try
-		// 			{
-		// 				v1.value.name = name;
-		// 				v1.value.person_id = data.persons[key].person_id;
-		// 				v1.geometry.x = pt.x;
-		// 				v1.geometry.y = pt.y;
-		// 				console.log("just dropped person with id: "+ v1.value.person_id + " and name " + v1.value.name);
-		// 				//graph.addCell(v1, parent);
-		// 				setCurrentCell(v1);
-		// 				if (isTable)
-		// 				{
-		// 					v1.geometry.alternateBounds = new mxRectangle(0, 0, v1.geometry.width, v1.geometry.height);
-		// 					v1.children[0].value.name = name + '_ID';
-		// 					//parent.insert(v1);
-		// 					//graph.addCell(v1, parent);
-		// 				}
-		// 			}
-		// 			finally
-		// 			{
-		// 				model.endUpdate();
-		// 			}
-		//
-		// 			graph.setSelectionCell(v1);
-		// 		}
-        //
-        //
-		// vertex.geometry.x = pt.x;
-		// vertex.geometry.y = pt.y;
-		// graph.model.setValue(vertex, data.persons[key].first_name + " " + data.persons[key].last_name);
-		// mxGraph.prototype.isCellsEditable = false;
-		// //console.log("dropped person: " + data.persons[key].first_name + " " + data.persons[key].last_name);
-		//
-		//
-		// graph.setSelectionCells(graph.importCells([vertex], 0, 0, cell));
-		//alert("TEST");
+
 	}
 	// Creates the image which is used as the drag icon (preview)
 	var img = personToolbar.addMode(null, null, funct);
@@ -670,7 +625,7 @@ function getCurrentCell(){
 	return currentCell;
 }
 
-function updateGraphElements(){
+function updateGraphElements(positionIdToUpdate){
 	var positions = graph.getChildCells(graph.getDefaultParent(), true, true);
 	var attr = getVisiblePosAttributes();
 	var cellHeight = 60 + (attr.length)*26;
@@ -685,32 +640,74 @@ function updateGraphElements(){
 			positionArr = positions[i].value.split(" ");
 			positionID = parseInt(positionArr[0]);
 			positionData = getPosition(positionID);
-			//console.log(positions[i].value);
-			console.log("changing size of cell to accomodate attribute count for ID " + positionID);
-			positions[i].setGeometry(new mxGeometry(pstate.x, pstate.y, 200, cellHeight));
-			for(var j=0; j < positions[i].getChildCount();j++){
-				
-				if(positions[i].children[j].value.type == "attribute" || positions[i].children[j].value.type == "person"){
-					positions[i].children[j].value.name = "";
-					positions[i].children[j].value.type = "";
-					positions[i].children[j].remove();
-					//positions[i].remove(j)
-				}
-				
-			}			
-			for(var j = 0; j < attr.length; j++){
+            if (positionID === positionIdToUpdate) {
+                console.log("changing size of cell to accomodate attribute count for ID " + positionID);
+                positions[i].setGeometry(new mxGeometry(pstate.x, pstate.y, 200, cellHeight));
+                for(var j = 0; j < attr.length; j++){
 
-				console.log("adding " + attr[j].key + " to " + positions[i].value);
-				newColumn(positions[i], attr[j].key+ ": "+ findPosValueByKey(positionID,attr[j].key), pstate, j+1);
-			}
-			if(positionData.person_id > 0){
-				loadPersonIntoPosition(positions[i], positionData.person_id);
+                    console.log("adding " + attr[j].key + " to " + positions[i].value);
+                    newColumn(positions[i], attr[j].key+ ": "+ findPosValueByKey(positionID,attr[j].key), pstate, j+1);
+                }
+                if(positionData.person_id > 0){
+                    loadPersonIntoPosition(positions[i], positionData.person_id);
 
-			}
-			graph.getView().clear(positions[i], false, false);
-			graph.getView().validate();
+                }
+                graph.getView().clear(positions[i], false, false);
+                graph.getView().validate();
+            }
 		}
 	}
+
+}
+
+function updatePersonAttributes(personID){
+	var positions = graph.getChildCells(graph.getDefaultParent(), true, true);
+	var visiblePersonAttributes = getVisiblePersonAttributes();
+	var posChildren;
+	var personData = getPerson(personID);
+	
+	// //first find the relevant position
+	// for(var i = 0; i < positions.length; i++){
+	// 	if(positions[i].value.person_id == personID){
+	// 		posChildren = positions[i].children;
+	// 		//loop through person Attributes and update them
+	// 		for(var j=0; j < posChildren.length; j++){
+	// 			if(posChildren[j].value.type == "personAttribute"){
+	// 				posChildren[j].value.name = visiblePersonAttributes[j].key + ": "
+	// 			}
+	// 		}
+
+	// 	}
+	// 	graph.getView().clear(positions[i], false, false);
+	// 	graph.getView().validate();
+	// }
+	for(var i = 0; i < positions.length; i++){
+		if(positions[i].value.person_id == personID){
+			console.log("---------updating " + positions[i].value.name);
+			newPersonAttributeColumn(positions[i],personID);
+			
+		}
+
+	}
+
+}
+function newPersonAttributeColumn(PositionNode,PersonId){
+   var existingChildren = PositionNode.getChildCount();
+
+    var personAttr = getVisiblePersonAttributes();
+    for(var j = 0; j < personAttr.length; j++){
+
+    var text = personAttr[j].key + findPersonValueByKey(PersonId,personAttr[j].key)
+    var columnObject = new Column(text);
+    var vertex = new mxCell(columnObject, new mxGeometry(0, (existingChildren+1+j) * 26, 200, 26), 'shape=rounded');
+    vertex.setVertex(true);
+    vertex.setConnectable(false);
+    vertex.value.name = personAttr[j].key + " : " + findPersonValueByKey(PersonId,personAttr[j].key);
+    vertex.value.type = "personAttribute";
+    var model = graph.getModel();
+    graph.addCell(vertex, PositionNode);
+
+    }
 
 }
 
@@ -734,16 +731,20 @@ function newPersonColumn(parent, text, personId) {
 			existingChildCount++;
 		}
 	}
-	if (checkIfPositionHasPerson(parent) && !newDroppedPosition) {
+	if (checkIfPositionHasPerson(parent)) {
         alert("Person already exists in this Position");
        // $('#messages').html("Person already exists in this Position");
         return;
     }
-    if (checkIfPersonExistsInAnotherPosition(personId) && !newDroppedPosition) {
-        alert("Person already exists in another Position");
+    if (checkIfPersonExistsInAnotherPosition(personId)) {
+        alert("Person already exists in another Position cell");
        // $('#messages').html("Person already exists in another Position");
         return;
-    }
+	}
+	if(checkIfPersonExistsInAnotherDBPosition(personId)){
+		alert("Person already exists in another Position");
+		return;
+	}
     var columnObject = new Column(text);
     columnObject.person_id = personId;
 
@@ -751,11 +752,12 @@ function newPersonColumn(parent, text, personId) {
     var vertex = new mxCell(columnObject, new mxGeometry(0, (existingChildCount+1)*26, 200, 26), 'shape=rounded');
     vertex.setVertex(true);
     vertex.setConnectable(false);
-	vertex.value.name = text;
+	vertex.value.name = '<b style="border: 1px solid black;"> ' + text + ' </b>';
 	vertex.value.type = "person";
     var model = graph.getModel();
 	graph.addCell(vertex, parent);
 	console.log(parent.value);
+    newPersonAttributeColumn(parent,personId);
 	var posID = parent.getValue().split(" ");
 	vertex.value.parent_id = posID[0];
 	if(!newDroppedPosition){
@@ -768,6 +770,7 @@ function newPersonColumn(parent, text, personId) {
 	newDroppedPosition = false;
 }
 
+
 function checkIfPositionHasPerson(parent) {
     var existingChildCount = parent.getChildCount();
     for(var i =0; i<existingChildCount; i++) {
@@ -777,6 +780,7 @@ function checkIfPositionHasPerson(parent) {
     }
     return false;
 }
+
 function checkIfPersonExistsInAnotherPosition(PersonId) {
 	var ExistingPersonId = PersonId;
     var existingPositionsNodeCount = graph.getDefaultParent().getChildCount();
@@ -795,6 +799,19 @@ function checkIfPersonExistsInAnotherPosition(PersonId) {
 	}
 	return false;
 }
+
+function checkIfPersonExistsInAnotherDBPosition(personID) {
+	var positionData = loadAllPositions();
+	console.log(positionData);
+	for(var i = 0; i < positionData.positions.length; i++){
+		if(positionData.positions[i].person_id == personID && newDroppedPerson){
+			newDroppedPerson = false;
+			return true;
+		}
+	}
+
+	return false;
+}
 function checkIfPositionExists(PositionValue){
  var ExistingPos = PositionValue;
     var existingPositionsNodeCount = graph.getDefaultParent().getChildCount();
@@ -811,4 +828,11 @@ function loadPersonIntoPosition(parent, personID){
 	var person = getPerson(personID);
 	newDroppedPosition = true;
 	newPersonColumn(parent, person.first_name + " " + person.last_name, personID );
+}
+
+function resizePosition(position){
+	var pstate = graph.getView().getState(position);
+	var attr = getVisiblePosAttributes();
+	var cellHeight = 60 + (attr.length)*26;
+	position.setGeometry(new mxGeometry(pstate.x - 4, pstate.y, 200, cellHeight));
 }
